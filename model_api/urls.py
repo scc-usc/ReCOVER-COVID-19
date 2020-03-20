@@ -3,5 +3,5 @@ from model_api import views
 
 
 urlpatterns = [
-    path('countries/', views.countries),
+    path('areas/', views.areas),
 ]
