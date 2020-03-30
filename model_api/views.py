@@ -17,8 +17,11 @@ def areas(request):
     """
     This endpoint returns a list of all areas we have observed data for.
     """
-    all_areas = [{'country': a.country, 'state': a.state} for a in
-                 Area.objects.all()]
+    all_areas = [{
+        'country': a.country,
+        'state': a.state,
+        'lat': a.lat,
+        'long': a.long} for a in Area.objects.all()]
     return Response(all_areas)
 
 
