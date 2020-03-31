@@ -26,6 +26,14 @@ def areas(request):
 
 
 @api_view(["GET"])
+def cumulative_infections(request):
+    """
+    This endpoint returns the number of cumulative infections for each area to
+    date.
+    """
+
+
+@api_view(["GET"])
 def predict(request):
     """
     This endpoint handles predicting the data for a specific area. The expected

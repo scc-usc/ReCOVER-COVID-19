@@ -26,3 +26,11 @@ class Covid19DataPoint(models.Model):
 
     def __str__(self):
         return str(self.area) + ", " + str(self.date) + ", " + str(self.val)
+
+
+class Covid19CumulativeDataPoint(models.Model):
+    area = models.ForeignKey(Area, on_delete=models.CASCADE)
+    data_point = models.ForeignKey(Covid19DataPoint, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.area) + ", " + str(self.data_point)

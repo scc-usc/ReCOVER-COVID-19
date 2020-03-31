@@ -43,6 +43,7 @@ def delete_covid19_data(apps, schema_editor):
     Area.objects.all().delete()
     Covid19DataPoint.objects.all().delete()
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
