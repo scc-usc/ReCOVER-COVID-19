@@ -6,6 +6,7 @@ from django.db import models
 class Area(models.Model):
     state = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
+    iso_2 = models.CharField(max_length=10, default="")
     lat = models.FloatField()
     long = models.FloatField()
 
