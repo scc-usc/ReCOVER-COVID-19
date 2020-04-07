@@ -27,8 +27,8 @@ def load_iso_2_data(apps, schema_editor):
 
 def clear_iso_2_data(apps, schema_editor):
     Area = apps.get_model('model_api', 'Area')
-    to_save = Area.objects.all().update(iso_2="")
-    for a in to_save:
+    for a in Area.objects.all():
+        a.iso_2 = ""
         a.save()
 
 
