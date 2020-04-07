@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.exceptions import APIException
 from rest_framework.response import Response
-from model_api.models import Area, Covid19DataPoint
+from model_api.models import Area, Covid19DataPoint, Covid19CumulativeDataPoint
 
 SOURCE_PREDICTED_STR = "predicted"
 SOURCE_OBSERVED_STR = "observed"
@@ -21,7 +21,8 @@ def areas(request):
         'country': a.country,
         'state': a.state,
         'lat': a.lat,
-        'long': a.long} for a in Area.objects.all()]
+        'long': a.long,
+        'iso_2': a.iso_2, } for a in Area.objects.all()]
     return Response(all_areas)
 
 
@@ -31,6 +32,19 @@ def cumulative_infections(request):
     This endpoint returns the number of cumulative infections for each area to
     date.
     """
+    response = [{
+        'area': {
+            'country': d.area.country,
+            'state': d.area.state,
+            'lat': d.area.lat,
+            'long': d.area.long,
+            'iso_2': d.area.iso_2,
+        },
+        'value': d.data_point.val,
+        'date': d.data_point.date,
+    } for d in Covid19CumulativeDataPoint.objects.all()]
+
+    return Response(response)
 
 
 @api_view(["GET"])
