@@ -1,3 +1,10 @@
+# Development
+
+## Running Local Server
+```
+python manage.py runserver --settings=covid19_site.settings_dev
+```
+
 ## Ingesting New Data
 
 Delete all previously-existing data (ideally we would not have to do this step 
@@ -19,4 +26,9 @@ Now Django thinks we're at the state before we ran all migrations, so we can
 simply rerun them to load the newest data to our database.
 ```
 python manage.py migrate
+```
+
+#Deploying
+```
+git subtree push --prefix backend heroku master
 ```
