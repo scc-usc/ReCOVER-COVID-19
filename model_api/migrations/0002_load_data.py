@@ -15,11 +15,19 @@ def load_covid19_data(apps, schema_editor):
         reader = csv.reader(f)
         header = next(reader, None)
 
+        # A 2-level dictionary where the 1st key is country name and 2nd key
+        # is raw date, and final value is the total number of infections for
+        # that country at that specific date.
+        country_level_infections = {}
+
         for row in reader:
             state = row[0]
             country = row[1]
             lat = float(row[2])
             long = float(row[3])
+
+            if country not in country_level_infections:
+                country_level_infections[country] = {}
 
             # Write new infection area to database.
             area = Area(state=state, country=country, lat=lat, long=long)
@@ -30,9 +38,32 @@ def load_covid19_data(apps, schema_editor):
                 date = datetime.datetime.strptime(raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
                 val = int(row[i])
 
+                if raw_date not in country_level_infections[country]:
+                    country_level_infections[country][raw_date] = 0
+                country_level_infections[country][raw_date] += val
+
                 # Write new infection data to database.
                 covid19_data_point = Covid19DataPoint(area=area, date=date, val=val)
                 covid19_data_point.save()
+
+    for country, infections in country_level_infections.items():
+        if Area.objects.filter(state="", country=country).exists():
+            continue
+
+        country_area = Area(state="", country=country, lat=0, long=0)
+        country_area.save()
+
+        print("Extrapolated country-level data for", country)
+
+        for raw_date, val in infections.items():
+            date = datetime.datetime.strptime(raw_date, "%m/%d/%y").strftime(
+                "%Y-%m-%d")
+
+            country_data_point = Covid19DataPoint(
+                area=country_area,
+                date=date,
+                val=val)
+            country_data_point.save()
 
 
 def delete_covid19_data(apps, schema_editor):

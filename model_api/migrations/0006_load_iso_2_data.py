@@ -20,9 +20,12 @@ def load_iso_2_data(apps, schema_editor):
             country = row[1]
             iso_2 = row[2]
 
-            a = Area.objects.get(state=state, country=country)
-            a.iso_2 = iso_2
-            a.save()
+            try:
+                a = Area.objects.get(state=state, country=country)
+                a.iso_2 = iso_2
+                a.save()
+            except Area.DoesNotExist:
+                pass
 
 
 def clear_iso_2_data(apps, schema_editor):
