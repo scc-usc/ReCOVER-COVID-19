@@ -37,3 +37,19 @@ class Covid19CumulativeDataPoint(models.Model):
 
     def __str__(self):
         return str(self.area) + ", " + str(self.data_point)
+
+class Covid19QuarantinePredictionDataPoint(models.Model):
+    area = models.ForeignKey(Area, on_delete=models.CASCADE)
+    date = models.DateField()
+    val = models.PositiveIntegerField()
+
+    def __str__(self):
+        return str(self.area) + ", " + str(self.date) + ", " + str(self.val)
+
+class Covid19ReleasedPredictionDataPoint(models.Model):
+    area = models.ForeignKey(Area, on_delete=models.CASCADE)
+    date = models.DateField()
+    val = models.PositiveIntegerField()
+
+    def __str__(self):
+        return str(self.area) + ", " + str(self.date) + ", " + str(self.val)
