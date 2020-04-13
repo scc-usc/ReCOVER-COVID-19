@@ -81,7 +81,6 @@ def predict(request):
             "date": d.date,
             "value": d.val,
             "source": SOURCE_OBSERVED_STR,
-            "model": "real",
         })
     
     '''
@@ -91,7 +90,6 @@ def predict(request):
             "date": d.date,
             "value": d.val,
             "source": SOURCE_OBSERVED_STR,
-            "model": "quarantine",
         })
     
     query_set = Covid19ReleasedPredictionDataPoint.filter(area=area) 
@@ -100,7 +98,6 @@ def predict(request):
             "date": d.date,
             "value": d.val,
             "source": SOURCE_OBSERVED_STR,
-            "model": "released",
         })
     '''
 
