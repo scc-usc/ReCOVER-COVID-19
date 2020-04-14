@@ -84,17 +84,20 @@ def predict(request):
 
     response = []
 
-    historical = Covid19DataPoint.objects.filter(area=area)
-    for d in historical:
+    # Pull observed data from database.
+    observed = Covid19DataPoint.objects.filter(area=area)
+    for d in observed:
         response.append({
             "date": d.date,
             "value": d.val,
             "source": SOURCE_OBSERVED_STR,
         })
 
-    prediction_start_date = max([d.date for d in historical]) + timedelta(days=1)
+    # Determine the time range for predictions.
+    prediction_start_date = max([d.date for d in observed]) + timedelta(days=1)
     prediction_end_date = prediction_start_date + timedelta(days=weeks*7)
 
+    # Pull predicted data from database.
     if distancing:
         predicted = Covid19QuarantinePredictionDataPoint.objects.filter(
             area=area, date__range=(prediction_start_date, prediction_end_date))
