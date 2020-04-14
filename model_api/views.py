@@ -59,6 +59,9 @@ def predict(request):
     country = request.query_params.get("country")
     state = request.query_params.get("state")
 
+    weeks = int(request.query_params.get("weeks"))
+    distancing = request.query_params.get("distancing") in ['True', 'true']
+
     try:
         area = Area.objects.get(country=country, state=state)
     except Area.DoesNotExist:
