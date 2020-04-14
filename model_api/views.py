@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.exceptions import APIException
 from rest_framework.response import Response
-from model_api.models import Area, Covid19DataPoint, Covid19CumulativeDataPoint
+from model_api.models import Area, Covid19DataPoint, Covid19CumulativeDataPoint, Covid19QuarantinePredictionDataPoint, Covid19ReleasedPredictionDataPoint
 
 SOURCE_PREDICTED_STR = "predicted"
 SOURCE_OBSERVED_STR = "observed"
@@ -85,5 +85,23 @@ def predict(request):
             "value": d.val,
             "source": SOURCE_OBSERVED_STR,
         })
+    
+    '''
+    query_set = Covid19QuarantinePredictionDataPoint.filter(area=area)
+    for d in query_set:
+        response.append({
+            "date": d.date,
+            "value": d.val,
+            "source": SOURCE_OBSERVED_STR,
+        })
+    
+    query_set = Covid19ReleasedPredictionDataPoint.filter(area=area) 
+    for d in query_set:
+        response.append({
+            "date": d.date,
+            "value": d.val,
+            "source": SOURCE_OBSERVED_STR,
+        })
+    '''
 
     return Response(response)
