@@ -118,7 +118,7 @@ def predict(request):
             area=area, date__range=(prediction_start_date, prediction_end_date))
 
         response["predictions"].append({
-            "model_name": "Ajitesh MATLAB Static",
+            "model_name": "Multi SI",
             "distancing": True,
             "time_series": [{
                 "date": d.date,
@@ -130,7 +130,7 @@ def predict(request):
             area=area, date__range=(prediction_start_date, prediction_end_date))
 
         response["predictions"].append({
-            "model_name": "Ajitesh MATLAB Static",
+            "model_name": "Multi SI",
             "distancing": False,
             "time_series": [{
                 "date": d.date,
