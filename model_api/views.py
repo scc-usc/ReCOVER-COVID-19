@@ -9,9 +9,6 @@ from model_api.models import \
     Covid19QuarantinePredictionDataPoint, \
     Covid19ReleasedPredictionDataPoint
 
-SOURCE_PREDICTED_STR = "predicted"
-SOURCE_OBSERVED_STR = "observed"
-
 
 @api_view(["GET"])
 def affected_by(request):
@@ -66,8 +63,12 @@ def predict(request):
     state = request.query_params.get("state")
 
     weeks = int(request.query_params.get("weeks"))
-    distancing = request.query_params.get("distancing") in ['True', 'true']
 
+    true_vals = ['True', 'true']
+    distancing_on = request.query_params.get("distancingOn", None) in true_vals
+    distancing_off = request.query_params.get("distancingOff", None) in true_vals
+
+    # Check if we can find the area in our database.
     try:
         area = Area.objects.get(country=country, state=state)
     except Area.DoesNotExist:
@@ -82,15 +83,29 @@ def predict(request):
         msg += ". This is most likely an error with data cleansing."
         raise APIException(msg)
 
-    response = []
+    # Response data type. Predictions is an array that should hold objects of
+    # the following type:
+    # {
+    #   model_name: "...",
+    #   distancing: true/false,
+    #   time_series: [
+    #     {
+    #       date,
+    #       val
+    #     }
+    #   ]
+    # }
+    response = {
+        "observed": [],
+        "predictions": [],
+    }
 
     # Pull observed data from database.
     observed = Covid19DataPoint.objects.filter(area=area)
     for d in observed:
-        response.append({
+        response["observed"].append({
             "date": d.date,
             "value": d.val,
-            "source": SOURCE_OBSERVED_STR,
         })
 
     # Determine the time range for predictions.
@@ -98,18 +113,29 @@ def predict(request):
     prediction_end_date = prediction_start_date + timedelta(days=weeks*7)
 
     # Pull predicted data from database.
-    if distancing:
-        predicted = Covid19QuarantinePredictionDataPoint.objects.filter(
-            area=area, date__range=(prediction_start_date, prediction_end_date))
-    else:
-        predicted = Covid19ReleasedPredictionDataPoint.objects.filter(
+    if distancing_on:
+        qs = Covid19QuarantinePredictionDataPoint.objects.filter(
             area=area, date__range=(prediction_start_date, prediction_end_date))
 
-    for d in predicted:
-        response.append({
-            "date": d.date,
-            "value": d.val,
-            "source": SOURCE_PREDICTED_STR,
+        response["predictions"].append({
+            "model_name": "Ajitesh MATLAB Static",
+            "distancing": True,
+            "time_series": [{
+                "date": d.date,
+                "value": d.val,
+            } for d in qs]
+        })
+    if distancing_off:
+        qs = Covid19ReleasedPredictionDataPoint.objects.filter(
+            area=area, date__range=(prediction_start_date, prediction_end_date))
+
+        response["predictions"].append({
+            "model_name": "Ajitesh MATLAB Static",
+            "distancing": False,
+            "time_series": [{
+                "date": d.date,
+                "value": d.val,
+            } for d in qs]
         })
 
     return Response(response)
