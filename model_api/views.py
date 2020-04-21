@@ -63,8 +63,6 @@ def predict(request):
     state = request.query_params.get("state")
     days = int(request.query_params.get("days"))
 
-    # weeks = int(request.query_params.get("weeks"))
-
     true_vals = ['True', 'true']
     distancing_on = request.query_params.get("distancingOn", None) in true_vals
     distancing_off = request.query_params.get("distancingOff", None) in true_vals
