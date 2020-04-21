@@ -53,16 +53,17 @@ def cumulative_infections(request):
 @api_view(["GET"])
 def predict(request):
     """
-    This endpoint handles predicting the data for a specific area. The expected
-    query params are "country" and "state," and the response is a list of data
-    points, each represented as custom objects containing the date of infection,
-    the value, and source (a string indicating whether this data point was
-    predicted by our model or is from observed data).
+    This endpoint handles predicting the data for a specific area over some number
+    of days in the future. The expected query params are "country", "state" and "days", 
+    and the response is a list of data points, each represented as custom objects containing 
+    the date of infection, the value, and source (a string indicating whether this data point was
+    predicted by our model or is from observed data) in a given number of future days.
     """
     country = request.query_params.get("country")
     state = request.query_params.get("state")
+    days = int(request.query_params.get("days"))
 
-    weeks = int(request.query_params.get("weeks"))
+    # weeks = int(request.query_params.get("weeks"))
 
     true_vals = ['True', 'true']
     distancing_on = request.query_params.get("distancingOn", None) in true_vals
@@ -110,7 +111,7 @@ def predict(request):
 
     # Determine the time range for predictions.
     prediction_start_date = max([d.date for d in observed]) + timedelta(days=1)
-    prediction_end_date = prediction_start_date + timedelta(days=weeks*7)
+    prediction_end_date = prediction_start_date + timedelta(days=days)
 
     # Pull predicted data from database.
     if distancing_on:
