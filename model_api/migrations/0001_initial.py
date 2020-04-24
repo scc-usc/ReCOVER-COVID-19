@@ -18,8 +18,6 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('state', models.CharField(max_length=50)),
                 ('country', models.CharField(max_length=50)),
-                ('lat', models.FloatField()),
-                ('long', models.FloatField()),
             ],
             options={
                 'unique_together': {('state', 'country')},

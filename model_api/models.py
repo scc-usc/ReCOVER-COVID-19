@@ -9,8 +9,10 @@ class Area(models.Model):
     # Blank default value for iso_2 because this field was added later (after
     # the Area model was already created).
     iso_2 = models.CharField(max_length=10, default="")
-    lat = models.FloatField()
-    long = models.FloatField()
+    
+    # NOTE lat and long attributes should be removed because the input csv no longer contains them.
+    # lat = models.FloatField()
+    # long = models.FloatField()
 
     class Meta:
         unique_together = ("state", "country")
