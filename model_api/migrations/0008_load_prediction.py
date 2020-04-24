@@ -41,7 +41,7 @@ def load_covid19_prediction(apps, schema_editor):
                     msg = "Could not find the area for country '{0}'".format(country)
                     if state:                            
                         msg += " and state '{0}'".format(state)
-                    area = Area(state=state, country=country, lat=0, long=0)
+                    area = Area(state=state, country=country)
                     area.save()
                     msg += ' in model_api_area. New area created.'
                     print(msg)
