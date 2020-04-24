@@ -5,7 +5,7 @@ import csv
 import datetime
 
 GLOBAL_COVID_19_CSV_PATH = "../data/Global/global_data_4_21.csv"
-US_STATES_COVID_19_CSV_PATH = "../data/Global/US_States/us_states_data_4_21.csv"
+US_STATES_COVID_19_CSV_PATH = "../data/US_States/us_states_data_4_21.csv"
 
 
 def load_covid19_data(apps, schema_editor):
@@ -25,7 +25,8 @@ def load_covid19_data(apps, schema_editor):
             area.save()
 
             for i in range(2, len(header)):
-                date = header[i]
+                raw_date = header[i]
+                date = datetime.datetime.strptime(raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
                 val = int(float(row[i]))
 
                 # Write new infection data to database.
@@ -48,7 +49,7 @@ def load_covid19_data(apps, schema_editor):
 
             for i in range(2, len(header)):
                 raw_date = header[i]
-                date = datetime.datetime(header[i])
+                date = header[i]
                 val = int(float(row[i]))
 
                 # Write new infection data to database.
