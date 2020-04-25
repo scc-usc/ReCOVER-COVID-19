@@ -4,10 +4,10 @@ from django.db import migrations
 import csv
 import datetime
 
-GLOBAL_QUARANTINE_PREDICTION_CSV_PATH = '../results/forecasts/formatted_reports/formatted_global_forecasts_quarantine_4_22.csv'
-GLOBAL_RELEASED_PREDICTION_CSV_PATH = '../results/forecasts/formatted_reports/formatted_global_forecasts_released_4_22(cleaned).csv'
-US_QUARANTINE_PREDICTION_CSV_PATH = '../results/forecasts/formatted_reports/formatted_us_forecasts_quarantine_4_22.csv'
-US_RELEASED_PREDICTION_CSV_PATH = '../results/forecasts/formatted_reports/formatted_us_forecasts_released_4_22(cleaned).csv'
+GLOBAL_QUARANTINE_PREDICTION_CSV_PATH = '../results/forecasts/formatted_reports/formatted_global_forecasts_quarantine_4_24.csv'
+GLOBAL_RELEASED_PREDICTION_CSV_PATH = '../results/forecasts/formatted_reports/formatted_global_forecasts_released_4_24(cleaned).csv'
+US_QUARANTINE_PREDICTION_CSV_PATH = '../results/forecasts/formatted_reports/formatted_us_forecasts_quarantine_4_24.csv'
+US_RELEASED_PREDICTION_CSV_PATH = '../results/forecasts/formatted_reports/formatted_us_forecasts_released_4_24(cleaned).csv'
 
 paths = [GLOBAL_QUARANTINE_PREDICTION_CSV_PATH, GLOBAL_RELEASED_PREDICTION_CSV_PATH, US_QUARANTINE_PREDICTION_CSV_PATH, US_RELEASED_PREDICTION_CSV_PATH]
 
