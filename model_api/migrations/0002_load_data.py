@@ -4,8 +4,8 @@ from django.db import migrations
 import csv
 import datetime
 
-GLOBAL_COVID_19_CSV_PATH = "../data/Global/global_data_4_23.csv"
-US_STATES_COVID_19_CSV_PATH = "../data/US_States/us_states_data_4_23.csv"
+GLOBAL_COVID_19_CSV_PATH = "data/time_series_covid19_confirmed_global.csv"
+US_STATES_COVID_19_CSV_PATH = "data/time_series_covid19_confirmed_US.csv"
 
 
 def load_covid19_data(apps, schema_editor):
