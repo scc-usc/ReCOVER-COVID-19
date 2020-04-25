@@ -1,0 +1,108 @@
+Province/State,Country/Region,ISO2 (Country-State)
+Anhui,China,CN-AH
+Beijing,China,CN-BJ
+Chongqing,China,CN-CQ
+Fujian,China,CN-FJ
+Gansu,China,CN-GS
+Guangdong,China,CN-GD
+Guangxi,China,CN-GX
+Guizhou,China,CN-GZ
+Hainan,China,CN-HI
+Hebei,China,CN-HE
+Heilongjiang,China,CN-HL
+Henan,China,CN-HA
+Hong Kong,China,CN-HK
+Hubei,China,CN-HB
+Hunan,China,CN-HN
+Inner Mongolia,China,CN-NM
+Jiangsu,China,CN-JX
+Jiangxi,China,CN-36
+Jilin,China,CN-JL
+Liaoning,China,CN-LN
+Macau,China,CN-MO
+Ningxia,China,CN-NX
+Qinghai,China,CN-QH
+Shaanxi,China,CN-SN
+Shandong,China,CN-SD
+Shanghai,China,CN-SH
+Shanxi,China,CN-SX
+Sichuan,China,CN-SC
+Tianjin,China,CN-TJ
+Tibet,China,CN-XZ
+Xinjiang,China,CN-XJ
+Yunnan,China,CN-YN
+Zhejiang,China,CN-ZJ
+Alaska,US,US-AK
+Alabama,US,US-AL
+Arkansas,US,US-AR
+Arizona,US,US-AZ
+California,US,US-CA
+Colorado,US,US-CO
+Connecticut,US,US-CT
+District of Columbia,US,US-DC
+Delaware,US,US-DE
+Florida,US,US-FL
+Georgia,US,US-GA
+Hawaii,US,US-HI
+Iowa,US,US-IA
+Idaho,US,US-ID
+Illinois,US,US-IL
+Indiana,US,US-IN
+Kansas,US,US-KS
+Kentucky,US,US-KY
+Louisiana,US,US-LA
+Massachusetts,US,US-MA
+Maryland,US,US-MD
+Maine,US,US-ME
+Michigan,US,US-MI
+Minnesota,US,US-MN
+Missouri,US,US-MO
+Mississippi,US,US-MS
+Montana,US,US-MT
+North Carolina,US,US-NC
+North Dakota,US,US-ND
+Nebraska,US,US-NE
+New Hampshire,US,US-NH
+New Jersey,US,US-NJ
+New Mexico,US,US-NM
+Nevada,US,US-NV
+New York,US,US-NY
+Ohio,US,US-OH
+Oklahoma,US,US-OK
+Oregon,US,US-OR
+Pennsylvania,US,US-PA
+Rhode Island,US,US-RI
+South Carolina,US,US-SC
+South Dakota,US,US-SD
+Tennessee,US,US-TN
+Texas,US,US-TX
+Utah,US,US-UT
+Virginia,US,US-VA
+Vermont,US,US-VT
+Washington,US,US-WA
+Wisconsin,US,US-WI
+West Virginia,US,US-WV
+Wyoming,US,US-WY
+Alberta,Canada,CA-AB
+British Columbia,Canada,CA-BC
+Manitoba,Canada,CA-MB
+New Brunswick,Canada,CA-NB
+Newfoundland and Labrador,Canada,CA-NL
+Nova Scotia,Canada,CA-NS
+Northwest Territories,Canada,CA-NT
+Nunavut,Canada,CA-NU
+Ontario,Canada,CA-ON
+Prince Edward Island,Canada,CA-PE
+Quebec,Canada,CA-QC
+Saskatchewan,Canada,CA-SK
+Yukon,Canada,CA-YT
+Grand Princess,Canada,CA-GP
+Diamond Princess,Canada,CA-DP
+Northern Territory,Australia,AU-NT
+Western Australia,Australia,AU-WA
+Australian Capital Territory,Australia,AU-ACT
+New South Wales,Australia,AU-NSW
+South Australia,Australia,AU-SA
+Victoria,Australia,AU-VIC
+Queensland,Australia,AU-QLD
+Tasmania,Australia,AU-TAS

@@ -1,0 +1,136 @@
+from rest_framework.decorators import api_view
+from rest_framework.exceptions import APIException
+from rest_framework.response import Response
+from datetime import timedelta
+from model_api.models import \
+    Area, \
+    Covid19DataPoint, \
+    Covid19CumulativeDataPoint, \
+    Covid19QuarantinePredictionDataPoint, \
+    Covid19ReleasedPredictionDataPoint
+
+
+@api_view(["GET"])
+def affected_by(request):
+    return Response("affected_by!")
+
+
+@api_view(["GET"])
+def areas(request):
+    """
+    This endpoint returns a list of all areas we have observed data for.
+    """
+    all_areas = [{
+        'country': a.country,
+        'state': a.state,
+        'iso_2': a.iso_2, } for a in Area.objects.all()]
+    return Response(all_areas)
+
+
+@api_view(["GET"])
+def cumulative_infections(request):
+    """
+    This endpoint returns the number of cumulative infections for each area to
+    date.
+    """
+    response = [{
+        'area': {
+            'country': d.area.country,
+            'state': d.area.state,
+            'iso_2': d.area.iso_2,
+        },
+        'value': d.data_point.val,
+        'date': d.data_point.date,
+    } for d in Covid19CumulativeDataPoint.objects.all()]
+
+    return Response(response)
+
+
+@api_view(["GET"])
+def predict(request):
+    """
+    This endpoint handles predicting the data for a specific area over some number
+    of days in the future. The expected query params are "country", "state" and "days", 
+    and the response is a list of data points, each represented as custom objects containing 
+    the date of infection, the value, and source (a string indicating whether this data point was
+    predicted by our model or is from observed data) in a given number of future days.
+    """
+    country = request.query_params.get("country")
+    state = request.query_params.get("state")
+    days = int(request.query_params.get("days"))
+
+    true_vals = ['True', 'true']
+    distancing_on = request.query_params.get("distancingOn", None) in true_vals
+    distancing_off = request.query_params.get("distancingOff", None) in true_vals
+
+    # Check if we can find the area in our database.
+    try:
+        area = Area.objects.get(country=country, state=state)
+    except Area.DoesNotExist:
+        msg = "Could not find the area for country '{0}'".format(country)
+        if state:
+            msg += " and state '{0}'".format(state)
+        raise APIException(msg)
+    except Area.MultipleObjectsReturned:
+        msg = "Found multiple areas for country '{0}'".format(country)
+        if state:
+            msg += " and state '{0}'".format(state)
+        msg += ". This is most likely an error with data cleansing."
+        raise APIException(msg)
+
+    # Response data type. Predictions is an array that should hold objects of
+    # the following type:
+    # {
+    #   model_name: "...",
+    #   distancing: true/false,
+    #   time_series: [
+    #     {
+    #       date,
+    #       val
+    #     }
+    #   ]
+    # }
+    response = {
+        "observed": [],
+        "predictions": [],
+    }
+
+    # Pull observed data from database.
+    observed = Covid19DataPoint.objects.filter(area=area)
+    for d in observed:
+        response["observed"].append({
+            "date": d.date,
+            "value": d.val,
+        })
+
+    # Determine the time range for predictions.
+    prediction_start_date = max([d.date for d in observed]) + timedelta(days=1)
+    prediction_end_date = prediction_start_date + timedelta(days=days)
+
+    # Pull predicted data from database.
+    if distancing_on:
+        qs = Covid19QuarantinePredictionDataPoint.objects.filter(
+            area=area, date__range=(prediction_start_date, prediction_end_date))
+
+        response["predictions"].append({
+            "model_name": "SI-kJalpha",
+            "distancing": True,
+            "time_series": [{
+                "date": d.date,
+                "value": d.val,
+            } for d in qs]
+        })
+    if distancing_off:
+        qs = Covid19ReleasedPredictionDataPoint.objects.filter(
+            area=area, date__range=(prediction_start_date, prediction_end_date))
+
+        response["predictions"].append({
+            "model_name": "SI-kJalpha",
+            "distancing": False,
+            "time_series": [{
+                "date": d.date,
+                "value": d.val,
+            } for d in qs]
+        })
+
+    return Response(response)
