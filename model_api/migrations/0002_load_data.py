@@ -37,6 +37,10 @@ def load_covid19_data(apps, schema_editor):
                 raw_date = header[i]
                 date = datetime.datetime.strptime(raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
                 val = int(row[i])
+                
+                # Skip negative values.
+                if val < 0:
+                    continue
 
                 if raw_date not in country_level_infections[country]:
                     country_level_infections[country][raw_date] = 0
@@ -79,6 +83,10 @@ def load_covid19_data(apps, schema_editor):
                 raw_date = header[i]
                 date = datetime.datetime.strptime(raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
                 val = int(row[i])
+
+                # Skip negative values.
+                if val < 0:
+                    continue
 
                 if raw_date not in state_level_infections[state]:
                     state_level_infections[state][raw_date] = 0

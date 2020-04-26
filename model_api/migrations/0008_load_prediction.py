@@ -58,6 +58,10 @@ def load_covid19_prediction(apps, schema_editor):
                     date = header[i]
                     val = int(float(row[i]))
 
+                    # Skip negative values.
+                    if val < 0:
+                        continue
+
                     covid19_prediction_data_point = None
                     if 'quarantine' in path:
                         covid19_prediction_data_point = Covid19QuarantinePredictionDataPoint(area=area, date=date, val=val)
