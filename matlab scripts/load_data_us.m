@@ -1,6 +1,7 @@
 %[tableConfirmed,tableDeaths,tableRecovered,time] = getDataCOVID_US();
-countries = readcell('countries_list.txt', 'Delimiter','');
+countries = readcell('us_states_list.txt', 'Delimiter','');
 passengerFlow = load('us_states_travel_data.txt');
+passengerFlow = passengerFlow - diag(diag(passengerFlow));
 popu = load('us_states_population_data.txt');
 [tableConfirmed] = getDataCOVID_US();
 %%

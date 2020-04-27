@@ -58,12 +58,14 @@ fprintf('\n');
 %% Identify best params per country at reference day
 best_param_list_no = zeros(length(popu), 5);
 best_param_list_yes = zeros(length(popu), 5);
+alpha_start = 5;
+
 for cid = 1:length(popu)
     thistable_no = [];
     thistable_yes = [];
     for k=1:length(k_array)
         for jp=1:ceil(length(jp_array)/k)
-            for alpha_i = 1:length(ff_array)
+            for alpha_i = alpha_start:length(ff_array)
                 thistable_no = [thistable_no; [k jp alpha_i MAPEval_no(k, jp, alpha_i, cid) RMSEval_no(k, jp, alpha_i, cid)]];
                 thistable_yes = [thistable_yes; [k jp alpha_i MAPEval_yes(k, jp, alpha_i, cid) RMSEval_yes(k, jp, alpha_i, cid)]];
             end
@@ -86,7 +88,7 @@ cidx = (data_4(:, T_tr) > inf_thres & data_4(:, T_tr) < inf_uthres);
 
 for k=1:length(k_array)
     for jp=1:ceil(length(jp_array)/k)
-        for alpha_i = 1:length(ff_array)
+        for alpha_i = alpha_start:length(ff_array)
             MAPEtable_notravel_fixed = [MAPEtable_notravel_fixed; [k jp alpha_i nanmean(MAPEval_no(k, jp, alpha_i, cidx)) nanmean(RMSEval_no(k, jp, alpha_i, cidx))]];
             MAPEtable_travel_fixed = [MAPEtable_travel_fixed; [k jp alpha_i nanmean(MAPEval_yes(k, jp, alpha_i, cidx)) nanmean(RMSEval_yes(k, jp, alpha_i, cidx))]];
         end
@@ -101,12 +103,12 @@ disp([mean(best_param_list_yes(cidx, 5)) mean(best_param_list_yes(cidx, 4)) mean
 disp([MAPEtable_travel_fixed_s(1, 5) MAPEtable_travel_fixed_s(1, 4) MAPEtable_notravel_fixed_s(1, 5) MAPEtable_notravel_fixed_s(1, 4)])
 
 %% Run evaluation on test set 
+horizon = 3;
 T_trad = 57+horizon;
 beta_travel = var_ind_beta(data_4(:, 1:T_trad), passengerFlow, best_param_list_yes(:, 3)*0.1, best_param_list_yes(:, 1), T_tr, popu, best_param_list_yes(:, 2));
 beta_notravel = var_ind_beta(data_4(:, 1:T_trad), passengerFlow*0, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), T_tr, popu, best_param_list_no(:, 2));
 %fprintf('trained');
 
-horizon = 3;
 data_4_s = data_4(:, 1:T_trad+horizon);
 
 infec_travel = var_simulate_pred(data_4(:, 1:T_trad), passengerFlow, beta_travel, popu, best_param_list_yes(:, 1), horizon, best_param_list_yes(:, 2));

@@ -1,5 +1,6 @@
 countries = readcell('countries_list.txt', 'Delimiter','');
 passengerFlow = load('global_travel_data.txt');
+passengerFlow = passengerFlow - diag(diag(passengerFlow));
 popu = load('global_population_data.txt');
 [tableConfirmed] = getDataCOVID();
 %%

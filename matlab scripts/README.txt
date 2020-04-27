@@ -9,14 +9,21 @@ To generate forecasts, run the following scripts
 
 ---------------
 Example scripts:
-load_data_us hyperparam_tuning; varying_test; write_data_us
 
-load_data_global; hyperparam_tuning; varying_test; write_data_global
+load_data_us 
+load US_March18_hyperparams
+hyperparam_tuning; varying_test; write_data_us
+write_unreported
+
+load_data_global;
+load US_March18_hyperparams
+hyperparam_tuning; varying_test; write_data_us
+write_unreported
 ---------------
 
 Two crucial functions that learn and apply the epidemic model:
-- var_ind_beta.m: Learns the linearized version using linear least square minimization
-- var_simulate_pred.m: Applies the paramaters to predict following the currently know data
+- var_ind_beta_un.m: Learns the linearized version using linear least square minimization
+- var_simulate_pred_un.m: Applies the paramaters to predict following the currently know data
 
 --------------
 Population data , travel data, and country names are included here
