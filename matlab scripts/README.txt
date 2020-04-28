@@ -16,8 +16,8 @@ hyperparam_tuning; varying_test; write_data_us
 write_unreported
 
 load_data_global;
-load US_March18_hyperparams
-hyperparam_tuning; varying_test; write_data_us
+load global_March18_hyperparams
+hyperparam_tuning; varying_test; write_data_global
 write_unreported
 ---------------
 

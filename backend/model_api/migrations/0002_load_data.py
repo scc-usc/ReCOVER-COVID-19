@@ -4,8 +4,8 @@ from django.db import migrations
 import csv
 import datetime
 
-GLOBAL_COVID_19_CSV_PATH = "../data/Global/global_data_4_21.csv"
-US_STATES_COVID_19_CSV_PATH = "../data/US_States/us_states_data_4_21.csv"
+GLOBAL_COVID_19_CSV_PATH = "data/time_series_covid19_confirmed_global.csv"
+US_STATES_COVID_19_CSV_PATH = "data/time_series_covid19_confirmed_US.csv"
 
 
 def load_covid19_data(apps, schema_editor):
@@ -17,44 +17,96 @@ def load_covid19_data(apps, schema_editor):
         reader = csv.reader(f)
         header = next(reader, None)
 
+        # A 2-level dictionary where the 1st key is country name and 2nd key
+        # is raw date, and final value is the total number of infections for
+        # that country at that specific date.
+        country_level_infections = {}
+
         for row in reader:
+            state = row[0]
             country = row[1]
 
+            if country not in country_level_infections:
+                country_level_infections[country] = {}
+
             # Write new infection area to database.
-            area = Area(state='', country=country)
+            area = Area(state=state, country=country)
             area.save()
 
-            for i in range(2, len(header)):
+            for i in range(4, len(header)):
                 raw_date = header[i]
                 date = datetime.datetime.strptime(raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
-                val = int(float(row[i]))
+                val = int(row[i])
+                
+                # Skip negative values.
+                if val < 0:
+                    continue
+
+                if raw_date not in country_level_infections[country]:
+                    country_level_infections[country][raw_date] = 0
+                country_level_infections[country][raw_date] += val
 
                 # Write new infection data to database.
                 covid19_data_point = Covid19DataPoint(area=area, date=date, val=val)
                 covid19_data_point.save()
 
+    for country, infections in country_level_infections.items():
+        if Area.objects.filter(state="", country=country).exists():
+            continue
+
+        country_area = Area(state="", country=country)
+        country_area.save()
+
+        print("Extrapolated country-level data for", country)
+        for raw_date, val in infections.items():
+            date = datetime.datetime.strptime(raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
+            country_data_point = Covid19DataPoint(
+                area=country_area,
+                date=date,
+                val=val)
+            country_data_point.save()
 
     # US state-level data.
     with open(US_STATES_COVID_19_CSV_PATH) as f:
         reader = csv.reader(f)
         header = next(reader, None)
 
+        state_level_infections = {}
+
         for row in reader:
-            state = row[1]
-            country = 'US'
+            state = row[6]
 
-            # Write new infection area to database.
-            area = Area(state=state, country=country)
-            area.save()
+            if state not in state_level_infections:
+                state_level_infections[state] = {}
 
-            for i in range(2, len(header)):
+            for i in range(11, len(header)):
                 raw_date = header[i]
-                date = header[i]
-                val = int(float(row[i]))
+                date = datetime.datetime.strptime(raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
+                val = int(row[i])
 
-                # Write new infection data to database.
-                covid19_data_point = Covid19DataPoint(area=area, date=date, val=val)
-                covid19_data_point.save()
+                # Skip negative values.
+                if val < 0:
+                    continue
+
+                if raw_date not in state_level_infections[state]:
+                    state_level_infections[state][raw_date] = 0
+                state_level_infections[state][raw_date] += val
+
+    for state, infections in state_level_infections.items():
+        if Area.objects.filter(state=state, country="US").exists():
+            continue
+
+        state_area = Area(state=state, country="US")
+        state_area.save()
+
+        print("Extrapolated state-level data for", state)
+        for raw_date, val in infections.items():
+            date = datetime.datetime.strptime(raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
+            state_data_point = Covid19DataPoint(
+                area=state_area,
+                date=date,
+                val=val)
+            state_data_point.save()
 
 
 def delete_covid19_data(apps, schema_editor):

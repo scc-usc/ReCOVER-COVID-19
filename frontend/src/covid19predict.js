@@ -214,7 +214,7 @@ class Covid19Predict extends PureComponent {
                 { required: true, message: "Please select number of days!" }
               ]}
             >
-              <Slider min={0} defaultValue={15} max={20} />
+              <Slider min={0} defaultValue={15} max={99} />
             </Form.Item>
             <Form.Item label="Social Distancing" name="socialDistancing">
               <Checkbox.Group>

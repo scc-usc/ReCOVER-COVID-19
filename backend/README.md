@@ -16,6 +16,8 @@ python manage.py dbshell
 > DROP TABLE model_api_area;
 > DROP TABLE model_api_covid19datapoint;
 > DROP TABLE model_api_covid19cumulativedatapoint;
+> DROP TABLE model_api_covid19quarantinepredictiondatapoint;
+> DROP TABLE model_api_covid19releasedpredictiondatapoint;
 ```
 Now we need to fake back to migration state 0 so that Django can rerun all the 
 migrations.

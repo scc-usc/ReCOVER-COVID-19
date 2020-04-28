@@ -4,10 +4,10 @@ from django.db import migrations
 import csv
 import datetime
 
-GLOBAL_QUARANTINE_PREDICTION_CSV_PATH = '../results/forecasts/formatted_reports/formatted_global_forecasts_quarantine_4_22.csv'
-GLOBAL_RELEASED_PREDICTION_CSV_PATH = '../results/forecasts/formatted_reports/formatted_global_forecasts_released_4_22(cleaned).csv'
-US_QUARANTINE_PREDICTION_CSV_PATH = '../results/forecasts/formatted_reports/formatted_us_forecasts_quarantine_4_22.csv'
-US_RELEASED_PREDICTION_CSV_PATH = '../results/forecasts/formatted_reports/formatted_us_forecasts_released_4_22(cleaned).csv'
+GLOBAL_QUARANTINE_PREDICTION_CSV_PATH = '../results/forecasts/global_forecasts_quarantine_avg.csv'
+GLOBAL_RELEASED_PREDICTION_CSV_PATH = '../results/forecasts/global_forecasts_released_avg.csv'
+US_QUARANTINE_PREDICTION_CSV_PATH = '../results/forecasts/us_forecasts_quarantine_avg.csv'
+US_RELEASED_PREDICTION_CSV_PATH = '../results/forecasts/us_forecasts_released_avg.csv'
 
 paths = [GLOBAL_QUARANTINE_PREDICTION_CSV_PATH, GLOBAL_RELEASED_PREDICTION_CSV_PATH, US_QUARANTINE_PREDICTION_CSV_PATH, US_RELEASED_PREDICTION_CSV_PATH]
 
@@ -57,6 +57,10 @@ def load_covid19_prediction(apps, schema_editor):
                 for i in range(2, len(header)):
                     date = header[i]
                     val = int(float(row[i]))
+
+                    # Skip negative values.
+                    if val < 0:
+                        continue
 
                     covid19_prediction_data_point = None
                     if 'quarantine' in path:
