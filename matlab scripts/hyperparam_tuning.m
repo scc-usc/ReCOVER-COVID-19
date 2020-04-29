@@ -1,18 +1,18 @@
+%% Script to identify optimal hyperparameters of the model
 %% Configure
 
-
 T_full = size(data_4(:,:), 2); % How many days to train for. Should usually pick total number of days
-horizon = 4;
-T_val = 4;
+horizon = 2;
+T_val = 7;
 T_tr = T_full - T_val - horizon; % Jan 21 is day 0
 
-
-%% Full
-inf_thres = -1;
-cidx = (data_4(:, end) > inf_thres);
 k_array = (1:14);
 jp_array = (1:14);
 ff_array = (0.1:0.1:1);
+%% Full
+inf_thres = -1;
+cidx = (data_4(:, end) > inf_thres);
+
 
 data_4_s = data_4(cidx, 1:T_full);
 

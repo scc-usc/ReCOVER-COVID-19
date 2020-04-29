@@ -27,3 +27,5 @@ Two crucial functions that learn and apply the epidemic model:
 
 --------------
 Population data , travel data, and country names are included here
+
+Also included is a live script: plot_gen.mlx to visualize forecasts instead of writing files.
