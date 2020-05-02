@@ -38,19 +38,17 @@ class Covid19CumulativeDataPoint(models.Model):
 
 
 class Covid19Model(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, primary_key=True)
     description = models.CharField(max_length=200)
-    social_distancing = models.BooleanField()
-
-    class Meta:
-        unique_together = ("name", "social_distancing")
 
     def __str__(self):
-        return self.name + ", distancing=" + str(self.social_distancing)
+        return self.name
 
 
 class Covid19PredictionDataPoint(models.Model):
     model = models.ForeignKey(Covid19Model, on_delete=models.CASCADE)
+    social_distancing = models.BooleanField()
+
     area = models.ForeignKey(Area, on_delete=models.CASCADE)
     date = models.DateField()
     val = models.PositiveIntegerField()
@@ -58,6 +56,7 @@ class Covid19PredictionDataPoint(models.Model):
     def __str__(self):
         return ",".join([str(x) for x in [
             self.model,
+            "distancing=" + str(self.social_distancing),
             self.area,
             self.date,
             self.val]])
