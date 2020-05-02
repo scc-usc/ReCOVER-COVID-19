@@ -5,9 +5,7 @@ from datetime import timedelta
 from model_api.models import \
     Area, \
     Covid19DataPoint, \
-    Covid19CumulativeDataPoint, \
-    Covid19QuarantinePredictionDataPoint, \
-    Covid19ReleasedPredictionDataPoint
+    Covid19CumulativeDataPoint
 
 
 @api_view(["GET"])

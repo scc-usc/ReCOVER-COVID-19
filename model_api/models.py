@@ -9,10 +9,6 @@ class Area(models.Model):
     # Blank default value for iso_2 because this field was added later (after
     # the Area model was already created).
     iso_2 = models.CharField(max_length=10, default="")
-    
-    # NOTE lat and long attributes should be removed because the input csv no longer contains them.
-    # lat = models.FloatField()
-    # long = models.FloatField()
 
     class Meta:
         unique_together = ("state", "country")
@@ -39,24 +35,6 @@ class Covid19CumulativeDataPoint(models.Model):
 
     def __str__(self):
         return str(self.area) + ", " + str(self.data_point)
-
-
-class Covid19QuarantinePredictionDataPoint(models.Model):
-    area = models.ForeignKey(Area, on_delete=models.CASCADE)
-    date = models.DateField()
-    val = models.PositiveIntegerField()
-
-    def __str__(self):
-        return str(self.area) + ", " + str(self.date) + ", " + str(self.val)
-
-
-class Covid19ReleasedPredictionDataPoint(models.Model):
-    area = models.ForeignKey(Area, on_delete=models.CASCADE)
-    date = models.DateField()
-    val = models.PositiveIntegerField()
-
-    def __str__(self):
-        return str(self.area) + ", " + str(self.date) + ", " + str(self.val)
 
 
 class Covid19Model(models.Model):
