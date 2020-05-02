@@ -39,9 +39,11 @@ class Covid19CumulativeDataPoint(models.Model):
 
 class Covid19Model(models.Model):
     name = models.CharField(max_length=50)
+    description = models.CharField(max_length=200)
+    social_distancing = models.BooleanField()
 
     def __str__(self):
-        return self.name
+        return self.name + ", distancing=" + str(self.social_distancing)
 
 
 class Covid19PredictionDataPoint(models.Model):
