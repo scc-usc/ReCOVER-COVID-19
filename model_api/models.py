@@ -42,6 +42,9 @@ class Covid19Model(models.Model):
     description = models.CharField(max_length=200)
     social_distancing = models.BooleanField()
 
+    class Meta:
+        unique_together = ("name", "social_distancing")
+
     def __str__(self):
         return self.name + ", distancing=" + str(self.social_distancing)
 

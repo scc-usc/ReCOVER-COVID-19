@@ -19,6 +19,9 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(max_length=200)),
                 ('social_distancing', models.BooleanField()),
             ],
+            options={
+                'unique_together': {('name', 'social_distancing')},
+            },
         ),
         migrations.CreateModel(
             name='Covid19PredictionDataPoint',
