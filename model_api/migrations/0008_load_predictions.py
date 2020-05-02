@@ -6,96 +6,114 @@ import datetime
 import _thread
 
 
-# class PredictionFile:
-#     def __init__(self, path, model, social_distancing):
-#         self.path = path
-#         self.model = model
-#         self.social_distancing = social_distancing
-#
-#
-# PREDICTIONS = [
-#     PredictionFile(
-#         path="../results/forecasts/global_forecasts_quarantine_avg.csv",
-#         model="SI-kJalpha",
-#         social_distancing=True
-#     ),
-#     PredictionFile(
-#         path="../results/forecasts/global_forecasts_released_avg.csv",
-#         model="SI-kJalpha",
-#         social_distancing=False
-#     ),
-#     PredictionFile(
-#         path="../results/forecasts/us_forecasts_quarantine_avg.csv",
-#         model="SI-kJalpha",
-#         social_distancing=True
-#     ),
-#     PredictionFile(
-#         path="../results/forecasts/us_forecasts_released_avg.csv",
-#         model="SI-kJalpha",
-#         social_distancing=False
-#     ),
-#     PredictionFile(
-#         path="../results/forecasts/global_forecasts_quarantine_avg_2.csv",
-#
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/global_forecasts_quarantine_avg_5.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/global_forecasts_quarantine_avg_10.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/global_forecasts_quarantine_avg_20.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/global_forecasts_quarantine_avg_40.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/global_forecasts_released_avg_2.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/global_forecasts_released_avg_5.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/global_forecasts_released_avg_10.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/global_forecasts_released_avg_20.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/global_forecasts_released_avg_40.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/us_forecasts_quarantine_avg_2.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/us_forecasts_quarantine_avg_5.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/us_forecasts_quarantine_avg_10.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/us_forecasts_quarantine_avg_20.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/us_forecasts_quarantine_avg_40.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/us_forecasts_released_avg_2.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/us_forecasts_released_avg_5.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/us_forecasts_released_avg_10.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/us_forecasts_released_avg_20.csv",
-#     ),
-#     PredictionFile(
-#       path="../results/forecasts/us_forecasts_released_avg_40.csv",
-#     ),
-# ]
+class PredictionFile:
+    def __init__(self, path, model, social_distancing, description=""):
+        self.path = path
+        self.model = model
+        self.social_distancing = social_distancing
+        self.description = description
+
+
+PREDICTIONS = [
+    PredictionFile(
+        path="../results/forecasts/global_forecasts_quarantine_avg.csv",
+        model="SI-kJalpha",
+        social_distancing=True
+    ),
+    PredictionFile(
+        path="../results/forecasts/global_forecasts_released_avg.csv",
+        model="SI-kJalpha",
+        social_distancing=False
+    ),
+    PredictionFile(
+        path="../results/forecasts/us_forecasts_quarantine_avg.csv",
+        model="SI-kJalpha",
+        social_distancing=True
+    ),
+    PredictionFile(
+        path="../results/forecasts/us_forecasts_released_avg.csv",
+        model="SI-kJalpha",
+        social_distancing=False
+    ),
+    PredictionFile(
+        path="../results/forecasts/global_forecasts_quarantine_avg_2.csv",
+        model="SI-kJalpha(2% under-reported)",
+        social_distancing=True,
+        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 2%."
+    ),
+    PredictionFile(
+        path="../results/forecasts/global_forecasts_quarantine_avg_5.csv",
+        model="SI-kJalpha(5% under-reported)",
+        social_distancing=True,
+        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 5%."
+    ),
+    PredictionFile(
+        path="../results/forecasts/global_forecasts_quarantine_avg_10.csv",
+        model="SI-kJalpha(10% under-reported)",
+        social_distancing=True,
+        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 10%."
+    ),
+    PredictionFile(
+        path="../results/forecasts/global_forecasts_quarantine_avg_20.csv",
+        model="SI-kJalpha(20% under-reported)",
+        social_distancing=True,
+        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 20%."
+    ),
+    PredictionFile(
+        path="../results/forecasts/global_forecasts_quarantine_avg_40.csv",
+        model="SI-kJalpha(40% under-reported)",
+        social_distancing=True,
+        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 40%."
+    ),
+    PredictionFile(
+        path="../results/forecasts/global_forecasts_released_avg_2.csv",
+        model="SI-kJalpha(2% under-reported)",
+        social_distancing=True,
+        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 2%."
+    ),
+    PredictionFile(
+      path="../results/forecasts/global_forecasts_released_avg_5.csv",
+    ),
+    PredictionFile(
+      path="../results/forecasts/global_forecasts_released_avg_10.csv",
+    ),
+    PredictionFile(
+      path="../results/forecasts/global_forecasts_released_avg_20.csv",
+    ),
+    PredictionFile(
+      path="../results/forecasts/global_forecasts_released_avg_40.csv",
+    ),
+    PredictionFile(
+      path="../results/forecasts/us_forecasts_quarantine_avg_2.csv",
+    ),
+    PredictionFile(
+      path="../results/forecasts/us_forecasts_quarantine_avg_5.csv",
+    ),
+    PredictionFile(
+      path="../results/forecasts/us_forecasts_quarantine_avg_10.csv",
+    ),
+    PredictionFile(
+      path="../results/forecasts/us_forecasts_quarantine_avg_20.csv",
+    ),
+    PredictionFile(
+      path="../results/forecasts/us_forecasts_quarantine_avg_40.csv",
+    ),
+    PredictionFile(
+      path="../results/forecasts/us_forecasts_released_avg_2.csv",
+    ),
+    PredictionFile(
+      path="../results/forecasts/us_forecasts_released_avg_5.csv",
+    ),
+    PredictionFile(
+      path="../results/forecasts/us_forecasts_released_avg_10.csv",
+    ),
+    PredictionFile(
+      path="../results/forecasts/us_forecasts_released_avg_20.csv",
+    ),
+    PredictionFile(
+      path="../results/forecasts/us_forecasts_released_avg_40.csv",
+    ),
+]
 
 def load_covid19_prediction(apps, schema_editor):
     Area = apps.get_model('model_api', 'Area')
