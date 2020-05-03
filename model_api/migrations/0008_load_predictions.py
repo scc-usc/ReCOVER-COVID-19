@@ -22,12 +22,12 @@ class StaticModel:
 STATIC_MODELS = [
     StaticModel(
         quarantined_prediction_paths=[
-            "../results/forecasts/global_forecasts_quarantine_avg.csv",
-            "../results/forecasts/us_forecasts_quarantine_avg.csv"
+            "../results/forecasts/global_forecasts_quarantine_avg_.csv",
+            "../results/forecasts/us_forecasts_quarantine_avg_.csv"
         ],
         released_prediction_paths=[
-            "../results/forecasts/global_forecasts_released_avg.csv",
-            "../results/forecasts/us_forecasts_released_avg.csv"
+            "../results/forecasts/global_forecasts_released_avg_.csv",
+            "../results/forecasts/us_forecasts_released_avg_.csv"
         ],
         name="SI-kJalpha",
     ),
@@ -41,7 +41,7 @@ STATIC_MODELS = [
             "../results/forecasts/us_forecasts_released_avg_2.csv"
         ],
         name="SI-kJalpha(2% under-reported)",
-        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 2%."
+        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 2x."
     ),
     StaticModel(
         quarantined_prediction_paths=[
@@ -53,7 +53,7 @@ STATIC_MODELS = [
             "../results/forecasts/us_forecasts_released_avg_5.csv"
         ],
         name="SI-kJalpha(5% under-reported)",
-        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 5%."
+        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 5x."
     ),
     StaticModel(
         quarantined_prediction_paths=[
@@ -65,7 +65,7 @@ STATIC_MODELS = [
             "../results/forecasts/us_forecasts_released_avg_10.csv"
         ],
         name="SI-kJalpha(10% under-reported)",
-        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 10%."
+        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 10x."
     ),
     StaticModel(
         quarantined_prediction_paths=[
@@ -77,7 +77,7 @@ STATIC_MODELS = [
             "../results/forecasts/us_forecasts_released_avg_20.csv"
         ],
         name="SI-kJalpha(20% under-reported)",
-        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 20%."
+        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 20x."
     ),
     StaticModel(
         quarantined_prediction_paths=[
@@ -89,7 +89,7 @@ STATIC_MODELS = [
             "../results/forecasts/us_forecasts_released_avg_40.csv"
         ],
         name="SI-kJalpha(40% under-reported)",
-        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 40%."
+        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 40x."
     ),
 ]
 
@@ -212,9 +212,9 @@ def delete_covid19_predictions(apps, schema_editor):
     Covid19Model = apps.get_model('model_api', 'Covid19Model')
 
     # Clear all prediction data points.
-    Covid19PredictionDataPoint.all().delete()
+    Covid19PredictionDataPoint.objects.all().delete()
     # Clear all models.
-    Covid19Model.all().delete()
+    Covid19Model.objects.all().delete()
 
 
 class Migration(migrations.Migration):
