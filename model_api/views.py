@@ -73,7 +73,7 @@ def predict(request):
 
     # Get the models from the URl query parameters.
     # Django expects it to be of the form: 'models=foo&models=bar&...'
-    models = request.GET.getlist("models", [])
+    models = request.GET.getlist("models[]", [])
 
     # Get the area and raise an API exception if we can't.
     try:
