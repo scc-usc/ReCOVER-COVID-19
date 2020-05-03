@@ -40,7 +40,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_avg_2.csv",
             "../results/forecasts/us_forecasts_released_avg_2.csv"
         ],
-        name="SI-kJalpha(2% under-reported)",
+        name="SI-kJalpha(2x under-reported)",
         description="The SI-kJalpha model with the assumption that observed cases are under-reported by 2x."
     ),
     StaticModel(
@@ -52,7 +52,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_avg_5.csv",
             "../results/forecasts/us_forecasts_released_avg_5.csv"
         ],
-        name="SI-kJalpha(5% under-reported)",
+        name="SI-kJalpha(5x under-reported)",
         description="The SI-kJalpha model with the assumption that observed cases are under-reported by 5x."
     ),
     StaticModel(
@@ -64,7 +64,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_avg_10.csv",
             "../results/forecasts/us_forecasts_released_avg_10.csv"
         ],
-        name="SI-kJalpha(10% under-reported)",
+        name="SI-kJalpha(10x under-reported)",
         description="The SI-kJalpha model with the assumption that observed cases are under-reported by 10x."
     ),
     StaticModel(
@@ -76,7 +76,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_avg_20.csv",
             "../results/forecasts/us_forecasts_released_avg_20.csv"
         ],
-        name="SI-kJalpha(20% under-reported)",
+        name="SI-kJalpha(20x under-reported)",
         description="The SI-kJalpha model with the assumption that observed cases are under-reported by 20x."
     ),
     StaticModel(
@@ -88,7 +88,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_avg_40.csv",
             "../results/forecasts/us_forecasts_released_avg_40.csv"
         ],
-        name="SI-kJalpha(40% under-reported)",
+        name="SI-kJalpha(40x under-reported)",
         description="The SI-kJalpha model with the assumption that observed cases are under-reported by 40x."
     ),
 ]
