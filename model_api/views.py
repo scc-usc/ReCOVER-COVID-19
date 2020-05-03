@@ -5,7 +5,8 @@ from datetime import timedelta
 from model_api.models import \
     Area, \
     Covid19DataPoint, \
-    Covid19CumulativeDataPoint
+    Covid19CumulativeDataPoint, \
+    Covid19Model
 
 
 @api_view(["GET"])
@@ -42,6 +43,14 @@ def cumulative_infections(request):
     } for d in Covid19CumulativeDataPoint.objects.all()]
 
     return Response(response)
+
+
+@api_view(["GET"])
+def models(request):
+    return Response([{
+        'name': m.name,
+        'description': m.description
+    } for m in Covid19Model.objects.all()])
 
 
 @api_view(["GET"])
