@@ -29,7 +29,8 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_avg_.csv",
             "../results/forecasts/us_forecasts_released_avg_.csv"
         ],
-        name="SI-kJalpha",
+        name="SI-kJalpha(default)",
+        description="The default version of the SI-kJalpha model, with no assumptions about under-reporting."
     ),
     StaticModel(
         quarantined_prediction_paths=[
