@@ -11,15 +11,15 @@ class StaticModel:
     def __init__(self,
                  quarantined_prediction_paths: List[str],
                  released_prediction_paths: List[str],
-                 model: str,
+                 name: str,
                  description: str = ""):
         self.quarantined_prediction_paths = quarantined_prediction_paths
         self.released_prediction_paths = released_prediction_paths
-        self.model = model
+        self.name = name
         self.description = description
 
 
-PREDICTIONS = [
+STATIC_MODELS = [
     StaticModel(
         quarantined_prediction_paths=[
             "../results/forecasts/global_forecasts_quarantine_avg.csv",
@@ -29,7 +29,7 @@ PREDICTIONS = [
             "../results/forecasts/global_forecasts_released_avg.csv",
             "../results/forecasts/us_forecasts_released_avg.csv"
         ],
-        model="SI-kJalpha",
+        name="SI-kJalpha",
     ),
     StaticModel(
         quarantined_prediction_paths=[
@@ -40,7 +40,7 @@ PREDICTIONS = [
             "../results/forecasts/global_forecasts_released_avg_2.csv",
             "../results/forecasts/us_forecasts_released_avg_2.csv"
         ],
-        model="SI-kJalpha(2% under-reported)",
+        name="SI-kJalpha(2% under-reported)",
         description="The SI-kJalpha model with the assumption that observed cases are under-reported by 2%."
     ),
     StaticModel(
@@ -52,7 +52,7 @@ PREDICTIONS = [
             "../results/forecasts/global_forecasts_released_avg_5.csv",
             "../results/forecasts/us_forecasts_released_avg_5.csv"
         ],
-        model="SI-kJalpha(5% under-reported)",
+        name="SI-kJalpha(5% under-reported)",
         description="The SI-kJalpha model with the assumption that observed cases are under-reported by 5%."
     ),
     StaticModel(
@@ -64,7 +64,7 @@ PREDICTIONS = [
             "../results/forecasts/global_forecasts_released_avg_10.csv",
             "../results/forecasts/us_forecasts_released_avg_10.csv"
         ],
-        model="SI-kJalpha(10% under-reported)",
+        name="SI-kJalpha(10% under-reported)",
         description="The SI-kJalpha model with the assumption that observed cases are under-reported by 10%."
     ),
     StaticModel(
@@ -76,7 +76,7 @@ PREDICTIONS = [
             "../results/forecasts/global_forecasts_released_avg_20.csv",
             "../results/forecasts/us_forecasts_released_avg_20.csv"
         ],
-        model="SI-kJalpha(20% under-reported)",
+        name="SI-kJalpha(20% under-reported)",
         description="The SI-kJalpha model with the assumption that observed cases are under-reported by 20%."
     ),
     StaticModel(
@@ -88,104 +88,124 @@ PREDICTIONS = [
             "../results/forecasts/global_forecasts_released_avg_40.csv",
             "../results/forecasts/us_forecasts_released_avg_40.csv"
         ],
-        model="SI-kJalpha(40% under-reported)",
+        name="SI-kJalpha(40% under-reported)",
         description="The SI-kJalpha model with the assumption that observed cases are under-reported by 40%."
     ),
 ]
 
-def load_covid19_prediction(apps, schema_editor):
+def load_csv(apps, path):
     Area = apps.get_model('model_api', 'Area')
     Covid19PredictionDataPoint = apps.get_model(
         'model_api', 'Covid19PredictionDataPoint')
 
-    for path in PATHS:
-        print("\nLoading prediction from the path ", path)
-        model = ''
-        if 'quarantine' in path:
-            model = 'QUARANTINE'
-        elif 'released' in path:
-            model = "RELEASED"
-        else:
-            msg = 'Unknown prediction filename. Skip prediction files.'
-            print(msg)
-            continue
+    with open(path, 'r') as f:
+        reader = csv.reader(f)
+        header = next(reader, None)
 
-        underreported_ratio = 0
-        if '_avg_2.csv' in path:
-            underreported_ratio = 2
-        elif '_avg_5.csv' in path:
-            underreported_ratio = 5
-        elif '_avg_10.csv' in path:
-            underreported_ratio = 10
-        elif '_avg_20.csv' in path:
-            underreported_ratio = 20
-        elif '_avg_40.csv' in path:
-            underreported_ratio = 40
+        data = []
 
-        with open(path, 'r') as f:
-            reader = csv.reader(f)
-            header = next(reader, None)
+        for row in reader:
+            area = None
 
-            for row in reader:
-                area = None
-                if 'global' in path:
-                    country = row[1]
-                    state = ''
-                elif 'us' in path:
-                    country = 'US'
-                    state = row[1]
-                else:
-                    msg = 'Unknown prediction filename. Stop loading prediction data.'
-                    print(msg)
-                    break
+            # Determine the country / state.
+            if 'global' in path:
+                country = row[1]
+                state = ''
+            elif 'us' in path:
+                country = 'US'
+                state = row[1]
+            else:
+                msg = """Could not determine country/state from:
+                                    row = %s
+                                    path = %s""" % (str(row), path)
+                raise RuntimeError(msg)
 
-                # Find the area in the model_api_area
-                try:
-                    area = Area.objects.get(country=country, state=state)
-                except Area.DoesNotExist:
-                    msg = "Could not find the area for country '{0}'".format(country)
-                    if state:
-                        msg += " and state '{0}'".format(state)
-                    area = Area(state=state, country=country)
-                    area.save()
-                    msg += ' in model_api_area. New area created.'
-                    print(msg)
+            # Try to find the corresponding area.
+            try:
+                area = Area.objects.get(country=country, state=state)
+            except Area.DoesNotExist:
+                msg = "Could not find the area for country '{0}'".format(
+                    country)
+                if state:
+                    msg += " and state '{0}'".format(state)
+                area = Area(state=state, country=country)
+                area.save()
+                msg += ' in model_api_area. New area created.'
+                print(msg)
 
-                except Area.MultipleObjectsReturned:
-                    msg = "Found multiple areas for country '{0}'".format(country)
-                    if state:
-                        msg += " and state '{0}'".format(state)
-                    msg += ' in model_api_area. Skip this area.'
-                    print(msg)
+            except Area.MultipleObjectsReturned:
+                msg = "Found multiple areas for country '{0}'".format(
+                    country)
+                if state:
+                    msg += " and state '{0}'".format(state)
+                msg += ' in model_api_area. Skip this area.'
+                print(msg)
+                continue
+
+            # Load the predictions.
+            for i in range(2, len(header)):
+                date = header[i]
+
+                # Skip invalid values.
+                raw_val = row[i]
+                if raw_val in ['NaN', '-Inf', 'Inf']:
                     continue
 
-                for i in range(2, len(header)):
-                    date = header[i]
-                    val = int(float(row[i])) if (row[i] != 'NaN') \
-                            and (row[i] != '-Inf') \
-                            and (row[i] != 'Inf') \
-                        else -1
+                # Skip negative values.
+                val = int(float(raw_val))
+                if val < 0:
+                    continue
 
-                    # Skip negative values.
-                    if val < 0:
-                        continue
+                data.append(Covid19PredictionDataPoint(
+                    area=area,
+                    date=date,
+                    val=val,
+                ))
 
-                    covid19_prediction_data_point = Covid19PredictionDataPoint(
-                        area=area,
-                        date=date,
-                        val=val,
-                        model=model,
-                        underreported_ratio=underreported_ratio
-                    )
-                    covid19_prediction_data_point.save()
+        return data
 
 
-def delete_covid19_prediction(apps, schema_editor):
+def load_covid19_predictions(apps, schema_editor):
+    Covid19Model = apps.get_model('model_api', 'Covid19Model')
+
+    print()
+    for static_model in STATIC_MODELS:
+        print("Loading model: " + static_model.name)
+
+        # Create an entry for the model in the database.
+        covid19_model = Covid19Model(
+            name=static_model.name,
+            description=static_model.description)
+        covid19_model.save()
+
+        # Load quarantined predictions.
+        for path in static_model.quarantined_prediction_paths:
+            new_predictions = load_csv(apps, path)
+            # Update additional params and write to database.
+            for p in new_predictions:
+                p.model = covid19_model
+                p.social_distancing = True
+                p.save()
+
+        # Load released predictions.
+        for path in static_model.released_prediction_paths:
+            new_predictions = load_csv(apps, path)
+            # Update additional params and write to database.
+            for p in new_predictions:
+                p.model = covid19_model
+                p.social_distancing = False
+                p.save()
+
+
+def delete_covid19_predictions(apps, schema_editor):
     Covid19PredictionDataPoint = apps.get_model(
         'model_api', 'Covid19PredictionDataPoint')
+    Covid19Model = apps.get_model('model_api', 'Covid19Model')
 
     # Clear all prediction data points.
     Covid19PredictionDataPoint.all().delete()
+    # Clear all models.
+    Covid19Model.all().delete()
 
 
 class Migration(migrations.Migration):
@@ -195,6 +215,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(load_covid19_prediction,
-                             delete_covid19_prediction)
+        migrations.RunPython(load_covid19_predictions,
+                             delete_covid19_predictions)
     ]
