@@ -93,7 +93,16 @@ STATIC_MODELS = [
     ),
 ]
 
+
 def load_csv(apps, path):
+    """
+    Reads the given CSV and returns a list of Covid19PredictionDataPoint
+    objects. Only the date, area, and val fields on the objects are set. Note
+    that the objects have not been saved into the database yet.
+    :param apps: Django apps object.
+    :param path: Path to CSV with prediction data.
+    :return: List of Covid19PredictionDataPoint objects (NOT SAVED YET).
+    """
     Area = apps.get_model('model_api', 'Area')
     Covid19PredictionDataPoint = apps.get_model(
         'model_api', 'Covid19PredictionDataPoint')
