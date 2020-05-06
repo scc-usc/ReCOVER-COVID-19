@@ -1,7 +1,6 @@
-%% Set dates and file name prefix
+% Performs default forecasts not considering unreported cases
 
-%file_prefix = 'us'; % To be used to name generate forecast files
-file_prefix = 'global';
+%% Set dates
 %data_4_s = movmean(data_4, 2, 5);
 data_4_s = data_4;
 T_tr = 60; % Set reference day (Jan 21 is day 0)

@@ -11,7 +11,7 @@ To generate forecasts, run the following scripts
 Example scripts:
 
 load_data_us 
-load US_March18_hyperparams
+load us_March18_hyperparams
 hyperparam_tuning; varying_test; write_data_us
 write_unreported
 

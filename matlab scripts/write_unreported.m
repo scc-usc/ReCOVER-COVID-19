@@ -1,4 +1,6 @@
-un_array = [2, 5, 10, 20, 40];
+% Writes forecasts to files with various scenarios of unreported cases
+
+un_array = [2, 5, 10, 20, 40]; % Select the ration of total to reported cases
 
 for un_id = 1:length(un_array)
     % Train with hyperparams before and after
@@ -45,9 +47,9 @@ for un_id = 1:length(un_array)
     writetable(infec2table(infec_un, countries), [file_prefix '_forecasts_quarantine_' file_suffix '.csv']);
     writetable(infec2table(infec_f_un, countries), [file_prefix '_forecasts_quarantine1_' file_suffix '.csv']);
     writetable(infec2table(0.5*(infec_f_un+infec_un), countries), [file_prefix '_forecasts_quarantine_avg_' file_suffix '.csv']);
-    writetable(infec2table(infec_released_un, countries), [file_prefix '_forecasts_released_' file_suffix '.csv']);
-    writetable(infec2table(infec_released_f_un, countries), [file_prefix '_forecasts_released1_' file_suffix '.csv']);
-    writetable(infec2table(0.5*(infec_released_un+infec_released_f_un), countries), [file_prefix '_forecasts_released_avg_' file_suffix '.csv']);
+    writetable(infec2table(infec_released_un, countries, lowidx), [file_prefix '_forecasts_released_' file_suffix '.csv']);
+    writetable(infec2table(infec_released_f_un, countries, lowidx), [file_prefix '_forecasts_released1_' file_suffix '.csv']);
+    writetable(infec2table(0.5*(infec_released_un+infec_released_f_un), countries, lowidx), [file_prefix '_forecasts_released_avg_' file_suffix '.csv']);
     
     disp(['Files written for ', num2str(un)]);
     

@@ -5,7 +5,10 @@ passengerFlow = passengerFlow - diag(diag(passengerFlow));
 popu = load('us_states_population_data.txt');
 [tableConfirmed] = getDataCOVID_US();
 %%
-vals = table2array(tableConfirmed(:, 12:end)); % Day-wise values
+vals = table2array(tableConfirmed(:, 13:end)); % Day-wise values
+if all(isnan(vals(:, end)))
+    vals(:, end) = [];
+end
 data_4 = zeros(length(countries), size(vals, 2));
 for cidx = 1:length(countries)
     idx = strcmpi(tableConfirmed.Province_State, countries{cidx});
