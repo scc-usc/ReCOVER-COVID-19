@@ -7,5 +7,6 @@ urlpatterns = [
     path('areas/', views.areas),
     path('cumulative_infections/', views.cumulative_infections),
     path('predict/', views.predict),
+    path('predict_all/', views.predict_all),
     path('models/', views.models)
 ]

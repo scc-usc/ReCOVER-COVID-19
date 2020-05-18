@@ -162,30 +162,26 @@ def predict(request):
                 } for d in qs]
             })
 
-    # # Pull predicted data from database.
-    # if distancing_on:
-    #     qs = Covid19QuarantinePredictionDataPoint.objects.filter(
-    #         area=area, date__range=(prediction_start_date, prediction_end_date))
-    #
-    #     response["predictions"].append({
-    #         "model_name": "SI-kJalpha",
-    #         "distancing": True,
-    #         "time_series": [{
-    #             "date": d.date,
-    #             "value": d.val,
-    #         } for d in qs]
-    #     })
-    # if distancing_off:
-    #     qs = Covid19ReleasedPredictionDataPoint.objects.filter(
-    #         area=area, date__range=(prediction_start_date, prediction_end_date))
-    #
-    #     response["predictions"].append({
-    #         "model_name": "SI-kJalpha",
-    #         "distancing": False,
-    #         "time_series": [{
-    #             "date": d.date,
-    #             "value": d.val,
-    #         } for d in qs]
-    #     })
+    return Response(response)
+
+
+@api_view(["GET"])
+def predict_all(request):
+    date = request.query_params.get("date")
+    model_name = request.query_params.get("model")
+
+    model = Covid19Model.objects.get(name=model_name)
+
+    qs = Covid19PredictionDataPoint.objects.filter(model=model, date=date)
+
+    response = [{
+        'area': {
+            'country': d.area.country,
+            'state': d.area.state,
+            'iso_2': d.area.iso_2,
+        },
+        'value': d.val,
+        'date': d.date,
+    } for d in qs]
 
     return Response(response)
