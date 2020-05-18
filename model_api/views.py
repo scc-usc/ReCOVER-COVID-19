@@ -167,9 +167,14 @@ def predict(request):
 
 @api_view(["GET"])
 def predict_all(request):
-    date = request.query_params.get("date")
+    days = int(request.query_params.get("days"))
     model_name = request.query_params.get("model")
 
+    # We need to find the last date of the observed data.
+    observed = Covid19DataPoint.objects.filter(
+        area=Area.objects.get(country="US", state="")
+    )
+    date = max([d.date for d in observed]) + timedelta(days=days)
     model = Covid19Model.objects.get(name=model_name)
 
     qs = Covid19PredictionDataPoint.objects.filter(model=model, date=date)
