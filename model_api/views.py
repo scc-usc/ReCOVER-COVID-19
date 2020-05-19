@@ -175,10 +175,6 @@ def predict_all(request):
         area=Area.objects.get(country="US", state="")
     )
     date = max([d.date for d in observed]) + timedelta(days=days)
-    
-    # Hard code the last date.
-    #last_date = datetime(2020, 5, 14)
-    #date = last_date + timedelta(days=days)
     model = Covid19Model.objects.get(name=model_name)
 
     qs = Covid19PredictionDataPoint.objects.filter(model=model, date=date)
