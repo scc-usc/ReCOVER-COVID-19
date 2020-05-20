@@ -2,25 +2,35 @@
   height: 100vh;
 }
 
-.predict-wrapper {
-  height: 100%;
-  width: 40%;
-  float: left;
-  padding: 20px;
-}
-
 .graph-wrapper {
-  height: 600px;
+  height: 100%;
   padding: 10px;
 }
 
 .map-wrapper {
   height: 100%;
-  width: 60%;
-  float: right;
+  width: 100%;
 }
 
 #chartdiv {
   height: 100%;
   width: 100%;
+}
+
+.left-col {
+  height: 100vh;
+  width: 40%;
+  float: left;
+  display: flex;
+  flex-flow: column;
+}
+
+.right-col {
+  height: 100vh;
+  width: 60%;
+  float: right;
+}
+
+.form-wrapper {
+  padding: 20px;
 }

@@ -61,6 +61,26 @@ const DashedLine = ({ series, lineGenerator, xScale, yScale }) => {
   });
 };
 
+const theme = {
+  axis: {
+    ticks: {
+      text: {
+        fontSize: 18
+      }
+    },
+    legend: {
+      text: {
+        fontSize: 18
+      }
+    }
+  },
+  legends: {
+    text: {
+      fontSize: 18
+    }
+  }
+};
+
 class Covid19Graph extends Component {
   parseDate(dateStr) {
     let [year, month, day] = dateStr.split("-").map(Number);
@@ -122,6 +142,85 @@ class Covid19Graph extends Component {
     return retData;
   }
 
+  /**
+   * getDataMax returns the maximum value present in the data supplied to the
+   * graph.
+   */
+  getDataMax() {
+    const { data } = this.props;
+
+    let max = 0;
+
+    Object.keys(data).forEach(area => {
+      const { observed, predictions } = data[area];
+      max = Math.max(max, Math.max(...observed.map(({ value }) => value)));
+
+      predictions.forEach(p => {
+        const timeSeries = p.time_series;
+        max = Math.max(max, Math.max(...timeSeries.map(({ value }) => value)));
+      });
+    });
+
+    return max;
+  }
+
+  /**
+   * getYAxisProps returns the corresponding Nivo line props for supporting
+   * different Y axis types (linear and log).
+   */
+  getYAxisProps() {
+    const { statistic, yScale } = this.props;
+
+    const linearAxisLeft = {
+      // Format large y numbers as their abbreviations.
+      format: y => numeral(y).format("0.[0]a"),
+      orient: "left",
+      tickSize: 5,
+      tickPadding: 5,
+      tickRotation: 0,
+      legend: statistic === "delta" ? "New Cases" : "Cumulative Cases",
+      legendOffset: -60,
+      legendPosition: "middle"
+    };
+
+    let logTickValues = [];
+    for (let i = 0; i <= Math.ceil(Math.log10(this.getDataMax())); i++) {
+      logTickValues.push(Math.pow(10, i));
+    }
+
+    // The 'axisLeft' prop for log scale is the same as for linear axis, except
+    // that the tick values must be supplied.
+    const logAxisLeft = {
+      ...linearAxisLeft,
+      tickValues: logTickValues
+    };
+
+    // For log scale Y axes, we must supply the Y tick values for the grid, as
+    // well as specifying the min/ max, since it seems like Nivo cannot
+    // automatically determine the domain for log scale.
+    if (yScale === "log") {
+      return {
+        axisLeft: logAxisLeft,
+        gridYValues: logTickValues,
+        yScale: {
+          type: "log",
+          base: 10,
+          min: Math.min(...logTickValues),
+          max: Math.max(...logTickValues)
+        }
+      };
+    }
+
+    return {
+      axisLeft: linearAxisLeft,
+      yScale: {
+        type: "linear",
+        min: "auto",
+        max: "auto"
+      }
+    };
+  }
+
   render() {
     let { data } = this.props;
     const { statistic, yScale } = this.props;
@@ -160,12 +259,12 @@ class Covid19Graph extends Component {
         data[area].predictions
           .filter(p => p.time_series.length > 0)
           .forEach(p => {
-            const modelName = p.model_name;
+            const modelName = p.model.name;
             const distancing = p.distancing;
             const timeSeries = p.time_series;
 
             chartData.push({
-              id: `${area} (${p.model_name}, distancing=${distancing})`,
+              id: `${area} (${p.model.name}, distancing=${distancing})`,
               // If we're displaying deltas, we pass in the last observed value as
               // the initial value for calculating the predicted deltas.
               data: this.processData(timeSeries, {
@@ -185,26 +284,45 @@ class Covid19Graph extends Component {
           });
       });
 
+    // Determine whether we need to show weeks or months on the X axis.
+    let tickValues = "every week";
+
+    if (chartData.length > 0) {
+      // Calculate the minimum and maximum dates present in the data.
+      let minDate = chartData[0].data[0].x;
+      let maxDate = chartData[0].data[0].x;
+
+      chartData.forEach(({ data }) => {
+        data.forEach(({ x }) => {
+          minDate = Math.min(minDate, x);
+          maxDate = Math.max(maxDate, x);
+        });
+      });
+
+      minDate = moment(minDate);
+      maxDate = moment(maxDate);
+
+      // Switch to 'every month' if the date range is over a certain threshold.
+      const diffInDays = maxDate.diff(minDate, "days");
+      if (diffInDays > 150) {
+        tickValues = "every month";
+      }
+    }
+
     return (
       <ResponsiveLine
         data={chartData}
         colors={colors}
-        margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
+        margin={{ top: 50, right: 50, bottom: 50, left: 80 }}
         xScale={{
           type: "time",
           format: "native",
           precision: "day"
         }}
-        yScale={{
-          type: yScale,
-          base: 10,
-          min: "auto",
-          max: "auto"
-        }}
         axisBottom={{
           // tickValues determines how often / with what values our 'format'
           // func is called.
-          tickValues: "every week",
+          tickValues: tickValues,
           // A custom 'format' func is required since all the x values are
           // javascript Date objects.
           format: date => {
@@ -218,17 +336,8 @@ class Covid19Graph extends Component {
           legendOffset: 36,
           legendPosition: "middle"
         }}
-        axisLeft={{
-          // Format large y numbers as their abbreviations.
-          format: y => numeral(y).format("0.[0]a"),
-          orient: "left",
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: statistic === "delta" ? "New Cases" : "Cumulative Cases",
-          legendOffset: -40,
-          legendPosition: "middle"
-        }}
+        // Set up the Y axis.
+        {...this.getYAxisProps()}
         enableSlices="x"
         sliceTooltip={({ slice }) => {
           return (
@@ -299,6 +408,7 @@ class Covid19Graph extends Component {
           "axes",
           "legends"
         ]}
+        theme={theme}
       />
     );
   }

@@ -9,10 +9,6 @@ class Area(models.Model):
     # Blank default value for iso_2 because this field was added later (after
     # the Area model was already created).
     iso_2 = models.CharField(max_length=10, default="")
-    
-    # NOTE lat and long attributes should be removed because the input csv no longer contains them.
-    # lat = models.FloatField()
-    # long = models.FloatField()
 
     class Meta:
         unique_together = ("state", "country")
@@ -40,18 +36,27 @@ class Covid19CumulativeDataPoint(models.Model):
     def __str__(self):
         return str(self.area) + ", " + str(self.data_point)
 
-class Covid19QuarantinePredictionDataPoint(models.Model):
+
+class Covid19Model(models.Model):
+    name = models.CharField(max_length=50, primary_key=True)
+    description = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
+class Covid19PredictionDataPoint(models.Model):
+    model = models.ForeignKey(Covid19Model, on_delete=models.CASCADE)
+    social_distancing = models.BooleanField()
+
     area = models.ForeignKey(Area, on_delete=models.CASCADE)
     date = models.DateField()
     val = models.PositiveIntegerField()
 
     def __str__(self):
-        return str(self.area) + ", " + str(self.date) + ", " + str(self.val)
-
-class Covid19ReleasedPredictionDataPoint(models.Model):
-    area = models.ForeignKey(Area, on_delete=models.CASCADE)
-    date = models.DateField()
-    val = models.PositiveIntegerField()
-
-    def __str__(self):
-        return str(self.area) + ", " + str(self.date) + ", " + str(self.val)
+        return ",".join([str(x) for x in [
+            self.model,
+            "distancing=" + str(self.social_distancing),
+            self.area,
+            self.date,
+            self.val]])

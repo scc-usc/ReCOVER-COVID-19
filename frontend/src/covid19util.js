@@ -10,3 +10,7 @@ export function strToArea(s) {
     state: words.length === 2 ? words[1].trim() : ""
   };
 }
+
+export function modelToStr(a) {
+  return `${a.name}`;
+}

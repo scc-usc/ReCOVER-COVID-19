@@ -26,6 +26,10 @@ def load_covid19_data(apps, schema_editor):
             state = row[0]
             country = row[1]
 
+            # Skip a problematic entry in JHU's report
+            if state == 'Recovered':
+                continue
+
             if country not in country_level_infections:
                 country_level_infections[country] = {}
 

@@ -31,19 +31,44 @@ class Covid19Map extends Component {
   }
 
   componentDidMount() {
-    this.modelAPI.cumulative_infections(cumulativeInfections => {
-      let heatmapData = cumulativeInfections.map(d => {
-        return {
-          id: d.area.iso_2,
-          // Adjust all heatmap values by log scale.
-          value: d.value > 0 ? Math.log(d.value) : 0,
-          // Store the true value so we can display tooltips correctly.
-          valueTrue: d.value,
-          area: d.area
-        };
+    this.props.triggerRef(this);
+    this.fetchData(this.props.dynamicMapOn);
+  }
+
+  fetchData(dynamicMapOn) {
+    if (!dynamicMapOn || this.props.model === "") {
+      this.modelAPI.cumulative_infections(cumulativeInfections => {
+        let heatmapData = cumulativeInfections.map(d => {
+          return {
+            id: d.area.iso_2,
+            // Adjust all heatmap values by log scale.
+            value: d.value > 0 ? Math.log(d.value) : 0,
+            // Store the true value so we can display tooltips correctly.
+            valueTrue: d.value,
+            area: d.area
+          };
+        });
+        this.setState({ heatmapData }, this.createChart);
       });
-      this.setState({ heatmapData }, this.createChart);
-    });
+    } else {
+      this.modelAPI.predict_all({
+        days: this.props.days,
+        model: this.props.model
+      }, cumulativeInfections => {
+        let heatmapData = cumulativeInfections.map(d => {
+          return {
+            id: d.area.iso_2,
+            // Adjust all heatmap values by log scale.
+            value: d.value > 0 ? Math.log(d.value) : 0,
+            // Store the true value so we can display tooltips correctly.
+            valueTrue: d.value,
+            area: d.area
+          };
+        });
+        this.setState({ heatmapData }, this.resetChart);
+      });
+      
+    }
   }
 
   initChart() {
@@ -65,7 +90,8 @@ class Covid19Map extends Component {
       property: "fill",
       target: polygonTemplate,
       min: am4core.color(HEAT_MAP_MIN_COLOR),
-      max: am4core.color(HEAT_MAP_MAX_COLOR)
+      max: am4core.color(HEAT_MAP_MAX_COLOR),
+      maxValue: Math.log(5000000)
     });
 
     // Configure series tooltip. Display the true value of infections.
@@ -109,7 +135,7 @@ class Covid19Map extends Component {
       this.stateSeries.forEach(s => (s.disabled = !button.isActive));
       button.label.text = `${
         button.isActive ? "Hide" : "Show"
-      } States/Provinces`;
+        } States/Provinces`;
     });
   }
 
@@ -189,6 +215,25 @@ class Covid19Map extends Component {
     // });
   }
 
+  resetChart() {
+    const { heatmapData } = this.state;
+
+    const worldSeries = this.createChartSeries({
+      geodata: am4geodata_worldLow,
+      exclude: ["AQ"],
+      data: heatmapData
+    });
+
+    const usaSeries = this.createChartSeries({
+      geodata: am4geodata_usaLow,
+      data: heatmapData,
+      disabled: true
+    });
+
+    this.stateSeries = [usaSeries];
+
+  }
+
   componentWillUnmount() {
     if (this.chart) {
       this.chart.dispose();
@@ -196,6 +241,7 @@ class Covid19Map extends Component {
   }
 
   render() {
+    
     return <div id="chartdiv"></div>;
   }
 }

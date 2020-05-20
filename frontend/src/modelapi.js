@@ -15,9 +15,28 @@ class ModelAPI {
     });
   }
 
+  models(callback) {
+    const endpoint = `${API_BASE_URL}/models`;
+    axios.get(endpoint).then(res => {
+      const allModels = res.data;
+      console.log(allModels);
+      callback(allModels);
+    });
+  }
+
   cumulative_infections(callback) {
     const endpoint = `${API_BASE_URL}/cumulative_infections`;
     axios.get(endpoint).then(res => callback(res.data));
+  }
+
+  /**
+   * Params should have 'days', 'model'
+   */
+  predict_all(params, callback) {
+    const endpoint = `${API_BASE_URL}/predict_all`;
+    axios.get(endpoint, {
+      params: params
+    }).then(res => callback(res.data));
   }
 
   /**
