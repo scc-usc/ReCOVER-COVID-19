@@ -1,7 +1,0 @@
-{
-  "compilerOptions": {
-    "target": "es5",
-    "downlevelIteration": true,
-    "lib" : ["dom","es6","dom.iterable","scripthost", "es2015.iterable", "es2015.collection"]
-  }
-}
