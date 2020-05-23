@@ -15,7 +15,7 @@ import {
   Slider,
   Tooltip,
   Switch,
-  Popconfirm,
+  Popover,
 } from "antd";
 
 import {
@@ -245,6 +245,7 @@ class Covid19Predict extends PureComponent {
     this.map.fetchData(checked);
   }
 
+
   render() {
     const {
       areas,
@@ -277,6 +278,15 @@ class Covid19Predict extends PureComponent {
           </Option>
         );
       });
+
+      // The clarification message to be shown for the "social distancing" option.
+      const SOCIAL_DISTANCING_CLARIFICATION = (
+        <p>
+          The trend until March 18th has been used as a proxy for "Social distancing off". <br />
+          For modeling details, please see: 
+          <a href="https://arxiv.org/abs/2004.11372"> https://arxiv.org/abs/2004.11372</a>.
+        </p>
+      );
 
     return (
       <div className="covid-19-predict">
@@ -334,9 +344,9 @@ class Covid19Predict extends PureComponent {
                 />
               </Form.Item>
 
-              <Tooltip
-                title='The trend until March 18th has been used as a proxy for "Social distancing off". 
-                For modeling details, please see: https://arxiv.org/abs/2004.11372' 
+              <Popover 
+                content={SOCIAL_DISTANCING_CLARIFICATION} 
+                title="Social Distancing Clarification"
                 placement="topLeft"
               >
               <Form.Item label="Social Distancing" name="socialDistancing">
@@ -349,7 +359,7 @@ class Covid19Predict extends PureComponent {
                   </Checkbox>
                 </Checkbox.Group>
               </Form.Item>
-              </Tooltip>
+              </Popover>
             </Form>
             <div>Statistic:&nbsp;&nbsp;  
               <Radio.Group
