@@ -1,15 +1,16 @@
+@import '~antd/dist/antd.css';
+
 .app-wrapper {
   height: 100vh;
 }
 
 .graph-wrapper {
-  height: 100%;
-  padding: 10px;
+  height: 90%;
+  padding: 10px 20px;
 }
 
 .map-wrapper {
-  height: 100%;
-  width: 100%;
+  height: 60%;
 }
 
 #chartdiv {
@@ -33,4 +34,25 @@
 
 .form-wrapper {
   padding: 20px;
+}
+
+.main-content {
+  padding: 20px 50px;
+}
+
+.logo {
+  height: 60px;
+  padding-right: 20px;
+}
+
+.ant-layout-header{
+  background: #990000;
+}
+
+.ant-menu.ant-menu-dark {
+  background: #990000;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+  background-color: #7C0505;
 }
