@@ -41,7 +41,7 @@ class AboutUs extends Component {
                         The Github repository for this project is <a href="https://github.com/scc-usc/ReCOVER-COVID-19" target="_blank">publicly available</a> .
                     </p>
                     <p className="article-paragraph">
-                        The matlab code for forecasting is also made available of <a href="https://www.mathworks.com/matlabcentral/fileexchange/75281-recover" target="_blank">File Exchange</a>.
+                        The matlab code for forecasting is also made available on <a href="https://www.mathworks.com/matlabcentral/fileexchange/75281-recover" target="_blank">File Exchange</a>.
                     </p>
                     <p className="article-paragraph">
                         The code of the prediction model and this web application is contributed by Ajitesh Srivastava, Jamin Chen, and Frost Tianjian Xu.
@@ -65,10 +65,6 @@ class AboutUs extends Component {
                         <li>
                             Ajitesh Srivastava and Viktor K. Prasanna, 
                             <a href="https://arxiv.org/abs/2004.11372" target="_blank"> “Learning to Forecast and Forecasting to Learn from the COVID-19 Pandemic”</a> [arXiv].
-                        </li>
-                        <li>
-                            Ajitesh Srivastava and Viktor K. Prasanna, 
-                            <a href="https://arxiv.org/abs/2004.12250" target="_blank"> “Agent-Level Pandemic Simulation (ALPS) for Analyzing Effects of Lockdown Measures”</a> [arXiv].
                         </li>
                     </ol>
 

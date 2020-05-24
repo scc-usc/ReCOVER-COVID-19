@@ -337,7 +337,7 @@ class Covid19Predict extends PureComponent {
                 ]}
               >
                 <Slider
-                  min={0}
+                  min={1}
                   initialValue={15}
                   max={99}
                   onAfterChange={this.onDaysToPredictChange}
