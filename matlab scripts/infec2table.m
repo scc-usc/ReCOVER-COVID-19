@@ -1,10 +1,13 @@
-function tt = infec2table(infec, countries, lowidx)
+function tt = infec2table(infec, countries, lowidx, start_date)
 % function to create tables in the correct output format
 
     if nargin <3
         lowidx = zeros(length(countries), 1);
     end
-    datecols = datestr(datetime(floor(now),'ConvertFrom','datenum')+caldays(0:size(infec, 2)-1), 'yyyy-mm-dd');
+    if nargin < 4
+        start_date = datetime(floor(now),'ConvertFrom','datenum');
+    end
+    datecols = datestr(start_date +caldays(0:size(infec, 2)-1), 'yyyy-mm-dd');
     datecols = cellstr(datecols);
     allcols = [{'id'; 'Country'}; datecols];
     badidx = any(infec<0 | isnan(infec), 2);
