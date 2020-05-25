@@ -17,3 +17,5 @@ for cidx = 1:length(countries)
     end
     data_4(cidx, :) = sum(vals(idx, :), 1);
 end
+
+writetable(infec2table(data_4, countries, zeros(length(countries), 1), datetime(2020, 1, 23)), 'us_data.csv');
