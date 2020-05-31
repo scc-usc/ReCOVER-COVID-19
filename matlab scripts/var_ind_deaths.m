@@ -1,26 +1,12 @@
-function [beta_all_cell, fittedC] = var_ind_beta_un(data_4, passengerFlow, alpha_l, k_l, un_fact, popu, jp_l)
+function [beta_all_cell] = var_ind_beta_un(data_4, passengerFlow, alpha_l, k_l, un_fact, popu, jp_l)
     maxt = size(data_4, 2);
     %F = passengerFlow/(max(max(passengerFlow))+ 1e-10);
     F = passengerFlow;
     beta_all_cell = cell(length(popu), 1);
-    fittedC = cell(length(popu), 1);
-    
-    %data_4 = movmean(data_4, 5, 2);
+    data_4 = movmean(data_4, 5, 2);
     
     if length(un_fact)==1
         un_fact = un_fact*ones(length(popu), 1);
-    end
-    
-    if length(jp_l) == 1
-        jp_l = ones(length(popu), 1)*jp_l;
-    end
-    
-    if length(k_l) == 1
-        k_l = ones(length(popu), 1)*k_l;
-    end
-    
-    if length(alpha_l) == 1
-        alpha_l = ones(length(popu), 1)*alpha_l;
     end
     
     deldata = diff(data_4')';
@@ -47,7 +33,5 @@ function [beta_all_cell, fittedC] = var_ind_beta_un(data_4, passengerFlow, alpha
         
         opts1=  optimset('display','off');
         beta_all_cell{j} =  lsqlin(alphamat.*X,alphavec.*y,[],[],[],[],zeros(k+1, 1), [ones(k, 1); Inf], [], opts1);
-        
-        fittedC{j} = [(alphamat.*X)*beta_all_cell{j},alphavec.*y];
     end
     

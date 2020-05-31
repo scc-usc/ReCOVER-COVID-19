@@ -1,36 +1,17 @@
 function [infec] = var_simulate_pred_un(data_4, passengerFlowDarpa, beta_all_cell, popu, k_l, horizon, jp_l, un_fact)
-
+    %SIMULATE_PRED Summary of this function goes here
+    %   Detailed explanation goes here
     num_countries = size(data_4, 1);
     infec = zeros(num_countries, horizon);
-
+    %F = passengerFlowDarpa/(max(max(passengerFlowDarpa))+ 1e-10);
     F = passengerFlowDarpa;
+    data_4_s = movmean(data_4, 5, 2);
+    lastinfec = data_4(:,end);
     
     if length(un_fact)==1
         un_fact = un_fact*ones(length(popu), 1);
     end
     
-    if length(jp_l) == 1
-        jp_l = ones(length(popu), 1)*jp_l;
-    end
-    
-    if length(k_l) == 1
-        k_l = ones(length(popu), 1)*k_l;
-    end
-    
-    for j=1:length(beta_all_cell)
-        this_beta = beta_all_cell{j};
-        if length(this_beta)==k_l(j)
-            beta_all_cell{j} = [this_beta; 0];
-        end
-    end
-    
-    data_4_s = data_4;
-    %%% Smoothing %%%%%%%%%%%%%%%%%%
-%      temp = movmean(diff(data_4')', 7, 2);
-%      data_4_s = [data_4(:, 1) cumsum(temp, 2)];
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
-    lastinfec = data_4(:,end);
     temp = data_4_s;
     for t=1:horizon
         S = (1-un_fact.*lastinfec./popu);
