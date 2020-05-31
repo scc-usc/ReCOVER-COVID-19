@@ -223,7 +223,7 @@ class Covid19Graph extends Component {
 
   render() {
     let { data } = this.props;
-    const { statistic, yScale } = this.props;
+    const { statistic, yScale, dataType } = this.props;
 
     // chartData contains the data that we will pass into Nivo line chart.
     let chartData = [];
@@ -236,8 +236,7 @@ class Covid19Graph extends Component {
       .sort()
       .forEach((area, idx) => {
         const lineColor = getLineColor(idx);
-
-        const observedData = data[area].observed;
+        const observedData = dataType == "confirmed" ? data[area].observed : data[area].observed_deaths;
 
         // Add the observed infection data.
         chartData.push({

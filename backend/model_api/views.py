@@ -7,7 +7,8 @@ from model_api.models import \
     Covid19DataPoint, \
     Covid19CumulativeDataPoint, \
     Covid19Model, \
-    Covid19PredictionDataPoint
+    Covid19PredictionDataPoint, \
+    Covid19DeathDataPoint
 
 
 @api_view(["GET"])
@@ -105,12 +106,20 @@ def predict(request):
     response = {
         "observed": [],
         "predictions": [],
+        "observed_deaths": [],
     }
 
     # Pull observed data from database.
     observed = Covid19DataPoint.objects.filter(area=area)
     for d in observed:
         response["observed"].append({
+            "date": d.date,
+            "value": d.val,
+        })
+
+    observed_deaths = Covid19DeathDataPoint.objects.filter(area=area)
+    for d in observed_deaths:
+        response["observed_deaths"].append({
             "date": d.date,
             "value": d.val,
         })

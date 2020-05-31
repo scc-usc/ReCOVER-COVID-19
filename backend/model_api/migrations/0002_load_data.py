@@ -4,16 +4,20 @@ from django.db import migrations
 import csv
 import datetime
 
-GLOBAL_COVID_19_CSV_PATH = "data/time_series_covid19_confirmed_global.csv"
-US_STATES_COVID_19_CSV_PATH = "data/time_series_covid19_confirmed_US.csv"
+GLOBAL_COVID_19_INFECTION_CSV_PATH = "./data/time_series_covid19_confirmed_global.csv"
+US_STATES_COVID_19_INFECTION_CSV_PATH = "./data/time_series_covid19_confirmed_US.csv"
+GLOBAL_COVID_19_DEATH_CSV_PATH = "./data/time_series_covid19_deaths_global.csv"
+US_STATES_COVID_19_DEATH_CSV_PATH = "./data/time_series_covid19_deaths_US.csv"
 
 
 def load_covid19_data(apps, schema_editor):
     Area = apps.get_model('model_api', 'Area')
     Covid19DataPoint = apps.get_model('model_api', 'Covid19DataPoint')
+    Covid19DeathDataPoint = apps.get_model(
+        'model_api', 'Covid19DeathDataPoint')
 
-    # Country level data.
-    with open(GLOBAL_COVID_19_CSV_PATH) as f:
+    # Country level infection data.
+    with open(GLOBAL_COVID_19_INFECTION_CSV_PATH) as f:
         reader = csv.reader(f)
         header = next(reader, None)
 
@@ -39,9 +43,10 @@ def load_covid19_data(apps, schema_editor):
 
             for i in range(4, len(header)):
                 raw_date = header[i]
-                date = datetime.datetime.strptime(raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
+                date = datetime.datetime.strptime(
+                    raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
                 val = int(row[i])
-                
+
                 # Skip negative values.
                 if val < 0:
                     continue
@@ -51,7 +56,8 @@ def load_covid19_data(apps, schema_editor):
                 country_level_infections[country][raw_date] += val
 
                 # Write new infection data to database.
-                covid19_data_point = Covid19DataPoint(area=area, date=date, val=val)
+                covid19_data_point = Covid19DataPoint(
+                    area=area, date=date, val=val)
                 covid19_data_point.save()
 
     for country, infections in country_level_infections.items():
@@ -61,17 +67,72 @@ def load_covid19_data(apps, schema_editor):
         country_area = Area(state="", country=country)
         country_area.save()
 
-        print("Extrapolated country-level data for", country)
+        print("Extrapolated country-level infection data for", country)
         for raw_date, val in infections.items():
-            date = datetime.datetime.strptime(raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
+            date = datetime.datetime.strptime(
+                raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
             country_data_point = Covid19DataPoint(
                 area=country_area,
                 date=date,
                 val=val)
             country_data_point.save()
 
-    # US state-level data.
-    with open(US_STATES_COVID_19_CSV_PATH) as f:
+    # Country level death data.
+    with open(GLOBAL_COVID_19_DEATH_CSV_PATH) as f:
+        reader = csv.reader(f)
+        header = next(reader, None)
+
+        # A 2-level dictionary where the 1st key is country name and 2nd key
+        # is raw date, and final value is the total number of deaths for
+        # that country at that specific date.
+        country_level_deaths = {}
+
+        for row in reader:
+            state = row[0]
+            country = row[1]
+
+            # Skip a problematic entry in JHU's report
+            if state == 'Recovered':
+                continue
+
+            if country not in country_level_deaths:
+                country_level_deaths[country] = {}
+
+            area = Area.objects.get(country=country, state=state)
+
+            for i in range(4, len(header)):
+                raw_date = header[i]
+                date = datetime.datetime.strptime(
+                    raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
+                val = int(row[i])
+
+                # Skip negative values.
+                if val < 0:
+                    continue
+
+                if raw_date not in country_level_deaths[country]:
+                    country_level_deaths[country][raw_date] = 0
+                country_level_deaths[country][raw_date] += val
+
+                if state != "":
+                    covid19_death_data_point = Covid19DeathDataPoint(
+                        area=area, date=date, val=val)
+                    covid19_death_data_point.save()
+
+    for country, deaths in country_level_deaths.items():
+        country_area = Area.objects.get(country=country, state="")
+        print("Extrapolated country-level death data for", country)
+        for raw_date, val in deaths.items():
+            date = datetime.datetime.strptime(
+                raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
+            country_death_data_point = Covid19DeathDataPoint(
+                area=country_area,
+                date=date,
+                val=val)
+            country_death_data_point.save()
+            
+    # US state-level infection data.
+    with open(US_STATES_COVID_19_INFECTION_CSV_PATH) as f:
         reader = csv.reader(f)
         header = next(reader, None)
 
@@ -85,7 +146,8 @@ def load_covid19_data(apps, schema_editor):
 
             for i in range(11, len(header)):
                 raw_date = header[i]
-                date = datetime.datetime.strptime(raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
+                date = datetime.datetime.strptime(
+                    raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
                 val = int(row[i])
 
                 # Skip negative values.
@@ -103,10 +165,51 @@ def load_covid19_data(apps, schema_editor):
         state_area = Area(state=state, country="US")
         state_area.save()
 
-        print("Extrapolated state-level data for", state)
+        print("Extrapolated state-level infection data for", state)
         for raw_date, val in infections.items():
-            date = datetime.datetime.strptime(raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
+            date = datetime.datetime.strptime(
+                raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
             state_data_point = Covid19DataPoint(
+                area=state_area,
+                date=date,
+                val=val)
+            state_data_point.save()
+
+    # US state-level death data.
+    with open(US_STATES_COVID_19_DEATH_CSV_PATH) as f:
+        reader = csv.reader(f)
+        header = next(reader, None)
+
+        state_level_deaths = {}
+
+        for row in reader:
+            state = row[6]
+
+            if state not in state_level_deaths:
+                state_level_deaths[state] = {}
+
+            for i in range(12, len(header)):
+                raw_date = header[i]
+                date = datetime.datetime.strptime(
+                    raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
+                val = int(row[i])
+
+                # Skip negative values.
+                if val < 0:
+                    continue
+
+                if raw_date not in state_level_deaths[state]:
+                    state_level_deaths[state][raw_date] = 0
+                state_level_deaths[state][raw_date] += val
+
+    
+    for state, deaths in state_level_deaths.items():
+        state_area = Area.objects.get(country="US", state=state)
+        print("Extrapolated state-level death data for", state)
+        for raw_date, val in deaths.items():
+            date = datetime.datetime.strptime(
+                raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
+            state_data_point = Covid19DeathDataPoint(
                 area=state_area,
                 date=date,
                 val=val)

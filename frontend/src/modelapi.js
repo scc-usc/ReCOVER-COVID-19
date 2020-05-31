@@ -40,7 +40,7 @@ class ModelAPI {
   }
 
   /**
-   * Params should have 'country', 'state', 'weeks', 'distancing.'
+   * Params should have 'country', 'state', 'days', 'distancing.'
    */
   predict(params, callback) {
     const endpoint = `${API_BASE_URL}/predict`;

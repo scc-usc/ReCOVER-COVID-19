@@ -37,6 +37,13 @@ class Covid19Predict extends PureComponent {
     });
   };
 
+  handleDataTypeSelect = e => {
+    this.setState({
+      dataType: e.target.value
+    });
+    console.log(this.state.mainGraphData);
+  };
+
   constructor(props) {
     super(props);
 
@@ -66,6 +73,7 @@ class Covid19Predict extends PureComponent {
       mainGraphData: {},
       days: 10,
       dynamicMapOn: false,
+      dataType: "confirmed",
       statistic: "cumulative",
       yScale: "linear"
     };
@@ -254,6 +262,7 @@ class Covid19Predict extends PureComponent {
       days,
       mainGraphData,
       dynamicMapOn,
+      dataType,
       statistic,
       yScale
     } = this.state;
@@ -361,6 +370,16 @@ class Covid19Predict extends PureComponent {
               </Form.Item>
               </Popover>
             </Form>
+            <div>Data Type:&nbsp;&nbsp;  
+              <Radio.Group
+                value={dataType}
+                onChange={this.handleDataTypeSelect}
+              >
+                <Radio value="confirmed">Confirmed Cases</Radio>
+                <Radio value="death">Deaths</Radio>
+              </Radio.Group>
+            </div>
+            <br />
             <div>Statistic:&nbsp;&nbsp;  
               <Radio.Group
                 value={statistic}
@@ -400,6 +419,7 @@ class Covid19Predict extends PureComponent {
           <div className="graph-wrapper">
             <Covid19Graph
               data={mainGraphData}
+              dataType={dataType}
               statistic={statistic}
               yScale={yScale}
             ></Covid19Graph>
