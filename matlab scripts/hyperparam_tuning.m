@@ -14,7 +14,7 @@ inf_thres = -1;
 cidx = (data_4(:, end) > inf_thres);
 
 
-data_4_s = data_4(cidx, 1:T_full);
+data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4')', 7, 2), 2)];
 
 RMSEval = zeros(length(k_array), length(jp_array), length(ff_array), length(popu));
 MAPEval = zeros(length(k_array), length(jp_array), length(ff_array), length(popu));
@@ -92,11 +92,11 @@ if horizon > 0
     T_trad = T_tr+T_val;
     
     
-    beta_notravel = var_ind_beta(data_4(:, 1:T_trad), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), T_tr, popu, best_param_list(:, 2));
+    beta_notravel = var_ind_beta(data_4_s(:, 1:T_trad), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), T_tr, popu, best_param_list(:, 2));
     
-    data_4_s = data_4(:, 1:T_trad+horizon);
+    data_4_s = data_4_s(:, 1:T_trad+horizon);
     
-    infec_notravel = var_simulate_pred(data_4(:, 1:T_trad), passengerFlow*0, beta_notravel, popu, best_param_list(:, 1), horizon, best_param_list(:, 2));
+    infec_notravel = var_simulate_pred(data_4_s(:, 1:T_trad), passengerFlow*0, beta_notravel, popu, best_param_list(:, 1), horizon, best_param_list(:, 2));
     
     inf_thres = 0;
     inf_uthres = 10000000000000000;
@@ -114,9 +114,9 @@ if horizon > 0
     k_l = MAPEtable_s(1, 1)*ones(length(popu), 1);
     jp_l = MAPEtable_s(1, 2)*ones(length(popu), 1);
     
-    beta_notravel = var_ind_beta(data_4(:, 1:T_trad), passengerFlow*0, alpha_l, k_l, T_tr, popu, jp_l);
+    beta_notravel = var_ind_beta(data_4_s(:, 1:T_trad), passengerFlow*0, alpha_l, k_l, T_tr, popu, jp_l);
     
-    infec_notravel_f = var_simulate_pred(data_4(:, 1:T_trad), passengerFlow*0, beta_notravel, popu, k_l, horizon, jp_l);
+    infec_notravel_f = var_simulate_pred(data_4_s(:, 1:T_trad), passengerFlow*0, beta_notravel, popu, k_l, horizon, jp_l);
     
     RMSEvec = sqrt(mean((infec_notravel_f - data_4_s(:, end-horizon+1:end)).^2, 2));
     RMSEtest = mean(RMSEvec(cidx));
