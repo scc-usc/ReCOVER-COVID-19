@@ -8,6 +8,7 @@ T_tr = T_full - T_val - horizon; % Jan 21 is day 0
 
 k_array = (1:4);
 jp_start = 4;
+jp_array = (jp_start:14);
 ff_array = (0.1:0.1:1);
 %% Full
 inf_thres = -1;
