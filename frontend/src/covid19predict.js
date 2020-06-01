@@ -59,7 +59,7 @@ class Covid19Predict extends PureComponent {
     this.state = {
       areas: this.props.areas || [],
       areasList: [],
-      models: this.props.models || [],
+      models: this.props.models || ["No under-reported cases(default)"],
       modelsList: [],
       distancingOn: true,
       distancingOff: false,
@@ -325,6 +325,7 @@ class Covid19Predict extends PureComponent {
                   mode="multiple"
                   style={{ width: "100%" }}
                   placeholder="Select Reporting Ratio"
+                  defaultValue={["No under-reported cases(default)"]}
                 >
                   {modelOptions}
                 </Select>
