@@ -108,6 +108,8 @@ class Covid19Graph extends Component {
    */
   getDeltaData(data, initialVal) {
     return data.map((d, i) => {
+      console.log(d);
+      console.log(i);
       if (i === 0) {
         return {
           x: this.parseDate(d.date),

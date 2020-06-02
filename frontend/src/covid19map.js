@@ -38,6 +38,7 @@ class Covid19Map extends Component {
   fetchData(dynamicMapOn) {
     if (!dynamicMapOn || this.props.model === "") {
       this.modelAPI.cumulative_infections(cumulativeInfections => {
+        console.log(cumulativeInfections);
         let heatmapData = cumulativeInfections.map(d => {
           return {
             id: d.area.iso_2,
@@ -51,23 +52,47 @@ class Covid19Map extends Component {
         this.setState({ heatmapData }, this.createChart);
       });
     } else {
-      this.modelAPI.predict_all({
-        days: this.props.days,
-        model: this.props.model
-      }, cumulativeInfections => {
-        console.log(cumulativeInfections);
-        let heatmapData = cumulativeInfections.map(d => {
-          return {
-            id: d.area.iso_2,
-            // Adjust all heatmap values by log scale.
-            value: d.value > 0 ? Math.log(d.value) : 0,
-            // Store the true value so we can display tooltips correctly.
-            valueTrue: d.value,
-            area: d.area
-          };
+      if (this.props.statistic === "cumulative"){
+        this.modelAPI.predict_all({
+          days: this.props.days,
+          model: this.props.model
+        }, cumulativeInfections => {
+          console.log(cumulativeInfections);
+          let heatmapData = cumulativeInfections.map(d => {
+            return {
+              id: d.area.iso_2,
+              // Adjust all heatmap values by log scale.
+              value: d.value > 0 ? Math.log(d.value) : 0,
+              // Store the true value so we can display tooltips correctly.
+              valueTrue: d.value,
+              area: d.area
+            };
+          });
+          this.setState({ heatmapData }, this.resetChart);
         });
-        this.setState({ heatmapData }, this.resetChart);
-      });
+      }
+      else
+      {
+        this.modelAPI.predict_all({
+          days: this.props.days,
+          model: this.props.model
+        }, cumulativeInfections => {
+          this.modelAPI.predict_all({
+            days: this.props.days - 1,
+            model: this.props.model
+          }, previousCumulative =>{
+            let heatmapData = cumulativeInfections.map((d, index) =>{
+              return {
+                id: d.area.iso_2,
+                value: d.value - previousCumulative[index].value,
+                valueTrue:  d.value - previousCumulative[index].value,
+                area: d.area
+              }
+            });
+            this.setState({ heatmapData }, this.resetChart);
+          });
+        });
+      }
       
     }
   }
@@ -80,6 +105,7 @@ class Covid19Map extends Component {
   }
 
   createChartSeries(seriesProps) {
+    const {statistic} = this.props;
     // Create new map polygon series and copy over all given props.
     let series = this.chart.series.push(new am4maps.MapPolygonSeries());
     series = Object.assign(series, seriesProps);
@@ -87,13 +113,29 @@ class Covid19Map extends Component {
     let polygonTemplate = series.mapPolygons.template;
 
     // Heatmap fill.
-    series.heatRules.push({
-      property: "fill",
-      target: polygonTemplate,
-      min: am4core.color(HEAT_MAP_MIN_COLOR),
-      max: am4core.color(HEAT_MAP_MAX_COLOR),
-      maxValue: Math.log(5000000)
-    });
+    if (statistic === "cumulative")
+    {
+      series.heatRules.push({
+        property: "fill",
+        target: polygonTemplate,
+        min: am4core.color(HEAT_MAP_MIN_COLOR),
+        max: am4core.color(HEAT_MAP_MAX_COLOR),
+        minValue: 0,
+        maxValue: Math.log(5000000)
+      });
+    }
+    else 
+    {
+      series.heatRules.push({
+        property: "fill",
+        target: polygonTemplate,
+        min: am4core.color(HEAT_MAP_MIN_COLOR),
+        max: am4core.color(HEAT_MAP_MAX_COLOR),
+        minValue: 0,
+        maxValue: 100000
+      });
+    }
+    
 
     // Configure series tooltip. Display the true value of infections.
     polygonTemplate.tooltipText = "{name}: {valueTrue}";
@@ -118,7 +160,6 @@ class Covid19Map extends Component {
       }
       else
       {
-        console.log('error:' + name);
         onNoData(name);
       }
     });
