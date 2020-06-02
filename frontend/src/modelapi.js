@@ -10,7 +10,6 @@ class ModelAPI {
     const endpoint = `${API_BASE_URL}/areas`;
     axios.get(endpoint).then(res => {
       const allAreas = res.data;
-      console.log(allAreas);
       callback(allAreas);
     });
   }
@@ -19,7 +18,6 @@ class ModelAPI {
     const endpoint = `${API_BASE_URL}/models`;
     axios.get(endpoint).then(res => {
       const allModels = res.data;
-      console.log(allModels);
       callback(allModels);
     });
   }
@@ -44,7 +42,6 @@ class ModelAPI {
    */
   predict(params, callback) {
     const endpoint = `${API_BASE_URL}/predict`;
-    console.log(params);
     axios
       .get(endpoint, {
         params: params

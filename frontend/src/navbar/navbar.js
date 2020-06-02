@@ -18,7 +18,6 @@ class NavBar extends Component {
     handleItemClick = (e) => 
     {
         const {redirectForecast, redirectInstruction, redirectAbout} = this.props;
-        console.log(e);
         const {key} = e;
         this.setState({
             activeItem: e.key

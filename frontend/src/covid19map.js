@@ -55,6 +55,7 @@ class Covid19Map extends Component {
         days: this.props.days,
         model: this.props.model
       }, cumulativeInfections => {
+        console.log(cumulativeInfections);
         let heatmapData = cumulativeInfections.map(d => {
           return {
             id: d.area.iso_2,
@@ -109,10 +110,17 @@ class Covid19Map extends Component {
     // Create click handler. Apparently ALL the series in the chart must have
     // click handlers activated, so if this function is not running double-check
     // that other series also have click handlers.
-    const { onMapClick } = this.props;
+    const { onMapClick, onNoData} = this.props;
     polygonTemplate.events.on("hit", e => {
-      const { id, value, area } = e.target.dataItem.dataContext;
-      onMapClick(area);
+      const { id, value, area, name} = e.target.dataItem.dataContext;
+      if (area){
+        onMapClick(area);
+      }
+      else
+      {
+        console.log('error:' + name);
+        onNoData(name);
+      }
     });
 
     return series;
