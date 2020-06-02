@@ -23,6 +23,11 @@ class Covid19Map extends Component {
     super();
     this.modelAPI = new ModelAPI();
 
+    this.state = {
+      areasList : [],
+      showState: false
+    }
+
     this.modelAPI.areas(allAreas =>
       this.setState({
         areasList: allAreas
@@ -33,6 +38,12 @@ class Covid19Map extends Component {
   componentDidMount() {
     this.props.triggerRef(this);
     this.fetchData(this.props.dynamicMapOn);
+  }
+
+  onShowState = (value) =>{
+    this.setState({
+      showState: value
+    });
   }
 
   fetchData(dynamicMapOn) {
@@ -84,7 +95,7 @@ class Covid19Map extends Component {
             let heatmapData = cumulativeInfections.map((d, index) =>{
               return {
                 id: d.area.iso_2,
-                value: d.value - previousCumulative[index].value,
+                value: d.value - previousCumulative[index].value > 0 ? Math.log(d.value - previousCumulative[index].value): 0,
                 valueTrue:  d.value - previousCumulative[index].value,
                 area: d.area
               }
@@ -132,7 +143,7 @@ class Covid19Map extends Component {
         min: am4core.color(HEAT_MAP_MIN_COLOR),
         max: am4core.color(HEAT_MAP_MAX_COLOR),
         minValue: 0,
-        maxValue: 100000
+        maxValue: Math.log(1000000)
       });
     }
     
@@ -181,9 +192,11 @@ class Covid19Map extends Component {
     button.marginRight = 15;
     button.cursorOverStyle = am4core.MouseCursorStyle.pointer;
     button.events.on("hit", () => {
-      this.stateSeries.forEach(s => (s.disabled = !button.isActive));
+      this.onShowState(button.isActive);
+      const {showState} = this.state;
+      this.stateSeries.forEach(s => (s.disabled = !showState));
       button.label.text = `${
-        button.isActive ? "Hide" : "Show"
+        showState ? "Hide" : "Show"
         } States/Provinces`;
     });
   }
@@ -202,25 +215,25 @@ class Covid19Map extends Component {
     const chinaSeries = this.createChartSeries({
       geodata: am4geodata_chinaLow,
       data: heatmapData,
-      disabled: true
+      disabled: !this.state.showState
     });
 
     const usaSeries = this.createChartSeries({
       geodata: am4geodata_usaLow,
       data: heatmapData,
-      disabled: true
+      disabled: !this.state.showState
     });
 
     const canadaSeries = this.createChartSeries({
       geodata: am4geodata_canadaLow,
       data: heatmapData,
-      disabled: true
+      disabled: !this.state.showState
     });
 
     const australiaSeries = this.createChartSeries({
       geodata: am4geodata_australiaLow,
       data: heatmapData,
-      disabled: true
+      disabled: !this.state.showState
     });
 
     this.stateSeries = [chinaSeries, usaSeries, canadaSeries, australiaSeries];
@@ -276,7 +289,7 @@ class Covid19Map extends Component {
     const usaSeries = this.createChartSeries({
       geodata: am4geodata_usaLow,
       data: heatmapData,
-      disabled: true
+      disabled: !this.state.showState
     });
 
     this.stateSeries = [usaSeries];
