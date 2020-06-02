@@ -1,0 +1,31 @@
+.article {
+    background: #ffffff;
+    border: solid 1px #dedede;
+    margin-top: 1.5em;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 20em;
+    padding: 30px 50px;
+  }
+  
+  .article-title {
+    text-align: center;
+    font-size: 26px;
+  }
+  
+  .article-paragraph {
+    font-size: 16px;
+  }
+  
+  .disclaimer {
+    font-size: 14px;
+    font-style:italic;
+  }
+  
+  .article-anchor {
+    color: #990000;
+  }
+  
+  .article-anchor:hover {
+    color: #FFCC00;
+  }

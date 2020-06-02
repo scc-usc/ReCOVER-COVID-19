@@ -30,10 +30,6 @@ class NavBar extends Component {
         {
             redirectAbout();
         }
-        else if (key === "instruction")
-        {
-            redirectInstruction();
-        }
     }
 
     render() {
@@ -52,7 +48,6 @@ class NavBar extends Component {
                     onClick={this.handleItemClick}
                     defaultSelectedKeys={['forecast']}>
                     <Menu.Item key="forecast">COVID-19 Forecast</Menu.Item>
-                    <Menu.Item key="instruction">How to Use</Menu.Item>
                     <Menu.Item key="information">About Us</Menu.Item>
                 </Menu>
             </Col>
