@@ -19,10 +19,6 @@ import {
   Alert
 } from "antd";
 
-import {
-  InfoCircleOutlined
-} from '@ant-design/icons';
-
 const { Option } = Select;
 
 class Covid19Predict extends PureComponent {
