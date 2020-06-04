@@ -1,4 +1,6 @@
-prefix = 'us';
+prefix = 'us'; % Uncomment for US state-level
+% prefix = 'global'; % Uncomment for country-level
+
 horizon = 7;
 alpha_start = 5;
 all_scores = [];
