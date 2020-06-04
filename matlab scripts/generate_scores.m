@@ -1,3 +1,6 @@
+%%%% Calculates "Transmission score" used for "Contact Reduction Score" in https://arxiv.org/abs/2004.11372
+%%%% Also calculates the Dynamic Reproduction Number with time
+
 prefix = 'us'; % Uncomment for US state-level
 % prefix = 'global'; % Uncomment for country-level
 
@@ -7,7 +10,7 @@ all_scores = [];
 all_scores_f = [];
 Rt_scores = [];
 skip_length = 7;
-saved_days = 0;
+saved_days = 0; % Set it to higher number to avoid recomputing hypoerparameters from the beginning
 start_day = 50;
 
 % data_4 = data_4_orig;
