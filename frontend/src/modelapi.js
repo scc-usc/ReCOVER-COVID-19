@@ -42,7 +42,6 @@ class ModelAPI {
    */
   predict(params, callback) {
     const endpoint = `${API_BASE_URL}/predict`;
-    console.log(params);
     axios
       .get(endpoint, {
         params: params
