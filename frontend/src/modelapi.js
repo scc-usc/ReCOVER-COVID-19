@@ -47,9 +47,18 @@ class ModelAPI {
         params: params
       })
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         callback(res.data);
       });
+  }
+
+  // get the current date of observed data
+  getCurrentDate(callback) {
+    const endpoint =  `${API_BASE_URL}/current_date`;
+    axios.get(endpoint).then(res => {
+      const currentDate = res.data;
+      callback(currentDate);
+    });
   }
 }
 

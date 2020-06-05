@@ -9,22 +9,22 @@
   padding: 10px 20px;
 } */
 
-.map-wrapper {
+/* .map-wrapper {
   height: 60%;
-}
+} */
 
 #chartdiv {
   height: 100%;
   width: 100%;
 }
 
-.left-col {
+/* .left-col {
   height: 100vh;
   width: 40%;
   float: left;
   display: flex;
   flex-flow: column;
-}
+} */
 
 /* .right-col {
   height: 100vh;
