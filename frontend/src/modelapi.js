@@ -38,15 +38,17 @@ class ModelAPI {
   }
 
   /**
-   * Params should have 'country', 'state', 'weeks', 'distancing.'
+   * Params should have 'country', 'state', 'days', 'distancingOn,' 'distancingOff'
    */
   predict(params, callback) {
     const endpoint = `${API_BASE_URL}/predict`;
+    console.log(params);
     axios
       .get(endpoint, {
         params: params
       })
       .then(res => {
+        console.log(res.data);
         callback(res.data);
       });
   }

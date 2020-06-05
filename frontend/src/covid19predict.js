@@ -4,6 +4,7 @@ import Covid19Map from "./covid19map";
 import ModelAPI from "./modelapi";
 import { areaToStr, strToArea, modelToStr } from "./covid19util";
 import { test_data } from "./test_data";
+import "./covid19predict.css";
 
 import {
   Form,
@@ -16,8 +17,11 @@ import {
   Tooltip,
   Switch,
   Popover,
-  Alert
+  Alert,
+  Row,
+  Col
 } from "antd";
+
 
 import {
   InfoCircleOutlined
@@ -63,7 +67,7 @@ class Covid19Predict extends PureComponent {
     this.state = {
       areas: this.props.areas || [],
       areasList: [],
-      models: this.props.models || [],
+      models: this.props.models || ['No under-reported cases(default)'],
       modelsList: [],
       distancingOn: true,
       distancingOff: false,
@@ -84,6 +88,10 @@ class Covid19Predict extends PureComponent {
     this.switchDynamicMap = this.switchDynamicMap.bind(this);
     this.onAlertClose = this.onAlertClose.bind(this);
     this.onNoData = this.onNoData.bind(this);
+  }
+
+  componentDidMount = ()=>{
+    this.addAreaByStr('US');
   }
 
   onMapClick(area) {
@@ -274,6 +282,7 @@ class Covid19Predict extends PureComponent {
     const {
       areas,
       areasList,
+      models,
       modelsList,
       days,
       mainGraphData,
@@ -283,7 +292,6 @@ class Covid19Predict extends PureComponent {
       noDataError,
       errorDescription
     } = this.state;
-
     // Only show options for countries that have not been selected yet.
     const countryOptions = areasList
       .filter(area => !this.areaIsSelected(area))
@@ -316,7 +324,9 @@ class Covid19Predict extends PureComponent {
 
     return (
       <div className="covid-19-predict">
-        <div className="left-col">
+        <Row type="flex" align="center">
+        {/* <div className="left-col"> */}
+        <Col span={12}>
         {noDataError?
           <Alert
           message= {`${errorDescription}`}
@@ -332,6 +342,7 @@ class Covid19Predict extends PureComponent {
               onValuesChange={this.onValuesChange}
               initialValues={{
                 areas: areas,
+                models: models,
                 days: 10,
                 socialDistancing: ["distancingOn"]
               }}
@@ -387,10 +398,10 @@ class Covid19Predict extends PureComponent {
               <Form.Item label="Social Distancing" name="socialDistancing">
                 <Checkbox.Group>
                   <Checkbox defaultChecked value="distancingOn">
-                    On
+                    Current Trend
                   </Checkbox>
                   <Checkbox value="distancingOff"> 
-                    Off
+                    Social Distancing Off
                   </Checkbox>
                 </Checkbox.Group>
               </Form.Item>
@@ -421,8 +432,10 @@ class Covid19Predict extends PureComponent {
               />
             </p>
           </div>
+        </Col>
+        <Col span={12}>
           <div className="map-wrapper">
-            <Covid19Map
+            <Covid19Map className="map"
               triggerRef={this.bindRef}
               dynamicMapOn={this.state.dynamicMapOn}
               days={days}
@@ -432,16 +445,24 @@ class Covid19Predict extends PureComponent {
               statistic={statistic}
             />
           </div>
-        </div>
-        <div className="right-col">
-          <div className="graph-wrapper">
-            <Covid19Graph
-              data={mainGraphData}
-              statistic={statistic}
-              yScale={yScale}
-            ></Covid19Graph>
-          </div>
-        </div>
+        {/* </div> */}
+        </Col>
+        </Row>
+        {areas.length?
+          <Row>
+          <Col span={24}>
+          {/* <div className="right-col"> */}
+            <div className="graph-wrapper">
+              <Covid19Graph
+                data={mainGraphData}
+                statistic={statistic}
+                yScale={yScale}
+              ></Covid19Graph>
+            </div>
+          {/* </div> */}
+          </Col>
+          </Row>
+        : null}
       </div>
     );
   }
