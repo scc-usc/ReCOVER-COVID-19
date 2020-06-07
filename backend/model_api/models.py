@@ -60,3 +60,16 @@ class Covid19PredictionDataPoint(models.Model):
             self.area,
             self.date,
             self.val]])
+
+class QuarantineScore(models.Model):
+    area = models.ForeignKey(Area, on_delete=models.CASCADE)
+    date = models.DateField()
+    val = models.FloatField()
+
+    def __str__(self):
+        return ",".join([str(x) for x in [
+            self.area,
+            self.date,
+            self.val
+        ]])
+
