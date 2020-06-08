@@ -6,14 +6,14 @@ for un_id = 1:length(un_array)
     % Train with hyperparams before and after
     un = un_array(un_id); % Select the ratio of true cases to reported cases. 1 for default.
     
-    beta_travel = var_ind_beta_un(data_4_s(:, 1:T_tr), passengerFlow, best_param_list_yes(:, 3)*0.1, best_param_list_yes(:, 1), un, popu, best_param_list_yes(:, 2));
+%    beta_travel = var_ind_beta_un(data_4_s(:, 1:T_tr), passengerFlow, best_param_list_yes(:, 3)*0.1, best_param_list_yes(:, 1), un, popu, best_param_list_yes(:, 2));
     beta_notravel = var_ind_beta(data_4_s(:, 1:T_tr), passengerFlow*0, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), un, popu, best_param_list_no(:, 2));
     beta_after = var_ind_beta(data_4_s(:, 1:T_full), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2));
     
-    alpha_l = MAPEtable_travel_fixed_s(1, 3)*0.1*ones(length(popu), 1);
-    k_l = MAPEtable_travel_fixed_s(1, 1)*ones(length(popu), 1);
-    jp_l = MAPEtable_travel_fixed_s(1, 2)*ones(length(popu), 1);
-    beta_travel_f = var_ind_beta(data_4_s(:, 1:T_tr), passengerFlow, alpha_l, k_l, un, popu, jp_l);
+%     alpha_l = MAPEtable_travel_fixed_s(1, 3)*0.1*ones(length(popu), 1);
+%     k_l = MAPEtable_travel_fixed_s(1, 1)*ones(length(popu), 1);
+%     jp_l = MAPEtable_travel_fixed_s(1, 2)*ones(length(popu), 1);
+%     beta_travel_f = var_ind_beta(data_4_s(:, 1:T_tr), passengerFlow, alpha_l, k_l, un, popu, jp_l);
     
     alpha_l = MAPEtable_notravel_fixed_s(1, 3)*0.1*ones(length(popu), 1);
     k_l = MAPEtable_notravel_fixed_s(1, 1)*ones(length(popu), 1);

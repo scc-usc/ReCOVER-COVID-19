@@ -16,11 +16,8 @@ import {
   Tooltip,
   Switch,
   Popover,
+  Alert
 } from "antd";
-
-import {
-  InfoCircleOutlined
-} from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -34,7 +31,10 @@ class Covid19Predict extends PureComponent {
   handleStatisticSelect = e => {
     this.setState({
       statistic: e.target.value
+    }, () => {
+      this.reloadAll();
     });
+
   };
 
   constructor(props) {
@@ -59,7 +59,7 @@ class Covid19Predict extends PureComponent {
     this.state = {
       areas: this.props.areas || [],
       areasList: [],
-      models: this.props.models || [],
+      models: this.props.models || ["No under-reported cases(default)"],
       modelsList: [],
       distancingOn: true,
       distancingOff: false,
@@ -67,7 +67,9 @@ class Covid19Predict extends PureComponent {
       days: 10,
       dynamicMapOn: false,
       statistic: "cumulative",
-      yScale: "linear"
+      yScale: "linear",
+      noDataError: false,
+      errorDescription: ""
     };
 
     this.addAreaByStr = this.addAreaByStr.bind(this);
@@ -76,6 +78,8 @@ class Covid19Predict extends PureComponent {
     this.onMapClick = this.onMapClick.bind(this);
     this.onDaysToPredictChange = this.onDaysToPredictChange.bind(this);
     this.switchDynamicMap = this.switchDynamicMap.bind(this);
+    this.onAlertClose = this.onAlertClose.bind(this);
+    this.onNoData = this.onNoData.bind(this);
   }
 
   onMapClick(area) {
@@ -120,7 +124,7 @@ class Covid19Predict extends PureComponent {
               }
             }));
           }
-        );
+        )
 
         this.formRef.current.setFieldsValue({
           areas: this.state.areas
@@ -136,7 +140,7 @@ class Covid19Predict extends PureComponent {
         // string.
         areas: prevState.areas.filter(areaStr => areaStr !== targetAreaStr),
         mainGraphData: Object.keys(prevState.mainGraphData)
-          .filter(areaStr => areaStr != targetAreaStr)
+          .filter(areaStr => areaStr !== targetAreaStr)
           .reduce((newMainGraphData, areaStr) => {
             return {
               ...newMainGraphData,
@@ -163,6 +167,8 @@ class Covid19Predict extends PureComponent {
    * days to predict is handled separately by onDaysToPredictChange.
    */
   onValuesChange(changedValues, allValues) {
+    // console.log(changedValues);
+    // console.log(allValues);
     if ("socialDistancing" in changedValues || "models" in changedValues) {
       // If either the social distancing or model parameters were changed, we
       // clear our data and do a full reload. We purposely ignore days to
@@ -245,6 +251,20 @@ class Covid19Predict extends PureComponent {
     this.map.fetchData(checked);
   }
 
+  //when closing the alert
+  onAlertClose = ()=>{
+    this.setState({
+      noDataError: false
+    });
+  }
+
+  //when encounter an no data error
+  onNoData = (name) =>{
+    this.setState({
+      noDataError: true,
+      errorDescription: `There is currently no data for ${name}`
+    })
+  }
 
   render() {
     const {
@@ -255,7 +275,9 @@ class Covid19Predict extends PureComponent {
       mainGraphData,
       dynamicMapOn,
       statistic,
-      yScale
+      yScale,
+      noDataError,
+      errorDescription
     } = this.state;
 
     // Only show options for countries that have not been selected yet.
@@ -290,7 +312,16 @@ class Covid19Predict extends PureComponent {
 
     return (
       <div className="covid-19-predict">
-        <div className="left-col">
+        <div className="top-row">
+        {noDataError?
+          <Alert
+          message= {`${errorDescription}`}
+          description= "Please wait for our updates."
+          type="error"
+          closable
+          onClose={this.onAlertClose}
+        />: null
+        }
           <div className="form-wrapper">
             <Form
               ref={this.formRef}
@@ -325,6 +356,7 @@ class Covid19Predict extends PureComponent {
                   mode="multiple"
                   style={{ width: "100%" }}
                   placeholder="Select Reporting Ratio"
+                  defaultValue={["No under-reported cases(default)"]}
                 >
                   {modelOptions}
                 </Select>
@@ -393,10 +425,12 @@ class Covid19Predict extends PureComponent {
               days={days}
               model={this.state.models == null || this.state.models.length ===0? "" : this.state.models[this.state.models.length-1]}
               onMapClick={this.onMapClick} 
+              onNoData = {this.onNoData}
+              statistic={statistic}
             />
           </div>
         </div>
-        <div className="right-col">
+        <div className="bottom-row">
           <div className="graph-wrapper">
             <Covid19Graph
               data={mainGraphData}

@@ -4,6 +4,7 @@ import {
     Row,
     Col,
 } from 'antd';
+import "./aboutus.css";
 import "./covid19app.css";
 
 class AboutUs extends Component {
@@ -15,15 +16,15 @@ class AboutUs extends Component {
                     <p className="article-paragraph">
                         Accurate forecasts of COVID-19 is central to resource management and building strategies to deal with the epidemic. 
                         This is a NSF-funded project on COVID-19 forecasting directed 
-                        by Viktor K. Prasanna (<a href="mailto:prasanna@usc.edu">prasanna@usc.edu</a>) and
-                        Ajitesh Srivastava (<a href="mailto:ajiteshs@usc.edu">ajiteshs@usc.edu</a>) 
+                        by Viktor K. Prasanna (<a className="article-anchor" href="mailto:prasanna@usc.edu">prasanna@usc.edu</a>) and
+                        Ajitesh Srivastava (<a className="article-anchor" href="mailto:ajiteshs@usc.edu">ajiteshs@usc.edu</a>) 
                         from the Data Science Lab in the University of Southern California. 
                     </p>
                     <h2>Our Model</h2>
                     <p className="article-paragraph">
                         We use our own epidemic model called SI-kJalpha -- Heterogeneous Infection Rate with Human Mobility, which is a 
                         preliminary version of what we have successfully used 
-                        during <a href="https://news.usc.edu/83180/usc-engineers-earn-national-recognition-for-predicting-disease-outbreaks/" target="_blank">
+                        during <a className="article-anchor" href="https://news.usc.edu/83180/usc-engineers-earn-national-recognition-for-predicting-disease-outbreaks/" target="_blank">
                             DARPA Grand Challenge 2014
                         </a>.  
                         By linearizing the model and using weighted least squares, 
@@ -35,13 +36,13 @@ class AboutUs extends Component {
                         This work is supported by National Science Foundation Award No. 2027007 (RAPID)
                     </p>
                     <p className="article-paragraph">
-                        Details of our initial approach can be found in our <a href="https://www.youtube.com/watch?v=ll6k8wlxOFo" target="_blank">webinar</a>.
+                        Details of our initial approach can be found in our <a className="article-anchor" href="https://www.youtube.com/watch?v=ll6k8wlxOFo" target="_blank">webinar</a>.
                     </p>
                     <p className="article-paragraph">
-                        The Github repository for this project is <a href="https://github.com/scc-usc/ReCOVER-COVID-19" target="_blank">publicly available</a> .
+                        The Github repository for this project is <a className="article-anchor" href="https://github.com/scc-usc/ReCOVER-COVID-19" target="_blank">publicly available</a> .
                     </p>
                     <p className="article-paragraph">
-                        The matlab code for forecasting is also made available on <a href="https://www.mathworks.com/matlabcentral/fileexchange/75281-recover" target="_blank">File Exchange</a>.
+                        The matlab code for forecasting is also made available on <a className="article-anchor" href="https://www.mathworks.com/matlabcentral/fileexchange/75281-recover" target="_blank">File Exchange</a>.
                     </p>
                     <p className="article-paragraph">
                         The code of the prediction model and this web application is contributed by Ajitesh Srivastava, Jamin Chen, and Frost Tianjian Xu.
@@ -50,7 +51,7 @@ class AboutUs extends Component {
                     <p className="article-paragraph">
                         The USC Data Science Lab focuses on applying machine learning, data mining, 
                         and network analysis to real-world problems in society and industry. 
-                        Please find more information and other research projects <a href="https://sites.usc.edu/dslab/" target="_blank"> on 
+                        Please find more information and other research projects <a className="article-anchor" href="https://sites.usc.edu/dslab/" target="_blank"> on 
                         our website</a>.
                     </p>
                     <h2>Related Publications</h2>
@@ -64,7 +65,7 @@ class AboutUs extends Component {
                     <ol className="article-paragraph">
                         <li>
                             Ajitesh Srivastava and Viktor K. Prasanna, 
-                            <a href="https://arxiv.org/abs/2004.11372" target="_blank"> “Learning to Forecast and Forecasting to Learn from the COVID-19 Pandemic”</a> [arXiv].
+                            <a className="article-anchor" href="https://arxiv.org/abs/2004.11372" target="_blank"> “Learning to Forecast and Forecasting to Learn from the COVID-19 Pandemic”</a> [arXiv].
                         </li>
                     </ol>
 
