@@ -312,7 +312,7 @@ class Covid19Predict extends PureComponent {
 
     return (
       <div className="covid-19-predict">
-        <div className="left-col">
+        <div className="top-row">
         {noDataError?
           <Alert
           message= {`${errorDescription}`}
@@ -430,7 +430,7 @@ class Covid19Predict extends PureComponent {
             />
           </div>
         </div>
-        <div className="right-col">
+        <div className="bottom-row">
           <div className="graph-wrapper">
             <Covid19Graph
               data={mainGraphData}
