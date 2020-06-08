@@ -38,7 +38,7 @@ class ModelAPI {
   }
 
   /**
-   * Params should have 'country', 'state', 'weeks', 'distancing.'
+   * Params should have 'country', 'state', 'days', 'distancingOn,' 'distancingOff'
    */
   predict(params, callback) {
     const endpoint = `${API_BASE_URL}/predict`;
@@ -47,8 +47,18 @@ class ModelAPI {
         params: params
       })
       .then(res => {
+        // console.log(res.data);
         callback(res.data);
       });
+  }
+
+  // get the current date of observed data
+  getCurrentDate(callback) {
+    const endpoint =  `${API_BASE_URL}/current_date`;
+    axios.get(endpoint).then(res => {
+      const currentDate = res.data;
+      callback(currentDate);
+    });
   }
 }
 

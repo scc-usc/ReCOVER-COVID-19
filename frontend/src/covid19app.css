@@ -4,39 +4,33 @@
   height: 100vh;
 }
 
-.graph-wrapper {
+/* .graph-wrapper {
   height: 90%;
   padding: 10px 20px;
-}
+} */
 
-.map-wrapper {
-  width: 50vw;
-  padding: 30px;
-  display: flex;
-  flex-flow: column;
-  float: right;
-}
+/* .map-wrapper {
+  height: 60%;
+} */
 
 #chartdiv {
   height: 100%;
   width: 100%;
 }
 
-.form-wrapper {
-  width: 50vw;
-  padding-top: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
+/* .left-col {
+  height: 100vh;
+  width: 40%;
+  float: left;
   display: flex;
   flex-flow: column;
-  float: left;
-}
+} */
 
-.top-row {
-  height: 40vh;
-  display: flex;
-  flex-flow: row;
-}
+/* .right-col {
+  height: 100vh;
+  width: 100%;
+  float: right;
+} */
 
 .bottom-row {
   height: 60vh;
