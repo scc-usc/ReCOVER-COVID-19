@@ -10,7 +10,7 @@
 }
 
 .map-wrapper {
-  width: 50vw;
+  width: 60vw;
   padding: 30px;
   display: flex;
   flex-flow: column;
@@ -23,7 +23,7 @@
 }
 
 .form-wrapper {
-  width: 50vw;
+  width: 40vw;
   padding-top: 10px;
   padding-left: 20px;
   padding-right: 20px;
