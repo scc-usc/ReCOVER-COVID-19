@@ -42,6 +42,7 @@
   height: 60vh;
   display: flex;
   flex-flow: column;
+  padding: 20px;
 }
 
 .main-content {

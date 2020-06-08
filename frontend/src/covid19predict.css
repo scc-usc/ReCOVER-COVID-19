@@ -1,0 +1,13 @@
+.map-wrapper{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    height: 40vh;
+    flex-flow: column;
+}
+
+.graph-wrapper{
+    height: 45vh;
+    width: 100%;
+}
