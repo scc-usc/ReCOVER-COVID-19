@@ -23,6 +23,11 @@ class Covid19Map extends Component {
     super();
     this.modelAPI = new ModelAPI();
 
+    this.state = {
+      areasList : [],
+      showState: false
+    }
+
     this.modelAPI.areas(allAreas =>
       this.setState({
         areasList: allAreas
@@ -35,9 +40,17 @@ class Covid19Map extends Component {
     this.fetchData(this.props.dynamicMapOn);
   }
 
+  onShowState = (value) =>{
+    this.setState({
+      showState: value
+    });
+  }
+
   fetchData(dynamicMapOn) {
     if (!dynamicMapOn || this.props.model === "") {
+      //without dynamic map,show to cumulative cases to date
       this.modelAPI.cumulative_infections(cumulativeInfections => {
+        console.log(cumulativeInfections);
         let heatmapData = cumulativeInfections.map(d => {
           return {
             id: d.area.iso_2,
@@ -51,22 +64,99 @@ class Covid19Map extends Component {
         this.setState({ heatmapData }, this.createChart);
       });
     } else {
-      this.modelAPI.predict_all({
-        days: this.props.days,
-        model: this.props.model
-      }, cumulativeInfections => {
-        let heatmapData = cumulativeInfections.map(d => {
-          return {
-            id: d.area.iso_2,
-            // Adjust all heatmap values by log scale.
-            value: d.value > 0 ? Math.log(d.value) : 0,
-            // Store the true value so we can display tooltips correctly.
-            valueTrue: d.value,
-            area: d.area
-          };
-        });
-        this.setState({ heatmapData }, this.resetChart);
-      });
+      //with dynamic map 
+      if (this.props.statistic === "cumulative"){
+        if (this.props.days >= 0)
+        {
+          this.modelAPI.predict_all({
+            days: this.props.days,
+            model: this.props.model
+          }, cumulativeInfections => {
+            console.log(cumulativeInfections);
+            let heatmapData = cumulativeInfections.map(d => {
+              return {
+                id: d.area.iso_2,
+                // Adjust all heatmap values by log scale.
+                value: d.value > 0 ? Math.log(d.value) : 0,
+                // Store the true value so we can display tooltips correctly.
+                valueTrue: d.value,
+                area: d.area
+              };
+            });
+            this.setState({ heatmapData }, this.resetChart);
+          });
+        }
+        else
+        {
+          // show history cumulative
+          this.modelAPI.history_cumulative({
+            days: this.props.days
+          }, historyCumulative => {
+            let heatmapData = historyCumulative.map(d => {
+              return {
+                id: d.area.iso_2,
+                // Adjust all heatmap values by log scale.
+                value: d.value > 0 ? Math.log(d.value) : 0,
+                // Store the true value so we can display tooltips correctly.
+                valueTrue: d.value,
+                area: d.area
+              };
+            });
+            this.setState({ heatmapData }, this.resetChart);
+          });
+
+        }
+      }
+      else
+      {
+        //new cases
+        if (this.props.days>=0)
+        {
+          //prediction
+          this.modelAPI.predict_all({
+            days: this.props.days,
+            model: this.props.model
+          }, cumulativeInfections => {
+            this.modelAPI.predict_all({
+              days: this.props.days - 1,
+              model: this.props.model
+            }, previousCumulative =>{
+              let heatmapData = cumulativeInfections.map((d, index) =>{
+                return {
+                  id: d.area.iso_2,
+                  value: d.value - previousCumulative[index].value > 0 ? Math.log(d.value - previousCumulative[index].value): 0,
+                  valueTrue:  d.value - previousCumulative[index].value,
+                  area: d.area
+                }
+              });
+              this.setState({ heatmapData }, this.resetChart);
+            });
+          });
+        }
+        else
+        {
+          //history
+          this.modelAPI.history_cumulative({
+            days: this.props.days,
+            model: this.props.model
+          }, historyInfections => {
+            this.modelAPI.history_cumulative({
+              days: this.props.days + 1,
+              model: this.props.model
+            }, nextDayCumulative =>{
+              let heatmapData = historyInfections.map((d, index) =>{
+                return {
+                  id: d.area.iso_2,
+                  value: nextDayCumulative[index].value - d.value> 0 ? Math.log(nextDayCumulative[index].value - d.value): 0,
+                  valueTrue: nextDayCumulative[index].value - d.value,
+                  area: d.area
+                }
+              });
+              this.setState({ heatmapData }, this.resetChart);
+            });
+          });
+        }
+      }
       
     }
   }
@@ -79,6 +169,7 @@ class Covid19Map extends Component {
   }
 
   createChartSeries(seriesProps) {
+    const {statistic} = this.props;
     // Create new map polygon series and copy over all given props.
     let series = this.chart.series.push(new am4maps.MapPolygonSeries());
     series = Object.assign(series, seriesProps);
@@ -86,13 +177,29 @@ class Covid19Map extends Component {
     let polygonTemplate = series.mapPolygons.template;
 
     // Heatmap fill.
-    series.heatRules.push({
-      property: "fill",
-      target: polygonTemplate,
-      min: am4core.color(HEAT_MAP_MIN_COLOR),
-      max: am4core.color(HEAT_MAP_MAX_COLOR),
-      maxValue: Math.log(5000000)
-    });
+    if (statistic === "cumulative")
+    {
+      series.heatRules.push({
+        property: "fill",
+        target: polygonTemplate,
+        min: am4core.color(HEAT_MAP_MIN_COLOR),
+        max: am4core.color(HEAT_MAP_MAX_COLOR),
+        minValue: 0,
+        maxValue: Math.log(5000000)
+      });
+    }
+    else 
+    {
+      series.heatRules.push({
+        property: "fill",
+        target: polygonTemplate,
+        min: am4core.color(HEAT_MAP_MIN_COLOR),
+        max: am4core.color(HEAT_MAP_MAX_COLOR),
+        minValue: 0,
+        maxValue: Math.log(1000000)
+      });
+    }
+    
 
     // Configure series tooltip. Display the true value of infections.
     polygonTemplate.tooltipText = "{name}: {valueTrue}";
@@ -109,10 +216,16 @@ class Covid19Map extends Component {
     // Create click handler. Apparently ALL the series in the chart must have
     // click handlers activated, so if this function is not running double-check
     // that other series also have click handlers.
-    const { onMapClick } = this.props;
+    const { onMapClick, onNoData} = this.props;
     polygonTemplate.events.on("hit", e => {
-      const { id, value, area } = e.target.dataItem.dataContext;
-      onMapClick(area);
+      const { id, value, area, name} = e.target.dataItem.dataContext;
+      if (area){
+        onMapClick(area);
+      }
+      else
+      {
+        onNoData(name);
+      }
     });
 
     return series;
@@ -132,9 +245,11 @@ class Covid19Map extends Component {
     button.marginRight = 15;
     button.cursorOverStyle = am4core.MouseCursorStyle.pointer;
     button.events.on("hit", () => {
-      this.stateSeries.forEach(s => (s.disabled = !button.isActive));
+      this.onShowState(button.isActive);
+      const {showState} = this.state;
+      this.stateSeries.forEach(s => (s.disabled = !showState));
       button.label.text = `${
-        button.isActive ? "Hide" : "Show"
+        showState ? "Hide" : "Show"
         } States/Provinces`;
     });
   }
@@ -153,25 +268,25 @@ class Covid19Map extends Component {
     const chinaSeries = this.createChartSeries({
       geodata: am4geodata_chinaLow,
       data: heatmapData,
-      disabled: true
+      disabled: !this.state.showState
     });
 
     const usaSeries = this.createChartSeries({
       geodata: am4geodata_usaLow,
       data: heatmapData,
-      disabled: true
+      disabled: !this.state.showState
     });
 
     const canadaSeries = this.createChartSeries({
       geodata: am4geodata_canadaLow,
       data: heatmapData,
-      disabled: true
+      disabled: !this.state.showState
     });
 
     const australiaSeries = this.createChartSeries({
       geodata: am4geodata_australiaLow,
       data: heatmapData,
-      disabled: true
+      disabled: !this.state.showState
     });
 
     this.stateSeries = [chinaSeries, usaSeries, canadaSeries, australiaSeries];
@@ -227,7 +342,7 @@ class Covid19Map extends Component {
     const usaSeries = this.createChartSeries({
       geodata: am4geodata_usaLow,
       data: heatmapData,
-      disabled: true
+      disabled: !this.state.showState
     });
 
     this.stateSeries = [usaSeries];

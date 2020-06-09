@@ -10,7 +10,6 @@ class ModelAPI {
     const endpoint = `${API_BASE_URL}/areas`;
     axios.get(endpoint).then(res => {
       const allAreas = res.data;
-      console.log(allAreas);
       callback(allAreas);
     });
   }
@@ -19,7 +18,6 @@ class ModelAPI {
     const endpoint = `${API_BASE_URL}/models`;
     axios.get(endpoint).then(res => {
       const allModels = res.data;
-      console.log(allModels);
       callback(allModels);
     });
   }
@@ -40,16 +38,51 @@ class ModelAPI {
   }
 
   /**
-   * Params should have 'country', 'state', 'days', 'distancing.'
+   * Params should have 'country', 'state', 'days', 'distancingOn,' 'distancingOff'
    */
   predict(params, callback) {
     const endpoint = `${API_BASE_URL}/predict`;
-    console.log(params);
     axios
       .get(endpoint, {
         params: params
       })
       .then(res => {
+        //console.log(res.data);
+        callback(res.data);
+      });
+  }
+
+  // get the current date of observed data
+  getCurrentDate(callback) {
+    const endpoint =  `${API_BASE_URL}/current_date`;
+    axios.get(endpoint).then(res => {
+      const currentDate = res.data;
+      callback(currentDate);
+    });
+  }
+
+  //check previous data 
+  checkHistory(params,callback)
+  {
+    const endpoint = `${API_BASE_URL}/check_history`;
+    axios
+      .get(endpoint, {
+        params: params
+      })
+      .then(res => {
+        callback(res.data);
+      });
+  }
+
+  //cumulative for history
+  history_cumulative(params, callback) {
+    const endpoint = `${API_BASE_URL}/history_cumulative`;
+    axios
+      .get(endpoint, {
+        params: params
+      })
+      .then(res => {
+        console.log(res.data);
         callback(res.data);
       });
   }

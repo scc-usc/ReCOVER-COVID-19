@@ -312,7 +312,8 @@ class Covid19Graph extends Component {
       <ResponsiveLine
         data={chartData}
         colors={colors}
-        margin={{ top: 50, right: 50, bottom: 50, left: 80 }}
+        //50,50,50,80
+        margin={{ top: 10, right: 50, bottom: 70, left: 100 }}
         xScale={{
           type: "time",
           format: "native",
