@@ -23,7 +23,7 @@ def getCurrentDate(request):
         area=Area.objects.get(country="US", state="")
     )
     date = [{'date': max([d.date for d in observed])}]
-    return Response(date);
+    return Response(date)
 
 
 @api_view(["GET"])
@@ -177,6 +177,47 @@ def predict(request):
 
 
 @api_view(["GET"])
+def check_history(request):
+    """
+    return the data for a region in a certain time in history
+    """
+    country = request.query_params.get("country")
+    state = request.query_params.get("state")
+    #days should be negative
+    days = int(request.query_params.get("days"))
+    try:
+        area = Area.objects.get(country=country, state=state)
+    except Area.DoesNotExist:
+        msg = "Could not find the area for country '{0}'".format(country)
+        if state:
+            msg += " and state '{0}'".format(state)
+        raise APIException(msg)
+    except Area.MultipleObjectsReturned:
+        msg = "Found multiple areas for country '{0}'".format(country)
+        if state:
+            msg += " and state '{0}'".format(state)
+        msg += ". This is most likely an error with data cleansing."
+        raise APIException(msg)
+
+    #currentDate = max([d.date for d in observed])
+    response = {
+        "observed": [],
+        "predictions": [],
+    }
+    observed = Covid19DataPoint.objects.filter(area=area)
+    currentDate = max([d.date for d in observed])
+    lastShownDate = currentDate - timedelta(days=-days)
+    shown = observed.filter(date__lte=lastShownDate)
+    for d in shown:
+        response["observed"].append({
+            "date": d.date,
+            "value": d.val,
+        })
+
+    return Response(response)
+
+
+@api_view(["GET"])
 def predict_all(request):
     days = int(request.query_params.get("days"))
     model_name = request.query_params.get("model")
@@ -199,5 +240,26 @@ def predict_all(request):
         'value': d.val,
         'date': d.date,
     } for d in qs]
+
+    return Response(response)
+
+@api_view(["GET"])
+def history_cumulative(request):
+    """
+    This endpoints returns the number of cumulative infections for each area given a date in history.
+    """
+    days = int(request.query_params.get("days"))
+    observed = Covid19DataPoint.objects.all()
+    historyDate = max([d.date for d in observed]) - timedelta(days=-days)
+    shownData = observed.filter(date=historyDate)
+    response = [{
+        'area': {
+            'country': d.area.country,
+            'state': d.area.state,
+            'iso_2': d.area.iso_2,
+        },
+        'value': d.val,
+        'date': d.date,
+    } for d in shownData]
 
     return Response(response)
