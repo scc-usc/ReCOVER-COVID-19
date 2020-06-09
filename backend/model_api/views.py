@@ -14,6 +14,17 @@ from model_api.models import \
 def affected_by(request):
     return Response("affected_by!")
 
+@api_view(["GET"])
+def getCurrentDate(request):
+    """
+    This endpoint returns the date of the most recent cumulative data of observed data
+    """
+    observed = Covid19DataPoint.objects.filter(
+        area=Area.objects.get(country="US", state="")
+    )
+    date = [{'date': max([d.date for d in observed])}]
+    return Response(date);
+
 
 @api_view(["GET"])
 def areas(request):

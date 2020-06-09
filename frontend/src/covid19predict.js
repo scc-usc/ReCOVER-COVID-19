@@ -4,6 +4,7 @@ import Covid19Map from "./covid19map";
 import ModelAPI from "./modelapi";
 import { areaToStr, strToArea, modelToStr } from "./covid19util";
 import { test_data } from "./test_data";
+import "./covid19predict.css";
 
 import {
   Form,
@@ -16,8 +17,15 @@ import {
   Tooltip,
   Switch,
   Popover,
-  Alert
+  Alert,
+  Row,
+  Col
 } from "antd";
+
+
+import {
+  InfoCircleOutlined
+} from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -39,28 +47,12 @@ class Covid19Predict extends PureComponent {
 
   constructor(props) {
     super(props);
-
-    this.formRef = React.createRef();
-
-    this.modelAPI = new ModelAPI();
-
-    this.modelAPI.areas(allAreas =>
-      this.setState({
-        areasList: allAreas
-      })
-    );
-
-    this.modelAPI.models(allModels =>
-      this.setState({
-        modelsList: allModels
-      })
-    );
-
     this.state = {
       areas: this.props.areas || [],
       areasList: [],
-      models: this.props.models || ["No under-reported cases(default)"],
+      models: this.props.models || ['No under-reported cases(default)'],
       modelsList: [],
+      currentDate: "",
       distancingOn: true,
       distancingOff: false,
       mainGraphData: {},
@@ -80,6 +72,33 @@ class Covid19Predict extends PureComponent {
     this.switchDynamicMap = this.switchDynamicMap.bind(this);
     this.onAlertClose = this.onAlertClose.bind(this);
     this.onNoData = this.onNoData.bind(this);
+    this.generateMarks = this.generateMarks.bind(this);
+  }
+
+  componentWillMount = ()=>{
+    this.addAreaByStr('US');
+
+    this.formRef = React.createRef();
+
+    this.modelAPI = new ModelAPI();
+
+    this.modelAPI.areas(allAreas =>
+      this.setState({
+        areasList: allAreas
+      })
+    );
+
+    this.modelAPI.models(allModels =>
+      this.setState({
+        modelsList: allModels
+      })
+    );
+
+    this.modelAPI.getCurrentDate(currentDate => 
+      this.setState({
+        currentDate: currentDate[0].date
+      })
+    );
   }
 
   onMapClick(area) {
@@ -266,10 +285,24 @@ class Covid19Predict extends PureComponent {
     })
   }
 
+  generateMarks = ()=>{
+    const {currentDate} = this.state;
+    let date = new Date(`${currentDate}T00:00`);
+    let marks = {};
+    marks[0] = `${date.getMonth()+1}/${date.getDate()}`;
+    for (let i = 7; i < 99; i+= 7)
+    {
+       date.setDate(date.getDate() + 7);
+       marks[i] = `${date.getMonth()+1}/${date.getDate()}`;
+    }
+    return marks;
+  }
+
   render() {
     const {
       areas,
       areasList,
+      models,
       modelsList,
       days,
       mainGraphData,
@@ -280,6 +313,7 @@ class Covid19Predict extends PureComponent {
       errorDescription
     } = this.state;
 
+    const marks = this.generateMarks();
     // Only show options for countries that have not been selected yet.
     const countryOptions = areasList
       .filter(area => !this.areaIsSelected(area))
@@ -309,10 +343,11 @@ class Covid19Predict extends PureComponent {
           <a href="https://arxiv.org/abs/2004.11372"> https://arxiv.org/abs/2004.11372</a>.
         </p>
       );
-
     return (
       <div className="covid-19-predict">
-        <div className="left-col">
+        <Row type="flex" justify="space-around" align="middle">
+        {/* <div className="left-col"> */}
+        <Col span={12}>
         {noDataError?
           <Alert
           message= {`${errorDescription}`}
@@ -328,6 +363,7 @@ class Covid19Predict extends PureComponent {
               onValuesChange={this.onValuesChange}
               initialValues={{
                 areas: areas,
+                models: models,
                 days: 10,
                 socialDistancing: ["distancingOn"]
               }}
@@ -362,16 +398,18 @@ class Covid19Predict extends PureComponent {
                 </Select>
               </Form.Item>
               <Form.Item
-                label="Days to Predict"
+                label="Date to Predict"
                 name="days"
                 rules={[
                   { required: true, message: "Please select number of days!" }
                 ]}
               >
                 <Slider
+                  marks={marks}
                   min={1}
-                  initialValue={15}
+                  initialValue={10}
                   max={99}
+                  step={7}
                   onAfterChange={this.onDaysToPredictChange}
                 />
               </Form.Item>
@@ -384,10 +422,10 @@ class Covid19Predict extends PureComponent {
               <Form.Item label="Social Distancing" name="socialDistancing">
                 <Checkbox.Group>
                   <Checkbox defaultChecked value="distancingOn">
-                    On
+                    Current Trend
                   </Checkbox>
                   <Checkbox value="distancingOff"> 
-                    Off
+                    Social Distancing Off
                   </Checkbox>
                 </Checkbox.Group>
               </Form.Item>
@@ -418,8 +456,10 @@ class Covid19Predict extends PureComponent {
               />
             </p>
           </div>
+        </Col>
+        <Col span={12}>
           <div className="map-wrapper">
-            <Covid19Map
+            <Covid19Map className="map"
               triggerRef={this.bindRef}
               dynamicMapOn={this.state.dynamicMapOn}
               days={days}
@@ -429,16 +469,24 @@ class Covid19Predict extends PureComponent {
               statistic={statistic}
             />
           </div>
-        </div>
-        <div className="right-col">
-          <div className="graph-wrapper">
-            <Covid19Graph
-              data={mainGraphData}
-              statistic={statistic}
-              yScale={yScale}
-            ></Covid19Graph>
-          </div>
-        </div>
+        {/* </div> */}
+        </Col>
+        </Row>
+        {areas.length?
+          <Row>
+          <Col span={24}>
+          {/* <div className="right-col"> */}
+            <div className="graph-wrapper">
+              <Covid19Graph
+                data={mainGraphData}
+                statistic={statistic}
+                yScale={yScale}
+              ></Covid19Graph>
+            </div>
+          {/* </div> */}
+          </Col>
+          </Row>
+        : null}
       </div>
     );
   }
