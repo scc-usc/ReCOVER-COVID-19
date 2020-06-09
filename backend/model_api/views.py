@@ -7,7 +7,8 @@ from model_api.models import \
     Covid19DataPoint, \
     Covid19CumulativeDataPoint, \
     Covid19Model, \
-    Covid19PredictionDataPoint
+    Covid19PredictionDataPoint, \
+    QuarantineScoreDataPoint
 
 
 @api_view(["GET"])
@@ -199,5 +200,51 @@ def predict_all(request):
         'value': d.val,
         'date': d.date,
     } for d in qs]
+
+    return Response(response)
+
+@api_view(["GET"])
+def scores(request):
+    """
+    This endpoint will return a list of quarantine score data points of 
+    for a specific area from 2020-3-11 to a given date. The expected 
+    query params are "country", "state" and "weeks" where "weeks" denoting 
+    the number of weeks after 2020-3-11.
+    """
+    country = request.query_params.get("country")
+    state = request.query_params.get("state")
+    weeks = int(request.query_params.get("weeks"))
+
+    # Get the area and raise an API exception if we can't.
+    try:
+        area = Area.objects.get(country=country, state=state)
+    except Area.DoesNotExist:
+        msg = "Could not find the area for country '{0}'".format(country)
+        if state:
+            msg += " and state '{0}'".format(state)
+        raise APIException(msg)
+    except Area.MultipleObjectsReturned:
+        msg = "Found multiple areas for country '{0}'".format(country)
+        if state:
+            msg += " and state '{0}'".format(state)
+        msg += ". This is most likely an error with data cleansing."
+        raise APIException(msg)
+
+    response = {
+        "scores": []
+    }
+
+    score_start_date = datetime(2020, 3, 11)
+    score_end_date = score_start_date + timedelta(days=7*weeks)
+
+    quarantine_scores = QuarantineScoreDataPoint.objects.filter(
+        area=area,
+        date__range=(score_start_date, score_end_date)
+    )
+    for d in quarantine_scores:
+        response["scores"].append({
+            "date": d.date,
+            "value": d.val
+        })
 
     return Response(response)

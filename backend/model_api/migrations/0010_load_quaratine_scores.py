@@ -9,7 +9,7 @@ US_QUARANTINE_SCORE_CSV_PATH = "../results/scores/us_scores.csv"
 
 def load_quarantine_score(apps, schema_editor):
     Area = apps.get_model('model_api', 'Area')
-    QurantineScore = apps.get_model('model_api', 'QuarantineScore')
+    QuarantineScoreDataPoint = apps.get_model('model_api', 'QuarantineScoreDataPoint')
 
     # Country level score.
     with open (GLOBAL_QUARANTINE_SCORE_CVS_PATH) as f:
@@ -27,7 +27,31 @@ def load_quarantine_score(apps, schema_editor):
                 date = datetime.datetime(*[int(item) for item in raw_date.split('-')])
                 val = float(row[i])
 
-                quarantine_score = QurantineScore(
+                quarantine_score = QuarantineScoreDataPoint(
+                    area=area,
+                    date=date,
+                    val=val
+                )
+                quarantine_score.save()
+
+
+    # US state-level score.
+    with open(US_QUARANTINE_SCORE_CSV_PATH) as f:
+        reader = csv.reader(f)
+        header = next(reader, None)
+
+        for row in reader:
+            state = row[1]
+            country = "US"
+
+            area = Area.objects.get(country=country, state=state)
+
+            for i in range(2, len(header)):
+                raw_date = header[i]
+                date = datetime.datetime(*[int(item) for item in raw_date.split('-')])
+                val = float(row[i])
+
+                quarantine_score = QuarantineScoreDataPoint(
                     area=area,
                     date=date,
                     val=val
@@ -37,7 +61,7 @@ def load_quarantine_score(apps, schema_editor):
 
 def delete_quarantine_score(apps, schema_editor):
     Area = apps.get_model('model_api', 'Area')
-    QurantineScore = apps.get_model('model_api', 'QuarantineScore')
+    QurantineScore = apps.get_model('model_api', 'QuarantineScoreDataPoint')
 
     Area.objects.all().delete()
     QurantineScore.objects.all().delete()
