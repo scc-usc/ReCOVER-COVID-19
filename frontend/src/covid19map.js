@@ -66,7 +66,7 @@ class Covid19Map extends Component {
     } else {
       //with dynamic map 
       if (this.props.statistic === "cumulative"){
-        if (this.props.days >= 0)
+        if (this.props.days > 0)
         {
           this.modelAPI.predict_all({
             days: this.props.days,
@@ -110,27 +110,47 @@ class Covid19Map extends Component {
       else
       {
         //new cases
-        if (this.props.days>=0)
+        if (this.props.days>0)
         {
           //prediction
           this.modelAPI.predict_all({
             days: this.props.days,
             model: this.props.model
           }, cumulativeInfections => {
-            this.modelAPI.predict_all({
-              days: this.props.days - 1,
-              model: this.props.model
-            }, previousCumulative =>{
-              let heatmapData = cumulativeInfections.map((d, index) =>{
-                return {
-                  id: d.area.iso_2,
-                  value: d.value - previousCumulative[index].value > 0 ? Math.log(d.value - previousCumulative[index].value): 0,
-                  valueTrue:  d.value - previousCumulative[index].value,
-                  area: d.area
-                }
+            //if days is one, we need data from days = 0, which is in history_cumulative
+            if (this.props.days > 1)
+            {
+              this.modelAPI.predict_all({
+                days: this.props.days - 1,
+                model: this.props.model
+              }, previousCumulative =>{
+                let heatmapData = cumulativeInfections.map((d, index) =>{
+                  return {
+                    id: d.area.iso_2,
+                    value: d.value - previousCumulative[index].value > 0 ? Math.log(d.value - previousCumulative[index].value): 0,
+                    valueTrue:  d.value - previousCumulative[index].value,
+                    area: d.area
+                  }
+                });
+                this.setState({ heatmapData }, this.resetChart);
               });
-              this.setState({ heatmapData }, this.resetChart);
-            });
+            }
+            else
+            {
+              this.modelAPI.history_cumulative({
+                days: this.props.days - 1
+              }, previousCumulative =>{
+                let heatmapData = cumulativeInfections.map((d, index) =>{
+                  return {
+                    id: d.area.iso_2,
+                    value: d.value - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).value > 0 ? Math.log(d.value - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).value ): 0,
+                    valueTrue:  d.value - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).value ,
+                    area: d.area
+                  }
+                });
+                this.setState({ heatmapData }, this.resetChart);
+              });
+            }
           });
         }
         else
@@ -141,14 +161,14 @@ class Covid19Map extends Component {
             model: this.props.model
           }, historyInfections => {
             this.modelAPI.history_cumulative({
-              days: this.props.days + 1,
+              days: this.props.days - 1,
               model: this.props.model
             }, nextDayCumulative =>{
               let heatmapData = historyInfections.map((d, index) =>{
                 return {
                   id: d.area.iso_2,
-                  value: nextDayCumulative[index].value - d.value> 0 ? Math.log(nextDayCumulative[index].value - d.value): 0,
-                  valueTrue: nextDayCumulative[index].value - d.value,
+                  value: d.value - nextDayCumulative[index].value > 0 ? Math.log(d.value - nextDayCumulative[index].value): 0,
+                  valueTrue: d.value - nextDayCumulative[index].value,
                   area: d.area
                 }
               });
