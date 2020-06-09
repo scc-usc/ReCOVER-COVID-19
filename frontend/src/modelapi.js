@@ -47,7 +47,7 @@ class ModelAPI {
         params: params
       })
       .then(res => {
-        // console.log(res.data);
+        //console.log(res.data);
         callback(res.data);
       });
   }
@@ -59,6 +59,32 @@ class ModelAPI {
       const currentDate = res.data;
       callback(currentDate);
     });
+  }
+
+  //check previous data 
+  checkHistory(params,callback)
+  {
+    const endpoint = `${API_BASE_URL}/check_history`;
+    axios
+      .get(endpoint, {
+        params: params
+      })
+      .then(res => {
+        callback(res.data);
+      });
+  }
+
+  //cumulative for history
+  history_cumulative(params, callback) {
+    const endpoint = `${API_BASE_URL}/history_cumulative`;
+    axios
+      .get(endpoint, {
+        params: params
+      })
+      .then(res => {
+        console.log(res.data);
+        callback(res.data);
+      });
   }
 }
 
