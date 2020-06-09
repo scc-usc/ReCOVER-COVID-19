@@ -248,3 +248,29 @@ def scores(request):
         })
 
     return Response(response)
+
+@api_view(["GET"])
+def scores_all(request):
+    """
+    This endpoint will return a list of quarantine score data points 
+    for all areas in a given date. The query param contains "weeks" and 
+    "weeks" denote the number of weeks after 2020-3-11.
+    """
+    weeks = int(request.query_params.get("weeks"))
+    date = datetime(2020, 3, 11) + timedelta(days=7*weeks)
+
+    quarantine_scores = QuarantineScoreDataPoint.objects.filter(
+        date=date
+    )
+
+    response = [{
+        'area': {
+            'country': d.area.country,
+            'state': d.area.state,
+            'iso_2': d.area.iso_2,
+        },
+        'value': d.val,
+        'date': d.date,
+    } for d in quarantine_scores]
+
+    return Response(response)

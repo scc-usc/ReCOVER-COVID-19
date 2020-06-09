@@ -10,5 +10,6 @@ urlpatterns = [
     path('predict_all/', views.predict_all),
     path('models/', views.models),
     path('current_date/', views.getCurrentDate),
-    path('score/', views.scores)
+    path('scores/', views.scores),
+    path('scores_all/', views.scores_all)
 ]
