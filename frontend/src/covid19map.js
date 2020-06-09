@@ -48,6 +48,7 @@ class Covid19Map extends Component {
 
   fetchData(dynamicMapOn) {
     if (!dynamicMapOn || this.props.model === "") {
+      //without dynamic map,show to cumulative cases to date
       this.modelAPI.cumulative_infections(cumulativeInfections => {
         console.log(cumulativeInfections);
         let heatmapData = cumulativeInfections.map(d => {
@@ -63,46 +64,98 @@ class Covid19Map extends Component {
         this.setState({ heatmapData }, this.createChart);
       });
     } else {
+      //with dynamic map 
       if (this.props.statistic === "cumulative"){
-        this.modelAPI.predict_all({
-          days: this.props.days,
-          model: this.props.model
-        }, cumulativeInfections => {
-          console.log(cumulativeInfections);
-          let heatmapData = cumulativeInfections.map(d => {
-            return {
-              id: d.area.iso_2,
-              // Adjust all heatmap values by log scale.
-              value: d.value > 0 ? Math.log(d.value) : 0,
-              // Store the true value so we can display tooltips correctly.
-              valueTrue: d.value,
-              area: d.area
-            };
-          });
-          this.setState({ heatmapData }, this.resetChart);
-        });
-      }
-      else
-      {
-        this.modelAPI.predict_all({
-          days: this.props.days,
-          model: this.props.model
-        }, cumulativeInfections => {
+        if (this.props.days >= 0)
+        {
           this.modelAPI.predict_all({
-            days: this.props.days - 1,
+            days: this.props.days,
             model: this.props.model
-          }, previousCumulative =>{
-            let heatmapData = cumulativeInfections.map((d, index) =>{
+          }, cumulativeInfections => {
+            console.log(cumulativeInfections);
+            let heatmapData = cumulativeInfections.map(d => {
               return {
                 id: d.area.iso_2,
-                value: d.value - previousCumulative[index].value > 0 ? Math.log(d.value - previousCumulative[index].value): 0,
-                valueTrue:  d.value - previousCumulative[index].value,
+                // Adjust all heatmap values by log scale.
+                value: d.value > 0 ? Math.log(d.value) : 0,
+                // Store the true value so we can display tooltips correctly.
+                valueTrue: d.value,
                 area: d.area
-              }
+              };
             });
             this.setState({ heatmapData }, this.resetChart);
           });
-        });
+        }
+        else
+        {
+          // show history cumulative
+          this.modelAPI.history_cumulative({
+            days: this.props.days
+          }, historyCumulative => {
+            let heatmapData = historyCumulative.map(d => {
+              return {
+                id: d.area.iso_2,
+                // Adjust all heatmap values by log scale.
+                value: d.value > 0 ? Math.log(d.value) : 0,
+                // Store the true value so we can display tooltips correctly.
+                valueTrue: d.value,
+                area: d.area
+              };
+            });
+            this.setState({ heatmapData }, this.resetChart);
+          });
+
+        }
+      }
+      else
+      {
+        //new cases
+        if (this.props.days>=0)
+        {
+          //prediction
+          this.modelAPI.predict_all({
+            days: this.props.days,
+            model: this.props.model
+          }, cumulativeInfections => {
+            this.modelAPI.predict_all({
+              days: this.props.days - 1,
+              model: this.props.model
+            }, previousCumulative =>{
+              let heatmapData = cumulativeInfections.map((d, index) =>{
+                return {
+                  id: d.area.iso_2,
+                  value: d.value - previousCumulative[index].value > 0 ? Math.log(d.value - previousCumulative[index].value): 0,
+                  valueTrue:  d.value - previousCumulative[index].value,
+                  area: d.area
+                }
+              });
+              this.setState({ heatmapData }, this.resetChart);
+            });
+          });
+        }
+        else
+        {
+          //history
+          this.modelAPI.history_cumulative({
+            days: this.props.days,
+            model: this.props.model
+          }, historyInfections => {
+            this.modelAPI.history_cumulative({
+              days: this.props.days + 1,
+              model: this.props.model
+            }, nextDayCumulative =>{
+              let heatmapData = historyInfections.map((d, index) =>{
+                return {
+                  id: d.area.iso_2,
+                  value: nextDayCumulative[index].value - d.value> 0 ? Math.log(nextDayCumulative[index].value - d.value): 0,
+                  valueTrue: nextDayCumulative[index].value - d.value,
+                  area: d.area
+                }
+              });
+              this.setState({ heatmapData }, this.resetChart);
+            });
+          });
+        }
       }
       
     }
