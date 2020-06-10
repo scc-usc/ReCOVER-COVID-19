@@ -1,3 +1,5 @@
+# Forecasting
+
 To generate forecasts, run
 daily_run.m
 
@@ -20,3 +22,7 @@ Two crucial functions that learn and apply the epidemic model:
 Population data , travel data, and country names are included here
 
 Also included is a live script: plot_gen.mlx to visualize forecasts instead of writing forecasts in files.
+
+# Unreported Cases
+
+To test the code for estimation of unreported cases, use the live script: daily_explore_unrep.mlx
