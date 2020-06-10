@@ -285,7 +285,8 @@ def scores(request):
     for d in quarantine_scores:
         response["scores"].append({
             "date": d.date,
-            "value": d.val
+            "value": d.val,
+            "conf": d.conf
         })
 
     return Response(response)
@@ -312,6 +313,7 @@ def scores_all(request):
         },
         'value': d.val,
         'date': d.date,
+        'conf': d.conf
 
     } for d in quarantine_scores]
     
