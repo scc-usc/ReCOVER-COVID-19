@@ -529,16 +529,6 @@ class Covid19Predict extends PureComponent {
               onMapClick={this.onMapClick} 
             />
           </div>
-        <div className="right-col">
-          <div className="graph-wrapper">
-            <Covid19Graph
-              data={mainGraphData}
-              dataType={dataType}
-              onNoData = {this.onNoData}
-              statistic={statistic}
-            />
-          </div>
-        </div>
         {/* </div> */}
         </Col>
         </Row>
@@ -549,6 +539,8 @@ class Covid19Predict extends PureComponent {
             <div className="graph-wrapper">
               <Covid19Graph
                 data={mainGraphData}
+                dataType={dataType}
+                onNoData = {this.onNoData}
                 statistic={statistic}
                 yScale={yScale}
               ></Covid19Graph>

@@ -212,6 +212,7 @@ def check_history(request):
     response = {
         "observed": [],
         "predictions": [],
+        "observed_deaths": [],
     }
     observed = Covid19DataPoint.objects.filter(area=area)
     currentDate = max([d.date for d in observed])
@@ -219,6 +220,17 @@ def check_history(request):
     shown = observed.filter(date__lte=lastShownDate)
     for d in shown:
         response["observed"].append({
+            "date": d.date,
+            "value": d.val,
+        })
+
+    observed_deaths = Covid19DeathDataPoint.objects.filter(
+        area = area,
+        date__lte=lastShownDate
+    )
+
+    for d in shown:
+        response["observed_deaths"].append({
             "date": d.date,
             "value": d.val,
         })
