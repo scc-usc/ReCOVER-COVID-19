@@ -82,7 +82,30 @@ class ModelAPI {
         params: params
       })
       .then(res => {
-        console.log(res.data);
+        callback(res.data);
+      });
+  }
+
+  //get all quarantine score at a week, parameter: weeks
+  scores_all(params, callback) {
+    const endpoint = `${API_BASE_URL}/scores_all`;
+    axios
+      .get(endpoint, {
+        params: params
+      })
+      .then(res => {
+        callback(res.data);
+      });
+  }
+
+  //get all, parameter: state, country, weeks
+  scores(params, callback) {
+    const endpoint = `${API_BASE_URL}/scores`;
+    axios
+      .get(endpoint, {
+        params: params
+      })
+      .then(res => {
         callback(res.data);
       });
   }

@@ -392,7 +392,7 @@ class Covid19Predict extends PureComponent {
       <div className="covid-19-predict">
         <Row type="flex" justify="space-around" align="middle">
         {/* <div className="left-col"> */}
-        <Col span={12}>
+        <Col span={10}>
         {noDataError?
           <Alert
           message= {`${errorDescription}`}
@@ -500,7 +500,7 @@ class Covid19Predict extends PureComponent {
             </p>
           </div>
         </Col>
-        <Col span={12}>
+        <Col span={14}>
           <div className="map-wrapper">
             <Covid19Map className="map"
               triggerRef={this.bindRef}
