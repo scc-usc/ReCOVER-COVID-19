@@ -207,8 +207,6 @@ class Covid19Predict extends PureComponent {
    * days to predict is handled separately by onDaysToPredictChange.
    */
   onValuesChange(changedValues, allValues) {
-    // console.log(changedValues);
-    // console.log(allValues);
     if ("socialDistancing" in changedValues || "models" in changedValues) {
       // If either the social distancing or model parameters were changed, we
       // clear our data and do a full reload. We purposely ignore days to
@@ -337,7 +335,7 @@ class Covid19Predict extends PureComponent {
 
   getDaysToFirstDate = ()=>{
     const {currentDate} = this.state;
-    let date = new Date(`${this.state.currentDate}T00:00`);
+    let date = new Date(`${currentDate}T00:00`);
     let firstDate = new Date(2020,0,22);
     return Math.ceil(Math.abs(date - firstDate)/ (1000 * 60 * 60 * 24));
   }
@@ -356,7 +354,7 @@ class Covid19Predict extends PureComponent {
       noDataError,
       errorDescription
     } = this.state;
-
+    console.log(mainGraphData);
     const marks = this.generateMarks();
     const daysToFirstDate = this.getDaysToFirstDate();
     // Only show options for countries that have not been selected yet.
@@ -504,7 +502,7 @@ class Covid19Predict extends PureComponent {
           <div className="map-wrapper">
             <Covid19Map className="map"
               triggerRef={this.bindRef}
-              dynamicMapOn={this.state.dynamicMapOn}
+              dynamicMapOn={dynamicMapOn}
               days={days}
               model={this.state.models == null || this.state.models.length ===0? "" : this.state.models[this.state.models.length-1]}
               onMapClick={this.onMapClick} 

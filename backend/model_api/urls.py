@@ -13,5 +13,6 @@ urlpatterns = [
     path('scores/', views.scores),
     path('scores_all/', views.scores_all),
     path('check_history/', views.check_history),
-    path('history_cumulative/', views.history_cumulative)
+    path('history_cumulative/', views.history_cumulative),
+    path('latest_score_date/', views.latest_score_date)
 ]

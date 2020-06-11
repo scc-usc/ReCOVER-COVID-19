@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.exceptions import APIException
 from rest_framework.response import Response
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, date
 from model_api.models import \
     Area, \
     Covid19DataPoint, \
@@ -272,18 +272,22 @@ def scores(request):
         raise APIException(msg)
 
     response = {
-        "scores": []
+        "observed": [],
+        "predictions": [],
     }
 
     score_start_date = datetime(2020, 3, 11)
     score_end_date = score_start_date + timedelta(days=7*weeks)
 
+    print(score_end_date)
     quarantine_scores = QuarantineScoreDataPoint.objects.filter(
         area=area,
-        date__range=(score_start_date, score_end_date)
+        #date__range=(score_start_date, score_end_date)
+        date__lte=score_end_date
     )
+    print(quarantine_scores)
     for d in quarantine_scores:
-        response["scores"].append({
+        response["observed"].append({
             "date": d.date,
             "value": d.val,
             "conf": d.conf
@@ -318,6 +322,22 @@ def scores_all(request):
     } for d in quarantine_scores]
     
     return Response(response)
+
+@api_view(['GET'])
+def latest_score_date(request):
+    """
+    return the last date which the QuarantineScore data is aviliable
+    """
+    observed = QuarantineScoreDataPoint.objects.all()
+    latest_date = observed.last().date
+    date2 = date(2020,3,11)
+    delta = latest_date - date2
+    response = [{
+        'date': latest_date,
+        'weeks': delta.days/7
+    }]
+    return Response(response)
+
 
 @api_view(["GET"])
 def history_cumulative(request):

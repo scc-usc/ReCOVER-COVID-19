@@ -109,6 +109,15 @@ class ModelAPI {
         callback(res.data);
       });
   }
+
+  //get the latest date which 
+  latest_score_date(callback) {
+    const endpoint =  `${API_BASE_URL}/latest_score_date`;
+    axios.get(endpoint).then(res => {
+      const latestDate = res.data;
+      callback(latestDate);
+    });
+  }
 }
 
 export default ModelAPI;
