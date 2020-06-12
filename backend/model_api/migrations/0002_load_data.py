@@ -8,8 +8,8 @@ import datetime
 
 GLOBAL_COVID_19_INFECTION_CSV_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
 US_STATES_COVID_19_INFECTION_CSV_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv"
-GLOBAL_COVID_19_DEATH_CSV_PATH = "./data/time_series_covid19_deaths_global.csv"
-US_STATES_COVID_19_DEATH_CSV_PATH = "./data/time_series_covid19_deaths_US.csv"
+GLOBAL_COVID_19_DEATH_CSV_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
+US_STATES_COVID_19_DEATH_CSV_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv"
 
 def load_covid19_data(apps, schema_editor):
     Area = apps.get_model('model_api', 'Area')
@@ -78,46 +78,46 @@ def load_covid19_data(apps, schema_editor):
             country_data_point.save()
 
     # Country level death data.
-    with open(GLOBAL_COVID_19_DEATH_CSV_PATH) as f:
-        reader = csv.reader(f)
-        header = next(reader, None)
+    f = io.StringIO(urllib.request.urlopen(GLOBAL_COVID_19_DEATH_CSV_URL).read().decode('utf-8')) 
+    reader = csv.reader(f)
+    header = next(reader, None)
 
-        # A 2-level dictionary where the 1st key is country name and 2nd key
-        # is raw date, and final value is the total number of deaths for
-        # that country at that specific date.
-        country_level_deaths = {}
+    # A 2-level dictionary where the 1st key is country name and 2nd key
+    # is raw date, and final value is the total number of deaths for
+    # that country at that specific date.
+    country_level_deaths = {}
 
-        for row in reader:
-            state = row[0]
-            country = row[1]
+    for row in reader:
+        state = row[0]
+        country = row[1]
 
-            # Skip a problematic entry in JHU's report
-            if state == 'Recovered':
+        # Skip a problematic entry in JHU's report
+        if state == 'Recovered':
+            continue
+
+        if country not in country_level_deaths:
+            country_level_deaths[country] = {}
+
+        area = Area.objects.get(country=country, state=state)
+
+        for i in range(4, len(header)):
+            raw_date = header[i]
+            date = datetime.datetime.strptime(
+                raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
+            val = int(row[i])
+
+            # Skip negative values.
+            if val < 0:
                 continue
 
-            if country not in country_level_deaths:
-                country_level_deaths[country] = {}
+            if raw_date not in country_level_deaths[country]:
+                country_level_deaths[country][raw_date] = 0
+            country_level_deaths[country][raw_date] += val
 
-            area = Area.objects.get(country=country, state=state)
-
-            for i in range(4, len(header)):
-                raw_date = header[i]
-                date = datetime.datetime.strptime(
-                    raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
-                val = int(row[i])
-
-                # Skip negative values.
-                if val < 0:
-                    continue
-
-                if raw_date not in country_level_deaths[country]:
-                    country_level_deaths[country][raw_date] = 0
-                country_level_deaths[country][raw_date] += val
-
-                if state != "":
-                    covid19_death_data_point = Covid19DeathDataPoint(
-                        area=area, date=date, val=val)
-                    covid19_death_data_point.save()
+            if state != "":
+                covid19_death_data_point = Covid19DeathDataPoint(
+                    area=area, date=date, val=val)
+                covid19_death_data_point.save()
 
     for country, deaths in country_level_deaths.items():
         country_area = Area.objects.get(country=country, state="")
@@ -175,31 +175,31 @@ def load_covid19_data(apps, schema_editor):
             state_data_point.save()
 
     # US state-level death data.
-    with open(US_STATES_COVID_19_DEATH_CSV_PATH) as f:
-        reader = csv.reader(f)
-        header = next(reader, None)
+    f = io.StringIO(urllib.request.urlopen(US_STATES_COVID_19_DEATH_CSV_URL).read().decode('utf-8')) 
+    reader = csv.reader(f)
+    header = next(reader, None)
 
-        state_level_deaths = {}
+    state_level_deaths = {}
 
-        for row in reader:
-            state = row[6]
+    for row in reader:
+        state = row[6]
 
-            if state not in state_level_deaths:
-                state_level_deaths[state] = {}
+        if state not in state_level_deaths:
+            state_level_deaths[state] = {}
 
-            for i in range(12, len(header)):
-                raw_date = header[i]
-                date = datetime.datetime.strptime(
-                    raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
-                val = int(row[i])
+        for i in range(12, len(header)):
+            raw_date = header[i]
+            date = datetime.datetime.strptime(
+                raw_date, "%m/%d/%y").strftime("%Y-%m-%d")
+            val = int(row[i])
 
-                # Skip negative values.
-                if val < 0:
-                    continue
+            # Skip negative values.
+            if val < 0:
+                continue
 
-                if raw_date not in state_level_deaths[state]:
-                    state_level_deaths[state][raw_date] = 0
-                state_level_deaths[state][raw_date] += val
+            if raw_date not in state_level_deaths[state]:
+                state_level_deaths[state][raw_date] = 0
+            state_level_deaths[state][raw_date] += val
 
     
     for state, deaths in state_level_deaths.items():
