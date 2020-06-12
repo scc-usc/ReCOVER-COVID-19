@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import ModelAPI from "../modelapi";
 import { areaToStr, strToArea} from "../covid19util";
 import Covid19Graph from "../covid19graph";
+import ScoreMap from './scoreMap';
 import "./scorePage.css";
 
 import {
@@ -48,7 +49,7 @@ class ScorePage extends PureComponent{
         this.generateMarks = this.generateMarks.bind(this);
     }
 
-    componentWillMount = ()=>{
+    componentDidMount = ()=>{
         this.formRef = React.createRef();
     
         this.modelAPI = new ModelAPI();
@@ -60,6 +61,10 @@ class ScorePage extends PureComponent{
                 latestWeek: latestDate[0].weeks
             }, ()=>{
                 this.addAreaByStr('US');
+                this.formRef.current.setFieldsValue({
+                    weeks: this.state.latestWeek,
+                });
+                this.map.fetchData(this.state.dynamicMapOn);
             })
         );
     
@@ -173,7 +178,7 @@ class ScorePage extends PureComponent{
     
             // TODO: Add code for stuff after reload here!
             // Force reload the heatmap, only refetch data when dynamic map is on
-            if (this.state.dynamicMapOn && this.state.models.length !== 0) {
+            if (this.state.dynamicMapOn) {
               this.map.fetchData(this.state.dynamicMapOn);
             }
     
@@ -239,10 +244,9 @@ class ScorePage extends PureComponent{
         });
 
         const marks = this.generateMarks();
-
         return(
             <div className="score-page">
-                <Row type="flex" justify="space-around" align="middle">
+                <Row type="flex" justify="space-around" >
                 <Col span={10}>
                     {noDataError?
                         <Alert
@@ -257,10 +261,6 @@ class ScorePage extends PureComponent{
                         <Form
                             ref={this.formRef}
                             onValuesChange={this.onValuesChange}
-                            initialValues={{
-                                areas: areas,
-                                weeks: 11
-                            }}
                         >
                             <Form.Item
                                 label="Areas"
@@ -299,6 +299,19 @@ class ScorePage extends PureComponent{
                         />
                         </p>
                     </div>
+                </Col>
+                <Col span={14}>
+                <div className="map-wrapper">
+                    <ScoreMap className="score-map"
+                    triggerRef={this.bindRef}
+                    dynamicMapOn={dynamicMapOn}
+                    weeks={weeks}
+                    latestWeek={latestWeek - 1}
+                    onMapClick={this.onMapClick} 
+                    onNoData = {this.onNoData}
+                    />
+                </div>
+                {/* </div> */}
                 </Col>
                 </Row>
                 {areas.length?
