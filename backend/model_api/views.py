@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.exceptions import APIException
 from rest_framework.response import Response
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, date
 from model_api.models import \
     Area, \
     Covid19DataPoint, \
@@ -10,8 +10,8 @@ from model_api.models import \
     Covid19InfectionModel, \
     Covid19DeathModel, \
     Covid19PredictionDataPoint, \
-    Covid19DeathDataPoint
-
+    Covid19DeathDataPoint, \
+    QuarantineScoreDataPoint
 
 @api_view(["GET"])
 def affected_by(request):
@@ -281,6 +281,101 @@ def predict_all(request):
     } for d in qs]
 
     return Response(response)
+
+@api_view(["GET"])
+def scores(request):
+    """
+    This endpoint will return a list of quarantine score data points of 
+    for a specific area from 2020-3-11 to a given date. The expected 
+    query params are "country", "state" and "weeks" where "weeks" denoting 
+    the number of weeks after 2020-3-11.
+    """
+    country = request.query_params.get("country")
+    state = request.query_params.get("state")
+    weeks = int(request.query_params.get("weeks"))
+
+    # Get the area and raise an API exception if we can't.
+    try:
+        area = Area.objects.get(country=country, state=state)
+    except Area.DoesNotExist:
+        msg = "Could not find the area for country '{0}'".format(country)
+        if state:
+            msg += " and state '{0}'".format(state)
+        raise APIException(msg)
+    except Area.MultipleObjectsReturned:
+        msg = "Found multiple areas for country '{0}'".format(country)
+        if state:
+            msg += " and state '{0}'".format(state)
+        msg += ". This is most likely an error with data cleansing."
+        raise APIException(msg)
+
+    response = {
+        "observed": [],
+        "predictions": [],
+    }
+
+    score_start_date = datetime(2020, 3, 11)
+    score_end_date = score_start_date + timedelta(days=7*weeks)
+
+    print(score_end_date)
+    quarantine_scores = QuarantineScoreDataPoint.objects.filter(
+        area=area,
+        #date__range=(score_start_date, score_end_date)
+        date__lte=score_end_date
+    )
+    print(quarantine_scores)
+    for d in quarantine_scores:
+        response["observed"].append({
+            "date": d.date,
+            "value": d.val,
+            "conf": d.conf
+        })
+
+    return Response(response)
+
+@api_view(["GET"])
+def scores_all(request):
+    """
+    This endpoint will return a list of quarantine score data points 
+    for all areas in a given date. The query param contains "weeks" and 
+    "weeks" denote the number of weeks after 2020-3-11.
+    """
+    weeks = int(request.query_params.get("weeks"))
+    date = datetime(2020, 3, 11) + timedelta(days=7*weeks)
+
+    quarantine_scores = QuarantineScoreDataPoint.objects.filter(
+        date=date
+    )
+
+    response = [{
+        'area': {
+            'country': d.area.country,
+            'state': d.area.state,
+            'iso_2': d.area.iso_2,
+        },
+        'value': d.val,
+        'date': d.date,
+        'conf': d.conf
+
+    } for d in quarantine_scores]
+    
+    return Response(response)
+
+@api_view(['GET'])
+def latest_score_date(request):
+    """
+    return the last date which the QuarantineScore data is aviliable
+    """
+    observed = QuarantineScoreDataPoint.objects.all()
+    latest_date = observed.last().date
+    date2 = date(2020,3,11)
+    delta = latest_date - date2
+    response = [{
+        'date': latest_date,
+        'weeks': delta.days/7
+    }]
+    return Response(response)
+
 
 @api_view(["GET"])
 def history_cumulative(request):

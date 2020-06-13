@@ -1,9 +1,9 @@
 .map-wrapper{
-    width: 90%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     display: flex;
-    height: 40vh;
+    height: 50vh;
     flex-flow: column;
 }
 
