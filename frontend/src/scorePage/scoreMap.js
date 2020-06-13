@@ -171,11 +171,11 @@ class ScoreMap extends Component {
           data: heatmapData
         });
     
-        const chinaSeries = this.createChartSeries({
-          geodata: am4geodata_chinaLow,
-          data: heatmapData,
-          disabled: !this.state.showState
-        });
+        // const chinaSeries = this.createChartSeries({
+        //   geodata: am4geodata_chinaLow,
+        //   data: heatmapData,
+        //   disabled: !this.state.showState
+        // });
     
         const usaSeries = this.createChartSeries({
           geodata: am4geodata_usaLow,
@@ -183,19 +183,20 @@ class ScoreMap extends Component {
           disabled: !this.state.showState
         });
     
-        const canadaSeries = this.createChartSeries({
-          geodata: am4geodata_canadaLow,
-          data: heatmapData,
-          disabled: !this.state.showState
-        });
+        // const canadaSeries = this.createChartSeries({
+        //   geodata: am4geodata_canadaLow,
+        //   data: heatmapData,
+        //   disabled: !this.state.showState
+        // });
     
-        const australiaSeries = this.createChartSeries({
-          geodata: am4geodata_australiaLow,
-          data: heatmapData,
-          disabled: !this.state.showState
-        });
+        // const australiaSeries = this.createChartSeries({
+        //   geodata: am4geodata_australiaLow,
+        //   data: heatmapData,
+        //   disabled: !this.state.showState
+        // });
     
-        this.stateSeries = [chinaSeries, usaSeries, canadaSeries, australiaSeries];
+        //this.stateSeries = [chinaSeries, usaSeries, canadaSeries, australiaSeries];
+        this.stateSeries = [usaSeries]
     
         this.initChartInterface();
       }
