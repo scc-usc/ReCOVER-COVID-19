@@ -46,20 +46,20 @@ class Covid19App extends Component {
     return (
       <Router>
         {redirectForecast?<Redirect to="/ReCOVER-COVID-19"/>:null}
-        {redirectAbout?<Redirect to="/ReCOVER-COVID-19/about"/>:null}
         {redirectScore?<Redirect to="/ReCOVER-COVID-19/score"/>:null}
+        {redirectAbout?<Redirect to="/ReCOVER-COVID-19/about"/>:null}
         <Navbar redirectForecast = {this.redirectForecast}
-                redirectAbout = {this.redirectAbout}
                 redirectScore = {this.redirectScore}
+                redirectAbout = {this.redirectAbout}
         />
         <Switch>
           <Route exact path='/ReCOVER-COVID-19' 
             render={(props) => <Covid19Predict {...props} />}/>
-          <Route exact path='/ReCOVER-COVID-19/about'
-            render={(props) => <AboutUS {...props} />} />
           <Route exact path='/ReCOVER-COVID-19/score' 
             render={(props) => <ScorePage {...props}/>}
           />
+          <Route exact path='/ReCOVER-COVID-19/about'
+            render={(props) => <AboutUS {...props} />} />
           {/* need a page for instruction */}
         </Switch>
       </Router>

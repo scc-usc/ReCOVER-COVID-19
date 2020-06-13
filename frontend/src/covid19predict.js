@@ -388,7 +388,7 @@ class Covid19Predict extends PureComponent {
       );
     return (
       <div className="covid-19-predict">
-        <Row type="flex" justify="space-around" align="middle">
+        <Row type="flex" justify="space-around">
         {/* <div className="left-col"> */}
         <Col span={10}>
         {noDataError?
