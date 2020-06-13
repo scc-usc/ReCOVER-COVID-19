@@ -246,7 +246,7 @@ class ScorePage extends PureComponent{
         const marks = this.generateMarks();
         return(
             <div className="score-page">
-                <Row type="flex" justify="space-around" >
+                <Row type="flex" justify="space-around">
                 <Col span={10}>
                     {noDataError?
                         <Alert
@@ -257,7 +257,7 @@ class ScorePage extends PureComponent{
                         onClose={this.onAlertClose}
                         />: null
                     }
-                    <div className="score-form-wrapper">
+                    <div className="form-wrapper">
                         <Form
                             ref={this.formRef}
                             onValuesChange={this.onValuesChange}

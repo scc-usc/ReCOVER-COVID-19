@@ -58,7 +58,8 @@ class ScoreMap extends Component {
                 id: d.area.iso_2,
                 // Adjust all heatmap values by log scale.
                 value: d.value > 0 ? d.value: 0,
-                area: d.area
+                area: d.area,
+                conf: d.conf
               };
             });
             this.setState({ heatmapData }, this.createChart);
@@ -108,7 +109,7 @@ class ScoreMap extends Component {
 
         
         // Configure series tooltip. Display the true value of infections.
-        polygonTemplate.tooltipText = "{name}: {value}";
+        polygonTemplate.tooltipText = "{name}: {value} (conf: {conf})";
         polygonTemplate.nonScalingStroke = true;
         polygonTemplate.strokeWidth = 0.5;
     
