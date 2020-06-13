@@ -12,6 +12,7 @@ GLOBAL_COVID_19_DEATH_CSV_URL = "https://raw.githubusercontent.com/CSSEGISandDat
 US_STATES_COVID_19_DEATH_CSV_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv"
 
 def load_covid19_data(apps, schema_editor):
+    print()
     Area = apps.get_model('model_api', 'Area')
     Covid19DataPoint = apps.get_model('model_api', 'Covid19DataPoint')
     Covid19DeathDataPoint = apps.get_model(
