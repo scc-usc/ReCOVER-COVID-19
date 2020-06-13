@@ -1,10 +1,13 @@
-function [beta_all_cell, un_prob, initdat, fittedC] = learn_nonlin(data_4, popu, k_l, jp_l, alpha_l, beta_init, mode)
+function [beta_all_cell, un_prob, initdat, fittedC, ci] = learn_nonlin(data_4, popu, k_l, jp_l, alpha_l, beta_init, mode)
     
     if nargin < 7
         mode = 'i';
     end
     
     beta_all_cell = cell(length(popu), 1);
+    res = cell(length(popu), 1);
+    ci = cell(length(popu), 1);
+    jacob = cell(length(popu), 1);
     un_prob = zeros(length(popu), 1);
     fittedC = cell(length(popu), 1);
     initdat = zeros(length(popu), 50);
@@ -37,8 +40,8 @@ function [beta_all_cell, un_prob, initdat, fittedC] = learn_nonlin(data_4, popu,
      data_4_s = [data_4(:, 1) cumsum(temp, 2)];
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-    func = @(w, x)((1-x(:, 1)/w(1, 1)).*( x(:, 2:end)*w(2:end, 1)));
+    func = @(w, x)((1-x(:, 1)/(w(1, 1))).*( x(:, 2:end)*(w(2:end, 1))));
+    %func = @(w, x)((1-x(:, 1)/sigfunc(w(1, 1))).*( x(:, 2:end)*sigfunc(w(2:end, 1))));
     
     for j=1:length(popu)
         jp = jp_l(j);
@@ -73,17 +76,23 @@ function [beta_all_cell, un_prob, initdat, fittedC] = learn_nonlin(data_4, popu,
         end
         
         initdat(j, end-jk:end) = data_4(j, 1:jk+1);
-        
+        opts1=  optimset('display','off');
         if mode == 'i'
-            ww = lsqcurvefit(func, [0.5; beta_vec], X, y, zeros(k+1, 1), ones(k+1, 1));
-            fittedC{j} = [func(ww, X) y];
+             [ww, ~, res{j}, ~, ~, ~, jacob{j}] = lsqcurvefit(func, [0.5; beta_vec], X, y, zeros(k+1, 1), ones(k+1, 1), opts1);
+             fittedC{j} = [func(ww, X) y];
+             ci{j} = nlparci(ww, res{j}, 'jacobian', jacob{j});
+             %ci{j} = bootci(1000, @(ww)func(ww, X), y);
+             
         elseif mode == 'c'
-            ww = lsqnonlin(@(w)(func2(w, data_4(j, 1:jk+1), popu(j), jp, length(y))-y), [0.5; beta_vec], zeros(k+1, 1), ones(k+1, 1));
+            [ww, ~, res{j}, ~, ~, ~, jacob{j}] = lsqnonlin(@(w)(func2(w, data_4(j, 1:jk+1), popu(j), jp, length(y))-y), [0.5; beta_vec], zeros(k+1, 1), ones(k+1, 1), opts1);
             fittedC{j} = [func2(ww, data_4(j, 1:jk+1), popu(j), jp, length(y)) y];
+            ci{j} = nlparci(ww, res{j}, 'jacobian', jacob{j});
         else
-            ww = lsqnonlin(@(w)(func3(w, popu(j), k, jp, length(y), data_4(j, 1)) - [diff(data_4(j, 1:jk+1))'; y]), [ 0.5; beta_vec; diff(data_4(j, 1:jk+1))'], zeros(jk+k+1, 1), [ones(k+1, 1); Inf(jk, 1)]);
+            [ww, ~, res{j}, ~, ~, ~, jacob{j}] = lsqnonlin(@(w)(func3(w, popu(j), k, jp, length(y), data_4(j, 1)) - [diff(data_4(j, 1:jk+1))'; y]), [ 0.5; beta_vec; diff(data_4(j, 1:jk+1))'], zeros(jk+k+1, 1), [ones(k+1, 1); Inf(jk, 1)], opts1);
+            
             fittedC{j} = [func3(ww, popu(j), k, jp, length(y), data_4(j, 1)), [diff(data_4(j, 1:jk+1))'; y]];
             initdat(j, end-jk:end) = [data_4(j, 1), data_4(j, 1) + cumsum(ww(k+2:k+1+jk)')];
+            ci{j} = nlparci(ww, res{j}, 'jacobian', jacob{j});
         end
         
         
@@ -120,8 +129,8 @@ end
 function yy = func3(w, N, k, jp, horizon, start_data)
     previnc = w(k+2 : k+1+jp*k)';
     prevdata = [start_data start_data+cumsum(previnc)];
-    un_prob = w(1);
-    beta_vec = w(2:k+1);
+    un_prob = (w(1));
+    beta_vec = (w(2:k+1));
     lastinfec = prevdata(end);
     temp = prevdata;
     yy = zeros(horizon, 1);
@@ -140,4 +149,8 @@ function yy = func3(w, N, k, jp, horizon, start_data)
         temp = [temp lastinfec];
     end
     yy = [previnc'; yy];
+end
+
+function s = sigfunc(x)
+    s = 1./(1+exp(-x));
 end
