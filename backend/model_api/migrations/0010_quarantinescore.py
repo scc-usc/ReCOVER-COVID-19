@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('model_api', '0008_load_predictions'),
+        ('model_api', '0009_load_foregn_predictions'),
     ]
 
     operations = [

@@ -86,7 +86,7 @@ def delete_quarantine_score(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('model_api', '0009_quarantinescore'),
+        ('model_api', '0010_quarantinescore'),
     ]
 
     operations = [
