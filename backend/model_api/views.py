@@ -7,6 +7,8 @@ from model_api.models import \
     Covid19DataPoint, \
     Covid19CumulativeDataPoint, \
     Covid19Model, \
+    Covid19InfectionModel, \
+    Covid19DeathModel, \
     Covid19PredictionDataPoint, \
     Covid19DeathDataPoint
 
@@ -64,6 +66,22 @@ def models(request):
         'name': m.name,
         'description': m.description
     } for m in Covid19Model.objects.all()])
+
+
+@api_view(["GET"])
+def infection_models(request):
+    return Response([{
+        'name': m.name,
+        'description': m.description
+    } for m in Covid19InfectionModel.objects.all()])
+
+
+@api_view(["GET"])
+def death_models(request):
+    return Response([{
+        'name': m.name,
+        'description': m.description
+    } for m in Covid19DeathModel.objects.all()])
 
 
 @api_view(["GET"])

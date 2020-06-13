@@ -19,6 +19,20 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name = 'Covid19InfectionModel',
+            fields=[
+                ('covid19model_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='model_api.Covid19Model')),
+            ],
+            bases=('model_api.covid19model',),
+        ),
+        migrations.CreateModel(
+            name = 'Covid19DeathModel',
+            fields=[
+                ('covid19model_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='model_api.Covid19Model')),
+            ],
+            bases=('model_api.covid19model',),
+        ),
+        migrations.CreateModel(
             name='Covid19PredictionDataPoint',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),

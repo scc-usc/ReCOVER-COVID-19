@@ -26,6 +26,7 @@ import {
 import {
   InfoCircleOutlined
 } from '@ant-design/icons';
+import { value } from "numeral";
 
 const { Option } = Select;
 
@@ -46,10 +47,19 @@ class Covid19Predict extends PureComponent {
   };
 
   handleDataTypeSelect = e => {
-    this.setState({
-      dataType: e.target.value
-    });
-    console.log(this.state.mainGraphData);
+    if (e.target.value === "confirmed") {
+      this.modelAPI.infection_models(infection_models => 
+        this.setState({
+          modelsList: infection_models,
+          dataType: e.target.value,
+        }))
+    } else if (e.target.value === "death") {
+      this.modelAPI.death_models(death_models =>
+        this.setState({
+          modelsList: death_models,
+          dataType: e.target.value,
+        }))
+    }
   };
 
   constructor(props) {
@@ -57,13 +67,13 @@ class Covid19Predict extends PureComponent {
     this.state = {
       areas: this.props.areas || [],
       areasList: [],
-      models: this.props.models || ['No under-reported cases(default)'],
+      models: this.props.models || ['SI-kJalpha - No under-reported cases(default)'],
       modelsList: [],
       currentDate: "",
       distancingOn: true,
       distancingOff: false,
       mainGraphData: {},
-      days: 0,
+      days: 10,
       dynamicMapOn: false,
       dataType: "confirmed",
       statistic: "cumulative",
@@ -96,9 +106,9 @@ class Covid19Predict extends PureComponent {
       })
     );
 
-    this.modelAPI.models(allModels =>
+    this.modelAPI.infection_models(infectionModels =>
       this.setState({
-        modelsList: allModels
+        modelsList: infectionModels
       })
     );
 
@@ -436,16 +446,16 @@ class Covid19Predict extends PureComponent {
                 </Select>
               </Form.Item>
               <Form.Item
-                label="Under-reporting Cases:"
+                label="Models:"
                 name="models"
                 rules={[
-                  { required: true, message: "Please select reporting ratio!" }
+                  { required: true, message: "Please select a prediction model!" }
                 ]}
               >
                 <Select
                   mode="multiple"
                   style={{ width: "100%" }}
-                  placeholder="Select Reporting Ratio"
+                  placeholder="Select Prediction Models"
                 >
                   {modelOptions}
                 </Select>

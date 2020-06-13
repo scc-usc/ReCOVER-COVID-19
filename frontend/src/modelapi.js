@@ -22,6 +22,22 @@ class ModelAPI {
     });
   }
 
+  infection_models(callback) {
+    const endpoint = `${API_BASE_URL}/infection_models`;
+    axios.get(endpoint).then(res => {
+      const infectionModels = res.data;
+      callback(infectionModels);
+    });
+  }
+
+  death_models(callback) {
+    const endpoint = `${API_BASE_URL}/death_models`;
+    axios.get(endpoint).then(res => {
+      const deathModels = res.data;
+      callback(deathModels);
+    });
+  }
+
   cumulative_infections(callback) {
     const endpoint = `${API_BASE_URL}/cumulative_infections`;
     axios.get(endpoint).then(res => callback(res.data));

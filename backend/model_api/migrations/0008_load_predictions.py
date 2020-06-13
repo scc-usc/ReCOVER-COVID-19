@@ -176,7 +176,7 @@ def load_csv(apps, path):
 
 
 def load_covid19_predictions(apps, schema_editor):
-    Covid19Model = apps.get_model('model_api', 'Covid19Model')
+    Covid19Model = apps.get_model('model_api', 'Covid19InfectionModel')
 
     print()
     for static_model in STATIC_MODELS:

@@ -45,6 +45,14 @@ class Covid19Model(models.Model):
         return self.name
 
 
+class Covid19InfectionModel(Covid19Model):
+    def __str__(self):
+        return self.name + ", Infection Model"
+
+class Covid19DeathModel(Covid19Model):
+    def __str__(self):
+        return self.name + ", Death Model"
+
 class Covid19DeathDataPoint(models.Model):
     area = models.ForeignKey(Area, on_delete=models.CASCADE)
     date = models.DateField()
