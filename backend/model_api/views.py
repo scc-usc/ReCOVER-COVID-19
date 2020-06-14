@@ -7,9 +7,11 @@ from model_api.models import \
     Covid19DataPoint, \
     Covid19CumulativeDataPoint, \
     Covid19Model, \
+    Covid19InfectionModel, \
+    Covid19DeathModel, \
     Covid19PredictionDataPoint, \
+    Covid19DeathDataPoint, \
     QuarantineScoreDataPoint
-
 
 @api_view(["GET"])
 def affected_by(request):
@@ -67,6 +69,22 @@ def models(request):
 
 
 @api_view(["GET"])
+def infection_models(request):
+    return Response([{
+        'name': m.name,
+        'description': m.description
+    } for m in Covid19InfectionModel.objects.all()])
+
+
+@api_view(["GET"])
+def death_models(request):
+    return Response([{
+        'name': m.name,
+        'description': m.description
+    } for m in Covid19DeathModel.objects.all()])
+
+
+@api_view(["GET"])
 def predict(request):
     """
     This endpoint handles predicting the data for a specific area over some number
@@ -117,12 +135,20 @@ def predict(request):
     response = {
         "observed": [],
         "predictions": [],
+        "observed_deaths": [],
     }
 
     # Pull observed data from database.
     observed = Covid19DataPoint.objects.filter(area=area)
     for d in observed:
         response["observed"].append({
+            "date": d.date,
+            "value": d.val,
+        })
+
+    observed_deaths = Covid19DeathDataPoint.objects.filter(area=area)
+    for d in observed_deaths:
+        response["observed_deaths"].append({
             "date": d.date,
             "value": d.val,
         })
@@ -204,6 +230,7 @@ def check_history(request):
     response = {
         "observed": [],
         "predictions": [],
+        "observed_deaths": [],
     }
     observed = Covid19DataPoint.objects.filter(area=area)
     currentDate = max([d.date for d in observed])
@@ -211,6 +238,17 @@ def check_history(request):
     shown = observed.filter(date__lte=lastShownDate)
     for d in shown:
         response["observed"].append({
+            "date": d.date,
+            "value": d.val,
+        })
+
+    observed_deaths = Covid19DeathDataPoint.objects.filter(
+        area = area,
+        date__lte=lastShownDate
+    )
+
+    for d in shown:
+        response["observed_deaths"].append({
             "date": d.date,
             "value": d.val,
         })

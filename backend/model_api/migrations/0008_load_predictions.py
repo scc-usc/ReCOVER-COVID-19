@@ -29,7 +29,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_avg_.csv",
             "../results/forecasts/us_forecasts_released_avg_.csv"
         ],
-        name="No under-reported cases(default)",
+        name="SI-kJalpha - No under-reported cases(default)",
         description="The default version of the SI-kJalpha model, with no assumptions about under-reporting."
     ),
     StaticModel(
@@ -41,7 +41,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_avg_2.csv",
             "../results/forecasts/us_forecasts_released_avg_2.csv"
         ],
-        name="2x under-reported",
+        name="SI-kJalpha - 2x under-reported",
         description="The SI-kJalpha model with the assumption that observed cases are under-reported by 2x."
     ),
     StaticModel(
@@ -53,7 +53,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_avg_5.csv",
             "../results/forecasts/us_forecasts_released_avg_5.csv"
         ],
-        name="5x under-reported",
+        name="SI-kJalpha - 5x under-reported",
         description="The SI-kJalpha model with the assumption that observed cases are under-reported by 5x."
     ),
     StaticModel(
@@ -65,7 +65,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_avg_10.csv",
             "../results/forecasts/us_forecasts_released_avg_10.csv"
         ],
-        name="10x under-reported",
+        name="SI-kJalpha - 10x under-reported",
         description="The SI-kJalpha model with the assumption that observed cases are under-reported by 10x."
     ),
     StaticModel(
@@ -77,7 +77,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_avg_20.csv",
             "../results/forecasts/us_forecasts_released_avg_20.csv"
         ],
-        name="20x under-reported",
+        name="SI-kJalpha - 20x under-reported",
         description="The SI-kJalpha model with the assumption that observed cases are under-reported by 20x."
     ),
     StaticModel(
@@ -89,7 +89,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_avg_40.csv",
             "../results/forecasts/us_forecasts_released_avg_40.csv"
         ],
-        name="40x under-reported",
+        name="SI-kJalpha - 40x under-reported",
         description="The SI-kJalpha model with the assumption that observed cases are under-reported by 40x."
     ),
 ]
@@ -176,7 +176,7 @@ def load_csv(apps, path):
 
 
 def load_covid19_predictions(apps, schema_editor):
-    Covid19Model = apps.get_model('model_api', 'Covid19Model')
+    Covid19Model = apps.get_model('model_api', 'Covid19InfectionModel')
 
     print()
     for static_model in STATIC_MODELS:

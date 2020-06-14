@@ -26,6 +26,7 @@ import {
 import {
   InfoCircleOutlined
 } from '@ant-design/icons';
+import { value } from "numeral";
 
 const { Option } = Select;
 
@@ -45,19 +46,36 @@ class Covid19Predict extends PureComponent {
 
   };
 
+  handleDataTypeSelect = e => {
+    if (e.target.value === "confirmed") {
+      this.modelAPI.infection_models(infection_models => 
+        this.setState({
+          modelsList: infection_models,
+          dataType: e.target.value,
+        }))
+    } else if (e.target.value === "death") {
+      this.modelAPI.death_models(death_models =>
+        this.setState({
+          modelsList: death_models,
+          dataType: e.target.value,
+        }))
+    }
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       areas: this.props.areas || [],
       areasList: [],
-      models: this.props.models || ['No under-reported cases(default)'],
+      models: this.props.models || ['SI-kJalpha - No under-reported cases(default)'],
       modelsList: [],
       currentDate: "",
       distancingOn: true,
       distancingOff: false,
       mainGraphData: {},
-      days: 0,
+      days: 10,
       dynamicMapOn: false,
+      dataType: "confirmed",
       statistic: "cumulative",
       yScale: "linear",
       noDataError: false,
@@ -88,9 +106,9 @@ class Covid19Predict extends PureComponent {
       })
     );
 
-    this.modelAPI.models(allModels =>
+    this.modelAPI.infection_models(infectionModels =>
       this.setState({
-        modelsList: allModels
+        modelsList: infectionModels
       })
     );
 
@@ -349,6 +367,7 @@ class Covid19Predict extends PureComponent {
       days,
       mainGraphData,
       dynamicMapOn,
+      dataType,
       statistic,
       yScale,
       noDataError,
@@ -425,16 +444,16 @@ class Covid19Predict extends PureComponent {
                 </Select>
               </Form.Item>
               <Form.Item
-                label="Under-reporting Cases:"
+                label="Models:"
                 name="models"
                 rules={[
-                  { required: true, message: "Please select reporting ratio!" }
+                  { required: true, message: "Please select a prediction model!" }
                 ]}
               >
                 <Select
                   mode="multiple"
                   style={{ width: "100%" }}
-                  placeholder="Select Reporting Ratio"
+                  placeholder="Select Prediction Models"
                 >
                   {modelOptions}
                 </Select>
@@ -472,6 +491,16 @@ class Covid19Predict extends PureComponent {
               </Form.Item>
               </Popover>
             </Form>
+            <div>Data Type:&nbsp;&nbsp;  
+              <Radio.Group
+                value={dataType}
+                onChange={this.handleDataTypeSelect}
+              >
+                <Radio value="confirmed">Confirmed Cases</Radio>
+                <Radio value="death">Deaths</Radio>
+              </Radio.Group>
+            </div>
+            <br />
             <div>Statistic:&nbsp;&nbsp;  
               <Radio.Group
                 value={statistic}
@@ -506,8 +535,6 @@ class Covid19Predict extends PureComponent {
               days={days}
               model={this.state.models == null || this.state.models.length ===0? "" : this.state.models[this.state.models.length-1]}
               onMapClick={this.onMapClick} 
-              onNoData = {this.onNoData}
-              statistic={statistic}
             />
           </div>
         {/* </div> */}
@@ -520,6 +547,8 @@ class Covid19Predict extends PureComponent {
             <div className="graph-wrapper">
               <Covid19Graph
                 data={mainGraphData}
+                dataType={dataType}
+                onNoData = {this.onNoData}
                 statistic={statistic}
                 yScale={yScale}
               ></Covid19Graph>

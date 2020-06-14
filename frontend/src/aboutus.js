@@ -1,9 +1,4 @@
 import React, { Component } from "react";
-import {
-    Layout,
-    Row,
-    Col,
-} from 'antd';
 import "./aboutus.css";
 import "./covid19app.css";
 
@@ -45,7 +40,8 @@ class AboutUs extends Component {
                         The matlab code for forecasting is also made available on <a className="article-anchor" href="https://www.mathworks.com/matlabcentral/fileexchange/75281-recover" target="_blank">File Exchange</a>.
                     </p>
                     <p className="article-paragraph">
-                        The code of the prediction model and this web application is contributed by Ajitesh Srivastava, Jamin Chen, and Frost Tianjian Xu.
+                        The code of the prediction model and this web application is contributed by Ajitesh Srivastava, Jamin Chen, Frost Tianjian Xu, 
+                        and Bob Xiaochen Yang.
                     </p>
                     <h2>USC Data Science Lab</h2>
                     <p className="article-paragraph">
