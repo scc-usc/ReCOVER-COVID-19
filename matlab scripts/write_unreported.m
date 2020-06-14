@@ -1,6 +1,6 @@
 % Writes forecasts to files with various scenarios of unreported cases
 
-file_prefix =  ['./results/forecasts/' prefix];  % edit this to change the destination
+file_prefix =  ['../results/forecasts/' prefix];  % edit this to change the destination
 
 un_array = [1, 2, 5, 10, 20, 40]; % Select the ratio of total to reported cases
 horizon = 100; % days of predcitions
