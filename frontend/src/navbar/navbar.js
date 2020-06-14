@@ -52,7 +52,7 @@ class NavBar extends Component {
                     onClick={this.handleItemClick}
                     defaultSelectedKeys={['forecast']}>
                     <Menu.Item key="forecast">COVID-19 Forecast</Menu.Item>
-                    <Menu.Item key="quarantine-score">Quarantine Score</Menu.Item>
+                    <Menu.Item key="quarantine-score">Social Distancing Score</Menu.Item>
                     <Menu.Item key="information">About Us</Menu.Item>
                 </Menu>
             </Col>
