@@ -252,13 +252,16 @@ class Covid19Map extends Component {
   }
 
   initChartInterface() {
+    const {showState} = this.state;
     // Create a zoom control.
     this.chart.zoomControl = new am4maps.ZoomControl();
     this.chart.zoomControl.cursorOverStyle = am4core.MouseCursorStyle.pointer;
 
     // Create a toggle button to show/hide states/provinces.
     let button = this.chart.chartContainer.createChild(am4core.Button);
-    button.label.text = "Show States/Provinces";
+    button.label.text = `${
+      showState ? "Hide" : "Show"
+      } States/Provinces`;
     button.togglable = true;
     button.padding(5, 5, 5, 5);
     button.align = "right";
