@@ -103,7 +103,7 @@ function [beta_cell, un_prob, eps_f, initdat, ci, del, fittedC] = learn_un_fix_b
         
         %del(j) = eps1*un_prob(j)*popu(j)/data_4(j, end);
         
-        del(j) = ((1-a_f - un_prob(j))- sqrt((1-a_f-un_prob(j))^2 - 4*(1-a_f)*(a_f/a_T(j) - un_prob(j))))/(2*(1-a_f))
+        del(j) = ((1-a_f - un_prob(j))- sqrt((1-a_f-un_prob(j))^2 - 4*(1-a_f)*(a_f/a_T(j) - un_prob(j))))/(2*(1-a_f));
     end
 end
 

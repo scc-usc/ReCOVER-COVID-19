@@ -1,8 +1,8 @@
 %%%% Calculates "Transmission score" used for "Contact Reduction Score" in https://arxiv.org/abs/2004.11372
 %%%% Also calculates the Dynamic Reproduction Number with time
 
-prefix = 'us'; % Uncomment for US state-level
-% prefix = 'global'; % Uncomment for country-level
+%prefix = 'us'; % Uncomment for US state-level
+ prefix = 'global'; % Uncomment for country-level
 
 horizon = 7;
 alpha_start = 5;
@@ -27,7 +27,7 @@ data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4')', 7, 2), 2)];
 
 for daynum = start_day:skip_length:floor(size(data_4, 2)-horizon)
     display(['Until ' num2str(daynum)]);
-    fname = [prefix '_hyperparam_ref_' num2str(daynum)];
+    fname = ['./hyper_params/' prefix '_hyperparam_ref_' num2str(daynum)];
     
     T_tr = daynum; % Choose reference day here
     T_ad = 0; % Ignore this
@@ -35,7 +35,7 @@ for daynum = start_day:skip_length:floor(size(data_4, 2)-horizon)
     inf_thres = -1;
     cidx = (data_4(:, T_trad) > inf_thres);
     
-    jp_start = 3;
+    jp_start = 7;
     k_array = (1:14);
     jp_array = (jp_start:14);
     ff_array = (0.1:0.1:1);
@@ -111,12 +111,12 @@ for daynum = start_day:skip_length:floor(size(data_4, 2)-horizon)
     
     % Compute scores
     
-    beta_notravel = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), passengerFlow*0, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), 1, popu, best_param_list_no(:, 2));
+    [beta_notravel, ~, ci] = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), passengerFlow*0, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), 1, popu, best_param_list_no(:, 2));
     
     alpha_l = MAPEtable_notravel_fixed_s(1, 3)*0.1*ones(length(popu), 1);
     k_l = MAPEtable_notravel_fixed_s(1, 1)*ones(length(popu), 1);
     jp_l = MAPEtable_notravel_fixed_s(1, 2)*ones(length(popu), 1);
-    beta_notravel_f = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), passengerFlow*0, alpha_l, k_l, 1, popu, jp_l);
+    [beta_notravel_f, ~, ci_f] = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), passengerFlow*0, alpha_l, k_l, 1, popu, jp_l);
     
     thisscore = zeros(length(popu), 1);
     thisscore_f = zeros(length(popu), 1);
@@ -158,7 +158,7 @@ disp('DONE!');
     tt2 = table(cidx, countries, vectorarray{:}, 'VariableNames',allcols);
     
     
-    writetable(tt, [prefix '_scores.csv']);
-    writetable(tt1, [prefix '_scores_conf.csv']);
-    writetable(tt2, [prefix '_Rt_num.csv']);
+    writetable(tt, ['./results/scores/' prefix '_scores.csv']);
+    writetable(tt1, ['./results/scores/' prefix '_scores_conf.csv']);
+    writetable(tt2, ['./results/scores/' prefix '_Rt_num.csv']);
     

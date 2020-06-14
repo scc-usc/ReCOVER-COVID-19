@@ -1,11 +1,16 @@
-function [beta_all_cell, fittedC] = var_ind_beta_un(data_4, passengerFlow, alpha_l, k_l, un_fact, popu, jp_l)
+function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, alpha_l, k_l, un_fact, popu, jp_l, ret_conf)
+    
+    if nargin <8
+        ret_conf = 0;
+    end
+    
+    
     maxt = size(data_4, 2);
-    %F = passengerFlow/(max(max(passengerFlow))+ 1e-10);
     F = passengerFlow;
     beta_all_cell = cell(length(popu), 1);
     fittedC = cell(length(popu), 1);
+    ci = cell(length(popu), 1);
     
-    %data_4 = movmean(data_4, 5, 2);
     
     if length(un_fact)==1
         un_fact = un_fact*ones(length(popu), 1);
@@ -46,8 +51,19 @@ function [beta_all_cell, fittedC] = var_ind_beta_un(data_4, passengerFlow, alpha
         end
         
         opts1=  optimset('display','off');
-        beta_all_cell{j} =  lsqlin(alphamat.*X,alphavec.*y,[],[],[],[],zeros(k+1, 1), [ones(k, 1); Inf], [], opts1);
+        X = alphamat.*X; y = alphavec.*y;
         
-        fittedC{j} = [(alphamat.*X)*beta_all_cell{j},alphavec.*y];
+        if ret_conf == 0    % If confidence intervals are not required, we will run this as this seems to be faster
+            beta_vec =  lsqlin(X, y,[],[],[],[],zeros(k+1, 1), [ones(k, 1); Inf], [], opts1);
+        else
+            %mdl = fitnlm(X, y, @(w, X)(X*[(1./(1+exp(-w(1:k)))); w(k+1)]), zeros(k+1, 1));
+            mdl = fitnlm(X, y, @(w, X)(X*(1./(1+exp(-w)))), zeros(k+1, 1));
+            beta_vec = [1./(1+ exp(-mdl.Coefficients.Estimate))];
+            beta_CI = [1./(1+ exp(-mdl.coefCI))];
+            ci{j} = beta_CI;
+        end
+        
+        beta_all_cell{j} = beta_vec;
+        fittedC{j} = [X*beta_all_cell{j},y];
     end
     

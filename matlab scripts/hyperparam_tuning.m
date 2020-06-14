@@ -1,4 +1,6 @@
-%% Script to identify optimal hyperparameters of the model
+%% 
+% Script to identify optimal hyperparameters of the model
+% Also useful for validation
 %% Configure
 
 T_full = size(data_4(:,1:end-2), 2); % How many days to train for. Should usually pick total number of days
@@ -7,13 +9,13 @@ T_val = 7;
 T_tr = T_full - T_val - horizon; % Jan 21 is day 0
 
 k_array = (1:4);
-jp_start = 4;
+jp_start = 7;
 jp_array = (jp_start:14);
 ff_array = (0.1:0.1:1);
 %% Full
 inf_thres = -1;
 cidx = (data_4(:, end) > inf_thres);
-
+un = 5; % Best guess for unreported cases. Not likely to affect short-term results 
 
 data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4')', 7, 2), 2)];
 
@@ -31,16 +33,11 @@ for k=1:length(k_array)
             F_travel = passengerFlow(cidx, cidx);
             data_4_s = movmean(data_4, 3, 2);
             
-            
-            %             [yt, Xt] = data_prep(data_4_s, F, popu(cidx), k, jp);
-            %             [beta_unadjusted] = ind_beta(Xt, yt, alpha, k, T_tr+T_ad, popu(cidx), jp);
-            %
-            %             infec_unad = simulate_pred(data_4_s(:, 1:T_trad), F_travel, beta_unadjusted, popu(cidx), k, horizon, jp);
             %            beta_withtravel = var_ind_beta(data_4_s(:, 1:T_tr), F_travel, ones(sum(cidx), 1)*alpha, ones(sum(cidx), 1)*k, T_tr, popu(cidx), ones(sum(cidx), 1)*jp);
-            beta_notravel = var_ind_beta(data_4_s(:, 1:T_tr), F_notravel, ones(sum(cidx), 1)*alpha, ones(sum(cidx), 1)*k, T_tr, popu(cidx), ones(sum(cidx), 1)*jp);
+            beta_notravel = var_ind_beta_un(data_4_s(:, 1:T_tr), F_notravel, ones(sum(cidx), 1)*alpha, ones(sum(cidx), 1)*k, un, popu(cidx), ones(sum(cidx), 1)*jp);
             
             %            infec_travel = var_simulate_pred(data_4_s(:, 1:T_tr), F_travel, beta_withtravel, popu(cidx), ones(sum(cidx), 1)*k, T_val, ones(sum(cidx), 1)*jp);
-            infec_notravel = var_simulate_pred(data_4_s(:, 1:T_tr), F_notravel, beta_notravel, popu(cidx), ones(sum(cidx), 1)*k, T_val, ones(sum(cidx), 1)*jp);
+            infec_notravel = var_simulate_pred_un(data_4_s(:, 1:T_tr), F_notravel, beta_notravel, popu(cidx), ones(sum(cidx), 1)*k, T_val, ones(sum(cidx), 1)*jp, un);
             
             RMSEvec = sqrt(mean((infec_notravel - data_4_s(:, T_tr+1 : T_tr + T_val)).^2, 2));
             RMSEval(k, jp, alpha_i, :) = (RMSEvec);
@@ -93,11 +90,11 @@ if horizon > 0
     T_trad = T_tr+T_val;
     
     
-    beta_notravel = var_ind_beta(data_4_s(:, 1:T_trad), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), T_tr, popu, best_param_list(:, 2));
+    beta_notravel = var_ind_beta_un(data_4_s(:, 1:T_trad), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2));
     
     data_4_s = data_4_s(:, 1:T_trad+horizon);
     
-    infec_notravel = var_simulate_pred(data_4_s(:, 1:T_trad), passengerFlow*0, beta_notravel, popu, best_param_list(:, 1), horizon, best_param_list(:, 2));
+    infec_notravel = var_simulate_pred_un(data_4_s(:, 1:T_trad), passengerFlow*0, beta_notravel, popu, best_param_list(:, 1), horizon, best_param_list(:, 2), un);
     
     inf_thres = 0;
     inf_uthres = 10000000000000000;
@@ -115,9 +112,9 @@ if horizon > 0
     k_l = MAPEtable_s(1, 1)*ones(length(popu), 1);
     jp_l = MAPEtable_s(1, 2)*ones(length(popu), 1);
     
-    beta_notravel = var_ind_beta(data_4_s(:, 1:T_trad), passengerFlow*0, alpha_l, k_l, T_tr, popu, jp_l);
+    beta_notravel = var_ind_beta_un(data_4_s(:, 1:T_trad), passengerFlow*0, alpha_l, k_l, un, popu, jp_l);
     
-    infec_notravel_f = var_simulate_pred(data_4_s(:, 1:T_trad), passengerFlow*0, beta_notravel, popu, k_l, horizon, jp_l);
+    infec_notravel_f = var_simulate_pred_un(data_4_s(:, 1:T_trad), passengerFlow*0, beta_notravel, popu, k_l, horizon, jp_l, un);
     
     RMSEvec = sqrt(mean((infec_notravel_f - data_4_s(:, end-horizon+1:end)).^2, 2));
     RMSEtest = mean(RMSEvec(cidx));
