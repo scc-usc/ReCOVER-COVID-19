@@ -323,6 +323,7 @@ class ScorePage extends PureComponent{
                         data={mainGraphData}
                         statistic={"cumulative"}
                         yScale={"linear"}
+                        dataType={"confirmed"}
                     ></Covid19Graph>
                     </div>
                 {/* </div> */}
