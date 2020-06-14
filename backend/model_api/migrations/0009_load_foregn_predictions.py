@@ -191,7 +191,9 @@ def load_state_mapping(apps):
 
 def load_covid19_foreign_predictions(apps, schema_editor):
     Covid19Model = apps.get_model('model_api', 'Covid19DeathModel')
-    
+    Covid19PredictionDataPoint = apps.get_model(
+        'model_api', 'Covid19PredictionDataPoint')
+
     print()
     state_mapping = load_state_mapping(apps)
     for static_model in STATIC_FOREIGN_MODELS:
@@ -207,6 +209,14 @@ def load_covid19_foreign_predictions(apps, schema_editor):
         for p in new_predictions:
             p.model = covid19_model
             p.social_distancing = True
+            # Skip repetitive prediction points.
+            if Covid19PredictionDataPoint.objects.filter(
+                    model=p.model,
+                    social_distancing=p.social_distancing,
+                    area=p.area,
+                    date=p.date 
+                ).count() == 1:
+                continue
             p.save()
 
 
