@@ -22,12 +22,12 @@ class StaticModel:
 STATIC_MODELS = [
     StaticModel(
         quarantined_prediction_paths=[
-            "../results/forecasts/global_forecasts_quarantine_avg_.csv",
-            "../results/forecasts/us_forecasts_quarantine_avg_.csv"
+            "../results/forecasts/global_forecasts_quarantine_avg_1.csv",
+            "../results/forecasts/us_forecasts_quarantine_avg_1.csv"
         ],
         released_prediction_paths=[
-            "../results/forecasts/global_forecasts_released_avg_.csv",
-            "../results/forecasts/us_forecasts_released_avg_.csv"
+            "../results/forecasts/global_forecasts_released_avg_1.csv",
+            "../results/forecasts/us_forecasts_released_avg_1.csv"
         ],
         name="SI-kJalpha - No under-reported cases(default)",
         description="The default version of the SI-kJalpha model, with no assumptions about under-reporting."
