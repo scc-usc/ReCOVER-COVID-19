@@ -1,8 +1,8 @@
 %%%% Calculates "Transmission score" used for "Contact Reduction Score" in https://arxiv.org/abs/2004.11372
 %%%% Also calculates the Dynamic Reproduction Number with time
 
-%prefix = 'us'; % Uncomment for US state-level
- prefix = 'global'; % Uncomment for country-level
+prefix = 'us'; % Uncomment for US state-level
+% prefix = 'global'; % Uncomment for country-level
 
 horizon = 7;
 alpha_start = 5;
@@ -106,7 +106,7 @@ for daynum = start_day:skip_length:floor(size(data_4, 2)-horizon)
         MAPEtable_notravel_fixed_s = sortrows(MAPEtable_notravel_fixed, 5);
         
         
-        save(fname, 'MAPEtable*', 'best_param*');
+        save(fname, 'MAPEtable_notravel_fixed_s', 'best_param_list_no');
     end
     
     % Compute scores
@@ -158,7 +158,7 @@ disp('DONE!');
     tt2 = table(cidx, countries, vectorarray{:}, 'VariableNames',allcols);
     
     
-    writetable(tt, ['./results/scores/' prefix '_scores.csv']);
-    writetable(tt1, ['./results/scores/' prefix '_scores_conf.csv']);
-    writetable(tt2, ['./results/scores/' prefix '_Rt_num.csv']);
+    writetable(tt, ['../results/scores/' prefix '_scores.csv']);
+    writetable(tt1, ['../results/scores/' prefix '_scores_conf.csv']);
+    writetable(tt2, ['../results/scores/' prefix '_Rt_num.csv']);
     
