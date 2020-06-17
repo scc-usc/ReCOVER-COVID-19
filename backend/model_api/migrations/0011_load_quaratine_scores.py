@@ -32,7 +32,7 @@ def load_quarantine_score(apps, schema_editor):
             for i in range(2, len(header)):
                 raw_date = header[i]
                 date = datetime.datetime(*[int(item) for item in raw_date.split('-')])
-                val = float(row[i])
+                val = float(row[i]) if float(row[i]) <= 7 else 7 # Set a upper limit of 7.
                 conf = int(conf_row[i])
 
                 quarantine_score = QuarantineScoreDataPoint(
@@ -63,7 +63,7 @@ def load_quarantine_score(apps, schema_editor):
             for i in range(2, len(header)):
                 raw_date = header[i]
                 date = datetime.datetime(*[int(item) for item in raw_date.split('-')])
-                val = float(row[i])
+                val = float(row[i]) if float(row[i]) <= 7 else 7 # Set a upper limit of 7.
                 conf = int(conf_row[i])
 
                 quarantine_score = QuarantineScoreDataPoint(

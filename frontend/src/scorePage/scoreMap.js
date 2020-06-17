@@ -12,8 +12,8 @@ import am4geodata_canadaLow from "@amcharts/amcharts4-geodata/canadaLow";
 import am4geodata_australiaLow from "@amcharts/amcharts4-geodata/australiaLow";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
-const HEAT_MAP_MIN_COLOR = "#CB7F50";
-const HEAT_MAP_MAX_COLOR = "#85DB50";
+const HEAT_MAP_MIN_COLOR = "#85DB50";
+const HEAT_MAP_MAX_COLOR = "#F33A21";
 const MAP_HOVER_COLOR = "#83FE00";
 
 am4core.useTheme(am4themes_animated);
@@ -101,6 +101,8 @@ class ScoreMap extends Component {
             target: polygonTemplate,
             min: am4core.color(HEAT_MAP_MIN_COLOR),
             max: am4core.color(HEAT_MAP_MAX_COLOR),
+            minValue: 0,
+            maxValue: 4
         });
 
         
