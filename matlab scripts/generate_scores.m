@@ -10,7 +10,7 @@ all_scores = [];
 all_scores_f = [];
 Rt_scores = [];
 skip_length = 7;
-saved_days = 0; % Set it to higher number to avoid recomputing hypoerparameters from the beginning
+saved_days = 134; % Set it to higher number to avoid recomputing hypoerparameters from the beginning
 start_day = 50;
 
 % data_4 = data_4_orig;

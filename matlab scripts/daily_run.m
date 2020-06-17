@@ -1,8 +1,10 @@
-clear;
+clear; warning off;
 addpath('./hyper_params');
 load_data_us;
 load us_hyperparam_ref_64.mat
-hyperparam_tuning; write_data_us;
+hyperparam_tuning;
+death_hyperparams;
+write_data_us;
 write_unreported;
 save us_clean.mat;
 
@@ -12,7 +14,9 @@ clear;
 
 load_data_global;
 load global_hyperparam_ref_64.mat
-hyperparam_tuning; write_data_global
+hyperparam_tuning;
+death_hyperparams;
+write_data_global
 write_unreported;
 save global.mat;
 

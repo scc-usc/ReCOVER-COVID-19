@@ -2,8 +2,10 @@
 
 file_prefix =  ['../results/forecasts/' prefix];  % edit this to change the destination
 T_full = size(data_4, 2);
+T_tr = 64; % reference day for "released"
 un_array = [1, 2, 5, 10, 20, 40]; % Select the ratio of total to reported cases
 horizon = 100; % days of predcitions
+dhorizon = horizon;
 
 for un_id = 1:length(un_array)
     % Train with hyperparams before and after
@@ -38,15 +40,32 @@ for un_id = 1:length(un_array)
     infec_released_f_un = var_simulate_pred_un(data_4_s(:, 1:T_full), passengerFlow*0, beta_notravel_f, popu, k_l, horizon, jp_l, un);
     
     
+    infec_released_avg = 0.5*(infec_released_f_un + infec_released_un);
+    
+    infec_data = [data_4_s(:, T_full-dk*djp:T_full), infec_un];
+    infec_data_released = [data_4_s(:, T_full-dk*djp:T_full), infec_released_avg];
+    base_deaths = deaths(:, T_full);
+    
+    [death_rates] = var_ind_deaths(data_4, deaths, dalpha, dk, djp);
+    [pred_deaths] = var_simulate_deaths(infec_data, death_rates, dk, djp, dhorizon, base_deaths);
+    [pred_deaths_released] = var_simulate_deaths(infec_data_released, death_rates, dk, djp, dhorizon, base_deaths);
+    
+    
+ 
+    
     disp('predicted')
     
     file_suffix = num2str(un); % Factor for unreported cases
     writetable(infec2table(infec_un, countries), [file_prefix '_forecasts_quarantine_' file_suffix '.csv']);
-    writetable(infec2table(infec_f_un, countries), [file_prefix '_forecasts_quarantine1_' file_suffix '.csv']);
-    writetable(infec2table(0.5*(infec_f_un+infec_un), countries), [file_prefix '_forecasts_quarantine_avg_' file_suffix '.csv']);
-    writetable(infec2table(infec_released_un, countries, lowidx), [file_prefix '_forecasts_released_' file_suffix '.csv']);
-    writetable(infec2table(infec_released_f_un, countries, lowidx), [file_prefix '_forecasts_released1_' file_suffix '.csv']);
+ %   writetable(infec2table(infec_f_un, countries), [file_prefix '_forecasts_quarantine1_' file_suffix '.csv']);
+ %   writetable(infec2table(0.5*(infec_f_un+infec_un), countries), [file_prefix '_forecasts_quarantine_avg_' file_suffix '.csv']);
+ %   writetable(infec2table(infec_released_un, countries, lowidx), [file_prefix '_forecasts_released_' file_suffix '.csv']);
+ %   writetable(infec2table(infec_released_f_un, countries, lowidx), [file_prefix '_forecasts_released1_' file_suffix '.csv']);
     writetable(infec2table(0.5*(infec_released_un+infec_released_f_un), countries, lowidx), [file_prefix '_forecasts_released_avg_' file_suffix '.csv']);
+    
+    writetable(infec2table(pred_deaths, countries), [file_prefix '_deaths_quarantine_' file_suffix '.csv']);
+    writetable(infec2table(pred_deaths_released, countries, lowidx), [file_prefix '_deaths_released_' file_suffix '.csv']);
+
     
     disp(['Files written for ', num2str(un)]);
     
