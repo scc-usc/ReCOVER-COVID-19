@@ -4,9 +4,9 @@ from django.db import migrations
 import csv
 import datetime
 
-GLOBAL_QUARANTINE_SCORE_CVS_PATH = "../results/scores/global_scores.csv"
+GLOBAL_QUARANTINE_SCORE_CVS_PATH = "../results/scores/global_Rt_num.csv"
 GLOBAL_QUARANTINE_SCORE_CONF_CVS_PATH = "../results/scores/global_scores_conf.csv"
-US_QUARANTINE_SCORE_CSV_PATH = "../results/scores/us_scores.csv"
+US_QUARANTINE_SCORE_CSV_PATH = "../results/scores/us_Rt_num.csv"
 US_QUARANTINE_SCORE_CONF_CSV_PATH = "../results/scores/us_scores_conf.csv"
 
 def load_quarantine_score(apps, schema_editor):
