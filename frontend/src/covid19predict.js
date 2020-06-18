@@ -48,17 +48,40 @@ class Covid19Predict extends PureComponent {
 
   handleDataTypeSelect = e => {
     if (e.target.value === "confirmed") {
-      this.modelAPI.infection_models(infection_models => 
+      this.modelAPI.infection_models(infection_models => {
         this.setState({
           modelsList: infection_models,
           dataType: e.target.value,
-        }))
-    } else if (e.target.value === "death") {
-      this.modelAPI.death_models(death_models =>
-        this.setState({
-          modelsList: death_models,
-          dataType: e.target.value,
-        }))
+          models: ['SI-kJalpha - No under-reported positive cases(default)']
+        }, ()=>{
+          this.formRef.current.setFieldsValue({
+            models: this.state.models
+          });
+          this.reloadAll();
+          if (!this.state.dynamicMapOn)
+          {
+            this.map.fetchData(this.state.dynamicMapOn);
+          }
+        });
+      });
+    } 
+    else {
+      this.modelAPI.death_models(death_models =>{
+          this.setState({
+            modelsList: death_models,
+            dataType: e.target.value,
+            models: ['SI-kJalpha - No under-reported deaths']
+          }, ()=>{
+            this.formRef.current.setFieldsValue({
+              models: this.state.models
+            });
+            this.reloadAll();
+            if (!this.state.dynamicMapOn)
+            {
+              this.map.fetchData(this.state.dynamicMapOn);
+            }
+          }); 
+        });
     }
   };
 
@@ -67,13 +90,13 @@ class Covid19Predict extends PureComponent {
     this.state = {
       areas: this.props.areas || [],
       areasList: [],
-      models: this.props.models || ['SI-kJalpha - No under-reported cases(default)'],
+      models: this.props.models || ['SI-kJalpha - No under-reported positive cases(default)'] || ['SI-kJalpha - No under-reported deaths'],
       modelsList: [],
       currentDate: "",
       distancingOn: true,
       distancingOff: false,
       mainGraphData: {},
-      days: 10,
+      days: 0,
       dynamicMapOn: false,
       dataType: "confirmed",
       statistic: "cumulative",
@@ -91,6 +114,10 @@ class Covid19Predict extends PureComponent {
     this.onAlertClose = this.onAlertClose.bind(this);
     this.onNoData = this.onNoData.bind(this);
     this.generateMarks = this.generateMarks.bind(this);
+    this.handleModelChange = this.handleModelChange.bind(this);
+    this.handleDataTypeSelect = this.handleDataTypeSelect.bind(this);
+    this.handleStatisticSelect = this.handleStatisticSelect.bind(this);
+    this.handleYScaleSelect = this.handleYScaleSelect.bind(this);
   }
 
   componentWillMount = ()=>{
@@ -225,14 +252,13 @@ class Covid19Predict extends PureComponent {
    * days to predict is handled separately by onDaysToPredictChange.
    */
   onValuesChange(changedValues, allValues) {
-    if ("socialDistancing" in changedValues || "models" in changedValues) {
+    if ("socialDistancing" in changedValues) {
       // If either the social distancing or model parameters were changed, we
       // clear our data and do a full reload. We purposely ignore days to
       // predict here (see onDaysToPredictChange).
 
       this.setState(
         {
-          models: allValues.models,
           distancingOn: allValues.socialDistancing.includes("distancingOn"),
           distancingOff: allValues.socialDistancing.includes("distancingOff")
         },
@@ -256,6 +282,14 @@ class Covid19Predict extends PureComponent {
       areasToAdd.forEach(this.addAreaByStr);
       areasToRemove.forEach(this.removeAreaByStr);
     }
+  }
+
+  handleModelChange(value) {
+    this.setState({
+        models: value
+     }, () => {
+      this.reloadAll();
+    });
   }
 
   /**
@@ -373,7 +407,6 @@ class Covid19Predict extends PureComponent {
       noDataError,
       errorDescription
     } = this.state;
-    console.log(mainGraphData);
     const marks = this.generateMarks();
     const daysToFirstDate = this.getDaysToFirstDate();
     // Only show options for countries that have not been selected yet.
@@ -389,7 +422,7 @@ class Covid19Predict extends PureComponent {
       .filter(model => !this.modelIsSelected(model))
       .map(model => {
         return (
-          <Option key={model.name}>
+          <Option key={model.name} value={model.name}>
             <Tooltip title={model.description} placement="right">
               {model.name}
             </Tooltip>
@@ -426,7 +459,6 @@ class Covid19Predict extends PureComponent {
               initialValues={{
                 areas: areas,
                 models: models,
-                days: 0,
                 socialDistancing: ["distancingOn"]
               }}
             >
@@ -454,6 +486,8 @@ class Covid19Predict extends PureComponent {
                   mode="multiple"
                   style={{ width: "100%" }}
                   placeholder="Select Prediction Models"
+                  initialvalue = {models}
+                  onChange = {this.handleModelChange}
                 >
                   {modelOptions}
                 </Select>
@@ -535,6 +569,7 @@ class Covid19Predict extends PureComponent {
               days={days}
               model={this.state.models == null || this.state.models.length ===0? "" : this.state.models[this.state.models.length-1]}
               onMapClick={this.onMapClick} 
+              dataType = {dataType}
             />
           </div>
         {/* </div> */}

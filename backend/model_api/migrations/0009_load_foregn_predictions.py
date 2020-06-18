@@ -4,6 +4,7 @@ from django.db import migrations
 from typing import List
 import urllib.request
 import urllib.error
+import datetime
 import io
 import csv
 
@@ -19,7 +20,7 @@ class StaticForeignModel:
 
 STATIC_FOREIGN_MODELS = [
     StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/CU-select/2020-06-11-CU-select.csv",
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/CU-select/2020-06-14-CU-select.csv",
         name="Columbia University - Select (US state level death prediction only)",
         description="This metapopulation county-level SEIR model makes projections of future COVID-19 deaths. \
         The predictions are provided by the Shaman Lab at Columbia University. \
@@ -27,7 +28,7 @@ STATIC_FOREIGN_MODELS = [
     ), 
 
     StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/UCLA-SuEIR/2020-06-07-UCLA-SuEIR.csv",
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/UCLA-SuEIR/2020-06-14-UCLA-SuEIR.csv",
         name="UCLA - SuEIR (US state level death prediction only)",
         description="The SuEIR model is a variant of the SEIR model considering both untested and unreported cases. \
         The model takes reopening into consideration and assumes that the contact rate will increase after the reopen.\
@@ -36,7 +37,7 @@ STATIC_FOREIGN_MODELS = [
     ),
 
     StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/MIT_CovidAnalytics-DELPHI/2020-06-08-MIT_CovidAnalytics-DELPHI.csv",
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/MIT_CovidAnalytics-DELPHI/2020-06-15-MIT_CovidAnalytics-DELPHI.csv",
         name="MIT - DELPHI (US state level death prediction only)",
         description="This model makes predictions for future cases based on a heavily modified SEIR model taking \
         into account underdetection and government intervention. The predictions are provided by the COVIDAnalytics Research Team at MIT. \
@@ -44,7 +45,7 @@ STATIC_FOREIGN_MODELS = [
     ), 
 
     StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/JHU_IDD-CovidSP/2020-06-07-JHU_IDD-CovidSP.csv",
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/JHU_IDD-CovidSP/2020-06-14-JHU_IDD-CovidSP.csv",
         name="JHU - IDD (US state level death prediction only)",
         description="County-level metapopulation model with commuting and stochastic SEIR disease dynamics. \
         The predictions are provided by the Johns Hopkins ID Dynamics COVID-19 Working Group. \
@@ -131,7 +132,8 @@ def load_csv(apps, url, state_mapping):
                 print(msg)
                 continue
             
-            date = row[date_col]
+            raw_date = row[date_col]
+            date = datetime.datetime(*[int(item) for item in raw_date.split('-')])
 
             # Skip invalid values.
             raw_val = row[value_col]
@@ -182,10 +184,10 @@ def load_state_mapping(apps):
         return state_mapping
     
     except urllib.error.HTTPError as httpe:
-        print("A HttpError is found when loading data from" + url)
+        print("A HttpError is found when loading state_ids and states mapping.")
         raise
     except urllib.error.URLError as urle:
-        print("A URLError is found when loading data from" + url)
+        print("A URLError is found when loading data state_ids and states mapping.")
         raise
 
 
@@ -206,6 +208,9 @@ def load_covid19_foreign_predictions(apps, schema_editor):
         covid19_model.save()
 
         new_predictions = load_csv(apps, static_model.us_death_prediction_url, state_mapping)
+        # Sort the data according to its datetime.
+        new_predictions.sort(key=lambda p: p.date)
+
         for p in new_predictions:
             p.model = covid19_model
             p.social_distancing = True

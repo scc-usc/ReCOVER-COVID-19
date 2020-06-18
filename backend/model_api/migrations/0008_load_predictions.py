@@ -22,75 +22,155 @@ class StaticModel:
 STATIC_MODELS = [
     StaticModel(
         quarantined_prediction_paths=[
-            "../results/forecasts/global_forecasts_quarantine_avg_1.csv",
-            "../results/forecasts/us_forecasts_quarantine_avg_1.csv"
+            "../results/forecasts/global_forecasts_quarantine_1.csv",
+            "../results/forecasts/us_forecasts_quarantine_1.csv"
         ],
         released_prediction_paths=[
             "../results/forecasts/global_forecasts_released_avg_1.csv",
             "../results/forecasts/us_forecasts_released_avg_1.csv"
         ],
-        name="SI-kJalpha - No under-reported cases(default)",
+        name="SI-kJalpha - No under-reported positive cases(default)",
         description="The default version of the SI-kJalpha model, with no assumptions about under-reporting."
     ),
     StaticModel(
         quarantined_prediction_paths=[
-            "../results/forecasts/global_forecasts_quarantine_avg_2.csv",
-            "../results/forecasts/us_forecasts_quarantine_avg_2.csv"
+            "../results/forecasts/global_forecasts_quarantine_2.csv",
+            "../results/forecasts/us_forecasts_quarantine_2.csv"
         ],
         released_prediction_paths=[
             "../results/forecasts/global_forecasts_released_avg_2.csv",
             "../results/forecasts/us_forecasts_released_avg_2.csv"
         ],
-        name="SI-kJalpha - 2x under-reported",
-        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 2x."
+        name="SI-kJalpha - 2x under-reported positive cases",
+        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 2x."
     ),
     StaticModel(
         quarantined_prediction_paths=[
-            "../results/forecasts/global_forecasts_quarantine_avg_5.csv",
-            "../results/forecasts/us_forecasts_quarantine_avg_5.csv"
+            "../results/forecasts/global_forecasts_quarantine_5.csv",
+            "../results/forecasts/us_forecasts_quarantine_5.csv"
         ],
         released_prediction_paths=[
             "../results/forecasts/global_forecasts_released_avg_5.csv",
             "../results/forecasts/us_forecasts_released_avg_5.csv"
         ],
-        name="SI-kJalpha - 5x under-reported",
-        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 5x."
+        name="SI-kJalpha - 5x under-reported positive cases",
+        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 5x."
     ),
     StaticModel(
         quarantined_prediction_paths=[
-            "../results/forecasts/global_forecasts_quarantine_avg_10.csv",
-            "../results/forecasts/us_forecasts_quarantine_avg_10.csv"
+            "../results/forecasts/global_forecasts_quarantine_10.csv",
+            "../results/forecasts/us_forecasts_quarantine_10.csv"
         ],
         released_prediction_paths=[
             "../results/forecasts/global_forecasts_released_avg_10.csv",
             "../results/forecasts/us_forecasts_released_avg_10.csv"
         ],
-        name="SI-kJalpha - 10x under-reported",
-        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 10x."
+        name="SI-kJalpha - 10x under-reported positive cases",
+        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 10x."
     ),
     StaticModel(
         quarantined_prediction_paths=[
-            "../results/forecasts/global_forecasts_quarantine_avg_20.csv",
-            "../results/forecasts/us_forecasts_quarantine_avg_20.csv"
+            "../results/forecasts/global_forecasts_quarantine_20.csv",
+            "../results/forecasts/us_forecasts_quarantine_20.csv"
         ],
         released_prediction_paths=[
             "../results/forecasts/global_forecasts_released_avg_20.csv",
             "../results/forecasts/us_forecasts_released_avg_20.csv"
         ],
-        name="SI-kJalpha - 20x under-reported",
-        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 20x."
+        name="SI-kJalpha - 20x under-reported positive cases",
+        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 20x."
     ),
     StaticModel(
         quarantined_prediction_paths=[
-            "../results/forecasts/global_forecasts_quarantine_avg_40.csv",
-            "../results/forecasts/us_forecasts_quarantine_avg_40.csv"
+            "../results/forecasts/global_forecasts_quarantine_40.csv",
+            "../results/forecasts/us_forecasts_quarantine_40.csv"
         ],
         released_prediction_paths=[
             "../results/forecasts/global_forecasts_released_avg_40.csv",
             "../results/forecasts/us_forecasts_released_avg_40.csv"
         ],
-        name="SI-kJalpha - 40x under-reported",
-        description="The SI-kJalpha model with the assumption that observed cases are under-reported by 40x."
+        name="SI-kJalpha - 40x under-reported positive cases",
+        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 40x."
+    ),
+]
+
+STATIC_DEATH_MODELS = [
+    StaticModel(
+        quarantined_prediction_paths=[
+            "../results/forecasts/global_deaths_quarantine_1.csv",
+            "../results/forecasts/us_deaths_quarantine_1.csv"
+        ],
+        released_prediction_paths=[
+            "../results/forecasts/global_deaths_released_1.csv",
+            "../results/forecasts/us_deaths_released_1.csv"
+        ],
+        name="SI-kJalpha - No under-reported deaths",
+        description="The SI-kJalpha model with no assumptions about under-reporting deaths."
+    ),
+
+    StaticModel(
+        quarantined_prediction_paths=[
+            "../results/forecasts/global_deaths_quarantine_2.csv",
+            "../results/forecasts/us_deaths_quarantine_2.csv"
+        ],
+        released_prediction_paths=[
+            "../results/forecasts/global_deaths_released_2.csv",
+            "../results/forecasts/us_deaths_released_2.csv"
+        ],
+        name="SI-kJalpha - 2x under-reported deaths",
+        description="The SI-kJalpha model with the assumption that observed deaths are under-reported by 2x."
+    ),
+
+    StaticModel(
+        quarantined_prediction_paths=[
+            "../results/forecasts/global_deaths_quarantine_5.csv",
+            "../results/forecasts/us_deaths_quarantine_5.csv"
+        ],
+        released_prediction_paths=[
+            "../results/forecasts/global_deaths_released_5.csv",
+            "../results/forecasts/us_deaths_released_5.csv"
+        ],
+        name="SI-kJalpha - 5x under-reported deaths",
+        description="The SI-kJalpha model with the assumption that observed deaths are under-reported by 5x."
+    ),
+
+    StaticModel(
+        quarantined_prediction_paths=[
+            "../results/forecasts/global_deaths_quarantine_10.csv",
+            "../results/forecasts/us_deaths_quarantine_10.csv"
+        ],
+        released_prediction_paths=[
+            "../results/forecasts/global_deaths_released_10.csv",
+            "../results/forecasts/us_deaths_released_10.csv"
+        ],
+        name="SI-kJalpha - 10x under-reported deaths",
+        description="The SI-kJalpha model with the assumption that observed deaths are under-reported by 10x."
+    ),
+
+    StaticModel(
+        quarantined_prediction_paths=[
+            "../results/forecasts/global_deaths_quarantine_20.csv",
+            "../results/forecasts/us_deaths_quarantine_20.csv"
+        ],
+        released_prediction_paths=[
+            "../results/forecasts/global_deaths_released_20.csv",
+            "../results/forecasts/us_deaths_released_20.csv"
+        ],
+        name="SI-kJalpha - 20x under-reported deaths",
+        description="The SI-kJalpha model with the assumption that observed deaths are under-reported by 20x."
+    ),
+
+    StaticModel(
+        quarantined_prediction_paths=[
+            "../results/forecasts/global_deaths_quarantine_40.csv",
+            "../results/forecasts/us_deaths_quarantine_40.csv"
+        ],
+        released_prediction_paths=[
+            "../results/forecasts/global_deaths_released_40.csv",
+            "../results/forecasts/us_deaths_released_40.csv"
+        ],
+        name="SI-kJalpha - 40x under-reported deaths",
+        description="The SI-kJalpha model with the assumption that observed deaths are under-reported by 40x."
     ),
 ]
 
@@ -176,14 +256,42 @@ def load_csv(apps, path):
 
 
 def load_covid19_predictions(apps, schema_editor):
-    Covid19Model = apps.get_model('model_api', 'Covid19InfectionModel')
+    Covid19InfectionModel = apps.get_model('model_api', 'Covid19InfectionModel')
+    Covid19DeathModel = apps.get_model('model_api', 'Covid19DeathModel')
 
     print()
     for static_model in STATIC_MODELS:
         print("Loading model: " + static_model.name)
 
         # Create an entry for the model in the database.
-        covid19_model = Covid19Model(
+        covid19_model = Covid19InfectionModel(
+            name=static_model.name,
+            description=static_model.description)
+        covid19_model.save()
+
+        # Load quarantined predictions.
+        for path in static_model.quarantined_prediction_paths:
+            new_predictions = load_csv(apps, path)
+            # Update additional params and write to database.
+            for p in new_predictions:
+                p.model = covid19_model
+                p.social_distancing = True
+                p.save()
+
+        # Load released predictions.
+        for path in static_model.released_prediction_paths:
+            new_predictions = load_csv(apps, path)
+            # Update additional params and write to database.
+            for p in new_predictions:
+                p.model = covid19_model
+                p.social_distancing = False
+                p.save()
+
+    for static_model in STATIC_DEATH_MODELS:
+        print("Loading model: " + static_model.name)
+
+        # Create an entry for the model in the database.
+        covid19_model = Covid19DeathModel(
             name=static_model.name,
             description=static_model.description)
         covid19_model.save()
