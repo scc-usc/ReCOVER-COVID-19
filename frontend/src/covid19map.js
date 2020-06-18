@@ -49,20 +49,39 @@ class Covid19Map extends Component {
   fetchData(dynamicMapOn) {
     if (!dynamicMapOn || this.props.model === "") {
       //without dynamic map,show to cumulative cases to date
-      this.modelAPI.cumulative_infections(cumulativeInfections => {
-        console.log(cumulativeInfections);
-        let heatmapData = cumulativeInfections.map(d => {
-          return {
-            id: d.area.iso_2,
-            // Adjust all heatmap values by log scale.
-            value: d.value > 0 ? Math.log(d.value) : 0,
-            // Store the true value so we can display tooltips correctly.
-            valueTrue: d.value,
-            area: d.area
-          };
+      if (this.props.dataType === "confirmed")
+      {
+        this.modelAPI.cumulative_infections(cumulativeInfections => {
+          let heatmapData = cumulativeInfections.map(d => {
+            return {
+              id: d.area.iso_2,
+              // Adjust all heatmap values by log scale.
+              value: d.value > 0 ? Math.log(d.value) : 0,
+              // Store the true value so we can display tooltips correctly.
+              valueTrue: d.value,
+              area: d.area
+            };
+          });
+          this.setState({ heatmapData }, this.createChart);
         });
-        this.setState({ heatmapData }, this.createChart);
-      });
+      }
+      else
+      {
+        this.modelAPI.cumulative_death(cumulativeDeath => {
+          let heatmapData = cumulativeDeath.map(d => {
+            return {
+              id: d.area.iso_2,
+              // Adjust all heatmap values by log scale.
+              value: d.value > 0 ? Math.log(d.value) : 0,
+              // Store the true value so we can display tooltips correctly.
+              valueTrue: d.value,
+              area: d.area
+            };
+          });
+          this.setState({ heatmapData }, this.createChart);
+        });
+      }
+      
     } else {
       //with dynamic map 
       if (this.props.statistic === "cumulative"){
