@@ -58,7 +58,7 @@ class Covid19Predict extends PureComponent {
         this.setState({
           modelsList: death_models,
           dataType: e.target.value,
-        }))
+        }))   
     }
   };
 
@@ -67,7 +67,7 @@ class Covid19Predict extends PureComponent {
     this.state = {
       areas: this.props.areas || [],
       areasList: [],
-      models: this.props.models || ['SI-kJalpha - No under-reported cases(default)'],
+      models: this.props.models || ['SI-kJalpha - No under-reported positive cases(default)'],
       modelsList: [],
       currentDate: "",
       distancingOn: true,
