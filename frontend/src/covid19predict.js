@@ -90,7 +90,7 @@ class Covid19Predict extends PureComponent {
     this.state = {
       areas: this.props.areas || [],
       areasList: [],
-      models: this.props.models || ['SI-kJalpha - No under-reported positive cases(default)'] || ['SI-kJalpha - No under-reported deaths'],
+      models: this.props.models || ['SI-kJalpha - No under-reported positive cases(default)'],
       modelsList: [],
       currentDate: "",
       distancingOn: true,
@@ -569,6 +569,7 @@ class Covid19Predict extends PureComponent {
               days={days}
               model={this.state.models == null || this.state.models.length ===0? "" : this.state.models[this.state.models.length-1]}
               onMapClick={this.onMapClick} 
+              statistic={statistic}
               dataType = {dataType}
             />
           </div>

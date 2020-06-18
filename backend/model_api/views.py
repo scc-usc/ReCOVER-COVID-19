@@ -48,8 +48,6 @@ def cumulative_infections(request):
     date.
     """
     lastDate = Covid19DeathDataPoint.objects.last().date
-    print("cumulative", len(Covid19CumulativeDataPoint.objects.all()))
-    print("death", len(Covid19DeathDataPoint.objects.filter(date=lastDate)))
     response = [{
         'area': {
             'country': d.area.country,
@@ -65,7 +63,9 @@ def cumulative_infections(request):
 
 @api_view(['GET'])
 def cumulative_death(request):
+    days = int(request.query_params.get("days"))
     lastDate = Covid19DeathDataPoint.objects.last().date
+    historyDate = lastDate - timedelta(days=-days)
     return Response([{
         'area': {
             'country': m.area.country,
@@ -74,7 +74,7 @@ def cumulative_death(request):
         },
         'value': m.val,
         'date': m.date
-    } for m in Covid19DeathDataPoint.objects.filter(date=lastDate)])
+    } for m in Covid19DeathDataPoint.objects.filter(date=historyDate)])
 
 @api_view(["GET"])
 def models(request):
@@ -263,7 +263,7 @@ def check_history(request):
         date__lte=lastShownDate
     )
 
-    for d in shown:
+    for d in observed_deaths:
         response["observed_deaths"].append({
             "date": d.date,
             "value": d.val,
@@ -402,6 +402,7 @@ def history_cumulative(request):
     observed = Covid19DataPoint.objects.all()
     historyDate = max([d.date for d in observed]) - timedelta(days=-days)
     shownData = observed.filter(date=historyDate)
+    deathData = Covid19DeathDataPoint.objects.filter(date=historyDate)
     response = [{
         'area': {
             'country': d.area.country,
@@ -410,6 +411,7 @@ def history_cumulative(request):
         },
         'value': d.val,
         'date': d.date,
+        'deathValue': deathData.filter(area=d.area, date=d.date).first().val
     } for d in shownData]
 
     return Response(response)

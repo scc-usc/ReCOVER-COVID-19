@@ -67,7 +67,9 @@ class Covid19Map extends Component {
       }
       else
       {
-        this.modelAPI.cumulative_death(cumulativeDeath => {
+        this.modelAPI.cumulative_death({
+          days: 0
+        },cumulativeDeath => {
           let heatmapData = cumulativeDeath.map(d => {
             return {
               id: d.area.iso_2,
@@ -108,21 +110,36 @@ class Covid19Map extends Component {
         else
         {
           // show history cumulative
-          this.modelAPI.history_cumulative({
-            days: this.props.days
-          }, historyCumulative => {
-            let heatmapData = historyCumulative.map(d => {
-              return {
-                id: d.area.iso_2,
-                // Adjust all heatmap values by log scale.
-                value: d.value > 0 ? Math.log(d.value) : 0,
-                // Store the true value so we can display tooltips correctly.
-                valueTrue: d.value,
-                area: d.area
-              };
+            this.modelAPI.history_cumulative({
+              days: this.props.days
+            }, historyCumulative => {
+              let heatmapData = historyCumulative.map(d => {
+                if (this.props.dataType === "confirmed")
+                {
+                  return {
+                    id: d.area.iso_2,
+                    // Adjust all heatmap values by log scale.
+                    value: d.value > 0 ? Math.log(d.value) : 0,
+                    // Store the true value so we can display tooltips correctly.
+                    valueTrue: d.value,
+                    area: d.area
+                  };
+                }
+                else
+                {
+                  return {
+                    id: d.area.iso_2,
+                    // Adjust all heatmap values by log scale.
+                    value: d.deathValue > 0 ? Math.log(d.deathValue) : 0,
+                    // Store the true value so we can display tooltips correctly.
+                    valueTrue: d.deathValue,
+                    area: d.area
+                  }
+                }
+                
+              });
+              this.setState({ heatmapData }, this.resetChart);
             });
-            this.setState({ heatmapData }, this.resetChart);
-          });
 
         }
       }
@@ -147,7 +164,7 @@ class Covid19Map extends Component {
                   return {
                     id: d.area.iso_2,
                     value: d.value - previousCumulative[index].value > 0 ? Math.log(d.value - previousCumulative[index].value): 0,
-                    valueTrue:  d.value - previousCumulative[index].value,
+                    valueTrue:  d.value - previousCumulative[index].value > 0? d.value - previousCumulative[index].value: 0,
                     area: d.area
                   }
                 });
@@ -160,12 +177,27 @@ class Covid19Map extends Component {
                 days: this.props.days - 1
               }, previousCumulative =>{
                 let heatmapData = cumulativeInfections.map((d, index) =>{
-                  return {
-                    id: d.area.iso_2,
-                    value: d.value - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).value > 0 ? Math.log(d.value - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).value ): 0,
-                    valueTrue:  d.value - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).value ,
-                    area: d.area
+                  if (this.props.dataType === "confirmed")
+                  {
+                    return {
+                      id: d.area.iso_2,
+                      value: d.value - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).value > 0 ? Math.log(d.value - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).value ): 0,
+                      valueTrue:  d.value - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).value > 0?
+                                  d.value - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).value:0,
+                      area: d.area
+                    }
                   }
+                  else
+                  {
+                    return {
+                      id: d.area.iso_2,
+                      value: d.deathValue - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).deathValue > 0 ? Math.log(d.deathValue - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).deathValue ): 0,
+                      valueTrue:  d.deathValue - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).deathValue > 0?
+                                  d.deathValue - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).deathValue:0,
+                      area: d.area
+                    }
+                  }
+                  
                 });
                 this.setState({ heatmapData }, this.resetChart);
               });
@@ -184,12 +216,25 @@ class Covid19Map extends Component {
               model: this.props.model
             }, nextDayCumulative =>{
               let heatmapData = historyInfections.map((d, index) =>{
-                return {
-                  id: d.area.iso_2,
-                  value: d.value - nextDayCumulative[index].value > 0 ? Math.log(d.value - nextDayCumulative[index].value): 0,
-                  valueTrue: d.value - nextDayCumulative[index].value,
-                  area: d.area
+                if (this.props.dataType === "confirmed")
+                {
+                  return {
+                    id: d.area.iso_2,
+                    value: d.value - nextDayCumulative[index].value > 0 ? Math.log(d.value - nextDayCumulative[index].value): 0,
+                    valueTrue: d.value - nextDayCumulative[index].value > 0 ? d.value - nextDayCumulative[index].value: 0,
+                    area: d.area
+                  }
                 }
+                else
+                {
+                  return{
+                    id: d.area.iso_2,
+                    value: d.deathValue - nextDayCumulative[index].deathValue > 0 ? Math.log(d.deathValue - nextDayCumulative[index].deathValue): 0,
+                    valueTrue: d.deathValue - nextDayCumulative[index].deathValue > 0 ? d.deathValue - nextDayCumulative[index].deathValue: 0,
+                    area: d.area
+                  }
+                }
+                
               });
               this.setState({ heatmapData }, this.resetChart);
             });
