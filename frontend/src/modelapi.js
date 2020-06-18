@@ -135,9 +135,15 @@ class ModelAPI {
   }
 
   //get the death at latest time
-  cumulative_death(callback) {
+  cumulative_death(params, callback) {
     const endpoint = `${API_BASE_URL}/cumulative_death`;
-    axios.get(endpoint).then(res => callback(res.data));
+    axios
+      .get(endpoint, {
+        params: params
+      })
+      .then(res => {
+        callback(res.data);
+      });
   }
 }
 
