@@ -47,6 +47,9 @@ def cumulative_infections(request):
     This endpoint returns the number of cumulative infections for each area to
     date.
     """
+    lastDate = Covid19DeathDataPoint.objects.last().date
+    print("cumulative", len(Covid19CumulativeDataPoint.objects.all()))
+    print("death", len(Covid19DeathDataPoint.objects.filter(date=lastDate)))
     response = [{
         'area': {
             'country': d.area.country,
@@ -57,8 +60,21 @@ def cumulative_infections(request):
         'date': d.data_point.date,
     } for d in Covid19CumulativeDataPoint.objects.all()]
 
+
     return Response(response)
 
+@api_view(['GET'])
+def cumulative_death(request):
+    lastDate = Covid19DeathDataPoint.objects.last().date
+    return Response([{
+        'area': {
+            'country': m.area.country,
+            'state': m.area.state,
+            'iso_2': m.area.iso_2,
+        },
+        'value': m.val,
+        'date': m.date
+    } for m in Covid19DeathDataPoint.objects.filter(date=lastDate)])
 
 @api_view(["GET"])
 def models(request):

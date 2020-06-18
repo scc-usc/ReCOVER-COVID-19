@@ -63,7 +63,6 @@ class ModelAPI {
         params: params
       })
       .then(res => {
-        //console.log(res.data);
         callback(res.data);
       });
   }
@@ -133,6 +132,12 @@ class ModelAPI {
       const latestDate = res.data;
       callback(latestDate);
     });
+  }
+
+  //get the death at latest time
+  cumulative_death(callback) {
+    const endpoint = `${API_BASE_URL}/cumulative_death`;
+    axios.get(endpoint).then(res => callback(res.data));
   }
 }
 
