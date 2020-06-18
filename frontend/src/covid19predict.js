@@ -48,17 +48,30 @@ class Covid19Predict extends PureComponent {
 
   handleDataTypeSelect = e => {
     if (e.target.value === "confirmed") {
-      this.modelAPI.infection_models(infection_models => 
+      this.modelAPI.infection_models(infection_models => {
         this.setState({
           modelsList: infection_models,
           dataType: e.target.value,
-        }))
+          models: ['SI-kJalpha - No under-reported positive cases(default)']
+        });
+        this.formRef.current.setFieldsValue({
+          models: ['SI-kJalpha - No under-reported positive cases(default)']
+        });
+        this.reloadAll();   
+      })
+         
     } else if (e.target.value === "death") {
-      this.modelAPI.death_models(death_models =>
+      this.modelAPI.death_models(death_models => {
         this.setState({
           modelsList: death_models,
           dataType: e.target.value,
-        }))   
+          models: ['SI-kJalpha - No under-reported deaths']
+        });
+        this.formRef.current.setFieldsValue({
+          models: ['SI-kJalpha - No under-reported deaths']
+        });
+        this.reloadAll();
+      })
     }
   };
 
@@ -67,7 +80,7 @@ class Covid19Predict extends PureComponent {
     this.state = {
       areas: this.props.areas || [],
       areasList: [],
-      models: this.props.models || ['SI-kJalpha - No under-reported positive cases(default)'],
+      models: this.props.models || ['SI-kJalpha - No under-reported positive cases(default)'] || ['SI-kJalpha - No under-reported deaths'],
       modelsList: [],
       currentDate: "",
       distancingOn: true,
