@@ -52,7 +52,7 @@ class Covid19Predict extends PureComponent {
         this.setState({
           modelsList: infection_models,
           dataType: e.target.value,
-          models: ['SI-kJalpha - No under-reported positive cases(default)']
+          models: ['SI-kJalpha - No under-reported positive cases (default)']
         }, ()=>{
           this.formRef.current.setFieldsValue({
             models: this.state.models
@@ -70,7 +70,7 @@ class Covid19Predict extends PureComponent {
           this.setState({
             modelsList: death_models,
             dataType: e.target.value,
-            models: ['SI-kJalpha - No under-reported deaths']
+            models: ['SI-kJalpha - No under-reported positive cases (death prediction)']
           }, ()=>{
             this.formRef.current.setFieldsValue({
               models: this.state.models
@@ -90,7 +90,7 @@ class Covid19Predict extends PureComponent {
     this.state = {
       areas: this.props.areas || [],
       areasList: [],
-      models: this.props.models || ['SI-kJalpha - No under-reported positive cases(default)'],
+      models: this.props.models || ['SI-kJalpha - No under-reported positive cases (default)'],
       modelsList: [],
       currentDate: "",
       distancingOn: true,

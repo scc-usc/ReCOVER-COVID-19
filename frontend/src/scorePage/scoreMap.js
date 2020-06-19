@@ -107,7 +107,7 @@ class ScoreMap extends Component {
 
         
         // Configure series tooltip. Display the true value of infections.
-        polygonTemplate.tooltipText = "{name}: {value} (conf: {conf})";
+        polygonTemplate.tooltipText = "{name}: {value}";
         polygonTemplate.nonScalingStroke = true;
         polygonTemplate.strokeWidth = 0.5;
     
