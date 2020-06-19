@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Delete all previously-existing data in the database
+python manage.py dbshell
