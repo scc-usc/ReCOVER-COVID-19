@@ -569,6 +569,7 @@ class Covid19Predict extends PureComponent {
               days={days}
               model={this.state.models == null || this.state.models.length ===0? "" : this.state.models[this.state.models.length-1]}
               onMapClick={this.onMapClick} 
+              onNoData = {this.onNoData}
               statistic={statistic}
               dataType = {dataType}
             />
