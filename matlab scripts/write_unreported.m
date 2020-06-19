@@ -46,7 +46,7 @@ for un_id = 1:length(un_array)
     infec_data_released = [data_4_s(:, T_full-dk*djp:T_full), infec_released_avg];
     base_deaths = deaths(:, T_full);
     
-    [death_rates] = var_ind_deaths(data_4, deaths, dalpha, dk, djp);
+    [death_rates] = var_ind_deaths(data_4, deaths, dalpha, dk, djp, dwin);
     [pred_deaths] = var_simulate_deaths(infec_data, death_rates, dk, djp, dhorizon, base_deaths);
     [pred_deaths_released] = var_simulate_deaths(infec_data_released, death_rates, dk, djp, dhorizon, base_deaths);
     

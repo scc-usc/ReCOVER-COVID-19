@@ -23,9 +23,9 @@ function [Rt, Rt_conf] = calc_Rt(beta_cell, k_l, jp_l, sus_frac, beta_confs)
     for j=1:num_countries
         beta = beta_cell{j};
         k  = k_l(j);
-        beta = beta(1:k)';
+        beta = beta(1:k);
         jp = jp_l(j);
-        Rt(j) = sus_frac(j)*sum([0:k-1].*beta)*jp/k + (jp+1)*sum(beta)/2;
+        Rt(j) = sus_frac(j) * jp * sum(beta);
     end
 end
 

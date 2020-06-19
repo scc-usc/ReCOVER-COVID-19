@@ -2,5 +2,6 @@
 
 dk = 3;
 djp = 7;
-dalpha = 0.8;
+dalpha = 1;
+dwin = 49;
 
