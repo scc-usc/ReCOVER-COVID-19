@@ -326,8 +326,7 @@ def scores(request):
         raise APIException(msg)
 
     response = {
-        "observed": [],
-        "predictions": [],
+        "observed": []
     }
 
     score_start_date = datetime(2020, 3, 11)

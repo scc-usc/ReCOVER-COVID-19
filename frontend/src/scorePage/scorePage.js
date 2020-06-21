@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import ModelAPI from "../modelapi";
 import { areaToStr, strToArea} from "../covid19util";
-import Covid19Graph from "../covid19graph";
+import ScoreGraph from "./scoreGraph";
 import ScoreMap from './scoreMap';
 import "./scorePage.css";
 
@@ -306,7 +306,7 @@ class ScorePage extends PureComponent{
                     triggerRef={this.bindRef}
                     dynamicMapOn={dynamicMapOn}
                     weeks={weeks}
-                    latestWeek={latestWeek - 1}
+                    latestWeek={latestWeek}
                     onMapClick={this.onMapClick} 
                     onNoData = {this.onNoData}
                     />
@@ -319,12 +319,9 @@ class ScorePage extends PureComponent{
                 <Col span={24}>
                 {/* <div className="right-col"> */}
                     <div className="graph-wrapper">
-                    <Covid19Graph
+                    <ScoreGraph
                         data={mainGraphData}
-                        statistic={"cumulative"}
-                        yScale={"linear"}
-                        dataType={"confirmed"}
-                    ></Covid19Graph>
+                    ></ScoreGraph>
                     </div>
                 {/* </div> */}
                 </Col>
