@@ -1,0 +1,51 @@
+.title {
+    padding-top: 76px;
+    padding-bottom: 18px;
+    text-align: center;
+    font-size: 32px;
+}
+
+.leaderboard {
+    background: #ffffff;
+    border: solid 1px #dedede;
+    margin-top: 1.5em;
+    margin-left: 15%;
+    margin-right: 15%;
+    padding: 30px 50px;
+}
+
+.model-name {
+    font-size: 20px;
+}
+
+.model-description {
+    width: 50%;
+    font-size: 16px;
+}
+
+.content {
+    width: 168px;
+    text-align: center;
+}
+
+.rank-number {
+    height: 40px;
+}
+
+.score {
+    font-size: 32px;
+    color: #FC9F4D;
+}
+
+.score-description {
+    font-size: 10px;
+    font-style: italic;
+}
+
+.disclaimer {
+    padding: 30px 50px;
+    text-align: center;
+    font-size: 14px;
+    font-style:italic;
+    color: #787D7B;
+}

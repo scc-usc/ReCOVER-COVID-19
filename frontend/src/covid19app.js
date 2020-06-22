@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom
 import Navbar from "./navbar/navbar";
 import 'semantic-ui-css/semantic.min.css';
 import "./covid19app.css";
+import Leaderboard from "./leaderboard/leaderboard";
 
 class Covid19App extends Component {
   constructor(props){
@@ -13,7 +14,8 @@ class Covid19App extends Component {
     this.state = {
       redirectForecast: false,
       redirectAbout: false,
-      redirectScore: false
+      redirectScore: false,
+      redirectLeaderboard: false
     }
   }
 
@@ -21,7 +23,8 @@ class Covid19App extends Component {
     this.setState({
       redirectForecast:true,
       redirectAbout: false,
-      redirectScore: false
+      redirectScore: false,
+      redirectLeaderboard: false
     });
   }
 
@@ -29,7 +32,8 @@ class Covid19App extends Component {
     this.setState({
       redirectForecast: false,
       redirectAbout:true,
-      redirectScore: false
+      redirectScore: false,
+      redirectLeaderboard: false
     });
   }
 
@@ -37,20 +41,32 @@ class Covid19App extends Component {
     this.setState({
       redirectForecast: false,
       redirectAbout:false,
-      redirectScore: true
+      redirectScore: true,
+      redirectLeaderboard: false
+    });
+  }
+
+  redirectLeaderboard = ()=>{
+    this.setState({
+      redirectForecast: false,
+      redirectAbout: false,
+      redirectScore: false,
+      redirectLeaderboard: true
     });
   }
 
   render() {
-    const {redirectForecast, redirectAbout, redirectScore} = this.state;
+    const {redirectForecast, redirectAbout, redirectScore, redirectLeaderboard} = this.state;
     return (
       <Router>
         {redirectForecast?<Redirect to="/ReCOVER-COVID-19"/>:null}
         {redirectScore?<Redirect to="/ReCOVER-COVID-19/score"/>:null}
         {redirectAbout?<Redirect to="/ReCOVER-COVID-19/about"/>:null}
+        {redirectLeaderboard?<Redirect to="/ReCOVER-COVID-19/leaderboard"/>:null}
         <Navbar redirectForecast = {this.redirectForecast}
                 redirectScore = {this.redirectScore}
                 redirectAbout = {this.redirectAbout}
+                redirectLeaderboard = {this.redirectLeaderboard}
         />
         <Switch>
           <Route exact path='/ReCOVER-COVID-19' 
@@ -60,6 +76,9 @@ class Covid19App extends Component {
           />
           <Route exact path='/ReCOVER-COVID-19/about'
             render={(props) => <AboutUS {...props} />} />
+          <Route exact path='/ReCOVER-COVID-19/leaderboard' 
+            render={(props) => <Leaderboard {...props} />}/>
+          
           {/* need a page for instruction */}
         </Switch>
       </Router>
