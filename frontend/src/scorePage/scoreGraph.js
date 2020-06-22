@@ -135,7 +135,7 @@ class ScoreGraph extends Component {
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: "Rt_nums",
+      legend: "Dynamic Reproduction Number",
       legendOffset: -60,
       legendPosition: "middle"
     };
