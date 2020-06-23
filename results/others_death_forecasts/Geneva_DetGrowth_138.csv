@@ -1,0 +1,57 @@
+,State,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152
+0,Washington,1157,12,8,7,8,7,8,7,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+1,Illinois,5904,86,64,64,64,64,64,64,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+2,California,4632,137,81,81,81,81,81,81,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+3,Arizona,1051,34,22,22,22,22,22,22,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+4,Massachusetts,7316,58,44,44,44,44,44,44,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+5,Wisconsin,647,16,10,9,10,9,10,9,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+6,Texas,1841,52,28,29,28,29,28,29,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+7,Nebraska,187,0,0,0,0,0,0,0,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+8,Utah,121,4,2,2,2,2,2,2,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+9,Oregon,163,0,1,1,1,1,1,1,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+10,Florida,2700,73,41,40,41,40,41,40,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+11,New York,30374,15,53,53,53,53,53,53,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+12,Rhode Island,772,19,8,8,8,8,8,8,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+13,Georgia,2180,30,15,15,14,15,14,15,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+14,New Hampshire,286,7,5,5,5,5,5,5,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+15,North Carolina,1032,17,11,11,11,11,11,11,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+16,New Jersey,12176,70,68,68,68,68,68,68,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+17,Colorado,1527,17,7,8,7,8,7,8,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+18,Maryland,2749,62,36,36,36,36,36,36,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+19,Nevada,438,7,3,4,3,4,3,4,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+20,Tennessee,418,15,8,8,8,8,8,8,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+21,Hawaii,17,0,0,0,0,0,0,0,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+22,Indiana,2303,49,30,31,30,31,30,31,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+23,Kentucky,470,13,6,6,6,6,6,6,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+24,Minnesota,1197,41,27,28,27,28,27,28,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+25,Oklahoma,348,2,1,2,1,2,1,2,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+26,Pennsylvania,5943,93,49,50,49,50,49,50,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+27,South Carolina,546,37,19,19,19,19,19,19,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+28,District of Columbia,489,2,4,4,4,4,4,4,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+29,Kansas,233,7,3,3,3,3,3,3,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+30,Missouri,850,-15,10,10,10,10,10,10,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+31,Vermont,55,0,0,0,0,0,0,0,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+32,Virginia,1472,5,8,8,8,8,8,8,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+33,Connecticut,4071,34,24,24,24,24,24,24,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+34,Iowa,605,11,8,8,8,8,8,8,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+35,Louisiana,2936,34,21,21,21,21,21,21,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+36,Ohio,2379,25,16,16,16,16,16,16,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+37,Michigan,5927,-293,9,9,9,9,9,9,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+38,South Dakota,65,1,0,1,0,1,0,1,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+39,Arkansas,154,3,1,2,1,2,1,2,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+40,Delaware,398,-4,2,2,2,2,2,2,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+41,Mississippi,817,11,9,8,9,8,9,8,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+42,New Mexico,396,5,4,5,4,5,4,5,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+43,North Dakota,72,7,3,3,3,3,3,3,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+44,Wyoming,17,0,0,0,0,0,0,0,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+45,Alaska,10,0,0,0,0,0,0,0,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+46,Maine,99,3,1,2,1,2,1,2,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+47,Alabama,692,35,18,18,18,18,18,18,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+48,Idaho,83,0,0,0,0,0,0,0,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+49,Montana,18,1,1,0,1,0,1,0,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+50,Puerto Rico,142,2,1,1,1,1,1,1,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+51,Virgin Islands,6,0,0,0,0,0,0,0,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+52,Guam,5,0,0,0,0,0,0,0,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+53,West Virginia,84,6,2,3,2,3,2,3,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+54,Northern Mariana Islands,2,16,0,1,0,1,0,1,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+55,American Samoa,0,0,0,0,0,0,0,0,NaN,NaN,NaN,NaN,NaN,NaN,NaN
