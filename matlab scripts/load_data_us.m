@@ -70,7 +70,7 @@ USAfacts_confirmed = readtable('dummy.csv');
 fsource = 'https://usafactsstatic.blob.core.windows.net/public/data/covid-19/covid_deaths_usafacts.csv';
 urlwrite(fsource,'dummy.csv');
 USAfacts_deaths = readtable('dummy.csv');
-%%
+%% Extract Confirmed and Deaths from US Facts
 cvals = USAfacts_confirmed{1:end, 6:end};
 dvals = USAfacts_deaths{1:end, 6:end};
 maxt = size(cvals, 2);
@@ -91,3 +91,5 @@ for cidx = 1:length(countries)
     end
     deaths_USF(cidx, :) =  sum(dvals(idx, :), 1);
 end
+%% Change the following to pick which data to use
+data_4 = data_4_JHU; deaths = deaths_JHU;

@@ -1,4 +1,4 @@
-# Forecasting
+## Forecasting
 
 To generate forecasts, run
 daily_run.m
@@ -23,6 +23,10 @@ Population data , travel data, and country names are included here
 
 Also included is a live script: plot_gen.mlx to visualize forecasts instead of writing forecasts in files.
 
-# Unreported Cases
+## Unreported Cases
 
 To test the code for estimation of unreported cases, use the live script: daily_explore_unrep.mlx
+
+## Comparing death forecasts
+
+To compare death forecasts of our approach and various other models used by CDC on US states, use the live script: evaluate_deaths.mlx

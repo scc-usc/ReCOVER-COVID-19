@@ -1,16 +1,18 @@
 %%%% Calculates "Transmission score" used for "Contact Reduction Score" in https://arxiv.org/abs/2004.11372
 %%%% Also calculates the Dynamic Reproduction Number with time
 
-% prefix = 'us'; % Uncomment for US state-level
-prefix = 'global'; % Uncomment for country-level
+warning off;
+prefix = 'us'; % Uncomment for US state-level
+%prefix = 'global'; % Uncomment for country-level
 
 horizon = 7;
 alpha_start = 5;
 all_scores = [];
 all_scores_f = [];
 Rt_scores = [];
+Rt_dev = [];
 skip_length = 7;
-saved_days = 134; % Set it to higher number to avoid recomputing hypoerparameters from the beginning
+saved_days = 141; % Set it to higher number to avoid recomputing hypoerparameters from the beginning
 start_day = 50;
 
 % data_4 = data_4_orig;
@@ -111,12 +113,13 @@ for daynum = start_day:skip_length:floor(size(data_4, 2)-horizon)
     
     % Compute scores
     
-    [beta_notravel, ~, ci] = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), passengerFlow*0, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), 1, popu, best_param_list_no(:, 2));
+    [beta_notravel, ~, ci] = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), passengerFlow*0, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), 1, popu, best_param_list_no(:, 2), 1);
     
-    alpha_l = MAPEtable_notravel_fixed_s(1, 3)*0.1*ones(length(popu), 1);
-    k_l = MAPEtable_notravel_fixed_s(1, 1)*ones(length(popu), 1);
-    jp_l = MAPEtable_notravel_fixed_s(1, 2)*ones(length(popu), 1);
-    [beta_notravel_f, ~, ci_f] = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), passengerFlow*0, alpha_l, k_l, 1, popu, jp_l);
+% We are no longer computing with fixed hyper-parameters
+%     alpha_l = MAPEtable_notravel_fixed_s(1, 3)*0.1*ones(length(popu), 1);
+%     k_l = MAPEtable_notravel_fixed_s(1, 1)*ones(length(popu), 1);
+%     jp_l = MAPEtable_notravel_fixed_s(1, 2)*ones(length(popu), 1);
+%     [beta_notravel_f, ~, ci_f] = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), passengerFlow*0, alpha_l, k_l, 1, popu, jp_l);
     
     thisscore = zeros(length(popu), 1);
     thisscore_f = zeros(length(popu), 1);
@@ -125,22 +128,23 @@ for daynum = start_day:skip_length:floor(size(data_4, 2)-horizon)
         J = best_param_list_no(cidx, 2);
         new = J*beta_notravel{cidx};
         new = new(1:k);
-        
-        J = MAPEtable_notravel_fixed_s(1, 2);
-        k = MAPEtable_notravel_fixed_s(1, 1);
-        new_f = J*beta_notravel_f{cidx};
-        new_f = new_f(1:k);
-        
         thisscore(cidx) = sum(new);
-        thisscore_f(cidx) = sum(new_f);
+        
+% We are no longer computing with fixed hyper-parameters
+%         J = MAPEtable_notravel_fixed_s(1, 2);
+%         k = MAPEtable_notravel_fixed_s(1, 1);
+%         new_f = J*beta_notravel_f{cidx};
+%         new_f = new_f(1:k);
+%         thisscore_f(cidx) = sum(new_f);
         
     end
     all_scores = [all_scores thisscore];
-    all_scores_f = [all_scores_f thisscore_f];
+    %all_scores_f = [all_scores_f thisscore_f];
     
-    thisRt = calc_Rt(beta_notravel, best_param_list_no(:, 1), best_param_list_no(:, 2), 1-data_4(:, T_tr)./popu);
-    thisRt1 = calc_Rt(beta_notravel_f, k_l, jp_l, 1-data_4(:, T_tr)./popu);
-    Rt_scores = [Rt_scores thisRt];
+    [thisRt, Rtconf] = calc_Rt(beta_notravel, best_param_list_no(:, 1), best_param_list_no(:, 2), 1-data_4(:, T_tr)./popu, ci);
+    
+    Rt_scores = [Rt_scores, thisRt];
+    Rt_dev = [Rt_dev, (thisRt-Rtconf(:, 1))];
 end
 
 disp('DONE!');
@@ -152,13 +156,13 @@ disp('DONE!');
     vectorarray  = num2cell(all_scores,1);
     cidx = (0:length(countries)-1)';
     tt = table(cidx, countries, vectorarray{:}, 'VariableNames',allcols);
-    vectorarray  = num2cell(data_4(:, start_day:skip_length:floor(size(data_4, 2))-horizon),1);
+    vectorarray  = num2cell(Rt_dev,1);
     tt1 = table(cidx, countries, vectorarray{:}, 'VariableNames',allcols);
     vectorarray  = num2cell(Rt_scores,1);
     tt2 = table(cidx, countries, vectorarray{:}, 'VariableNames',allcols);
     
     
     writetable(tt, ['../results/scores/' prefix '_scores.csv']);
-    writetable(tt1, ['../results/scores/' prefix '_scores_conf.csv']);
+    writetable(tt1, ['../results/scores/' prefix '_Rt_conf.csv']);
     writetable(tt2, ['../results/scores/' prefix '_Rt_num.csv']);
     
