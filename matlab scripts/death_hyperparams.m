@@ -4,4 +4,3 @@ dk = 3;
 djp = 7;
 dalpha = 1;
 dwin = 49;
-

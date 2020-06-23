@@ -20,7 +20,7 @@ class StaticForeignModel:
 
 STATIC_FOREIGN_MODELS = [
     StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/CU-select/2020-06-14-CU-select.csv",
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/CU-select/2020-06-18-CU-select.csv",
         name="Columbia University - Select (US state level death prediction only)",
         description="This metapopulation county-level SEIR model makes projections of future COVID-19 deaths. \
         The predictions are provided by the Shaman Lab at Columbia University. \
@@ -28,7 +28,7 @@ STATIC_FOREIGN_MODELS = [
     ), 
 
     StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/UCLA-SuEIR/2020-06-14-UCLA-SuEIR.csv",
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/UCLA-SuEIR/2020-06-21-UCLA-SuEIR.csv",
         name="UCLA - SuEIR (US state level death prediction only)",
         description="The SuEIR model is a variant of the SEIR model considering both untested and unreported cases. \
         The model takes reopening into consideration and assumes that the contact rate will increase after the reopen.\
@@ -37,7 +37,7 @@ STATIC_FOREIGN_MODELS = [
     ),
 
     StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/MIT_CovidAnalytics-DELPHI/2020-06-15-MIT_CovidAnalytics-DELPHI.csv",
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/MIT_CovidAnalytics-DELPHI/2020-06-22-MIT_CovidAnalytics-DELPHI.csv",
         name="MIT - DELPHI (US state level death prediction only)",
         description="This model makes predictions for future cases based on a heavily modified SEIR model taking \
         into account underdetection and government intervention. The predictions are provided by the COVIDAnalytics Research Team at MIT. \
