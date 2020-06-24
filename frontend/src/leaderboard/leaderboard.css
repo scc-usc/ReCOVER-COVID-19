@@ -1,0 +1,75 @@
+.grid {
+    align-content: center;
+    padding: 0px 20px;
+}
+
+h1.title {
+    padding-top: 50px;
+    text-align: center;
+    font-size: 28px;
+}
+
+h2.title {
+    padding-bottom: 10px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.leaderboard {
+    background: #ffffff;
+    border: solid 1px #dedede;
+    margin-top: 1.5em;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 28px;
+    padding: 20px 20px;
+}
+
+.graph {
+    width: 100%;
+}
+
+.model-name {
+    font-size: 20px;
+}
+
+.model-description {
+    width: 50%;
+    font-size: 16px;
+}
+
+.content {
+    width: 168px;
+    height: 72px;
+    text-align: center;
+}
+
+.rank-number {
+    height: 40px;
+}
+
+.score {
+    font-size: 28px;
+    color: #FC9F4D;
+}
+
+.score-description {
+    font-size: 10px;
+    font-style: italic;
+}
+
+.disclaimer {
+    padding-bottom: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    font-size: 14px;
+    font-style:italic;
+    color: #787D7B;
+}
+
+.main-graph-container {
+    padding-left: 20%;
+    padding-right: 20%;
+    margin: 40px 20px;
+}

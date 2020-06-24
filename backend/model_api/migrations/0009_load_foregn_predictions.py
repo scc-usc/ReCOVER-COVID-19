@@ -35,22 +35,50 @@ STATIC_FOREIGN_MODELS = [
         The predictions are provided by the UCLA Statistical Machine Learning Lab. \
         More info on https://github.com/reichlab/covid19-forecast-hub/tree/master/data-processed/UCLA-SuEIR."
     ),
-
-    StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/MIT_CovidAnalytics-DELPHI/2020-06-22-MIT_CovidAnalytics-DELPHI.csv",
-        name="MIT - DELPHI (US state level death prediction only)",
-        description="This model makes predictions for future cases based on a heavily modified SEIR model taking \
-        into account underdetection and government intervention. The predictions are provided by the COVIDAnalytics Research Team at MIT. \
-        More info on https://github.com/COVIDAnalytics/DELPHI."
-    ), 
-
+    
     StaticForeignModel(
         us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/JHU_IDD-CovidSP/2020-06-14-JHU_IDD-CovidSP.csv",
         name="JHU - IDD (US state level death prediction only)",
         description="County-level metapopulation model with commuting and stochastic SEIR disease dynamics. \
         The predictions are provided by the Johns Hopkins ID Dynamics COVID-19 Working Group. \
         More info on https://github.com/HopkinsIDD/COVIDScenarioPipeline."
-    )
+    ), 
+
+    StaticForeignModel(
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/Covid19Sim-Simulator/2020-06-14-Covid19Sim-Simulator.csv",
+        name="Covid19 Simulator (US state level death prediction only)",
+        description="An interactive tool developed by researchers at Mass General Hospital, \
+        Harvard Medical School, Georgia Tech and Boston Medical Center to inform COVID-19 intervention policy decisions in the US. \
+        More info on https://covid19sim.org/."
+    ), 
+
+    StaticForeignModel(
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/YYG-ParamSearch/2020-06-23-YYG-ParamSearch.csv",
+        name="YYG - ParamSearch",
+        description="Based on the SEIR model to make daily projections regarding \
+        COVID-19 infections and deaths in 50 US states. The model accounts for \
+        state reopenings and its effects on infections and deaths. \
+        The model's contributor is Youyang Gu. \
+        More info on http://covid19-projections.com/about/."
+    ), 
+    
+    StaticForeignModel(
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/CovidActNow-SEIR_CAN/2020-06-21-CovidActNow-SEIR_CAN.csv",
+        name="CovidActNow - SEIR_CAN",
+        description="SEIR model by CovidActNow research team. \
+        The model forecasts cumulative deaths, incident deaths, incident hospitalizations \
+        by fitting predicted cases, deaths, and hospitalizations to the observations. \
+        More info on https://covidactnow.org/."
+    ), 
+
+    StaticForeignModel(
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/IowaStateLW-STEM/2020-06-21-IowaStateLW-STEM.csv",
+        name="Iowa State Lily Wang's Research Group - Spatiotemporal Epidemic Modeling",
+        description="A COVID19 forecast project led by Lily Wang in Iowa State University. \
+        They study on a nonparametric space-time disease transmission model for the epidemic data. \
+        More info on https://covid19.stat.iastate.edu."
+    ), 
+    
 ]
 
 
