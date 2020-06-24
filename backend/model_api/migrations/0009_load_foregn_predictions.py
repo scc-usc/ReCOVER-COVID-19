@@ -70,6 +70,14 @@ STATIC_FOREIGN_MODELS = [
         by fitting predicted cases, deaths, and hospitalizations to the observations. \
         More info on https://covidactnow.org/."
     ), 
+
+    StaticForeignModel(
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/IowaStateLW-STEM/2020-06-21-IowaStateLW-STEM.csv",
+        name="Iowa State Lily Wang's Research Group - Spatiotemporal Epidemic Modeling",
+        description="A COVID19 forecast project led by Lily Wang in Iowa State University. \
+        They study on a nonparametric space-time disease transmission model for the epidemic data. \
+        More info on https://covid19.stat.iastate.edu."
+    ), 
     
 ]
 
