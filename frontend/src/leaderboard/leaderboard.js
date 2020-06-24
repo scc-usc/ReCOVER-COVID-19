@@ -22,8 +22,7 @@ const data = {
                 model: {
                     name: "YYG - ParamSearch",
                     description: "Based on the SEIR model to make daily projections regarding \
-                    COVID-19 infections and deaths in 50 US states. The model accounts for \
-                    state reopenings and its effects on infections and deaths. \
+                    COVID-19 infections and deaths in 50 US states. \
                     The model's contributor is Youyang Gu.",
                     link: "http://covid19-projections.com/about/"
                 },
@@ -33,7 +32,7 @@ const data = {
                 model: {
                     name: "Covid19 Simulator",
                     description: "An interactive tool developed by researchers at Mass General Hospital, \
-                    Harvard Medical School, Georgia Tech and Boston Medical Center to inform COVID-19 intervention policy decisions in the US.",
+                    Harvard Medical School, Georgia Tech and Boston Medical Center.",
                     link: "https://covid19sim.org/"
                 },
                 RMSE: 87.93
@@ -52,8 +51,7 @@ const data = {
                 model: {
                     name: "YYG - ParamSearch",
                     description: "Based on the SEIR model to make daily projections regarding \
-                    COVID-19 infections and deaths in 50 US states. The model accounts for \
-                    state reopenings and its effects on infections and deaths. \
+                    COVID-19 infections and deaths in 50 US states. \
                     The model's contributor is Youyang Gu.",
                     link: "http://covid19-projections.com/about/"
                 },
@@ -63,7 +61,7 @@ const data = {
                 model: {
                     name: "Covid19 Simulator",
                     description: "An interactive tool developed by researchers at Mass General Hospital, \
-                    Harvard Medical School, Georgia Tech and Boston Medical Center to inform COVID-19 intervention policy decisions in the US.",
+                    Harvard Medical School, Georgia Tech and Boston Medical Center.",
                     link: "https://covid19sim.org/"
                 },
                 RMSE: 79.94
@@ -74,7 +72,7 @@ const data = {
         runningAvgRankings: [
             {
                 model: {
-                    name: "SI-kJalpha using NYTimes dataset",
+                    name: "SI-kJalpha using the NYTimes dataset",
                     description: "This is our SI-kJalpha trained on the New York Times dataset.",
                     link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
                 },
@@ -83,8 +81,7 @@ const data = {
             {
                 model: {
                     name: "Iowa State Lily Wang's Research Group - Spatiotemporal Epidemic Modeling",
-                    description: "A COVID19 forecast project led by Lily Wang in Iowa State University. \
-                    They study on a nonparametric space-time disease transmission model for the epidemic data.",
+                    description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
                     link: "https://covid19.stat.iastate.edu"
                 },
                 RMSE: 89.76
@@ -92,8 +89,7 @@ const data = {
             {
                 model: {
                     name: "UCLA - SuEIR",
-                    description: "SEIR model by UCLA Statistical Machine Learning Lab. \
-                    The model takes reopening into consideration and assumes contact rate will increase after the reopen.",
+                    description: "SEIR model by UCLA Statistical Machine Learning Lab.",
                     link: "https://covid19.uclaml.org/"
                 },
                 RMSE: 90.34
@@ -101,9 +97,7 @@ const data = {
             {
                 model: {
                     name: "CovidActNow - SEIR_CAN",
-                    description: "SEIR model by CovidActNow research team. \
-                    The model forecasts cumulative deaths, incident deaths, incident hospitalizations \
-                    by fitting predicted cases, deaths, and hospitalizations to the observations.",
+                    description: "SEIR model by the CovidActNow research team.",
                     link: "https://covidactnow.org/"
                 },
                 RMSE: 91.96
@@ -113,7 +107,7 @@ const data = {
         recentRankings: [
             {
                 model: {
-                    name: "SI-kJalpha using NYTimes dataset",
+                    name: "SI-kJalpha using the NYTimes dataset",
                     description: "This is our SI-kJalpha trained on the New York Times dataset.",
                     link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
                 },
@@ -122,8 +116,7 @@ const data = {
             {
                 model: {
                     name: "UCLA - SuEIR",
-                    description: "SEIR model by UCLA Statistical Machine Learning Lab. \
-                    The model takes reopening into consideration and assumes contact rate will increase after the reopen.",
+                    description: "SEIR model by UCLA Statistical Machine Learning Lab.",
                     link: "https://covid19.uclaml.org/"
                 },
                 RMSE: 53.42
@@ -131,8 +124,7 @@ const data = {
             {
                 model: {
                     name: "Iowa State Lily Wang's Research Group - Spatiotemporal Epidemic Modeling",
-                    description: "A COVID19 forecast project led by Lily Wang in Iowa State University. \
-                    They study on a nonparametric space-time disease transmission model for the epidemic data.",
+                    description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
                     link: "https://covid19.stat.iastate.edu"
                 },
                 RMSE: 64.25
@@ -140,9 +132,7 @@ const data = {
             {
                 model: {
                     name: "CovidActNow - SEIR_CAN",
-                    description: "SEIR model by CovidActNow research team. \
-                    The model forecasts cumulative deaths, incident deaths, incident hospitalizations \
-                    by fitting predicted cases, deaths, and hospitalizations to the observations.",
+                    description: "SEIR model by the CovidActNow research team.",
                     link: "https://covidactnow.org/"
                 },
                 RMSE: 87.23
@@ -163,8 +153,7 @@ const data = {
             {
                 model: {
                     name: "Columbia University - SELECT",
-                    description: "A metapopulation county-level SEIR model by Columbia University.\
-                    The model projects future COVID-19 incidence and deaths.",
+                    description: "A metapopulation county-level SEIR model by Columbia University.",
                     link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
                 },
                 RMSE: 100.45
@@ -172,8 +161,7 @@ const data = {
             {
                 model: {
                     name: "JHU - IDD",
-                    description: " County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group \
-                    with commuting and stochastic SEIR disease dynamics with social-distancing indicators.",
+                    description: " County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
                     link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
                 },
                 RMSE: 140.93
@@ -191,8 +179,7 @@ const data = {
             {
                 model: {
                     name: "Columbia University - SELECT",
-                    description: "A metapopulation county-level SEIR model by Columbia University.\
-                    The model projects future COVID-19 incidence and deaths.",
+                    description: "A metapopulation county-level SEIR model by Columbia University.",
                     link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
                 },
                 RMSE: 84.21
@@ -200,8 +187,7 @@ const data = {
             {
                 model: {
                     name: "JHU - IDD",
-                    description: " County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group \
-                    with commuting and stochastic SEIR disease dynamics with social-distancing indicators.",
+                    description: " County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
                     link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
                 },
                 RMSE: 102.40
@@ -251,7 +237,7 @@ class Leaderboard extends Component {
                                             description={item.model.description}
                                         />
                                         <div className="content">
-                                            <span>RMSE: <span className="score">{item.RMSE}</span></span>
+                                            <span className="score-description">RMSE: <span className="score">{item.RMSE}</span></span>
                                         </div>
                                     </List.Item>
                                 )}

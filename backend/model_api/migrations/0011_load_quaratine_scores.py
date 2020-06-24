@@ -5,9 +5,9 @@ import csv
 import datetime
 
 GLOBAL_QUARANTINE_SCORE_CVS_PATH = "../results/scores/global_Rt_num.csv"
-GLOBAL_QUARANTINE_SCORE_CONF_CVS_PATH = "../results/scores/global_scores_conf.csv"
+GLOBAL_QUARANTINE_SCORE_CONF_CVS_PATH = "../results/scores/global_Rt_conf.csv"
 US_QUARANTINE_SCORE_CSV_PATH = "../results/scores/us_Rt_num.csv"
-US_QUARANTINE_SCORE_CONF_CSV_PATH = "../results/scores/us_scores_conf.csv"
+US_QUARANTINE_SCORE_CONF_CSV_PATH = "../results/scores/us_Rt_conf.csv"
 
 def load_quarantine_score(apps, schema_editor):
     Area = apps.get_model('model_api', 'Area')
@@ -33,7 +33,10 @@ def load_quarantine_score(apps, schema_editor):
                 raw_date = header[i]
                 date = datetime.datetime(*[int(item) for item in raw_date.split('-')])
                 val = float(row[i]) if float(row[i]) <= 7 else 7 # Set a upper limit of 7.
-                conf = int(conf_row[i])
+                if conf_row[i] == "NaN":
+                    conf = 0
+                else:
+                    conf = float(conf_row[i])
 
                 quarantine_score = QuarantineScoreDataPoint(
                     area=area,
@@ -64,7 +67,10 @@ def load_quarantine_score(apps, schema_editor):
                 raw_date = header[i]
                 date = datetime.datetime(*[int(item) for item in raw_date.split('-')])
                 val = float(row[i]) if float(row[i]) <= 7 else 7 # Set a upper limit of 7.
-                conf = int(conf_row[i])
+                if conf_row[i] == "NaN":
+                    conf = 0
+                else:
+                    conf = float(conf_row[i])
 
                 quarantine_score = QuarantineScoreDataPoint(
                     area=area,
