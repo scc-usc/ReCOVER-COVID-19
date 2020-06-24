@@ -65,12 +65,6 @@ class AboutUs extends Component {
                         </li>
                     </ol>
 
-
-                    
-
-
-
-
                 </div>
             </div>
 

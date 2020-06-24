@@ -1,17 +1,32 @@
-.title {
-    padding-top: 76px;
-    padding-bottom: 18px;
+.grid {
+    align-content: center;
+    padding: 0px 20px;
+}
+
+h1.title {
+    padding-top: 50px;
     text-align: center;
-    font-size: 32px;
+    font-size: 28px;
+}
+
+h2.title {
+    padding-bottom: 10px;
+    text-align: center;
+    font-size: 24px;
 }
 
 .leaderboard {
     background: #ffffff;
     border: solid 1px #dedede;
     margin-top: 1.5em;
-    margin-left: 15%;
-    margin-right: 15%;
-    padding: 30px 50px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 28px;
+    padding: 20px 20px;
+}
+
+.graph {
+    width: 100%;
 }
 
 .model-name {
@@ -25,6 +40,7 @@
 
 .content {
     width: 168px;
+    height: 72px;
     text-align: center;
 }
 
@@ -33,7 +49,7 @@
 }
 
 .score {
-    font-size: 32px;
+    font-size: 28px;
     color: #FC9F4D;
 }
 
