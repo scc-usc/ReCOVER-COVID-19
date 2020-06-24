@@ -59,9 +59,17 @@ h2.title {
 }
 
 .disclaimer {
-    padding: 30px 50px;
+    padding-bottom: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
     text-align: center;
     font-size: 14px;
     font-style:italic;
     color: #787D7B;
+}
+
+.main-graph-container {
+    padding-left: 20%;
+    padding-right: 20%;
+    margin: 40px 20px;
 }

@@ -45,7 +45,7 @@ STATIC_FOREIGN_MODELS = [
     ), 
 
     StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/Covid19Sim-Simulator/2020-06-21-Covid19Sim-Simulator.csv",
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/Covid19Sim-Simulator/2020-06-14-Covid19Sim-Simulator.csv",
         name="Covid19 Simulator (US state level death prediction only)",
         description="An interactive tool developed by researchers at Mass General Hospital, \
         Harvard Medical School, Georgia Tech and Boston Medical Center to inform COVID-19 intervention policy decisions in the US. \
