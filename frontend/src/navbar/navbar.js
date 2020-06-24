@@ -40,7 +40,6 @@ class NavBar extends Component {
 
     render() {
         let url = window.location.href;
-        console.log(url);
         return (
             <Row className="navbar-container">
             <Col >
