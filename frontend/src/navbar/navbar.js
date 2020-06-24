@@ -39,6 +39,8 @@ class NavBar extends Component {
     }
 
     render() {
+        let url = window.location.href;
+        console.log(url);
         return (
             <Row className="navbar-container">
             <Col >
@@ -52,7 +54,12 @@ class NavBar extends Component {
                 <Menu theme="light"
                     mode="horizontal"
                     onClick={this.handleItemClick}
-                    defaultSelectedKeys={['forecast']}>
+                    defaultSelectedKeys={
+                        url.includes("score")?['quarantine-score']
+                        :url.includes("about")?['information']
+                        :url.includes("leaderboard")?['leaderboard']
+                        :['forecast']
+                    }>
                     <Menu.Item key="forecast">COVID-19 Forecast</Menu.Item>
                     <Menu.Item key="quarantine-score">Reproduction Number</Menu.Item>
                     <Menu.Item key="leaderboard">Leaderboard</Menu.Item>

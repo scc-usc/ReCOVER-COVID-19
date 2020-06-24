@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Covid19Predict from "./covid19predict";
 import AboutUS from "./aboutus";
 import ScorePage from './scorePage/scorePage';
-import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'; 
+import {BrowserRouter as HashRouter, Route, Redirect, Switch} from 'react-router-dom'; 
 import Navbar from "./navbar/navbar";
 import 'semantic-ui-css/semantic.min.css';
 import "./covid19app.css";
@@ -58,7 +58,7 @@ class Covid19App extends Component {
   render() {
     const {redirectForecast, redirectAbout, redirectScore, redirectLeaderboard} = this.state;
     return (
-      <Router>
+      <HashRouter>
         {redirectForecast?<Redirect to="/ReCOVER-COVID-19"/>:null}
         {redirectScore?<Redirect to="/ReCOVER-COVID-19/score"/>:null}
         {redirectAbout?<Redirect to="/ReCOVER-COVID-19/about"/>:null}
@@ -81,7 +81,7 @@ class Covid19App extends Component {
           
           {/* need a page for instruction */}
         </Switch>
-      </Router>
+      </HashRouter>
     );
   }
 }
