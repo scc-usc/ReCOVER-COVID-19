@@ -1,0 +1,61 @@
+Columbia University - SELECT (CU - SELECT):
+	- link: https://github.com/shaman-lab/COVID-19Projection
+	- data_inputs: USAFACTS County-level confirmed cases and deaths
+
+COVID-19 Simulator (Covid19Sim-Simulator):
+	- link: https://github.com/reichlab/covid19-forecast-hub/tree/master/data-processed/Covid19Sim-Simulator
+	- data_inputs: JHU CSSE
+
+CovidActNow (CovidActNow):
+	- link: https://github.com/covid-projections/covid-data-model
+	- data_inputs: NYTimes
+
+University of Geneva / Swiss Data Science Center - DeterministicGrowth (Geneva-DetGrowth):
+	- link: https://renkulab.io/gitlab/covid-19/covid-19-forecast
+	- data_inputs: European Centre for Disease Prevention and Control
+
+Iowa State - Lily Wang's Research Group - Spatiotemporal Epidemic Modeling (IowaStateLW-STEM): 
+	- link: https://github.com/reichlab/covid19-forecast-hub/tree/master/data-processed/IowaStateLW-STEM
+	- data_inputs: NYTimes
+
+Johns Hopkins ID Dynamics (JHU IDD):
+	- link: https://github.com/HopkinsIDD/COVIDScenarioPipeline
+	- data_inputs: USAFACTS County-level confirmed cases and deaths
+
+Oliver Wyman - Pandemic Navigator (OliverWyman):
+	- link: https://github.com/reichlab/covid19-forecast-hub/tree/master/data-processed/OliverWyman-Navigator
+	- data_inputs: unknown
+
+UCLA Statistical Machine Learning Lab - SuEIR (UCLA-SuEIR):
+	- link: https://github.com/reichlab/covid19-forecast-hub/tree/master/data-processed/UCLA-SuEIR
+	- data_inputs: NYTimes
+
+YYG - ParamSearch (YYG-ParamSearch):
+	- link: https://github.com/youyanggu/covid19_projections
+	- data_inputs: JHU CSSE
+
+-------------------------ABOVE ARE NEW MODELS' METADATA---------------------------------
+
+Columbia_UNC - Survival-Convolution Models (Columbia_UNC-SurvCon):
+	- link: https://github.com/COVID19BIOSTAT/covid19_prediction
+	- data_inputs: confirmed cases from Worldmeter & deaths from JHU
+
+Auquan Data Science - MLOptimizedModifiedSEIR (Auquan-SEIR):
+	- link: https://covid19-infection-model.auquan.com/
+	- date_inputs: JHU CSSE
+
+COVID Alliance at MIT - Two-Stage SIR (MITCovAlliance-SIR)
+	- link: http://infectiontrajectory.covidalliance.com/
+	- data_inputs: NYTimes
+
+Los Alamos National Labs - GrowthRate (LANL-GrowthRate)
+	- link: https://covid-19.bsvgateway.org/
+	- data_inputs: JHU
+
+CovidAnalytics at MIT - DELPHI (MIT-DELPHI)
+	- link: https://www.covidanalytics.io/
+	- data_inputs: JHU
+
+Institute for Health Metrics and Evaluation - CurveFit (IHME-CurveFit)
+	- link: https://covid19.healthdata.org/united-states-of-america
+	- data_inputs: JHU
