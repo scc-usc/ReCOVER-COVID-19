@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Covid19Predict from "./covid19predict";
 import AboutUS from "./aboutus";
 import ScorePage from './scorePage/scorePage';
-import {BrowserRouter as HashRouter, Route, Redirect, Switch} from 'react-router-dom'; 
+import {HashRouter, Route, Redirect, Switch} from 'react-router-dom'; 
 import Navbar from "./navbar/navbar";
 import 'semantic-ui-css/semantic.min.css';
 import "./covid19app.css";
@@ -60,30 +60,30 @@ class Covid19App extends Component {
     let url = window.location.href;
     return (
       <HashRouter basename="/">
-        {redirectForecast?<Redirect to="/ReCOVER-COVID-19"/>:null}
-        {redirectScore?<Redirect to="/ReCOVER-COVID-19/score"/>:null}
-        {redirectAbout?<Redirect to="/ReCOVER-COVID-19/about"/>:null}
-        {redirectLeaderboard?<Redirect to="/ReCOVER-COVID-19/leaderboard"/>:null}
+        {redirectForecast?<Redirect to="/"/>:null}
+        {redirectScore?<Redirect to="/score"/>:null}
+        {redirectAbout?<Redirect to="/about"/>:null}
+        {redirectLeaderboard?<Redirect to="/leaderboard"/>:null}
         <Navbar redirectForecast = {this.redirectForecast}
                 redirectScore = {this.redirectScore}
                 redirectAbout = {this.redirectAbout}
                 redirectLeaderboard = {this.redirectLeaderboard}
         />
         <Switch>
-          <Route exact path='/ReCOVER-COVID-19' 
+          <Route exact path='/' 
             render={(props) => <Covid19Predict {...props} />}/>
-          <Route exact path='/ReCOVER-COVID-19/score' 
+          <Route exact path='/score' 
             render={(props) => <ScorePage {...props}/>}
           />
-          <Route exact path='/ReCOVER-COVID-19/about'
+          <Route exact path='/about'
             render={(props) => <AboutUS {...props} />} />
-          <Route exact path='/ReCOVER-COVID-19/leaderboard' 
+          <Route exact path='/leaderboard' 
             render={(props) => <Leaderboard {...props} />}/>
-          <Route path="/*" 
+          {/* <Route path="/*" 
             render={(props) => url.includes("score")?<ScorePage {...props}/>
             :url.includes("about")?<AboutUS {...props} />
             :url.includes("leaderboard")?<Leaderboard {...props} />
-            :<Covid19Predict {...props} />}/>
+            :<Covid19Predict {...props} />}/> */}
           {/* need a page for instruction */}
         </Switch>
       </HashRouter>
