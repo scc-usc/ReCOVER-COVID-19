@@ -361,10 +361,17 @@ class Leaderboard extends Component {
                         
                     </Row>
 
-		    <p className="disclaimer">
-                        <b>Evaluation method:</b> Since there are some discrepancies among different data sources (JHU, NY Times, and USA Facts), we performed a separate evaluation for each dataset. We trained our model using each of the three datasets and use the forcasts in the respective evaluations. The chosen evaluation metric is Root Mean Squared Error (RMSE) of daily new deaths computed over the next two weeks from the day of the forecasts. More precisely, we skip the first day of the forecast to account for errors, possibly, due to changing timezone or delayed reporting. Please contact us at ajiteshs[AT]usc[DOT]edu to add your model to the leaderboard.
+		            <p className="clarification">
+                        <b>Evaluation method:</b> Since there are some discrepancies among different data sources (JHU, NY Times, and USA Facts), 
+                        we performed a separate evaluation for each dataset. <br />
+                        We trained our model using each of the three datasets and use the forecasts 
+                        in the respective evaluations. 
+                        The chosen evaluation metric is Root Mean Squared Error (RMSE) of daily new deaths computed <br />
+                        over the next two weeks from the day of the forecasts. More precisely, we skip the first day of the forecast to account for errors, 
+                        possibly, due to changing timezone or delayed reporting.  <br />
+                        Please contact us at <a className="article-anchor" href="mailto:ajiteshs@usc.edu">ajiteshs@usc.edu</a> 
+                        to add your model to the leaderboard.
                     </p>
-
                     <p className="disclaimer">
                         <b>Disclaimer:</b> The above Covid-19 forecast reports may have copyright restrictions. 
                         You may visit the website of their original work by clicking on their model names. <br />

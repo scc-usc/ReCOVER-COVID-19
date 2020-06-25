@@ -53,6 +53,13 @@ h2.title {
     font-size: 10px;
 }
 
+.clarification {
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+
 .disclaimer {
     padding-bottom: 100px;
     padding-left: 20px;
