@@ -29,7 +29,7 @@ if all(isnan(vals(:, end)))
 end
 deaths = zeros(length(countries), size(vals, 2));
 for cidx = 1:length(countries)
-    idx = strcmpi(tableConfirmed.Province_State, countries{cidx});
+    idx = strcmpi(tableDeaths.Province_State, countries{cidx});
     if(isempty(idx))
         disp([countries{cidx} 'not found']);
     end
