@@ -58,7 +58,7 @@ class Covid19App extends Component {
   render() {
     const {redirectForecast, redirectAbout, redirectScore, redirectLeaderboard} = this.state;
     return (
-      <HashRouter basename="/ReCOVER-COVID-19">
+      <HashRouter basename="/">
         {redirectForecast?<Redirect to="/ReCOVER-COVID-19"/>:null}
         {redirectScore?<Redirect to="/ReCOVER-COVID-19/score"/>:null}
         {redirectAbout?<Redirect to="/ReCOVER-COVID-19/about"/>:null}
