@@ -57,6 +57,7 @@ class Covid19App extends Component {
 
   render() {
     const {redirectForecast, redirectAbout, redirectScore, redirectLeaderboard} = this.state;
+    let url = window.location.href;
     return (
       <HashRouter basename="/">
         {redirectForecast?<Redirect to="/ReCOVER-COVID-19"/>:null}
@@ -78,7 +79,11 @@ class Covid19App extends Component {
             render={(props) => <AboutUS {...props} />} />
           <Route exact path='/ReCOVER-COVID-19/leaderboard' 
             render={(props) => <Leaderboard {...props} />}/>
-          
+          <Route path="/*" 
+            render={(props) => url.includes("score")?<ScorePage {...props}/>
+            :url.includes("about")?<AboutUS {...props} />
+            :url.includes("leaderboard")?<Leaderboard {...props} />
+            :<Covid19Predict {...props} />}/>
           {/* need a page for instruction */}
         </Switch>
       </HashRouter>
