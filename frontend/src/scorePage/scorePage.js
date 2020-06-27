@@ -8,14 +8,8 @@ import "./scorePage.css";
 import {
     Form,
     Select,
-    InputNumber,
-    Button,
-    Radio,
-    Checkbox,
     Slider,
-    Tooltip,
     Switch,
-    Popover,
     Alert,
     Row,
     Col
@@ -285,8 +279,7 @@ class ScorePage extends PureComponent{
                             >
                                 <Slider
                                     marks={marks}
-                                    min= {0}
-                                    initialValue={latestWeek}
+                                    initialValue={weeks}
                                     max={latestWeek}
                                     onAfterChange={this.onWeeksChange}
                                 />
@@ -311,19 +304,16 @@ class ScorePage extends PureComponent{
                     onNoData = {this.onNoData}
                     />
                 </div>
-                {/* </div> */}
                 </Col>
                 </Row>
                 {areas.length?
                 <Row>
                 <Col span={24}>
-                {/* <div className="right-col"> */}
                     <div className="graph-wrapper">
                     <ScoreGraph
                         data={mainGraphData}
                     ></ScoreGraph>
                     </div>
-                {/* </div> */}
                 </Col>
                 </Row>
                 : null}

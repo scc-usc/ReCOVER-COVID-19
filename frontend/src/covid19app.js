@@ -79,12 +79,6 @@ class Covid19App extends Component {
             render={(props) => <AboutUS {...props} />} />
           <Route exact path='/leaderboard' 
             render={(props) => <Leaderboard {...props} />}/>
-          {/* <Route path="/*" 
-            render={(props) => url.includes("score")?<ScorePage {...props}/>
-            :url.includes("about")?<AboutUS {...props} />
-            :url.includes("leaderboard")?<Leaderboard {...props} />
-            :<Covid19Predict {...props} />}/> */}
-          {/* need a page for instruction */}
         </Switch>
       </HashRouter>
     );

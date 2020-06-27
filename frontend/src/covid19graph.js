@@ -4,9 +4,14 @@ import moment from "moment";
 import numeral from "numeral";
 import {
   red,
+  volcano,
+  organge,
+  yellow,
   gold,
   lime,
+  green,
   cyan,
+  blue,
   geekblue,
   purple,
   magenta
@@ -14,13 +19,18 @@ import {
 
 function getLineColor(index) {
   const colors = [
-    red.primary,
-    gold.primary,
-    lime.primary,
-    cyan.primary,
-    geekblue.primary,
-    purple.primary,
-    magenta.primary
+    red,
+    gold,
+    green,
+    blue,
+    volcano,
+    yellow,
+    cyan,
+    purple,
+    organge,
+    lime,
+    geekblue,
+    magenta
   ];
 
   return colors[index % colors.length];
@@ -223,6 +233,7 @@ class Covid19Graph extends Component {
 
   render() {
     let { data } = this.props;
+    console.log(data);
     const { statistic, yScale, dataType } = this.props;
 
     // chartData contains the data that we will pass into Nivo line chart.
@@ -251,19 +262,19 @@ class Covid19Graph extends Component {
           predicted: false
         });
 
-        colors.push(lineColor);
+        colors.push(lineColor[4]);
 
         // Add the data for each of the predicted time series. Filter out time
         // series that don't have any data associated.
         data[area].predictions
           .filter(p => p.time_series.length > 0)
-          .forEach(p => {
+          .forEach((p,idx) => {
             const modelName = p.model.name;
             const distancing = p.distancing;
             const timeSeries = p.time_series;
 
             chartData.push({
-              id: `${area} (${p.model.name}, distancing=${distancing})`,
+              id: `${area} (${modelName}, distancing=${distancing})`,
               // If we're displaying deltas, we pass in the last observed value as
               // the initial value for calculating the predicted deltas.
               data: this.processData(timeSeries, {
@@ -278,8 +289,19 @@ class Covid19Graph extends Component {
               // line patterns differently between yes/no social distancing.
               distancing: distancing
             });
+            if (idx <= 2)
+            {
+              colors.push(lineColor[4+idx*2]);
+            }
+            else if (idx <= 4)
+            {
+              colors.push(lineColor[8 - idx*2]);
 
-            colors.push(lineColor);
+            }
+            else 
+            {
+              colors.push(lineColor[idx%10]);
+            }
           });
       });
 
