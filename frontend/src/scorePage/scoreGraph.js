@@ -14,13 +14,13 @@ import {
 
 function getLineColor(index) {
   const colors = [
-    red.primary,
-    gold.primary,
-    lime.primary,
-    cyan.primary,
-    geekblue.primary,
-    purple.primary,
-    magenta.primary
+    red,
+    gold,
+    lime,
+    cyan,
+    geekblue,
+    purple,
+    magenta
   ];
 
   return colors[index % colors.length];
@@ -29,7 +29,7 @@ function getLineColor(index) {
 const DashedLine = ({ series, lineGenerator, xScale, yScale }) => {
   return series.map(({ id, data, color, predicted, distancing }) => {
     let style = {
-      strokeWidth: 3
+      strokeWidth: 7
     };
 
     // Add custom style if predicted.
@@ -168,7 +168,6 @@ class ScoreGraph extends Component {
     let chartData = [];
     // colors holds hex values for each line in the chart.
     let colors = [];
-
     // Sort the data by area name (so we have a consistent coloring) and then
     // loop over each area.
     Object.keys(data)
@@ -176,8 +175,21 @@ class ScoreGraph extends Component {
       .forEach((area, idx) => {
         const lineColor = getLineColor(idx);
         const observedData = data[area].observed;
-
-        // Add the observed infection data.
+        const upperBound = observedData.map(data=>{
+           return {
+             date: data.date,
+             value: data.value + data.conf
+           }
+        });
+        const lowerBound = observedData.map(data=>{
+          return {
+            date: data.date,
+            value: data.value - data.conf
+          }
+       });
+       console.log(upperBound);
+       console.log(lowerBound);
+        // Add the mean
         chartData.push({
           id: area,
           data: this.processData(observedData),
@@ -186,7 +198,27 @@ class ScoreGraph extends Component {
           predicted: false
         });
 
-        colors.push(lineColor);
+        colors.push(lineColor[3]);
+
+        //add the upperbound
+        chartData.push({
+          id: `${area} upper bound`,
+          data: this.processData(upperBound),
+          // 'predicted' is a custom prop that we add so later we can tell the
+          // difference between observed/predicted data when drawing the lines.
+          predicted: false
+        });
+        colors.push(lineColor[3]);
+
+        //add the lowerbound
+        chartData.push({
+          id: `${area} lower bound`,
+          data: this.processData(lowerBound),
+          // 'predicted' is a custom prop that we add so later we can tell the
+          // difference between observed/predicted data when drawing the lines.
+          predicted: false
+        });
+        colors.push(lineColor[3]);
       });
 
     // Determine whether we need to show weeks or months on the X axis.
@@ -274,7 +306,7 @@ class ScoreGraph extends Component {
             </div>
           );
         }}
-        pointSize={10}
+        pointSize={20}
         legends={[
           {
             anchor: "top-left",

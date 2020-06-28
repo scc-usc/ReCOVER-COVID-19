@@ -233,7 +233,6 @@ class Covid19Graph extends Component {
 
   render() {
     let { data } = this.props;
-    console.log(data);
     const { statistic, yScale, dataType } = this.props;
 
     // chartData contains the data that we will pass into Nivo line chart.
