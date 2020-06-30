@@ -2,8 +2,8 @@
 %%%% Also calculates the Dynamic Reproduction Number with time
 
 warning off;
-prefix = 'us'; % Uncomment for US state-level
-%prefix = 'global'; % Uncomment for country-level
+%prefix = 'us'; % Uncomment for US state-level
+prefix = 'global'; % Uncomment for country-level
 
 horizon = 7;
 alpha_start = 5;
