@@ -20,8 +20,6 @@ for cidx = 1:length(countries)
     data_4(cidx, :) = sum(vals(idx, :), 1);
 end
 
-writetable(infec2table(data_4, countries, zeros(length(countries), 1), datetime(2020, 1, 23)), '../results/forecasts/us_data.csv');
-
 %% Extract deaths from JHU data
 vals = table2array(tableDeaths(:, 14:end)); % Day-wise values
 if all(isnan(vals(:, end)))
@@ -35,10 +33,8 @@ for cidx = 1:length(countries)
     end
     deaths(cidx, :) = sum(vals(idx, :), 1);
 end
-
-writetable(infec2table(deaths, countries, zeros(length(countries), 1), datetime(2020, 1, 23)), '../results/forecasts/us_deaths.csv');
-
 data_4_JHU = data_4; deaths_JHU = deaths;
+clear tableConfirmed tableDeaths;
 
 %% Load from NY Times
 fsource = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv';
@@ -63,6 +59,7 @@ for cidx = 1:length(countries)
         end
     end
 end
+clear nytimestable;
 %% Load from USA Facts
 fsource = 'https://usafactsstatic.blob.core.windows.net/public/data/covid-19/covid_confirmed_usafacts.csv';
 urlwrite(fsource,'dummy.csv');
@@ -91,5 +88,8 @@ for cidx = 1:length(countries)
     end
     deaths_USF(cidx, :) =  sum(dvals(idx, :), 1);
 end
+clear USAfacts_deaths USAfacts_confirmed;
 %% Change the following to pick which data to use
 data_4 = data_4_JHU; deaths = deaths_JHU;
+writetable(infec2table(data_4, countries, zeros(length(countries), 1), datetime(2020, 1, 23)), '../results/forecasts/us_data.csv');
+writetable(infec2table(deaths, countries, zeros(length(countries), 1), datetime(2020, 1, 23)), '../results/forecasts/us_deaths.csv');
