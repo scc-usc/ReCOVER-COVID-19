@@ -71,12 +71,14 @@ The leaderboard page needs to be updated manually every week. It is usually upda
 After the backend server and frontend page has been running locally. Please examine if there are any bugs before deploying.
 
 ## Deployment: Deploy the updates to the public website.
-Navigate to `backend/` directory, run the following script to deploy backend changes to the heroku servers:
-```
-git subtree push --prefix backend heroku master
-```
+1. Push your commits to the GitHub repository.
 
-Navigate to `frontend/` directory, run the following script  to deploy frontend changes:
-```
-yarn deploy
-```
+2. Navigate to `backend/` directory, run the following script to deploy backend changes to the heroku servers:
+    ```
+    git subtree push --prefix backend heroku master
+    ```
+
+    3. Navigate to `frontend/` directory, run the following script  to deploy frontend changes:
+    ```
+    yarn deploy
+    ```
