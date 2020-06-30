@@ -78,7 +78,7 @@ After the backend server and frontend page has been running locally. Please exam
     git subtree push --prefix backend heroku master
     ```
 
-    3. Navigate to `frontend/` directory, run the following script  to deploy frontend changes:
+3. Navigate to `frontend/` directory, run the following script  to deploy frontend changes:
     ```
     yarn deploy
     ```
