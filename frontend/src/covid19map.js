@@ -25,7 +25,12 @@ class Covid19Map extends Component {
 
     this.state = {
       areasList : [],
-      showState: false
+      showState: false,
+      worldSeries: {},
+      usaSeries: {},
+      chinaSeries:{},
+      canadaSeries:{},
+      austriliaSeries:{}
     }
 
     this.modelAPI.areas(allAreas =>
@@ -62,7 +67,7 @@ class Covid19Map extends Component {
               area: d.area
             };
           });
-          this.setState({ heatmapData }, this.createChart);
+          this.setState({ heatmapData }, this.initChart);
         });
       }
       else
@@ -80,7 +85,7 @@ class Covid19Map extends Component {
               area: d.area
             };
           });
-          this.setState({ heatmapData }, this.createChart);
+          this.setState({ heatmapData }, this.resetChart);
         });
       }
       
@@ -250,12 +255,53 @@ class Covid19Map extends Component {
     this.chart = am4core.create("chartdiv", am4maps.MapChart);
     // Set projection
     this.chart.projection = new am4maps.projections.Mercator();
+    let worldSeries = this.chart.series.push(new am4maps.MapPolygonSeries());
+    worldSeries = this.createChartSeries(worldSeries, {
+      geodata: am4geodata_worldLow,
+      exclude: ["AQ"],
+      data: this.state.heatmapData
+    });
+    let chinaSeries = this.chart.series.push(new am4maps.MapPolygonSeries());
+    chinaSeries = this.createChartSeries(chinaSeries, {
+      geodata: am4geodata_chinaLow,
+      data: this.state.heatmapData,
+      disabled: !this.state.showState
+    });
+    let usaSeries = this.chart.series.push(new am4maps.MapPolygonSeries());
+    usaSeries = this.createChartSeries(usaSeries, {
+      geodata: am4geodata_usaLow,
+      data: this.state.heatmapData,
+      disabled: !this.state.showState
+    });
+    let canadaSeries = this.chart.series.push(new am4maps.MapPolygonSeries());
+    canadaSeries = this.createChartSeries(canadaSeries, {
+      geodata: am4geodata_canadaLow,
+      data: this.state.heatmapData,
+      disabled: !this.state.showState
+    });
+    let australiaSeries = this.chart.series.push(new am4maps.MapPolygonSeries());
+    australiaSeries = this.createChartSeries(australiaSeries, {
+      geodata: am4geodata_australiaLow,
+      data: this.state.heatmapData,
+      disabled: !this.state.showState
+    });
+    
+    this.stateSeries = [usaSeries];
+    
+    this.initChartInterface();
+
+    this.setState({
+      worldSeries,
+      chinaSeries,
+      usaSeries,
+      canadaSeries,
+      australiaSeries
+    });
+
   }
 
-  createChartSeries(seriesProps) {
+  createChartSeries(series, seriesProps) {
     const {statistic} = this.props;
-    // Create new map polygon series and copy over all given props.
-    let series = this.chart.series.push(new am4maps.MapPolygonSeries());
     series = Object.assign(series, seriesProps);
 
     let polygonTemplate = series.mapPolygons.template;
@@ -334,106 +380,26 @@ class Covid19Map extends Component {
     button.events.on("hit", () => {
       this.onShowState(button.isActive);
       const {showState} = this.state;
-      this.stateSeries.forEach(s => (s.disabled = !showState));
+      this.stateSeries.forEach(s => {
+        (s.disabled = !showState);
+      });
       button.label.text = `${
         showState ? "Hide" : "Show"
         } States/Provinces`;
     });
   }
 
-  createChart() {
-    const { heatmapData } = this.state;
-
-    this.initChart();
-
-    const worldSeries = this.createChartSeries({
-      geodata: am4geodata_worldLow,
-      exclude: ["AQ"],
-      data: heatmapData
-    });
-
-    const chinaSeries = this.createChartSeries({
-      geodata: am4geodata_chinaLow,
-      data: heatmapData,
-      disabled: !this.state.showState
-    });
-
-    const usaSeries = this.createChartSeries({
-      geodata: am4geodata_usaLow,
-      data: heatmapData,
-      disabled: !this.state.showState
-    });
-
-    const canadaSeries = this.createChartSeries({
-      geodata: am4geodata_canadaLow,
-      data: heatmapData,
-      disabled: !this.state.showState
-    });
-
-    const australiaSeries = this.createChartSeries({
-      geodata: am4geodata_australiaLow,
-      data: heatmapData,
-      disabled: !this.state.showState
-    });
-
-    this.stateSeries = [chinaSeries, usaSeries, canadaSeries, australiaSeries];
-
-    this.initChartInterface();
-
-    // worldSeries.data = [
-    // {
-    //   id: "US",
-    //   disabled: true
-    // },
-    // {
-    //   id: "China",
-    //   disabled: true
-    // }
-    // ];
-
-    // Set up heat legend
-    // let heatLegend = this.chart.createChild(am4maps.HeatLegend);
-    // heatLegend.series = worldSeries;
-    // heatLegend.align = "right";
-    // heatLegend.valign = "bottom";
-    // heatLegend.width = am4core.percent(20);
-    // heatLegend.marginRight = am4core.percent(4);
-    // heatLegend.minValue = 0;
-    // heatLegend.maxValue = Math.max(...heatmapData.map(d => d.valueTrue));
-    //
-    // // Set up custom heat map legend labels using axis ranges
-    // let minRange = heatLegend.valueAxis.axisRanges.create();
-    // minRange.value = heatLegend.minValue;
-    // minRange.label.text = heatLegend.minValue;
-    // let maxRange = heatLegend.valueAxis.axisRanges.create();
-    // maxRange.value = heatLegend.maxValue;
-    // maxRange.label.text = heatLegend.maxValue;
-    //
-    // // Blank out internal heat legend value axis labels
-    // heatLegend.valueAxis.renderer.labels.template.adapter.add("text", function(
-    //   labelText
-    // ) {
-    //   return "";
-    // });
-  }
-
   resetChart() {
-    const { heatmapData } = this.state;
-
-    const worldSeries = this.createChartSeries({
-      geodata: am4geodata_worldLow,
-      exclude: ["AQ"],
-      data: heatmapData
-    });
-
-    const usaSeries = this.createChartSeries({
-      geodata: am4geodata_usaLow,
-      data: heatmapData,
-      disabled: !this.state.showState
-    });
-
-    this.stateSeries = [usaSeries];
-
+    let worldSeries = this.state.worldSeries;
+    let usaSeries = this.state.usaSeries;
+    let chinaSeries = this.state.chinaSeries;
+    let canadaSeries = this.state.canadaSeries;
+    let australiaSeries = this.state.austriliaSeries;
+    worldSeries.data = this.state.heatmapData;
+    usaSeries.data = this.state.heatmapData;
+    canadaSeries.data = this.state.heatmapData;
+    chinaSeries.data = this.state.heatmapData;
+    australiaSeries.data = this.state.heatmapData;
   }
 
   componentWillUnmount() {

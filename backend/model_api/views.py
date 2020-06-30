@@ -332,13 +332,11 @@ def scores(request):
     score_start_date = datetime(2020, 3, 11)
     score_end_date = score_start_date + timedelta(days=7*weeks)
 
-    print(score_end_date)
     quarantine_scores = QuarantineScoreDataPoint.objects.filter(
         area=area,
         #date__range=(score_start_date, score_end_date)
         date__lte=score_end_date
     )
-    print(quarantine_scores)
     for d in quarantine_scores:
         response["observed"].append({
             "date": d.date,

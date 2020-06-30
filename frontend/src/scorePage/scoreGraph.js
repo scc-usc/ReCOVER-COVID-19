@@ -187,8 +187,6 @@ class ScoreGraph extends Component {
             value: data.value - data.conf
           }
        });
-       console.log(upperBound);
-       console.log(lowerBound);
         // Add the mean
         chartData.push({
           id: area,
