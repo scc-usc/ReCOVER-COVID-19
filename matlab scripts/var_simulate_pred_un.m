@@ -36,15 +36,28 @@ function [infec] = var_simulate_pred_un(data_4, passengerFlowDarpa, beta_all_cel
         S = (1-un_fact.*lastinfec./popu);
         yt = zeros(num_countries, 1);
         for j=1:length(popu)
+            
+            if sum(beta_all_cell{j})==0
+                yt(j) = 0;
+                continue;
+            end
+            
             jp = jp_l(j);
             k = k_l(j);
             jk = jp*k;
             Ikt1 = diff(temp(:, end-jk:end)')';
             Ikt = zeros(1,k);
+            
+            if size(F, 1) ~= length(popu)   % Avoids unnecessary computation
+                incoming_travel = 0;
+            else
+                incoming_travel = (F(:, j)./popu)' * sum(Ikt1, 2);
+            end
+            
             for kk=1:k
                 Ikt(kk) = sum(Ikt1(j,  (kk-1)*jp+1 : kk*jp), 2);
             end
-            Xt = [S(j)*Ikt  (F(:, j)./popu)'*sum(Ikt1, 2)] ;
+            Xt = [S(j)*Ikt  incoming_travel] ;
             yt(j) = sum(beta_all_cell{j}'.*Xt, 2);
         end
         yt(yt<0) = 0;

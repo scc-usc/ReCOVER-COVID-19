@@ -1,9 +1,13 @@
-function [beta_all_cell, ci, fittedC] = var_ind_deaths(data_4, death_data, alpha_l, k_l, jp_l, window_size, ret_conf)
+function [beta_all_cell, ci, fittedC] = var_ind_deaths(data_4, death_data, alpha_l, k_l, jp_l, window_size, ret_conf, compute_region)
     
     maxt = size(data_4, 2);
     nn = size(data_4, 1);
     beta_all_cell = cell(nn, 1);
     ci = cell(nn, 1);
+    
+    if nargin < 8
+        compute_region = ones(size(data_4, 1), 1);
+    end
     
     if nargin <7
         ret_conf = 0;
@@ -36,17 +40,21 @@ function [beta_all_cell, ci, fittedC] = var_ind_deaths(data_4, death_data, alpha
         k = k_l(j);
         alpha = alpha_l(j);
         jk = jp*k;
+        beta_all_cell{j} = zeros(k, 1);
+        ci{j} = [zeros(k, 1) ones(k, 1)];
         
-        scalefactor = 0.5*nanmean(data_4(j, death_data(j, :)>10)./death_data(j, death_data(j, :)>10)); % Scales deaths so that the parameters learned are not negligible        
-        
-        if isnan(scalefactor)
-            beta_all_cell{j} = ones(k, 1);
-            ci{j} = [zeros(k, 1) ones(k, 1)];
+        if compute_region(j) < 1 % Do not compute for region that are not specified
             continue;
         end
         
+        scalefactor = 0.5*nanmean(data_4(j, death_data(j, :)>10)./death_data(j, death_data(j, :)>10)); % Scales deaths so that the parameters learned are not negligible        
+        
         lag = 0; % To enforce there is a delay between positive report and death
         jk = jk+lag;
+        
+        if death_data(j, end) < 1
+            continue;
+        end
         
         alphavec = power(alpha, (maxt-skip_days - jk-1:-1:1)');
         alphamat = repmat(alphavec, [1 k]);

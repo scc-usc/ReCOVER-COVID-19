@@ -17,6 +17,11 @@ function [pred_deaths] = var_simulate_deaths(data_4, beta_all_cell, k_l, jp_l, h
     deldata = diff(data_4')';
     
     for j=1:num_countries
+        
+        if sum(beta_all_cell{j})==0
+            pred_deaths(j, :) = base_deaths(j);
+            continue;
+        end
         jp = jp_l(j);
         k = k_l(j);
     
@@ -33,6 +38,8 @@ function [pred_deaths] = var_simulate_deaths(data_4, beta_all_cell, k_l, jp_l, h
             end
             X(t-jk, :) = [Ikt] ;
             new_deaths = sum(beta_all_cell{j}'.*X(t-jk, :), 2);
+            
+            new_deaths = (new_deaths+abs(new_deaths))/2; % If negative, replace it with zero
             
             pred_deaths(j, t-jk) = base_deaths(j) + new_deaths;
             base_deaths(j) = pred_deaths(j, t-jk);
