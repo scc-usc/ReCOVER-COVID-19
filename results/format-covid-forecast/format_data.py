@@ -4,61 +4,39 @@ import csv
 import urllib.request
 import io
 
-FORECAST_DATE = datetime.datetime(2020, 6, 28)
-FIRST_WEEK = datetime.datetime(2020, 7, 4)
-INPUT_FILENAME = "us_deaths_quarantine_20.csv"
+FORECAST_DATE = datetime.datetime(2020, 7, 2)
+FIRST_WEEK = datetime.datetime(2020, 7, 11)
+INPUT_FILENAME = "county_deaths_quarantine_20.csv"
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha.csv"
 COLUMNS = ["forecast_date", "target", "target_end_date", "location", "location_name", "type", "quantile", "value"]
-ID_STATE_MAPPING = {}
-STATE_ID_MAPPING = {}
+ID_REGION_MAPPING = {}
 
-def load_state_id_mapping():
+def load_id_region_mapping():
     """
-    Return a mapping of <state name, state id>.
-    """
-
-    MAPPING_CSV = "./locations.csv"
-    with open(MAPPING_CSV) as f:
-        reader = csv.reader(f)
-        state_id_mapping = {}
-        
-        # Skip the header
-        next(reader)
-
-        for row in reader:
-            state_id = row[1]
-            state_name = row[2]
-            state_id_mapping[state_name] = state_id
-        
-        return state_id_mapping
-
-
-def load_id_state_mapping():
-    """
-    Return a mapping of <state id, state name>.
+    Return a mapping of <region id, region name>.
     """
 
     MAPPING_CSV = "./locations.csv"
     with open(MAPPING_CSV) as f:
         reader = csv.reader(f)
-        id_state_mapping = {}
+        id_region_mapping = {}
         
         # Skip the header
         next(reader)
 
         for row in reader:
-            state_id = row[1]
-            state_name = row[2]
-            id_state_mapping[state_id] = state_name
+            region_id = row[1]
+            region_name = row[2]
+            id_region_mapping[region_id] = region_name
         
-        return id_state_mapping
+        return id_region_mapping
 
 
 
 def load_truth_cumulative_deaths():
     """
     Load the observed cumulative deaths from the data source.
-    Return A 2D dictionary structuring of <date_str, <state_id, value>>
+    Return A 2D dictionary structuring of <date_str, <region_id, value>>
     An example looks like:
     { 
         "2020-06-17" : {
@@ -93,20 +71,20 @@ def load_truth_cumulative_deaths():
             value_col = i
 
     for row in reader:
-        state_id = row[location_col]
+        region_id = row[location_col]
         date = row[date_col]
         val = int(row[value_col])
         if date not in dataset:
             dataset[date] = {}
                 
-        dataset[date][state_id] = val
+        dataset[date][region_id] = val
 
     return dataset
 
 
 def load_csv(input_filename):
     """
-    Read our forecast reports and return a dictionary structuring of <date_str, <state_id, value>>
+    Read our forecast reports and return a dictionary structuring of <date_str, <region_id, value>>
     e.g.
     {
         "2020-06-22": {
@@ -135,18 +113,17 @@ def load_csv(input_filename):
             dataset[date_str]["US"] = 0
         
         for row in reader:
-            state = row[1]
+            region_id = row[1]
             
-            # Skip the state if it is not listed in reichlab's state list.
-            if state not in STATE_ID_MAPPING:
+            # Skip the region if it is not listed in reichlab's region list.
+            if region_id not in ID_REGION_MAPPING:
                 continue
 
-            state_id = STATE_ID_MAPPING[state]
             for i in range(2, len(header)):
                 date_str = header[i]
                 val = float(row[i])
-                dataset[date_str][state_id] = val
-                # Sum up each state's data to US' data.
+                dataset[date_str][region_id] = val
+                # Sum up each region's data to US' data.
                 dataset[date_str]["US"] += val
     
     return dataset
@@ -182,34 +159,38 @@ def generate_dataframe(forecast, observed):
         target_end_date = datetime.datetime.strptime(target_end_date_str, "%Y-%m-%d")
         forecast_date_str = FORECAST_DATE.strftime("%Y-%m-%d")
         target = str((target_end_date - FORECAST_DATE).days) + " day ahead cum death"
-        for state_id in forecast[target_end_date_str].keys():
+        # Skip forecasts before the forecast date.
+        if target_end_date <= FORECAST_DATE:
+            continue
+
+        for region_id in forecast[target_end_date_str].keys():
             dataframe = dataframe.append(
                 generate_new_row(
                     forecast_date=forecast_date_str,
                     target=target,
                     target_end_date=target_end_date_str,
-                    location=str(state_id),
-                    location_name=ID_STATE_MAPPING[state_id],
+                    location=str(region_id),
+                    location_name=ID_REGION_MAPPING[region_id],
                     type="Point",
                     quantile="NA",
-                    value=forecast[target_end_date_str][state_id]
+                    value=forecast[target_end_date_str][region_id]
                 ), ignore_index=True)
 
         # Write a row for "weeks ahead" if forecast end day is a Saturday.
         if target_end_date >= FIRST_WEEK and target_end_date.weekday() == 5 :
             cum_week += 1
             target = str(cum_week) + " wk ahead cum death"
-            for state_id in forecast[target_end_date_str].keys():
+            for region_id in forecast[target_end_date_str].keys():
                 dataframe = dataframe.append(
                     generate_new_row(
                         forecast_date=forecast_date_str,
                         target=target,
                         target_end_date=target_end_date_str,
-                        location=str(state_id),
-                        location_name=ID_STATE_MAPPING[state_id],
+                        location=str(region_id),
+                        location_name=ID_REGION_MAPPING[region_id],
                         type="point",
                         quantile="NA",
-                        value=forecast[target_end_date_str][state_id]
+                        value=forecast[target_end_date_str][region_id]
                     ), ignore_index=True)
                 
     # Write incident forecasts.
@@ -222,77 +203,76 @@ def generate_dataframe(forecast, observed):
         prev_date = target_end_date - datetime.timedelta(1)
         prev_date_str = prev_date.strftime("%Y-%m-%d")
 
-        if prev_date_str in observed:
-            for state_id in forecast[target_end_date_str].keys():
+        # Skip forecasts before the forecast date.
+        if target_end_date <= FORECAST_DATE:
+            continue
+
+        for region_id in forecast[target_end_date_str].keys():
+            if prev_date_str in observed and region_id in observed[prev_date_str]:
                 dataframe = dataframe.append(
                     generate_new_row(
                         forecast_date=forecast_date_str,
                         target=target,
                         target_end_date=target_end_date_str,
-                        location=str(state_id),
-                        location_name=ID_STATE_MAPPING[state_id],
+                        location=str(region_id),
+                        location_name=ID_REGION_MAPPING[region_id],
                         type="Point",
                         quantile="NA",
-                        value=forecast[target_end_date_str][state_id]-observed[prev_date_str][state_id]
+                        value=forecast[target_end_date_str][region_id]-observed[prev_date_str][region_id]
                     ), ignore_index=True)
-
-        elif prev_date_str in forecast:
-            for state_id in forecast[target_end_date_str].keys():
+        
+            elif prev_date_str in forecast and region_id in forecast[prev_date_str]:
                 dataframe = dataframe.append(
                     generate_new_row(
                         forecast_date=forecast_date_str,
                         target=target,
                         target_end_date=target_end_date_str,
-                        location=str(state_id),
-                        location_name=ID_STATE_MAPPING[state_id],
+                        location=str(region_id),
+                        location_name=ID_REGION_MAPPING[region_id],
                         type="Point",
                         quantile="NA",
-                        value=forecast[target_end_date_str][state_id]-forecast[prev_date_str][state_id]
+                        value=forecast[target_end_date_str][region_id]-forecast[prev_date_str][region_id]
                     ), ignore_index=True)
 
-        if target_end_date >= FIRST_WEEK and target_end_date.weekday() == 5:
-            cum_week += 1
-            target = str(cum_week) + " wk ahead inc death"
+            if target_end_date >= FIRST_WEEK and target_end_date.weekday() == 5:
+                cum_week += 1
+                target = str(cum_week) + " wk ahead inc death"
 
-            last_week_date = target_end_date - datetime.timedelta(7)
-            last_week_date_str = last_week_date.strftime("%Y-%m-%d")
-            
-            if last_week_date_str in observed:
-                for state_id in forecast[target_end_date_str].keys():
+                last_week_date = target_end_date - datetime.timedelta(7)
+                last_week_date_str = last_week_date.strftime("%Y-%m-%d")
+                
+                if last_week_date_str in observed and region_id in observed[last_week_date_str]:
                     dataframe = dataframe.append(
                         generate_new_row(
                             forecast_date=forecast_date_str,
                             target=target,
                             target_end_date=target_end_date_str,
-                            location=str(state_id),
-                            location_name=ID_STATE_MAPPING[state_id],
+                            location=str(region_id),
+                            location_name=ID_REGION_MAPPING[region_id],
                             type="point",
                             quantile="NA",
-                            value=forecast[target_end_date_str][state_id]-observed[last_week_date_str][state_id]
+                            value=forecast[target_end_date_str][region_id]-observed[last_week_date_str][region_id]
                         ), ignore_index=True)
-            
-            elif last_week_date_str in forecast:
-                for state_id in forecast[target_end_date_str].keys():
+                
+                elif last_week_date_str in forecast and region_id in forecast[last_week_date_str]:
                     dataframe = dataframe.append(
                         generate_new_row(
                             forecast_date=forecast_date_str,
                             target=target,
                             target_end_date=target_end_date_str,
-                            location=str(state_id),
-                            location_name=ID_STATE_MAPPING[state_id],
+                            location=str(region_id),
+                            location_name=ID_REGION_MAPPING[region_id],
                             type="point",
                             quantile="NA",
-                            value=forecast[target_end_date_str][state_id]-forecast[last_week_date_str][state_id]
+                            value=forecast[target_end_date_str][region_id]-forecast[last_week_date_str][region_id]
                         ), ignore_index=True)
-
 
     return dataframe
 
 
 # Main function
 if __name__ == "__main__":
-    STATE_ID_MAPPING = load_state_id_mapping()
-    ID_STATE_MAPPING = load_id_state_mapping()
+    ID_REGION_MAPPING = load_id_region_mapping()
     print("loading forecast...")
     forecast = load_csv(INPUT_FILENAME)
     observed = load_truth_cumulative_deaths()
