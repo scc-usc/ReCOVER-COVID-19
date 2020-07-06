@@ -14,7 +14,7 @@ function [beta_all_cell, ci, fittedC] = var_ind_deaths(data_4, death_data, alpha
     end
     
     if nargin < 6
-        window_size = maxt; % By default, use all death data to fit parameters
+        window_size = maxt*ones(size(data_4, 1), 1); % By default, use all death data to fit parameters
     end
        
     if length(jp_l) == 1
@@ -29,10 +29,10 @@ function [beta_all_cell, ci, fittedC] = var_ind_deaths(data_4, death_data, alpha
         alpha_l = ones(nn, 1)*alpha_l;
     end
     
-    skip_days = maxt - window_size;
-    if skip_days < 0
-        skip_days = 0;
+    if length(window_size) == 1
+        window_size = ones(nn, 1)*window_size;
     end
+    
     deldata = diff(data_4')';
     new_deaths = diff(death_data')';
     for j=1:nn
@@ -45,6 +45,11 @@ function [beta_all_cell, ci, fittedC] = var_ind_deaths(data_4, death_data, alpha
         
         if compute_region(j) < 1 % Do not compute for region that are not specified
             continue;
+        end
+        
+        skip_days = maxt - window_size(j);
+        if skip_days < 0
+            skip_days = 0;
         end
         
         scalefactor = 0.5*nanmean(data_4(j, death_data(j, :)>10)./death_data(j, death_data(j, :)>10)); % Scales deaths so that the parameters learned are not negligible        
@@ -60,6 +65,10 @@ function [beta_all_cell, ci, fittedC] = var_ind_deaths(data_4, death_data, alpha
         alphamat = repmat(alphavec, [1 k]);
         y = zeros(maxt - jk - skip_days - 1, 1);
         X = zeros(maxt - jk - skip_days - 1, k);
+        
+        if isempty(y)
+            continue;
+        end
         
         Ikt = zeros(1,k);
         for t = skip_days+jk+1:maxt-1

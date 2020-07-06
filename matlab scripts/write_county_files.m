@@ -13,7 +13,8 @@ for idx = 1:length(countries)
     best_param_list(idx, :) = param_state(county_to_state(idx), :);
 end
 %% Set hyper-parameters and prepare data generation
-death_hyperparams;
+tic;
+dk = 3; djp = 7; dalpha = 1; dwin = 50; % Choose a lower number if death rates evolve quickly
 
 bad_idx = deaths(:, end) < 1 | popu < 1; % Only predict for counties with at least one death
 lowidx = data_4(:, 60) < 50; % Note the regions with unreliable data on reference day
@@ -57,15 +58,15 @@ for un_id = 1:length(un_array)
     
     infec_released_avg = 0.5*(infec_released_f_un + infec_released_un);
     
-    infec_data = [data_4_s(:, T_full-dk*djp:T_full), infec_un];
-    infec_data_released = [data_4_s(:, T_full-dk*djp:T_full), infec_released_f_un];
+    infec_data = [data_4_s(:, 1:T_full), infec_un];
+    infec_data_released = [data_4_s(:, 1:T_full), infec_released_f_un];
     base_deaths = deaths(:, T_full);
     
     [death_rates] = var_ind_deaths(data_4_s, deaths_s, dalpha, dk, djp, dwin, 0, compute_region);
     disp('trained deaths');
     
-    [pred_deaths] = var_simulate_deaths(infec_data, death_rates, dk, djp, dhorizon, base_deaths);
-    [pred_deaths_released] = var_simulate_deaths(infec_data_released, death_rates, dk, djp, dhorizon, base_deaths);
+    [pred_deaths] = var_simulate_deaths(infec_data, death_rates, dk, djp, dhorizon, base_deaths, T_full-1);
+    [pred_deaths_released] = var_simulate_deaths(infec_data_released, death_rates, dk, djp, dhorizon, base_deaths, T_full-1);
 
     disp('predicted deaths');
     

@@ -16,8 +16,8 @@ function [meanMSE, meanMAPE, allMSE, allMAPE] = calc_errors(gtruth1, predvals1, 
         allMSE = zeros(size(gtruth1, 1), 1);
         allMAPE = zeros(size(gtruth1, 1), 1);
         for jj=1:tt
-            gtruth = sum(gtruth1(win_size*(jj-1) + 1 : win_size*jj), 2);
-            predvals = sum(predvals1(win_size*(jj-1) + 1 : win_size*jj), 2);
+            gtruth = sum(gtruth1(:, win_size*(jj-1) + 1 : win_size*jj), 2);
+            predvals = sum(predvals1(:, win_size*(jj-1) + 1 : win_size*jj), 2);
             allMSE = allMSE + (gtruth-predvals).^2 / tt;
             allMAPE = allMAPE + (1/tt)*abs(gtruth-predvals)./(0.5*gtruth+0.5*predvals+ 1e-5);
         end

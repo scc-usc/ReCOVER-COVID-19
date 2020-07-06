@@ -42,13 +42,13 @@ for un_id = 1:length(un_array)
     
     infec_released_avg = 0.5*(infec_released_f_un + infec_released_un);
     
-    infec_data = [data_4_s(:, T_full-dk*djp:T_full), infec_un];
-    infec_data_released = [data_4_s(:, T_full-dk*djp:T_full), infec_released_avg];
+    infec_data = [data_4_s(:, 1:T_full), infec_un];
+    infec_data_released = [data_4_s(:, 1:T_full), infec_released_avg];
     base_deaths = deaths(:, T_full);
     
     [death_rates] = var_ind_deaths(data_4, deaths, dalpha, dk, djp, dwin);
-    [pred_deaths] = var_simulate_deaths(infec_data, death_rates, dk, djp, dhorizon, base_deaths);
-    [pred_deaths_released] = var_simulate_deaths(infec_data_released, death_rates, dk, djp, dhorizon, base_deaths);
+    [pred_deaths] = var_simulate_deaths(infec_data, death_rates, dk, djp, dhorizon, base_deaths, T_full-1);
+    [pred_deaths_released] = var_simulate_deaths(infec_data_released, death_rates, dk, djp, dhorizon, base_deaths, T_full-1);
     
     
  
