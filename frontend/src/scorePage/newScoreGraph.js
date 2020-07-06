@@ -75,7 +75,7 @@ class NewScoreGraph extends Component {
         for (let i = 0; i < areas.length; ++i)
         {
             lines.push(
-                <Line type="monotone" key={i} dataKey={areas[i]} stroke={colors[i][3]} strokeWidth={5}>
+                <Line type="monotone" key={i} dataKey={areas[i]} stroke={colors[i][3]} strokeWidth={5} isAnimationActive={false}>
                     <ErrorBar dataKey={`error${areas[i]}`} width={15} strokeWidth={2} stroke={colors[i][6]} direction="y" />
                 </Line>
             )
