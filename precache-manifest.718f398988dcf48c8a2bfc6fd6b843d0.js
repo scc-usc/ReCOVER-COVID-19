@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ef08676c50fb882baf353b43aff6aaa2",
+    "revision": "bfe8bbbbd1c37de3ef236c291c544997",
     "url": "/ReCOVER-COVID-19/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/css/3.fca20ba5.chunk.css"
   },
   {
-    "revision": "694ade636efbce7e2e2d",
+    "revision": "bf5061a80dff4138503d",
     "url": "/ReCOVER-COVID-19/static/css/main.07b3d387.chunk.css"
   },
   {
@@ -40,8 +40,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/js/6.4f4df441.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "694ade636efbce7e2e2d",
-    "url": "/ReCOVER-COVID-19/static/js/main.e6bb7895.chunk.js"
+    "revision": "bf5061a80dff4138503d",
+    "url": "/ReCOVER-COVID-19/static/js/main.68f9a571.chunk.js"
   },
   {
     "revision": "9183de4f33bca41c43a3",
@@ -52,8 +52,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/js/xlsx.df708618.chunk.js"
   },
   {
-    "revision": "fc436d33e432a488880d85cb9367ba20",
-    "url": "/ReCOVER-COVID-19/static/media/all_graph.fc436d33.png"
+    "revision": "544b5dce0b653e0122af690f41700304",
+    "url": "/ReCOVER-COVID-19/static/media/all_graph.544b5dce.png"
   },
   {
     "revision": "13db00b7a34fee4d819ab7f9838cc428",
@@ -100,12 +100,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/media/icons.faff9214.woff"
   },
   {
-    "revision": "0c9de3d51ed38c9f43311b01d0eff536",
-    "url": "/ReCOVER-COVID-19/static/media/jhu_graph.0c9de3d5.png"
+    "revision": "03ee4f4747d29131118b57f87bbaefef",
+    "url": "/ReCOVER-COVID-19/static/media/jhu_graph.03ee4f47.png"
   },
   {
-    "revision": "e2e0c225dbdf73c636271372d308b458",
-    "url": "/ReCOVER-COVID-19/static/media/nyt_graph.e2e0c225.png"
+    "revision": "d9650e45ec6cace375faba4e7f98a19a",
+    "url": "/ReCOVER-COVID-19/static/media/nyt_graph.d9650e45.png"
   },
   {
     "revision": "701ae6abd4719e9c2ada3535a497b341",
@@ -128,7 +128,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/media/outline-icons.ef60a4f6.woff"
   },
   {
-    "revision": "7eb46137d5264dd2814afdbf2743ea6a",
-    "url": "/ReCOVER-COVID-19/static/media/usf_graph.7eb46137.png"
+    "revision": "e05b3f79d7f3eb8c9636a4554f9a6901",
+    "url": "/ReCOVER-COVID-19/static/media/usf_graph.e05b3f79.png"
   }
 ]);
