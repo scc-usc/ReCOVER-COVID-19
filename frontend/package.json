@@ -66,6 +66,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-tabs": "^3.1.0",
+    "recharts": "^1.8.5",
     "resolve": "1.15.0",
     "resolve-url-loader": "3.1.1",
     "sass-loader": "8.0.2",

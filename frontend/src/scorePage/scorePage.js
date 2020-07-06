@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import ModelAPI from "../modelapi";
 import { areaToStr, strToArea} from "../covid19util";
 import ScoreGraph from "./scoreGraph";
+import NewScoreGraph from "./newScoreGraph";
 import ScoreMap from './scoreMap';
 import "./scorePage.css";
 
@@ -310,9 +311,9 @@ class ScorePage extends PureComponent{
                 <Row>
                 <Col span={24}>
                     <div className="graph-wrapper">
-                    <ScoreGraph
+                    <NewScoreGraph
                         data={mainGraphData}
-                    ></ScoreGraph>
+                    ></NewScoreGraph>
                     </div>
                 </Col>
                 </Row>
