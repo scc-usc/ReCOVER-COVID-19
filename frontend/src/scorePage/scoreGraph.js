@@ -29,7 +29,7 @@ function getLineColor(index) {
 const DashedLine = ({ series, lineGenerator, xScale, yScale }) => {
   return series.map(({ id, data, color, predicted, distancing }) => {
     let style = {
-      strokeWidth: 7
+      strokeWidth: 5
     };
 
     // Add custom style if predicted.
@@ -101,6 +101,7 @@ class ScoreGraph extends Component {
   // processData properly formats the given data, and performs special
   // operations based on parameter values.
   processData(data) {
+    console.log(data);
     let retData = this.getCumulativeData(data);
 
     return retData;
@@ -304,7 +305,6 @@ class ScoreGraph extends Component {
             </div>
           );
         }}
-        pointSize={20}
         legends={[
           {
             anchor: "top-left",
