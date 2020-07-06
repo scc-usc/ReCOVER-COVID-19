@@ -16,7 +16,7 @@ const data = {
                     description: "This is our SI-kJalpha trained on the Johns Hopkins University's Covid19 dataset.",
                     link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
                 },
-                RMSE: 24.33
+                RMSE: 30.03
             },
             {
                 model: {
@@ -26,7 +26,7 @@ const data = {
                     The model's contributor is Youyang Gu.",
                     link: "http://covid19-projections.com/about/"
                 },
-                RMSE: 26.40
+                RMSE: 30.27
             },
             {
                 model: {
@@ -35,7 +35,7 @@ const data = {
                     Harvard Medical School, Georgia Tech and Boston Medical Center.",
                     link: "https://covid19sim.org/"
                 },
-                RMSE: 27.89
+                RMSE: 33.96
             },
         ],
         recentRankings: [
@@ -45,7 +45,7 @@ const data = {
                     description: "This is our SI-kJalpha trained on the Johns Hopkins University's Covid19 dataset.",
                     link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
                 },
-                RMSE: 38.69
+                RMSE: 49.90
             },
             {
                 model: {
@@ -55,7 +55,7 @@ const data = {
                     The model's contributor is Youyang Gu.",
                     link: "http://covid19-projections.com/about/"
                 },
-                RMSE: 41.97
+                RMSE: 51.83
             },
             {
                 model: {
@@ -64,7 +64,7 @@ const data = {
                     Harvard Medical School, Georgia Tech and Boston Medical Center.",
                     link: "https://covid19sim.org/"
                 },
-                RMSE: 48.41
+                RMSE: 58.5
             },
         ]
     },
@@ -76,7 +76,7 @@ const data = {
                     description: "This is our SI-kJalpha trained on the New York Times dataset.",
                     link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
                 },
-                RMSE: 22.41
+                RMSE: 28.68
             },
 		{
                 model: {
@@ -84,7 +84,7 @@ const data = {
                     description: "SEIR model by UCLA Statistical Machine Learning Lab.",
                     link: "https://covid19.uclaml.org/"
                 },
-                RMSE: 22.97
+                RMSE: 37.50
             },
             {
                 model: {
@@ -92,7 +92,7 @@ const data = {
                     description: "SEIR model by the CovidActNow research team.",
                     link: "https://covidactnow.org/"
                 },
-                RMSE: 33.08
+                RMSE: 51.43
             },
             {
                 model: {
@@ -100,7 +100,7 @@ const data = {
                     description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
                     link: "https://covid19.stat.iastate.edu"
                 },
-                RMSE: 35.41
+                RMSE: 71.75
             },
             
 
@@ -112,7 +112,7 @@ const data = {
                     description: "This is our SI-kJalpha trained on the New York Times dataset.",
                     link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
                 },
-                RMSE: 37.75
+                RMSE: 59.20
             },
             {
                 model: {
@@ -120,7 +120,15 @@ const data = {
                     description: "SEIR model by UCLA Statistical Machine Learning Lab.",
                     link: "https://covid19.uclaml.org/"
                 },
-                RMSE: 40.83
+                RMSE: 124.67
+            },
+	{
+           model: {
+                    name: "Iowa State Lily Wang's Research Group - Spatiotemporal Epidemic Modeling",
+                    description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
+                    link: "https://covid19.stat.iastate.edu"
+                },
+                RMSE: 131.54
             },
             {
                 model: {
@@ -128,16 +136,9 @@ const data = {
                     description: "SEIR model by the CovidActNow research team.",
                     link: "https://covidactnow.org/"
                 },
-                RMSE: 49.05
+                RMSE: 187.76
             },
-            {
-                model: {
-                    name: "Iowa State Lily Wang's Research Group - Spatiotemporal Epidemic Modeling",
-                    description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
-                    link: "https://covid19.stat.iastate.edu"
-                },
-                RMSE: 52.16
-            },
+            
 
         ]
 
@@ -150,7 +151,7 @@ const data = {
                     description: "This is our SI-kJalpha trained on the USAFACTS Covid19 dataset.",
                     link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
                 },
-                RMSE: 22.32
+                RMSE: 30.09
             },
             {
                 model: {
@@ -158,7 +159,7 @@ const data = {
                     description: "A metapopulation county-level SEIR model by Columbia University.",
                     link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
                 },
-                RMSE: 33.37
+                RMSE: 40.79
             },
             {
                 model: {
@@ -166,7 +167,7 @@ const data = {
                     description: " County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
                     link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
                 },
-                RMSE: 48.96
+                RMSE: 51.96
             },
         ],
         recentRankings: [
@@ -176,7 +177,7 @@ const data = {
                     description: "This is our SI-kJalpha trained on the USAFACTS Covid19 dataset.",
                     link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
                 },
-                RMSE: 39.77
+                RMSE: 60.58
             },
             {
                 model: {
@@ -184,7 +185,7 @@ const data = {
                     description: " County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
                     link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
                 },
-                RMSE: 47.82
+                RMSE: 66.93
             },
             {
                 model: {
@@ -192,7 +193,7 @@ const data = {
                     description: "A metapopulation county-level SEIR model by Columbia University.",
                     link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
                 },
-                RMSE: 57.73
+                RMSE: 91.37
             },
 
         ]
@@ -289,7 +290,7 @@ class Leaderboard extends Component {
                     </Row>
                     <Row>
                         <Col span={8}>
-                            <h2 className="title">Recent Performance (from 2020-06-08)</h2>
+                            <h2 className="title">Recent Performance (from 2020-06-22)</h2>
                             <List className="leaderboard"
                                 itemLayout="horizontal"
                                 dataSource={data.nyt.recentRankings}
@@ -308,7 +309,7 @@ class Leaderboard extends Component {
                             />
                         </Col>
                         <Col span={8}>
-                            <h2 className="title">Recent Performance (from 2020-06-08)</h2>
+                            <h2 className="title">Recent Performance (from 2020-06-22)</h2>
                             <List className="leaderboard"
                                 itemLayout="horizontal"
                                 dataSource={data.jhu.recentRankings}
@@ -327,7 +328,7 @@ class Leaderboard extends Component {
                             />
                         </Col>
                         <Col span={8}>
-                            <h2 className="title">Recent Performance (from 2020-06-08)</h2>
+                            <h2 className="title">Recent Performance (from 2020-06-22)</h2>
                             <List className="leaderboard"
                                 itemLayout="horizontal"
                                 dataSource={data.usafacts.recentRankings}
