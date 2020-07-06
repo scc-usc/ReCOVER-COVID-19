@@ -138,16 +138,19 @@ class ScorePage extends PureComponent{
         // can do a union / intersection to figure out what to add/remove.
         const prevAreas = this.state.areas;
         const newAreas = allValues.areas;
-
-        const areasToAdd = newAreas.filter(
-        areaStr => !prevAreas.includes(areaStr)
-        );
-        const areasToRemove = prevAreas.filter(
-        areaStr => !newAreas.includes(areaStr)
-        );
-
-        areasToAdd.forEach(this.addAreaByStr);
-        areasToRemove.forEach(this.removeAreaByStr);
+        if (newAreas && prevAreas)
+        {
+            const areasToAdd = newAreas.filter(
+                areaStr => !prevAreas.includes(areaStr)
+                );
+                const areasToRemove = prevAreas.filter(
+                areaStr => !newAreas.includes(areaStr)
+                );
+        
+                areasToAdd.forEach(this.addAreaByStr);
+                areasToRemove.forEach(this.removeAreaByStr);
+        }
+        
     }
 
     onWeeksChange(weeks) {
@@ -204,17 +207,28 @@ class ScorePage extends PureComponent{
     }
 
     generateMarks = ()=>{
-        const {latestDate} = this.state;
-        let lastDate = new Date(`${latestDate}T00:00`);
-        let date = new Date(2020,2,11);
+        const {weeks, lastDate, latestWeek} = this.state;
+        let latestDate = new Date(`${lastDate}T00:00`);
+        let firstDate = new Date(2020,2,11);
+        let currentDate = new Date(2020,2,11);
+        currentDate.setDate(currentDate.getDate(Date) + 7*weeks);
         //get the date of the selected date on slider
         let marks = {};
         let i = 0;
-        while (date <= lastDate)
+        while ( i <= 5 && weeks + i<=latestWeek)
         {
-           marks[i] = `${date.getMonth()+1}/${date.getDate()}`;
-           date.setDate(date.getDate(Date) + 7);
+           marks[weeks+i] = `${currentDate.getMonth()+1}/${currentDate.getDate()}`;
+           currentDate.setDate(currentDate.getDate(Date) + 7);
            i++;
+        }
+        i = 1
+        currentDate = new Date(2020,2,11);
+        currentDate.setDate(currentDate.getDate(Date) + 7*(weeks-1));
+        while (i <= 5 && weeks - i >= 0)
+        {
+            marks[weeks - i] = `${currentDate.getMonth()+1}/${currentDate.getDate()}`;
+            currentDate.setDate(currentDate.getDate(Date) - 7);
+            i++;
         }
         return marks;
       }
@@ -281,7 +295,8 @@ class ScorePage extends PureComponent{
                                 <Slider
                                     marks={marks}
                                     initialValue={weeks}
-                                    max={latestWeek}
+                                    min ={weeks-5>=0?weeks-5: 0}
+                                    max={weeks+5<=latestWeek?weeks+5:latestWeek}
                                     onAfterChange={this.onWeeksChange}
                                 />
                             </Form.Item>
