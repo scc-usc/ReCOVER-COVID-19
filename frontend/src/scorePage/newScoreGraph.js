@@ -17,7 +17,8 @@ import {
     YAxis,
     Tooltip,
     Legend,
-    Label
+    Label,
+    ErrorBar
 } from 'recharts';
 
 function getLineColor(index) {
@@ -45,9 +46,11 @@ class NewScoreGraph extends Component {
                 let date = value.date.split("-")[1] + "/" + value.date.split("-")[2]
                 let dataSet = {name: date};
                 dataSet[Object.keys(data)[0]] = value.value;
+                dataSet[`error${Object.keys(data)[0]}`] = value.conf;
                 for (let i = 1; i < Object.keys(data).length; ++i)
                 {
-                    dataSet[Object.keys(data)[i]] = data[Object.keys(data)[i]].observed[idx].value
+                    dataSet[Object.keys(data)[i]] = data[Object.keys(data)[i]].observed[idx].value;
+                    dataSet[`error${Object.keys(data)[i]}`] = data[Object.keys(data)[i]].observed[idx].conf;
                 }
                 return dataSet
             });
@@ -63,18 +66,20 @@ class NewScoreGraph extends Component {
         console.log(chartData);
         //areas and line color
         const areas = Object.keys(data);
-        console.log(areas);
         let colors = [];
         areas.map((area, idx)=>{
             let strokeColor = getLineColor(idx);
-            colors.push(strokeColor[3]);
+            colors.push(strokeColor);
             return 0;
         });
-        console.log(colors);
         let lines = [];
         for (let i = 0; i < areas.length; ++i)
         {
-            lines.push(<Line type="monotone" key={i} dataKey={areas[i]} stroke={colors[i]} strokeWidth={5} />)
+            lines.push(
+                <Line type="monotone" key={i} dataKey={areas[i]} stroke={colors[i][3]} strokeWidth={5}>
+                    <ErrorBar dataKey={`error${areas[i]}`} width={15} strokeWidth={2} stroke={colors[i][6]} direction="y" />
+                </Line>
+            )
         }
         return(
             <LineChart width={1400} height={300} data={chartData}
