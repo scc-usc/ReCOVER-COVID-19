@@ -93,3 +93,6 @@ clear USAfacts_deaths USAfacts_confirmed;
 data_4 = data_4_JHU; deaths = deaths_JHU;
 writetable(infec2table(data_4, countries, zeros(length(countries), 1), datetime(2020, 1, 23)), '../results/forecasts/us_data.csv');
 writetable(infec2table(deaths, countries, zeros(length(countries), 1), datetime(2020, 1, 23)), '../results/forecasts/us_deaths.csv');
+
+
+prefix = 'us'; % This ensures that the files to load and saved are named properly

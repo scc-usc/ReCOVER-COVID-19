@@ -6,6 +6,7 @@ T_tr = 64; % reference day for "released"
 un_array = [1, 2, 5, 10, 20, 40]; % Select the ratio of total to reported cases
 horizon = 100; % days of predcitions
 dhorizon = horizon;
+%%
 
 for un_id = 1:length(un_array)
     % Train with hyperparams before and after

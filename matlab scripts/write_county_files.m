@@ -16,7 +16,7 @@ end
 tic;
 dk = 3; djp = 7; dalpha = 1; dwin = 50; % Choose a lower number if death rates evolve quickly
 
-bad_idx = deaths(:, end) < 1 | popu < 1; % Only predict for counties with at least one death
+bad_idx = data_4(:, end) < 1 | popu < 1; % Only predict for counties with at least one death
 lowidx = data_4(:, 60) < 50; % Note the regions with unreliable data on reference day
 
 prefix = 'county';
@@ -69,7 +69,7 @@ for un_id = 1:length(un_array)
     [pred_deaths_released] = var_simulate_deaths(infec_data_released, death_rates, dk, djp, dhorizon, base_deaths, T_full-1);
 
     disp('predicted deaths');
-    
+    %start_date = datetime(2020, 7, 5);
     file_suffix = num2str(un); % Factor for unreported cases
     writetable(infec2table(infec_un, cellstr(num2str(FIP_data.FIPS)), bad_idx), [file_prefix '_forecasts_quarantine_' file_suffix '.csv']);
     writetable(infec2table(0.5*(infec_released_un+infec_released_f_un), cellstr(num2str(FIP_data.FIPS)), bad_idx|lowidx), [file_prefix '_forecasts_released_avg_' file_suffix '.csv']);

@@ -23,22 +23,12 @@ Navigate to the `matlab scripts/` directory. Generate the forecasts and reproduc
 2. Generate country-level reproduction number: 
     1. Load `hyper_params/global_hyperparam_ref_xxx.mat`. 
     2. Run `load_data_global.m`. 
-    3. Edit the file `generate_scores.m` on line 5 and 6:
-        ```
-        %prefix = 'us'; % Comment out this line.
-        prefix = 'global'; % Uncomment this line.
-        ```
     3. Run `generate_scores.m` to generate country-level reproduction numbers.
 
 3. Generate US state-level reproduction number: 
     1. Load `hyper_params/us_hyperparam_ref_xxx.mat`. 
     2. Run `load_data_us.m`.
-    3. Edit the file `generate_scores.m` on line 5 and 6:
-        ```
-        prefix = 'us'; % Uncomment this line.
-        %prefix = 'global'; % Comment out this line.
-        ```
-    4. Run `generate_scores.m` to generate us state-level reproduction numbers.
+    3. Run `generate_scores.m` to generate us state-level reproduction numbers.
 
 
     Both global and US reproduction number files will be generated under `ReCOVER-COVID-19/results/scores/` directory.

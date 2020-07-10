@@ -2,8 +2,8 @@
 %%%% Also calculates the Dynamic Reproduction Number with time
 
 warning off;
-%prefix = 'us'; % Uncomment for US state-level
-prefix = 'global'; % Uncomment for country-level
+
+eval(['load_data_' prefix]);
 
 alpha_start = 5;
 all_scores = [];
@@ -31,7 +31,7 @@ dwin = 50; % Choose a lower number if death rates evolve
 
 %%
 
-for daynum = start_day:skip_length:floor(size(data_4, 2)-horizon)
+for daynum = start_day:skip_length:(size(data_4, 2))
     display(['Until ' num2str(daynum)]);
     fname = ['./hyper_params/' prefix '_hyperparam_ref_' num2str(daynum)];
     
@@ -39,9 +39,11 @@ for daynum = start_day:skip_length:floor(size(data_4, 2)-horizon)
  
     if daynum <= saved_days
         load(fname);
-    else
+    elseif T_tr+horizon <= size(data_4, 2)
         [best_param_list_no, MAPEtable_notravel_fixed_s] = hyperparam_tuning(data_4(:, 1:T_tr+horizon), data_4_s(:, 1:T_tr+horizon), popu, 0, un, T_tr+horizon);
         save(fname, 'MAPEtable_notravel_fixed_s', 'best_param_list_no');
+    else
+        horizon = 0;
     end
     
     % Compute scores

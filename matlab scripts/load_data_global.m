@@ -35,3 +35,6 @@ for cidx = 1:length(countries)
 end
 
 writetable(infec2table(deaths, countries, zeros(length(countries), 1), datetime(2020, 1, 23)), '../results/forecasts/global_deaths.csv');
+
+%%
+prefix = 'global'; % This ensures that the files to load and saved are named properly
