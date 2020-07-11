@@ -3,16 +3,17 @@
 PIs: Viktor K. Prasanna (prasanna@usc.edu), Ajitesh Srivastava (ajiteshs@usc.edu)
 University of Southern California
 
-# Code contributors: 
+### Code contributors: 
 
-Ajitesh Srivastava, Frost Xu, Jamin Chen
-
-This repository contains some codes for our ongoing work on NSF-funded project on COVID-19 forecasting.
-We use our own epidemic model called SI-kJalpha - Heterogeneous Infection Rate with Human Mobility.
+Ajitesh Srivastava, Frost Xu, Bob Xiaochen Yang, Jamin Chen
 
 ## Web Interface and Visualization
 
 https://scc-usc.github.io/ReCOVER-COVID-19/
+
+## Approach
+We use our own epidemic model called SI-kJalpha, preliminary version of which we have successfully used during [DARPA Grand Challenge 2014](https://news.usc.edu/83180/usc-engineers-earn-national-recognition-for-predicting-disease-outbreaks/). Our forecast appears on the official [CDC webpage](https://www.cdc.gov/coronavirus/2019-ncov/covid-data/forecasting-us.html).Our model can consider the effect of many complexities of the epidemic process and yet be simplified to a few parameters that are learned using fast linear regressions. Therefore, our approach can learn and generate forecasts extremely quickly. On a 2-core desktop machine, our approach takes only 3.18s to tune hyper-parameters, learn parameters and generate 100 days of forecasts of reported cases and deaths for all the states in the US. The total execution time for 184 countries is 11.83s and for more than 3000 US counties is 101.03s. Despite being fast, the accuracy of our forecasts is on par with the state-of-the-art as demonstrated on the <a [leaderboard page](https://scc-usc.github.io/ReCOVER-COVID-19/#/leaderboard).
+                        
 
 ## Our papers
 1. Initial Modeling: https://arxiv.org/abs/2004.11372
