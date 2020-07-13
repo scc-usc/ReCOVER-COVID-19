@@ -52,7 +52,7 @@ class Covid19Predict extends PureComponent {
         this.setState({
           modelsList: infection_models,
           dataType: e.target.value,
-          models: ['SI-kJalpha - No under-reported positive cases (default)']
+          models: this.state.confirmed_models
         }, ()=>{
           this.formRef.current.setFieldsValue({
             models: this.state.models
@@ -70,7 +70,7 @@ class Covid19Predict extends PureComponent {
           this.setState({
             modelsList: death_models,
             dataType: e.target.value,
-            models: ['SI-kJalpha - No under-reported positive cases (death prediction)']
+            models: this.state.death_models
           }, ()=>{
             this.formRef.current.setFieldsValue({
               models: this.state.models
@@ -91,6 +91,8 @@ class Covid19Predict extends PureComponent {
       areas: this.props.areas || [],
       areasList: [],
       models: this.props.models || ['SI-kJalpha - No under-reported positive cases (default)'],
+      confirmed_models: ['SI-kJalpha - No under-reported positive cases (default)'],
+      death_models: ['SI-kJalpha - No under-reported positive cases (death prediction)'],
       modelsList: [],
       currentDate: "",
       distancingOn: true,
@@ -114,7 +116,6 @@ class Covid19Predict extends PureComponent {
     this.onAlertClose = this.onAlertClose.bind(this);
     this.onNoData = this.onNoData.bind(this);
     this.generateMarks = this.generateMarks.bind(this);
-    this.handleModelChange = this.handleModelChange.bind(this);
     this.handleDataTypeSelect = this.handleDataTypeSelect.bind(this);
     this.handleStatisticSelect = this.handleStatisticSelect.bind(this);
     this.handleYScaleSelect = this.handleYScaleSelect.bind(this);
@@ -252,11 +253,11 @@ class Covid19Predict extends PureComponent {
    * days to predict is handled separately by onDaysToPredictChange.
    */
   onValuesChange(changedValues, allValues) {
+    const {dataType} = this.state;
     if ("socialDistancing" in changedValues) {
       // If either the social distancing or model parameters were changed, we
       // clear our data and do a full reload. We purposely ignore days to
       // predict here (see onDaysToPredictChange).
-
       this.setState(
         {
           distancingOn: allValues.socialDistancing.includes("distancingOn"),
@@ -266,7 +267,30 @@ class Covid19Predict extends PureComponent {
           this.reloadAll();
         }
       );
-    } else {
+    } 
+    if ("models" in changedValues)
+    {
+        if (dataType === "confirmed")
+        {
+          this.setState({
+            models: changedValues.models,
+            confirmed_models: allValues.models
+          }, ()=>{
+            this.reloadAll();
+          });
+        }
+        else
+        {
+          this.setState({
+            models: changedValues.models,
+            death_models: allValues.models
+          }, ()=>{
+            this.reloadAll();
+          });
+        }
+        
+    }
+    else {
       // If we're here it means the user either added or deleted an area, so we
       // can do a union / intersection to figure out what to add/remove.
       const prevAreas = this.state.areas;
@@ -284,13 +308,6 @@ class Covid19Predict extends PureComponent {
     }
   }
 
-  handleModelChange(value) {
-    this.setState({
-        models: value
-     }, () => {
-      this.reloadAll();
-    });
-  }
 
   /**
    * onDaysToPredictChange is bound to the 'onAfterChange' prop for the
@@ -486,8 +503,6 @@ class Covid19Predict extends PureComponent {
                   mode="multiple"
                   style={{ width: "100%" }}
                   placeholder="Select Prediction Models"
-                  initialvalue = {models}
-                  onChange = {this.handleModelChange}
                 >
                   {modelOptions}
                 </Select>
