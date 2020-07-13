@@ -6,7 +6,8 @@ import io
 
 FORECAST_DATE = datetime.datetime(2020, 7, 12)
 FIRST_WEEK = datetime.datetime(2020, 7, 18)
-INPUT_FILENAME = "us_deaths_quarantine_20.csv"
+INPUT_FILENAME_STATE = "us_deaths_quarantine_20.csv"
+INPUT_FILENAME_GLOBAL = "global_deaths_quarantine_20.csv"
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha.csv"
 COLUMNS = ["forecast_date", "target", "target_end_date", "location", "type", "quantile", "value"]
 ID_STATE_MAPPING = {}
@@ -104,7 +105,7 @@ def load_truth_cumulative_deaths():
     return dataset
 
 
-def load_csv(input_filename):
+def load_csv(input_filename_state, input_filename_global):
     """
     Read our forecast reports and return a dictionary structuring of <date_str, <state_id, value>>
     e.g.
@@ -124,7 +125,7 @@ def load_csv(input_filename):
     }
     """
     dataset = {}
-    with open(input_filename) as f:
+    with open(input_filename_state) as f:
         reader = csv.reader(f)
         header = next(reader, None)
 
@@ -132,7 +133,6 @@ def load_csv(input_filename):
             date_str = header[i]
             # Initialize the dataset entry on each date.
             dataset[date_str] = {}
-            dataset[date_str]["US"] = 0
         
         for row in reader:
             state = row[1]
@@ -146,8 +146,22 @@ def load_csv(input_filename):
                 date_str = header[i]
                 val = float(row[i])
                 dataset[date_str][state_id] = val
-                # Sum up each state's data to US' data.
-                dataset[date_str]["US"] += val
+
+    with open(input_filename_global) as f:
+        reader = csv.reader(f)
+        header = next(reader, None)
+
+        
+        for row in reader:
+            country = row[1]
+            # Skip other countries.
+            if not country == "US":
+                continue
+
+            for i in range(2, len(header)):
+                date_str = header[i]
+                val = float(row[i])
+                dataset[date_str]["US"] = val
     
     return dataset
 
@@ -309,7 +323,7 @@ if __name__ == "__main__":
     STATE_ID_MAPPING = load_state_id_mapping()
     ID_STATE_MAPPING = load_id_state_mapping()
     print("loading forecast...")
-    forecast = load_csv(INPUT_FILENAME)
+    forecast = load_csv(INPUT_FILENAME_STATE, INPUT_FILENAME_GLOBAL)
     observed = load_truth_cumulative_deaths()
     dataframe = generate_dataframe(forecast, observed)
     print("writing files...")

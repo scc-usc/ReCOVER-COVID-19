@@ -151,7 +151,7 @@ if __name__ == "__main__":
     ID_REGION_MAPPING = load_id_region_mapping()
     print("loading forecast...")
     forecast = load_csv(INPUT_FILENAME)
-    dataframe = pd.read_csv("2020-07-05-USC-SI_kJalpha.csv")
+    dataframe = pd.read_csv(OUTPUT_FILENAME, na_filter=False)
     dataframe = add_to_dataframe(dataframe, forecast)
     print("writing files...")
     dataframe.to_csv(OUTPUT_FILENAME, index=False)
