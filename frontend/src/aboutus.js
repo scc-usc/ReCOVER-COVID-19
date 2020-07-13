@@ -17,12 +17,12 @@ class AboutUs extends Component {
                     </p>
                     <h2>Our Approach</h2>
                     <p className="article-paragraph">
-                        We use our own epidemic model called SI-kJalpha, preliminary version of which we have successfully used 
+                        We use our own epidemic model called <a className="article-anchor" href="https://arxiv.org/abs/2007.05180"> SI-kJalpha</a>, preliminary version of which we have successfully used 
                         during <a className="article-anchor" href="https://news.usc.edu/83180/usc-engineers-earn-national-recognition-for-predicting-disease-outbreaks/" target="_blank">
                             DARPA Grand Challenge 2014
                         </a>.   
                         Our forecast appears on the official <a className="article-anchor" href="https://www.cdc.gov/coronavirus/2019-ncov/covid-data/forecasting-us.html"> CDC webpage</a>.
-			 Our model can consider the effect of many complexities of the epidemic process and yet be simplified to a few parameters that are learned using fast linear regressions. Therefore, our approach can learn and generate forecasts extremely quickly. On a 2 core desktop machine, our approach takes only 3.18s to tune hyper-parameters, learn parameters and generate 100 days of forecasts of reported cases and deaths for all the states in the US. The total execution time for 184 countries is 11.83s and for more than 3000 US counties is 101.03s. Despite being fast, the accuracy of our forecasts is on par with the state-of-the-art as demonstrated on the <a className="article-anchor" href="https://scc-usc.github.io/ReCOVER-COVID-19/#/leaderboard"> leaderboard page</a>.
+			 Our model can consider the effect of many complexities of the epidemic process and yet be simplified to a few parameters that are learned using fast linear regressions. Therefore, our approach can learn and generate forecasts extremely quickly. On a 2 core desktop machine, our approach takes only 3.18s to tune hyper-parameters, learn parameters and generate 100 days of forecasts of reported cases and deaths for all the states in the US. The total execution time for 184 countries is 11.83s and for more than 3000 US counties is 101.03s. Despite being fast, the accuracy of our forecasts is on par with the state-of-the-art as demonstrated on the <a className="article-anchor" href="https://scc-usc.github.io/ReCOVER-COVID-19/#/leaderboard"> leaderboard page</a>. Details of modeling and comparisons can be found in <a className="article-anchor" href="https://arxiv.org/abs/2007.05180"> our paper</a>.
                         This work is supported by National Science Foundation Award No. 2027007 (RAPID)
                     </p>
 
@@ -41,6 +41,10 @@ class AboutUs extends Component {
                     <h2>Related Papers</h2>
 
                     <ol className="article-paragraph">
+			<li>
+                            Ajitesh Srivastava, Tianjian Xu and Viktor K. Prasanna, 
+                            <a className="article-anchor" href="https://arxiv.org/abs/2007.05180" target="_blank"> "Fast and Accurate Forecasting of COVID-19 Deaths using the SIkJalpha Model"</a> [arXiv].
+                        </li>
                         <li>
                             Ajitesh Srivastava and Viktor K. Prasanna, 
                             <a className="article-anchor" href="https://arxiv.org/abs/2006.02127" target="_blank"> "Data-driven Identification of Number of Unreported Cases for COVID-19: Bounds and Limitations"</a> [arXiv].

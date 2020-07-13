@@ -19,8 +19,9 @@ Explore our US state-level and global country-level forecasts here: https://scc-
                        
 
 ## Our papers
+1. Full modeling details and comparisons: https://arxiv.org/abs/2007.05180
+1. Identifying Unreported Cases: https://arxiv.org/abs/2006.02127
 1. Initial Modeling: https://arxiv.org/abs/2004.11372
-2. Identifying Unreported Cases: https://arxiv.org/abs/2006.02127
 
 ## Presentations/Seminars
 
