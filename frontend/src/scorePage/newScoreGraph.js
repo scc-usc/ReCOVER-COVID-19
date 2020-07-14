@@ -18,7 +18,8 @@ import {
     Tooltip,
     Legend,
     Label,
-    ErrorBar
+    ErrorBar,
+    ReferenceLine
 } from 'recharts';
 
 function getLineColor(index) {
@@ -60,7 +61,8 @@ class NewScoreGraph extends Component {
     }
     
     render(){
-        let {data} = this.props;
+        let {data, date} = this.props;
+        console.log(date)
         //map data
         const chartData = this.parseData(data);
         //areas and line color
@@ -89,6 +91,7 @@ class NewScoreGraph extends Component {
                 <Label value="Dynamic Reproduction Number" dy = {90} position="insideLeft" angle={-90} fontSize={15} />
             </YAxis>
             <Tooltip />
+            <ReferenceLine x={date} stroke="green" strokeWidth={5} label="selected"/>
             <Legend iconSize={40}/>
             {lines}
             </LineChart>
