@@ -91,7 +91,7 @@ class NewScoreGraph extends Component {
                 <Label value="Dynamic Reproduction Number" dy = {90} position="insideLeft" angle={-90} fontSize={15} />
             </YAxis>
             <Tooltip />
-            <ReferenceLine x={date} stroke="green" strokeWidth={5} label="selected"/>
+            <ReferenceLine x={date} stroke="green" strokeWidth={5} fontSize={20} label="selected" strokeDasharray="10 10"/>
             <Legend iconSize={40}/>
             {lines}
             </LineChart>
