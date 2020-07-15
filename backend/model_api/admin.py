@@ -7,7 +7,8 @@ from .models import Area, \
     Covid19DeathDataPoint, \
     Covid19InfectionModel, \
     Covid19DeathModel, \
-    QuarantineScoreDataPoint
+    QuarantineScoreDataPoint,\
+    MRFScoreDataPoint
 
 # Register your models here.
 
@@ -20,3 +21,4 @@ admin.site.register(Covid19DeathModel)
 admin.site.register(Covid19DeathDataPoint)
 admin.site.register(Covid19PredictionDataPoint)
 admin.site.register(QuarantineScoreDataPoint)
+admin.site.register(MRFScoreDataPoint)
