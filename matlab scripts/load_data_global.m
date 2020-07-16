@@ -38,3 +38,4 @@ writetable(infec2table(deaths, countries, zeros(length(countries), 1), datetime(
 
 %%
 prefix = 'global'; % This ensures that the files to load and saved are named properly
+lowidx = data_4(:, 60) < 50; % Note the regions with unreliable data on reference day

@@ -21,14 +21,12 @@ Navigate to the `matlab scripts/` directory. Generate the forecasts and reproduc
 1. Run `daily_run.m`, this script will generate global and US-state level cumulative infections and deaths forecasts under `ReCOVER-COVID-19/results/forecasts/` directory.
 
 2. Generate country-level reproduction number: 
-    1. Load `hyper_params/global_hyperparam_ref_xxx.mat`. 
-    2. Run `load_data_global.m`. 
-    3. Run `generate_scores.m` to generate country-level reproduction numbers.
+    1. Run `load_data_global.m`. 
+    2. Run `generate_scores.m` to generate country-level reproduction numbers.
 
 3. Generate US state-level reproduction number: 
-    1. Load `hyper_params/us_hyperparam_ref_xxx.mat`. 
-    2. Run `load_data_us.m`.
-    3. Run `generate_scores.m` to generate us state-level reproduction numbers.
+    1. Run `load_data_us.m`.
+    2. Run `generate_scores.m` to generate us state-level reproduction numbers.
 
 
     Both global and US reproduction number files will be generated under `ReCOVER-COVID-19/results/scores/` directory.

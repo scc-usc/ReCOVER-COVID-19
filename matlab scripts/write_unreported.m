@@ -6,6 +6,7 @@ T_tr = 64; % reference day for "released"
 un_array = [1, 2, 5, 10, 20, 40]; % Select the ratio of total to reported cases
 horizon = 100; % days of predcitions
 dhorizon = horizon;
+passengerFlow = 0;
 %%
 
 for un_id = 1:length(un_array)
@@ -52,7 +53,8 @@ for un_id = 1:length(un_array)
     [pred_deaths_released] = var_simulate_deaths(infec_data_released, death_rates, dk, djp, dhorizon, base_deaths, T_full-1);
     
     
- 
+    eval(['deaths_un_' num2str(un) '= pred_deaths;']);
+    eval(['infec_un_' num2str(un) '= infec_un;']);
     
     disp('predicted')
     

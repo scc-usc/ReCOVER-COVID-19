@@ -3,8 +3,6 @@
 
 warning off;
 
-eval(['load_data_' prefix]);
-
 alpha_start = 5;
 all_scores = [];
 all_scores_f = [];
@@ -16,12 +14,15 @@ skip_length = 7;
 horizon = 7; % Same as validation
 un = 20;
 
-saved_days = 155; % Set it to higher number to avoid recomputing hypoerparameters from the beginning
-start_day = 50;
+saved_days = 0; % Set it to higher number to avoid recomputing hypoerparameters from the beginning
+start_day = 53;
 
-
-data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4')', 7, 2), 2)];
-deaths_s = [deaths(:, 1) cumsum(movmean(diff(deaths')', 7, 2), 2)];
+data_4_s = data_4;
+deaths_s = deaths;
+for j=1:size(data_4, 1)
+    data_4_s(j, :) = [data_4(j, 1) cumsum(smooth(diff(data_4(j, :))', 7)')];
+    deaths_s(j, :)= [deaths(j, 1) cumsum(smooth(diff(deaths(j, :))', 7)')];
+end
 
 %% Death hyperparams
 dk = 3;
@@ -48,11 +49,12 @@ for daynum = start_day:skip_length:(size(data_4, 2))
     
     % Compute scores
     
-    [beta_notravel, ~, ci] = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), 0, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), 1, popu, best_param_list_no(:, 2), 1);
+    [beta_notravel, ~, ci] = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), 0, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), un, popu, best_param_list_no(:, 2), 1);
+%    [beta_notravel, ~, ~] = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), 0, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), un, popu, best_param_list_no(:, 2), 0);
     [death_rates, death_ci] = var_ind_deaths(data_4_s(:, 1:T_tr+horizon), deaths_s(:, 1:T_tr+horizon), dalpha, dk, djp, dwin, 1);
 
     
-    [thisRt, Rtconf] = calc_Rt(beta_notravel, best_param_list_no(:, 1), best_param_list_no(:, 2), 1-data_4(:, T_tr)./popu, ci);    
+    [thisRt, Rtconf] = calc_Rt(beta_notravel, best_param_list_no(:, 1), best_param_list_no(:, 2), 1-un*data_4(:, T_tr)./popu, ci);    
     [thisscore] = calc_Rt(beta_notravel, best_param_list_no(:, 1), best_param_list_no(:, 2), ones(length(popu), 1), ci);
     MFR_ub = cellfun(@(xx)nansum(xx(:, 2)), death_ci).*djp;
     MFR_lb = cellfun(@(xx)nansum(xx(:, 1)), death_ci).*djp;
@@ -70,7 +72,7 @@ disp('DONE!');
 badidx = MFR_dev>0.25 | deaths(:, start_day:skip_length:floor(size(data_4, 2)-horizon)) < 50;
 MFR_scores(badidx) = NaN; MFR_dev(badidx) = NaN;
 
-datecols = datestr(datetime(2020, 1, 21)+caldays(start_day:skip_length:floor(size(data_4, 2))-horizon), 'yyyy-mm-dd');
+datecols = datestr(datetime(2020, 1, 22)+caldays(start_day:skip_length:floor(size(data_4, 2))-horizon), 'yyyy-mm-dd');
 datecols = cellstr(datecols);
 allcols = [{'id'; 'Region'}; datecols];
 vectorarray  = num2cell(all_scores,1);

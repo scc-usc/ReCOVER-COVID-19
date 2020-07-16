@@ -1,4 +1,4 @@
-function [best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, passengerFlow, un, T_full, T_val)
+function [best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, passengerFlow, un, T_full, T_val, k_array, jp_array)
 % Script to identify optimal hyperparameters of the model
 %% Configure
 
@@ -6,10 +6,16 @@ if nargin <7
     T_val = 7;
 end
 
+if nargin < 8
+    k_array = (1:4);
+end
+
+if nargin < 9
+    jp_array = (7:7:14);
+end
+
 T_tr = T_full - T_val; % Jan 21 is day 0
 
-k_array = (1:4);
-jp_array = (7:7:14);
 ff_array = (5:10);
 
 [X, Y, Z] = meshgrid(k_array, jp_array, ff_array);
