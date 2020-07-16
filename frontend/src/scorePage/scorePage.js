@@ -96,7 +96,7 @@ class ScorePage extends PureComponent{
             {
                 state: areaObj.state,
                 country: areaObj.country,
-                weeks: this.state.weeks,
+                weeks: this.state.latestWeek,
             },
             data => {
                 this.setState(prevState => ({
@@ -154,35 +154,16 @@ class ScorePage extends PureComponent{
     }
 
     onWeeksChange(weeks) {
-        this.setState({ weeks }, () => {
-          this.reloadAll();
-        });
+        this.setState({ weeks });
+        if (this.state.dynamicMapOn) {
+            this.map.fetchData(this.state.dynamicMapOn);
+        }
     }
 
     bindRef = ref => { 
         this.map = ref 
     }
 
-    reloadAll() {
-        const prevAreas = this.state.areas;
-        this.setState(
-          {
-            areas: [],
-            mainGraphData: {}
-          },
-          () => {
-            // Add all the areas back.
-            prevAreas.forEach(this.addAreaByStr);
-    
-            // TODO: Add code for stuff after reload here!
-            // Force reload the heatmap, only refetch data when dynamic map is on
-            if (this.state.dynamicMapOn) {
-              this.map.fetchData(this.state.dynamicMapOn);
-            }
-    
-          }
-        );
-    }
 
     switchDynamicMap(checked) {
         this.setState({
@@ -230,7 +211,9 @@ class ScorePage extends PureComponent{
             currentDate.setDate(currentDate.getDate(Date) - 7);
             i++;
         }
-        return marks;
+        currentDate = new Date(2020,2,11);
+        currentDate.setDate(currentDate.getDate(Date) + 7*weeks);
+        return [currentDate, marks];
       }
 
     render(){
@@ -252,7 +235,10 @@ class ScorePage extends PureComponent{
         return <Option key={s}> {s} </Option>;
         });
 
-        const marks = this.generateMarks();
+        const [currentDate, marks] = this.generateMarks();
+        const month = (currentDate.getMonth() + 1)<10?(`0${currentDate.getMonth() + 1}`):(currentDate.getMonth() + 1);
+        const date = (currentDate.getDate()<10)?(`0${currentDate.getDate()}`):currentDate.getDate();
+        const formatted_current_date = `${month}/${date}`;
         return(
             <div className="score-page">
                 <Row type="flex" justify="space-around">
@@ -328,6 +314,7 @@ class ScorePage extends PureComponent{
                     <div className="graph-wrapper">
                     <NewScoreGraph
                         data={mainGraphData}
+                        date={formatted_current_date}
                     ></NewScoreGraph>
                     </div>
                 </Col>

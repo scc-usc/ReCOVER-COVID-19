@@ -7,6 +7,9 @@ import Navbar from "./navbar/navbar";
 import 'semantic-ui-css/semantic.min.css';
 import "./covid19app.css";
 import Leaderboard from "./leaderboard/leaderboard";
+import AllPage from "./all_page_pdf/all_page_pdf";
+
+import pdf from "./attention.pdf";
 
 class Covid19App extends Component {
   constructor(props){
@@ -79,6 +82,9 @@ class Covid19App extends Component {
             render={(props) => <AboutUS {...props} />} />
           <Route exact path='/leaderboard' 
             render={(props) => <Leaderboard {...props} />}/>
+          <Route exact path='/pdf'>
+             <AllPage pdf={pdf}/>
+          </Route>
         </Switch>
       </HashRouter>
     );

@@ -1,0 +1,20 @@
+.react-pdf__Page{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.react-pdf__Page.pdf-page { display: flex; justify-content: center; }
+
+.react-pdf__Page__textContent span {
+	opacity: 0.1;
+}
+
+.react-pdf__Page__textContent span::selection {
+	background-color: blue;
+}
+
+.react-pdf__Document {
+	line-height: initial;
+}
+
