@@ -308,7 +308,7 @@ def scores(request):
     """
     country = request.query_params.get("country")
     state = request.query_params.get("state")
-    weeks = int(request.query_params.get("weeks"))
+    weeks = int(float(request.query_params.get("weeks")))
 
     # Get the area and raise an API exception if we can't.
     try:
@@ -329,7 +329,7 @@ def scores(request):
         "observed": []
     }
 
-    score_start_date = datetime(2020, 3, 11)
+    score_start_date = datetime(2020, 3, 10)
     score_end_date = score_start_date + timedelta(days=7*weeks)
 
     quarantine_scores = QuarantineScoreDataPoint.objects.filter(
@@ -353,8 +353,8 @@ def scores_all(request):
     for all areas in a given date. The query param contains "weeks" and 
     "weeks" denote the number of weeks after 2020-3-11.
     """
-    weeks = int(request.query_params.get("weeks"))
-    date = datetime(2020, 3, 11) + timedelta(days=7*weeks)
+    weeks = int(float(request.query_params.get("weeks")))
+    date = datetime(2020, 3, 10) + timedelta(days=7*weeks)
 
     quarantine_scores = QuarantineScoreDataPoint.objects.filter(
         date=date
@@ -381,7 +381,7 @@ def latest_score_date(request):
     """
     observed = QuarantineScoreDataPoint.objects.all()
     latest_date = observed.last().date
-    date2 = date(2020,3,11)
+    date2 = date(2020, 3, 10)
     delta = latest_date - date2
     response = [{
         'date': latest_date,

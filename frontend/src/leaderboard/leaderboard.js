@@ -16,7 +16,7 @@ const data = {
                     description: "This is our SI-kJalpha trained on the Johns Hopkins University's Covid19 dataset.",
                     link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
                 },
-                RMSE: 30.03
+                RMSE: 74.63
             },
             {
                 model: {
@@ -26,7 +26,7 @@ const data = {
                     The model's contributor is Youyang Gu.",
                     link: "http://covid19-projections.com/about/"
                 },
-                RMSE: 30.27
+                RMSE: 88.97
             },
             {
                 model: {
@@ -35,7 +35,7 @@ const data = {
                     Harvard Medical School, Georgia Tech and Boston Medical Center.",
                     link: "https://covid19sim.org/"
                 },
-                RMSE: 33.96
+                RMSE: 114.23
             },
         ],
         recentRankings: [
@@ -45,7 +45,7 @@ const data = {
                     description: "This is our SI-kJalpha trained on the Johns Hopkins University's Covid19 dataset.",
                     link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
                 },
-                RMSE: 49.90
+                RMSE: 60.16
             },
             {
                 model: {
@@ -55,7 +55,7 @@ const data = {
                     The model's contributor is Youyang Gu.",
                     link: "http://covid19-projections.com/about/"
                 },
-                RMSE: 51.83
+                RMSE: 68.90
             },
             {
                 model: {
@@ -64,7 +64,7 @@ const data = {
                     Harvard Medical School, Georgia Tech and Boston Medical Center.",
                     link: "https://covid19sim.org/"
                 },
-                RMSE: 58.5
+                RMSE: 90.94
             },
         ]
     },
@@ -76,7 +76,7 @@ const data = {
                     description: "This is our SI-kJalpha trained on the New York Times dataset.",
                     link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
                 },
-                RMSE: 28.68
+                RMSE: 79.62
             },
 		{
                 model: {
@@ -84,15 +84,7 @@ const data = {
                     description: "SEIR model by UCLA Statistical Machine Learning Lab.",
                     link: "https://covid19.uclaml.org/"
                 },
-                RMSE: 37.50
-            },
-            {
-                model: {
-                    name: "CovidActNow - SEIR_CAN",
-                    description: "SEIR model by the CovidActNow research team.",
-                    link: "https://covidactnow.org/"
-                },
-                RMSE: 51.43
+                RMSE: 131.70
             },
             {
                 model: {
@@ -100,8 +92,17 @@ const data = {
                     description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
                     link: "https://covid19.stat.iastate.edu"
                 },
-                RMSE: 71.75
+                RMSE: 192.82
             },
+            {
+                model: {
+                    name: "CovidActNow - SEIR_CAN",
+                    description: "SEIR model by the CovidActNow research team.",
+                    link: "https://covidactnow.org/"
+                },
+                RMSE: 242.35
+            },
+
             
 
         ],
@@ -112,7 +113,7 @@ const data = {
                     description: "This is our SI-kJalpha trained on the New York Times dataset.",
                     link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
                 },
-                RMSE: 59.20
+                RMSE: 81.20
             },
             {
                 model: {
@@ -120,7 +121,7 @@ const data = {
                     description: "SEIR model by UCLA Statistical Machine Learning Lab.",
                     link: "https://covid19.uclaml.org/"
                 },
-                RMSE: 124.67
+                RMSE: 285.27
             },
 	{
            model: {
@@ -128,7 +129,7 @@ const data = {
                     description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
                     link: "https://covid19.stat.iastate.edu"
                 },
-                RMSE: 131.54
+                RMSE: 337.76
             },
             {
                 model: {
@@ -136,7 +137,7 @@ const data = {
                     description: "SEIR model by the CovidActNow research team.",
                     link: "https://covidactnow.org/"
                 },
-                RMSE: 187.76
+                RMSE: "N/A"
             },
             
 
@@ -151,7 +152,7 @@ const data = {
                     description: "This is our SI-kJalpha trained on the USAFACTS Covid19 dataset.",
                     link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
                 },
-                RMSE: 30.09
+                RMSE: 79.30
             },
             {
                 model: {
@@ -159,7 +160,7 @@ const data = {
                     description: "A metapopulation county-level SEIR model by Columbia University.",
                     link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
                 },
-                RMSE: 40.79
+                RMSE: 188.86
             },
             {
                 model: {
@@ -167,7 +168,7 @@ const data = {
                     description: " County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
                     link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
                 },
-                RMSE: 51.96
+                RMSE: 194.97
             },
         ],
         recentRankings: [
@@ -177,7 +178,7 @@ const data = {
                     description: "This is our SI-kJalpha trained on the USAFACTS Covid19 dataset.",
                     link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
                 },
-                RMSE: 60.58
+                RMSE: 55.92
             },
             {
                 model: {
@@ -185,7 +186,7 @@ const data = {
                     description: " County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
                     link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
                 },
-                RMSE: 66.93
+                RMSE: 74.17
             },
             {
                 model: {
@@ -193,7 +194,7 @@ const data = {
                     description: "A metapopulation county-level SEIR model by Columbia University.",
                     link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
                 },
-                RMSE: 91.37
+                RMSE: 400.68
             },
 
         ]

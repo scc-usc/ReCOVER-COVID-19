@@ -11,8 +11,7 @@ class AboutUs extends Component {
                     <p className="article-paragraph">
                         Accurate forecasts of COVID-19 is central to resource management and building strategies to deal with the epidemic. 
                         This is an NSF-funded project on COVID-19 forecasting led by
-                        by <a className="article-anchor" href="https://sites.usc.edu/prasanna/"> Viktor K. Prasanna </a> and
-                        <a className="article-anchor" href="http://www-scf.usc.edu/~ajiteshs/"> Ajitesh Srivastava </a> 
+                        by <a className="article-anchor" href="https://sites.usc.edu/prasanna/"> Viktor K. Prasanna </a> and <a className="article-anchor" href="http://www-scf.usc.edu/~ajiteshs/"> Ajitesh Srivastava </a> 
                         from the <a className="article-anchor" href="https://dslab.usc.edu/"> Data Science Lab </a> at the University of Southern California. 
                     </p>
                     <h2>Our Approach</h2>
@@ -33,10 +32,7 @@ class AboutUs extends Component {
                         The matlab code for forecasting is also made available on <a className="article-anchor" href="https://www.mathworks.com/matlabcentral/fileexchange/75281-recover" target="_blank">File Exchange</a>. For the latest code, please see the Github repo.
                     </p>
 
-			<p className="article-paragraph">
-                        The code of the prediction model and this web application is contributed by Ajitesh Srivastava, Jamin Chen, Frost Tianjian Xu, 
-                        and Bob Xiaochen Yang.
-                    </p>
+			<p className="article-paragraph"> The code of the prediction model and this web application is contributed by Ajitesh Srivastava, Jamin Chen, Frost Tianjian Xu,  and Bob Xiaochen Yang. </p>
                     
                     <h2>Related Papers</h2>
 
@@ -51,7 +47,7 @@ class AboutUs extends Component {
                         </li>
                         <li>
                             Ajitesh Srivastava and Viktor K. Prasanna, 
-                            <a className="article-anchor" href="https://arxiv.org/abs/2004.11372" target="_blank"> "Learning to Forecast and Forecasting to Learn from the COVID-19 Pandemic"</a> [arXiv].
+                            <a className="article-anchor" href="https://arxiv.org/abs/2004.11372" target="_blank"> "Learning to Forecast and Forecasting to Learn from the COVID-19 Pandemic"</a> [arXiv]. Accepted at KDD 2020.
                         </li>
 
                     </ol>

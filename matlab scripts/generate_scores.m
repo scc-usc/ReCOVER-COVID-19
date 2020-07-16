@@ -15,7 +15,7 @@ horizon = 7; % Same as validation
 un = 20;
 
 saved_days = 0; % Set it to higher number to avoid recomputing hypoerparameters from the beginning
-start_day = 53;
+start_day = 55;
 
 data_4_s = data_4;
 deaths_s = deaths;
@@ -25,10 +25,7 @@ for j=1:size(data_4, 1)
 end
 
 %% Death hyperparams
-dk = 3;
-djp = 7;
-dalpha = 1;
-dwin = 50; % Choose a lower number if death rates evolve
+dhyperparams;
 
 %%
 
