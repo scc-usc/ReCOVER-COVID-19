@@ -43,11 +43,11 @@ class AboutUs extends Component {
                         </li>
                         <li>
                             Ajitesh Srivastava and Viktor K. Prasanna, 
-                            <a className="article-anchor" href="https://arxiv.org/abs/2006.02127" target="_blank"> "Data-driven Identification of Number of Unreported Cases for COVID-19: Bounds and Limitations"</a> [arXiv].
+                            <a className="article-anchor" href="https://arxiv.org/abs/2006.02127" target="_blank"> "Data-driven Identification of Number of Unreported Cases for COVID-19: Bounds and Limitations"</a> [arXiv]. Accepted at KDD 2020.
                         </li>
                         <li>
                             Ajitesh Srivastava and Viktor K. Prasanna, 
-                            <a className="article-anchor" href="https://arxiv.org/abs/2004.11372" target="_blank"> "Learning to Forecast and Forecasting to Learn from the COVID-19 Pandemic"</a> [arXiv]. Accepted at KDD 2020.
+                            <a className="article-anchor" href="https://arxiv.org/abs/2004.11372" target="_blank"> "Learning to Forecast and Forecasting to Learn from the COVID-19 Pandemic"</a> [arXiv]. 
                         </li>
 
                     </ol>

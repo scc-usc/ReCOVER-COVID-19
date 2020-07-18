@@ -24,9 +24,6 @@ for j=1:size(data_4, 1)
     deaths_s(j, :)= [deaths(j, 1) cumsum(smooth(diff(deaths(j, :))', 7)')];
 end
 
-%% Death hyperparams
-dhyperparams;
-
 %%
 
 for daynum = start_day:skip_length:(size(data_4, 2))
@@ -34,24 +31,27 @@ for daynum = start_day:skip_length:(size(data_4, 2))
     fname = ['./hyper_params/' prefix '_hyperparam_ref_' num2str(daynum)];
     
     T_tr = daynum; % Choose reference day here
- 
+    
     if daynum <= saved_days
         load(fname);
     elseif T_tr+horizon <= size(data_4, 2)
         [best_param_list_no, MAPEtable_notravel_fixed_s] = hyperparam_tuning(data_4(:, 1:T_tr+horizon), data_4_s(:, 1:T_tr+horizon), popu, 0, un, T_tr+horizon);
-        save(fname, 'MAPEtable_notravel_fixed_s', 'best_param_list_no');
+        [best_death_hyperparam, one_dhyperparam] = death_hyperparams(deaths, data_4_s, deaths_s, T_tr+horizon, horizon, popu, passengerFlow, best_param_list, un);
+        save(fname, 'MAPEtable_notravel_fixed_s', 'best_param_list_no', 'best_death_hyperparam', 'one_dhyperparam');
     else
         horizon = 0;
     end
     
     % Compute scores
-    
+    dk = best_death_hyperparam(:, 1);
+    djp = best_death_hyperparam(:, 2);
+    dwin = best_death_hyperparam(:, 3);
     [beta_notravel, ~, ci] = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), 0, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), un, popu, best_param_list_no(:, 2), 1);
-%    [beta_notravel, ~, ~] = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), 0, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), un, popu, best_param_list_no(:, 2), 0);
+    %    [beta_notravel, ~, ~] = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), 0, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), un, popu, best_param_list_no(:, 2), 0);
     [death_rates, death_ci] = var_ind_deaths(data_4_s(:, 1:T_tr+horizon), deaths_s(:, 1:T_tr+horizon), dalpha, dk, djp, dwin, 1);
-
     
-    [thisRt, Rtconf] = calc_Rt(beta_notravel, best_param_list_no(:, 1), best_param_list_no(:, 2), 1-un*data_4(:, T_tr)./popu, ci);    
+    
+    [thisRt, Rtconf] = calc_Rt(beta_notravel, best_param_list_no(:, 1), best_param_list_no(:, 2), 1-un*data_4(:, T_tr)./popu, ci);
     [thisscore] = calc_Rt(beta_notravel, best_param_list_no(:, 1), best_param_list_no(:, 2), ones(length(popu), 1), ci);
     MFR_ub = cellfun(@(xx)nansum(xx(:, 2)), death_ci).*djp;
     MFR_lb = cellfun(@(xx)nansum(xx(:, 1)), death_ci).*djp;
