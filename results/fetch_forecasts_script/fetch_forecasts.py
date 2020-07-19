@@ -88,7 +88,7 @@ class Job(object):
             URL = "https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-truth/truth-Cumulative%20Deaths.csv"
         elif self.source == "NYT":
             URL = "https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-truth/nytimes/truth_nytimes-Cumulative%20Deaths.csv"
-        elif self.source == "USAFACTS":
+        elif self.source == "USF":
             URL = "https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-truth/usafacts/truth_usafacts-Cumulative%20Deaths.csv"
 
         f = io.StringIO(urllib.request.urlopen(URL).read().decode('utf-8'))
@@ -109,9 +109,14 @@ class Job(object):
 
         for row in reader:
             # Skip US' country level report.
-            if row[location_col] == "US":
+            if row[location_col] == "US" or row[location_col] == "NA":
                 continue
+                
             state_id = int(row[location_col])
+            
+            if state_id not in self.costant.STATE_MAPPING:
+                continue
+
             state = self.costant.STATE_MAPPING[state_id]
             date = row[date_col]
             val = int(row[value_col])
@@ -119,7 +124,6 @@ class Job(object):
                 dataset[state] = {}
                 
             dataset[state][date] = val
-
         return dataset
     
 
@@ -191,8 +195,9 @@ class Job(object):
         Write down the report into csv form. 
         """
         columns = ['State']
-        for i in range(0, 15):
-            columns.append((forecast_date - self.costant.DAY_ZERO).days + i)
+        columns.append((forecast_date - self.costant.DAY_ZERO).days)
+        for i in range(1, 9):
+            columns.append((forecast_date - self.costant.DAY_ZERO).days + i*7 - 1)
         dataframe = pd.DataFrame(columns=columns)
         for state in self.costant.STATES:
             new_row = {}
@@ -204,14 +209,14 @@ class Job(object):
                 new_row[(forecast_date - self.costant.DAY_ZERO).days] = "NaN"
 
             # Write the incident deaths for the following two weeks.
-            for i in range(1, 15):
-                date = forecast_date + datetime.timedelta(i)
-                prev_date = forecast_date + datetime.timedelta(i-1)
+            for i in range(1, 9):
+                date = forecast_date + datetime.timedelta(i * 7 - 1)
+                prev_date = forecast_date + datetime.timedelta((i-1) * 7 - 1)
                 date_str = date.strftime("%Y-%m-%d")
                 prev_date_str = prev_date.strftime("%Y-%m-%d")
                 if state in predicted and state in observed and date_str in predicted[state] and prev_date_str in observed[state] and i == 1:
                     new_row[(date - self.costant.DAY_ZERO).days] = predicted[state][date_str] - observed[state][prev_date_str]
-                elif state in predicted and state in observed and date_str in predicted[state] and prev_date_str in predicted[state]:
+                elif state in predicted and date_str in predicted[state] and prev_date_str in predicted[state]:
                     new_row[(date - self.costant.DAY_ZERO).days] = predicted[state][date_str] - predicted[state][prev_date_str]
                 else:
                     new_row[(date - self.costant.DAY_ZERO).days] = "NaN"
@@ -252,7 +257,7 @@ if __name__ == "__main__":
     job.run()
     job.set_source("NYT")
     job.run()
-    #job.set_source("USF")
-    #job.run()
+    job.set_source("USF")
+    job.run()
     
     
