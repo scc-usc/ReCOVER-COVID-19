@@ -9,7 +9,7 @@ import "./covid19app.css";
 import Leaderboard from "./leaderboard/leaderboard";
 import AllPage from "./all_page_pdf/all_page_pdf";
 
-import pdf from "./attention.pdf";
+import pdf from "./highlights.pdf";
 
 class Covid19App extends Component {
   constructor(props){
