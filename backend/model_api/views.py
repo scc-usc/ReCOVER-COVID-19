@@ -329,7 +329,7 @@ def scores(request):
         "observed": []
     }
 
-    score_start_date = datetime(2020, 3, 10)
+    score_start_date = datetime(2020, 3, 15)
     score_end_date = score_start_date + timedelta(days=7*weeks)
 
     quarantine_scores = QuarantineScoreDataPoint.objects.filter(
@@ -354,7 +354,7 @@ def scores_all(request):
     "weeks" denote the number of weeks after 2020-3-11.
     """
     weeks = int(float(request.query_params.get("weeks")))
-    date = datetime(2020, 3, 10) + timedelta(days=7*weeks)
+    date = datetime(2020, 3, 15) + timedelta(days=7*weeks)
 
     quarantine_scores = QuarantineScoreDataPoint.objects.filter(
         date=date
@@ -381,7 +381,7 @@ def latest_score_date(request):
     """
     observed = QuarantineScoreDataPoint.objects.all()
     latest_date = observed.last().date
-    date2 = date(2020, 3, 10)
+    date2 = date(2020, 3, 15)
     delta = latest_date - date2
     response = [{
         'date': latest_date,
