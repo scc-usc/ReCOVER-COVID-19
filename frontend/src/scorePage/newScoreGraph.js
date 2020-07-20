@@ -39,32 +39,49 @@ function getLineColor(index) {
 
 
 class NewScoreGraph extends Component {
-    parseData = (data) => { 
+    parseData = (data, scoreType) => { 
         const firstArea = Object.keys(data)[0];
         if (data[firstArea])
         {
-            const chartData = data[firstArea].observed.map((value,idx) => {
-                let date = value.date.split("-")[1] + "/" + value.date.split("-")[2]
-                let dataSet = {name: date};
-                dataSet[Object.keys(data)[0]] = value.value;
-                dataSet[`error${Object.keys(data)[0]}`] = value.conf;
-                for (let i = 1; i < Object.keys(data).length; ++i)
-                {
-                    dataSet[Object.keys(data)[i]] = data[Object.keys(data)[i]].observed[idx].value;
-                    dataSet[`error${Object.keys(data)[i]}`] = data[Object.keys(data)[i]].observed[idx].conf;
-                }
-                return dataSet
-            });
-
-            return chartData;
+            if (scoreType === "reproduction")
+            {
+                const chartData = data[firstArea].observed_rt.map((value,idx) => {
+                    let date = value.date.split("-")[1] + "/" + value.date.split("-")[2]
+                    let dataSet = {name: date};
+                    dataSet[Object.keys(data)[0]] = value.value;
+                    dataSet[`error${Object.keys(data)[0]}`] = value.conf;
+                    for (let i = 1; i < Object.keys(data).length; ++i)
+                    {
+                        dataSet[Object.keys(data)[i]] = data[Object.keys(data)[i]].observed_rt[idx].value;
+                        dataSet[`error${Object.keys(data)[i]}`] = data[Object.keys(data)[i]].observed_rt[idx].conf;
+                    }
+                    return dataSet
+                });
+                return chartData;
+            }
+            else
+            {
+                const chartData = data[firstArea].observed_mrf.map((value,idx) => {
+                    let date = value.date.split("-")[1] + "/" + value.date.split("-")[2]
+                    let dataSet = {name: date};
+                    dataSet[Object.keys(data)[0]] = value.value;
+                    dataSet[`error${Object.keys(data)[0]}`] = value.conf;
+                    for (let i = 1; i < Object.keys(data).length; ++i)
+                    {
+                        dataSet[Object.keys(data)[i]] = data[Object.keys(data)[i]].observed_mrf[idx].value;
+                        dataSet[`error${Object.keys(data)[i]}`] = data[Object.keys(data)[i]].observed_mrf[idx].conf;
+                    }
+                    return dataSet
+                });
+                return chartData;
+            }
         }
     }
     
     render(){
-        let {data, date} = this.props;
-        console.log(date)
+        let {data, date, scoreType} = this.props;
         //map data
-        const chartData = this.parseData(data);
+        const chartData = this.parseData(data, scoreType);
         //areas and line color
         const areas = Object.keys(data);
         let colors = [];
@@ -88,7 +105,11 @@ class NewScoreGraph extends Component {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis>
+                {scoreType==="reproduction"?
                 <Label value="Dynamic Reproduction Number" dy = {90} position="insideLeft" angle={-90} fontSize={15} />
+                 :
+                <Label value="MFR Score" dy = {45} position="insideLeft" angle={-90} fontSize={15} />
+                }
             </YAxis>
             <Tooltip />
             <ReferenceLine x={date} stroke="green" strokeWidth={5} fontSize={20} label="selected" strokeDasharray="10 10"/>

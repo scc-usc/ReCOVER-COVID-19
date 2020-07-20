@@ -11,7 +11,8 @@ from model_api.models import \
     Covid19DeathModel, \
     Covid19PredictionDataPoint, \
     Covid19DeathDataPoint, \
-    QuarantineScoreDataPoint
+    QuarantineScoreDataPoint, \
+    MRFScoreDataPoint
 
 @api_view(["GET"])
 def affected_by(request):
@@ -136,18 +137,6 @@ def predict(request):
         msg += ". This is most likely an error with data cleansing."
         raise APIException(msg)
 
-    # Response data type. Predictions is an array that should hold objects of
-    # the following type:
-    # {
-    #   model_name: "...",
-    #   distancing: true/false,
-    #   time_series: [
-    #     {
-    #       date,
-    #       val
-    #     }
-    #   ]
-    # }
     response = {
         "observed": [],
         "predictions": [],
@@ -326,7 +315,9 @@ def scores(request):
         raise APIException(msg)
 
     response = {
-        "observed": []
+        "observed_rt": [],
+        "observed_mrf": []
+
     }
 
     score_start_date = datetime(2020, 3, 10)
@@ -338,10 +329,20 @@ def scores(request):
         date__lte=score_end_date
     )
     for d in quarantine_scores:
-        response["observed"].append({
+        response["observed_rt"].append({
             "date": d.date,
             "value": d.val,
             "conf": d.conf
+        })
+
+    mrf_scores = MRFScoreDataPoint.objects.filter(
+        area=area,
+    )
+    for d in mrf_scores:
+        response["observed_mrf"].append({
+            "date":d.date,
+            "value":d.val,
+            "conf":d.conf
         })
 
     return Response(response)
@@ -389,6 +390,34 @@ def latest_score_date(request):
     }]
     return Response(response)
 
+
+@api_view(['GET'])
+def all_mrf_scores(request):
+    """
+        This endpoint will return a list of quarantine score data points
+        for all areas in a given date. The query param contains "weeks" and
+        "weeks" denote the number of weeks after 2020-3-11.
+    """
+    weeks = int(float(request.query_params.get("weeks")))
+    date = datetime(2020, 3, 10) + timedelta(days=7 * weeks)
+
+    mrf_scores = MRFScoreDataPoint.objects.filter(
+        date=date
+    )
+
+    response = [{
+        'area': {
+            'country': d.area.country,
+            'state': d.area.state,
+            'iso_2': d.area.iso_2,
+        },
+        'value': d.val,
+        'date': d.date,
+        'conf': d.conf
+
+    } for d in mrf_scores]
+
+    return Response(response)
 
 @api_view(["GET"])
 def history_cumulative(request):
