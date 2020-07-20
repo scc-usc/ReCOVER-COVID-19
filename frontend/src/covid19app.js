@@ -18,7 +18,8 @@ class Covid19App extends Component {
       redirectForecast: false,
       redirectAbout: false,
       redirectScore: false,
-      redirectLeaderboard: false
+      redirectLeaderboard: false,
+      redirectHighlights: false
     }
   }
 
@@ -27,7 +28,8 @@ class Covid19App extends Component {
       redirectForecast:true,
       redirectAbout: false,
       redirectScore: false,
-      redirectLeaderboard: false
+      redirectLeaderboard: false,
+      redirectHighlights: false
     });
   }
 
@@ -36,7 +38,8 @@ class Covid19App extends Component {
       redirectForecast: false,
       redirectAbout:true,
       redirectScore: false,
-      redirectLeaderboard: false
+      redirectLeaderboard: false,
+      redirectHighlights: false
     });
   }
 
@@ -45,6 +48,7 @@ class Covid19App extends Component {
       redirectForecast: false,
       redirectAbout:false,
       redirectScore: true,
+      redirectHighlights: false,
       redirectLeaderboard: false
     });
   }
@@ -54,20 +58,33 @@ class Covid19App extends Component {
       redirectForecast: false,
       redirectAbout: false,
       redirectScore: false,
-      redirectLeaderboard: true
+      redirectLeaderboard: true,
+      redirectHighlights: false
+    });
+  }
+
+  redirectHighlights = ()=>{
+    this.setState({
+      redirectForecast: false,
+      redirectAbout: false,
+      redirectScore: false,
+      redirectLeaderboard: false,
+      redirectHighlights: true
     });
   }
 
   render() {
-    const {redirectForecast, redirectAbout, redirectScore, redirectLeaderboard} = this.state;
+    const {redirectForecast, redirectAbout, redirectScore, redirectLeaderboard, redirectHighlights} = this.state;
     let url = window.location.href;
     return (
       <HashRouter basename="/">
         {redirectForecast?<Redirect to="/"/>:null}
+        {redirectHighlights?<Redirect to="/highlights"/>:null}
         {redirectScore?<Redirect to="/score"/>:null}
         {redirectAbout?<Redirect to="/about"/>:null}
         {redirectLeaderboard?<Redirect to="/leaderboard"/>:null}
         <Navbar redirectForecast = {this.redirectForecast}
+        		redirectHighlights = {this.redirectHighlights}
                 redirectScore = {this.redirectScore}
                 redirectAbout = {this.redirectAbout}
                 redirectLeaderboard = {this.redirectLeaderboard}
@@ -82,7 +99,7 @@ class Covid19App extends Component {
             render={(props) => <AboutUS {...props} />} />
           <Route exact path='/leaderboard' 
             render={(props) => <Leaderboard {...props} />}/>
-          <Route exact path='/pdf'>
+          <Route exact path='/highlights'>
              <AllPage pdf={pdf}/>
           </Route>
         </Switch>

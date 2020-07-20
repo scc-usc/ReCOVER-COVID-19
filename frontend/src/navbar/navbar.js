@@ -17,7 +17,7 @@ class NavBar extends Component {
 
     handleItemClick = (e) => 
     {
-        const {redirectForecast, redirectAbout, redirectScore, redirectLeaderboard} = this.props;
+        const {redirectForecast, redirectAbout, redirectScore, redirectLeaderboard, redirectHighlights} = this.props;
         const {key} = e;
         this.setState({
             activeItem: e.key
@@ -35,6 +35,9 @@ class NavBar extends Component {
             redirectScore();
         } else if (key === "leaderboard") {
             redirectLeaderboard();
+        }
+        else if (key === "highlights") {
+            redirectHighlights();
         }
     }
 
@@ -61,6 +64,7 @@ class NavBar extends Component {
                     }>
                     <Menu.Item key="forecast">COVID-19 Forecast</Menu.Item>
                     <Menu.Item key="quarantine-score">Reproduction Number</Menu.Item>
+                    <Menu.Item key="highlights">Highlights</Menu.Item>
                     <Menu.Item key="leaderboard">Leaderboard</Menu.Item>
                     <Menu.Item key="information">About Us</Menu.Item>
                 </Menu>
