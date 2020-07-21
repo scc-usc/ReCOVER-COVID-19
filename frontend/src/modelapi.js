@@ -145,6 +145,18 @@ class ModelAPI {
         callback(res.data);
       });
   }
+
+  //get all mfr scores at a week: parameter week
+  all_mrf_scores(params, callback) {
+    const endpoint = `${API_BASE_URL}/all_mrf_scores`;
+    axios
+      .get(endpoint, {
+        params: params
+      })
+      .then(res => {
+        callback(res.data);
+      });
+  }
 }
 
 export default ModelAPI;

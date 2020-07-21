@@ -13,7 +13,8 @@ import {
     Switch,
     Alert,
     Row,
-    Col
+    Col,
+    Radio
   } from "antd";
 
 const { Option } = Select;
@@ -30,7 +31,8 @@ class ScorePage extends PureComponent{
             latestWeek: 0, //will change later and remain unchange until database updated
             dynamicMapOn: false,
             noDataError: false,
-            errorDescription: ""
+            errorDescription: "",
+            scoreType: "reproduction"
         }  
         
         this.addAreaByStr = this.addAreaByStr.bind(this);
@@ -42,6 +44,7 @@ class ScorePage extends PureComponent{
         this.onAlertClose = this.onAlertClose.bind(this);
         this.onNoData = this.onNoData.bind(this);
         this.generateMarks = this.generateMarks.bind(this);
+        this.handleScoreTypeSelect = this.handleScoreTypeSelect.bind(this);
     }
 
     componentDidMount = ()=>{
@@ -216,6 +219,16 @@ class ScorePage extends PureComponent{
         return [currentDate, marks];
       }
 
+    
+    handleScoreTypeSelect = e =>{
+        this.setState({
+            scoreType: e.target.value
+        }, ()=>{
+            const resetMap = true;
+            this.map.fetchData(this.state.dynamicMapOn, resetMap);
+        });
+    }
+
     render(){
         const {
             areas,
@@ -225,7 +238,8 @@ class ScorePage extends PureComponent{
             dynamicMapOn,
             latestWeek,
             noDataError,
-            errorDescription
+            errorDescription,
+            scoreType
           } = this.state;
         const countryOptions = areasList
         .filter(area => !this.areaIsSelected(area))
@@ -287,6 +301,15 @@ class ScorePage extends PureComponent{
                                 />
                             </Form.Item>
                         </Form>
+                        <div className="radio-group">Data Type:&nbsp;&nbsp;  
+                            <Radio.Group
+                                value={scoreType}
+                                onChange={this.handleScoreTypeSelect}
+                            >
+                                <Radio value="reproduction">Dynamic Reproduction</Radio>
+                                <Radio value="mfr">MFR</Radio>
+                            </Radio.Group>
+                        </div>
                         <p>
                         Dynamic Map:&nbsp;&nbsp;  
                         <Switch 
@@ -304,6 +327,7 @@ class ScorePage extends PureComponent{
                     latestWeek={latestWeek}
                     onMapClick={this.onMapClick} 
                     onNoData = {this.onNoData}
+                    scoreType = {scoreType}
                     />
                 </div>
                 </Col>
@@ -315,6 +339,7 @@ class ScorePage extends PureComponent{
                     <NewScoreGraph
                         data={mainGraphData}
                         date={formatted_current_date}
+                        scoreType={scoreType}
                     ></NewScoreGraph>
                     </div>
                 </Col>
