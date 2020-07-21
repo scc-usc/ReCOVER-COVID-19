@@ -399,7 +399,7 @@ def all_mrf_scores(request):
         "weeks" denote the number of weeks after 2020-3-11.
     """
     weeks = int(float(request.query_params.get("weeks")))
-    date = datetime(2020, 3, 10) + timedelta(days=7 * weeks)
+    date = datetime(2020, 3, 15) + timedelta(days=7 * weeks)
 
     mrf_scores = MRFScoreDataPoint.objects.filter(
         date=date
