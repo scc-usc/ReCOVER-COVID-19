@@ -60,6 +60,7 @@ class NavBar extends Component {
                         url.includes("score")?['quarantine-score']
                         :url.includes("about")?['information']
                         :url.includes("leaderboard")?['leaderboard']
+                        :url.includes("highlights")?['highlights']
                         :['forecast']
                     }>
                     <Menu.Item key="forecast">COVID-19 Forecast</Menu.Item>

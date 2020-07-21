@@ -75,7 +75,6 @@ class Covid19App extends Component {
 
   render() {
     const {redirectForecast, redirectAbout, redirectScore, redirectLeaderboard, redirectHighlights} = this.state;
-    let url = window.location.href;
     return (
       <HashRouter basename="/">
         {redirectForecast?<Redirect to="/"/>:null}
