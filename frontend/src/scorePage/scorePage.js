@@ -223,6 +223,9 @@ class ScorePage extends PureComponent{
     handleScoreTypeSelect = e =>{
         this.setState({
             scoreType: e.target.value
+        }, ()=>{
+            const resetMap = true;
+            this.map.fetchData(this.state.dynamicMapOn, resetMap);
         });
     }
 

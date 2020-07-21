@@ -44,38 +44,94 @@ class ScoreMap extends Component {
         });
     }
 
-    fetchData(dynamicMapOn)
+    fetchData()
     {
-        if (!dynamicMapOn) {
+        var args = arguments;
+        const {scoreType} = this.props;
+        if (!args[0]) {
           //without dynamic map,show to latestscore
-          this.modelAPI.scores_all(
-            {
-                weeks: this.props.latestWeek,
-            } , scores => {
-              let heatmapData = scores.map(d => {
-              return {
-                id: d.area.iso_2,
-                value: d.value > 0 ? d.value: 0,
-                area: d.area,
-                conf: d.conf
-              };
-            });
-            this.setState({ heatmapData }, this.initChart);
-          });
-        } else {
+          if (scoreType === "reproduction")
+          {
             this.modelAPI.scores_all(
-            {
-                weeks: this.props.weeks,
-            }, scores =>{
-            let heatmapData = scores.map(d => {
+              {
+                  weeks: this.props.latestWeek,
+              } , scores => {
+                let heatmapData = scores.map(d => {
                 return {
-                    id: d.area.iso_2,
-                    value: d.value > 0 ? d.value: 0,
-                    area: d.area
+                  id: d.area.iso_2,
+                  value: d.value > 0 ? d.value: 0,
+                  area: d.area,
+                  conf: d.conf
                 };
-                });
-                this.setState({ heatmapData }, this.updateChart);
+              });
+              this.setState({ heatmapData }, this.initChart);
             });
+          }
+          else
+          {
+            this.modelAPI.all_mrf_scores(
+              {
+                  weeks: this.props.latestWeek,
+              } , scores => {
+                let heatmapData = scores.map(d => {
+                return {
+                  id: d.area.iso_2,
+                  value: d.value > 0 ? d.value: 0,
+                  area: d.area,
+                  conf: d.conf
+                };
+              });
+              this.setState({ heatmapData }, this.initChart);
+            });
+          }  
+        } else {
+          if (scoreType === "reproduction")
+          {
+            this.modelAPI.scores_all(
+              {
+                  weeks: this.props.weeks,
+              }, scores =>{
+              let heatmapData = scores.map(d => {
+                  return {
+                      id: d.area.iso_2,
+                      value: d.value > 0 ? d.value: 0,
+                      area: d.area
+                  };
+                  });
+                  if (args[1])
+                  {
+                    this.setState({ heatmapData }, this.initChart);
+                  }
+                  else
+                  {
+                    this.setState({ heatmapData }, this.updateChart);
+                  }              
+              });
+          }
+          else
+          {
+            this.modelAPI.all_mrf_scores(
+              {
+                  weeks: this.props.weeks,
+              }, scores =>{
+              let heatmapData = scores.map(d => {
+                  return {
+                      id: d.area.iso_2,
+                      value: d.value > 0 ? d.value: 0,
+                      area: d.area
+                  };
+                  });
+                  if (args[1])
+                  {
+                    this.setState({ heatmapData }, this.initChart);
+                  }
+                  else
+                  {
+                    this.setState({ heatmapData }, this.updateChart);
+                  }
+              });
+          }
+           
         }
     }
 
@@ -112,17 +168,31 @@ class ScoreMap extends Component {
     }
 
     createChartSeries(series, seriesProps) {
+        const {scoreType} = this.props;
         series = Object.assign(series, seriesProps);
         let polygonTemplate = series.mapPolygons.template;
-        series.heatRules.push({
+        if (scoreType === "reproduction")
+        {
+          series.heatRules.push({
             property: "fill",
             target: polygonTemplate,
             min: am4core.color(HEAT_MAP_MIN_COLOR),
             max: am4core.color(HEAT_MAP_MAX_COLOR),
             minValue: 0,
             maxValue: 4
-        });
-        
+          });
+        }
+        else
+        {
+          series.heatRules.push({
+            property: "fill",
+            target: polygonTemplate,
+            min: am4core.color(HEAT_MAP_MIN_COLOR),
+            max: am4core.color(HEAT_MAP_MAX_COLOR),
+            minValue: 0,
+            maxValue: 0.4
+          });
+        }  
         // Configure series tooltip. Display the true value of infections.
         polygonTemplate.tooltipText = "{name}: {value}";
         polygonTemplate.nonScalingStroke = true;
