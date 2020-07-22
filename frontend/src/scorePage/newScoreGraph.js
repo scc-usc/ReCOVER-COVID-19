@@ -116,8 +116,8 @@ class NewScoreGraph extends Component {
                             label={{position: 'top', value: 'selected date', fill: 'green', fontSize: 15}} 
             strokeDasharray="10 10"/>
             {scoreType === "reproduction"? 
-            <ReferenceLine y={1} stroke="red" strokeWidth={5} strokeDasharray="3 3" 
-                            label={{position: 'left', value: 'y = 1', fill: 'red', fontSize: 20}} 
+            <ReferenceLine y={1} stroke="SandyBrown" strokeWidth={5} strokeDasharray="3 3" 
+                            label={{position: 'left', value: '', fill: 'red', fontSize: 20}} 
             />
             :null}
             <Legend iconSize={40}/>

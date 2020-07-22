@@ -306,8 +306,8 @@ class ScorePage extends PureComponent{
                                 value={scoreType}
                                 onChange={this.handleScoreTypeSelect}
                             >
-                                <Radio value="reproduction">Dynamic Reproduction</Radio>
-                                <Radio value="mfr">MFR</Radio>
+                                <Radio value="reproduction">Dynamic Reproduction Number</Radio>
+                                <Radio value="mfr">Model-based Fatality Rate</Radio>
                             </Radio.Group>
                         </div>
                         <p>
