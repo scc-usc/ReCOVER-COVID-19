@@ -10,6 +10,7 @@ DROP TABLE model_api_covid19deathmodel;
 DROP TABLE model_api_covid19infectionmodel;
 DROP TABLE model_api_covid19model;
 DROP TABLE model_api_covid19predictiondatapoint;
+DROP TABLE model_api_mrfscoredatapoint;
 DROP TABLE model_api_quarantinescoredatapoint;
 EOF
 
