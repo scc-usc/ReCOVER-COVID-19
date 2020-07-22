@@ -90,15 +90,15 @@ class Covid19Predict extends PureComponent {
     this.state = {
       areas: this.props.areas || [],
       areasList: [],
-      models: this.props.models || ['SI-kJalpha - No under-reported positive cases (default)'],
-      confirmed_models: ['SI-kJalpha - No under-reported positive cases (default)'],
-      death_models: ['SI-kJalpha - No under-reported positive cases (death prediction)'],
+      models: this.props.models || ['SI-kJalpha - 20x under-reported positive cases'],
+      confirmed_models: ['SI-kJalpha - 20x under-reported positive cases'],
+      death_models: ['SI-kJalpha - 20x under-reported positive cases (death prediction)'],
       modelsList: [],
       currentDate: "",
       distancingOn: true,
       distancingOff: false,
       mainGraphData: {},
-      days: 0,
+      days: 14,
       dynamicMapOn: false,
       dataType: "confirmed",
       statistic: "cumulative",
@@ -476,6 +476,7 @@ class Covid19Predict extends PureComponent {
               initialValues={{
                 areas: areas,
                 models: models,
+                days: 14,
                 socialDistancing: ["distancingOn"]
               }}
             >
