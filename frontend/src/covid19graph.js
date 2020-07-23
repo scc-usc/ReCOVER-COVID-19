@@ -271,7 +271,8 @@ class Covid19Graph extends Component {
             const modelName = p.model.name;
             const distancing = p.distancing;
             const timeSeries = p.time_series;
-
+            timeSeries.unshift(observedData[observedData.length - 1]);
+            console.log(timeSeries);
             chartData.push({
               id: `${area} (${modelName}, distancing=${distancing})`,
               // If we're displaying deltas, we pass in the last observed value as
@@ -279,7 +280,7 @@ class Covid19Graph extends Component {
               data: this.processData(timeSeries, {
                 statistic: statistic,
                 yScale: yScale,
-                initialVal: observedData[observedData.length - 1].value
+                initialVal: observedData[observedData.length - 2].value
               }),
               // 'predicted' is a custom prop that we add so later we can tell the
               // difference between observed/predicted data when drawing the lines.
