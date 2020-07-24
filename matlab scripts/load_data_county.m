@@ -65,7 +65,7 @@ end
 county_to_state(county_to_state==0) = 1; % Default assignment (Diamond and Grand Princess), only for bug-free execution
 %% Create county hyper-parameters
 
-first_day = 50; last_day = 148; skipdays = 7;
+first_day = 52; last_day = 170; skipdays = 7;
 
 for dd = first_day:skipdays:last_day
     eval(['load ./hyper_params/us_hyperparam_ref_' num2str(dd)]);

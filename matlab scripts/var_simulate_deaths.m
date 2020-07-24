@@ -33,9 +33,9 @@ function [pred_deaths] = var_simulate_deaths(data_4, beta_all_cell, k_l, jp_l, h
         
         Ikt = zeros(1,k);
         for t = T_start:maxt-1
-            Ikt1 = deldata(:, t-jk:t-1);
+            Ikt1 = deldata(j, t-jk:t-1);
             for kk=1:k
-                Ikt(kk) = sum(Ikt1(j, (kk-1)*jp+1 : kk*jp), 2);
+                Ikt(kk) = sum(Ikt1((kk-1)*jp+1 : kk*jp), 2);
             end
             X = [Ikt] ;
             new_deaths = sum(beta_all_cell{j}'.*X, 2);

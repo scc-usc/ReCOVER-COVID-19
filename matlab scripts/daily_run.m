@@ -3,32 +3,26 @@ addpath('./hyper_params');
 
 %% For US
 load_data_us;
-data_4_s = data_4;
-deaths_s = deaths;
-for j=1:size(data_4, 1)
-    data_4_s(j, :) = [data_4(j, 1) cumsum(smooth(diff(data_4(j, :))', 7)')];
-    deaths_s(j, :)= [deaths(j, 1) cumsum(smooth(diff(deaths(j, :))', 7)')];
-end
+smooth_factor = 7;
+data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4')', smooth_factor, 2), 2)];
+deaths_s = [deaths(:, 1) cumsum(movmean(diff(deaths')', smooth_factor, 2), 2)];
 load us_hyperparam_ref_64.mat
 [best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, 20, size(data_4, 2));
 dhyperparams;
 write_unreported;
-save us_hyperparam_latest.mat best_param_list MAPEtable_s;
+save us_hyperparam_latest.mat best_param_list MAPEtable_s best_death_hyperparam one_hyperparam;
 
 disp('Finished updating US forecasts');
 %% For Global
 clear;
 load_data_global;
-data_4_s = data_4;
-deaths_s = deaths;
-for j=1:size(data_4, 1)
-    data_4_s(j, :) = [data_4(j, 1) cumsum(smooth(diff(data_4(j, :))', 7)')];
-    deaths_s(j, :)= [deaths(j, 1) cumsum(smooth(diff(deaths(j, :))', 7)')];
-end
+smooth_factor = 7;
+data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4')', smooth_factor, 2), 2)];
+deaths_s = [deaths(:, 1) cumsum(movmean(diff(deaths')', smooth_factor, 2), 2)];
 load global_hyperparam_ref_64.mat
 [best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, 20, size(data_4, 2));
 dhyperparams;
 write_unreported;
-save global_hyperparam_latest.mat best_param_list MAPEtable_s;
+save global_hyperparam_latest.mat best_param_list MAPEtable_s best_death_hyperparam one_hyperparam;
 
 disp('Finished updating Global forecasts');

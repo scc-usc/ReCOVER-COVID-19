@@ -15,11 +15,12 @@ if nargin < 9
 end
 
 T_tr = T_full - T_val; % Jan 21 is day 0
-
+F_notravel = passengerFlow;
+ 
 ff_array = (5:10);
 
-[X, Y, Z] = meshgrid(k_array, jp_array, ff_array);
-param_list = [X(:), Y(:), Z(:)];
+[X, Y, Z, A] = ndgrid(k_array, jp_array, ff_array, un);
+param_list = [X(:), Y(:), Z(:), A(:)];
 
 idx = param_list(:, 1).*param_list(:, 2) <=14;
 param_list = param_list(idx, :);
@@ -32,11 +33,15 @@ for ii = 1:size(param_list, 1)
     k = param_list(ii, 1);
     jp = param_list(ii, 2);
     alpha = 0.1*param_list(ii, 3);
-    F_notravel = passengerFlow;
-    
+    un = param_list(:, 4);
     beta_notravel = var_ind_beta_un(data_4_s(:, 1:T_tr), F_notravel, alpha, k, un, popu, jp);
-    infec_notravel = var_simulate_pred_un(data_4_s(:, 1:T_tr), F_notravel, beta_notravel, popu, k, T_val, jp, un);
-    RMSE_all(:, ii) = sum((data_4(:, T_tr+1 : T_tr + T_val) -  infec_notravel).^2, 2);
+    infec_notravel = var_simulate_pred_un(data_4_s(:, 1:T_tr), F_notravel, beta_notravel, popu, k, T_val, jp, un, data_4(:, T_tr));
+    
+    gtruth = diff(data_4(:, T_tr : T_tr + T_val)')';
+    predvals = diff([data_4(:, T_tr) infec_notravel]')';
+    [~, ~, thisrmse] = calc_errors(gtruth, predvals, 7);
+    
+    RMSE_all(:, ii) = thisrmse;
     
     fprintf('.');
 end
@@ -44,7 +49,7 @@ fprintf('\n');
 
 
 %% Identify best param per country
-best_param_list = zeros(length(popu), 3);
+best_param_list = zeros(length(popu), 4);
 for jj=1:length(popu)
     [~, ii] = min(RMSE_all(jj, :));
     best_param_list(jj, :) = param_list(ii, :);

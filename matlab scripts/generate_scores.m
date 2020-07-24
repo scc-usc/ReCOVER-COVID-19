@@ -13,16 +13,9 @@ MFR_dev = [];
 skip_length = 7;
 horizon = 7; % Same as validation
 un = 20;
-
+dalpha = 1;
 saved_days = 0; % Set it to higher number to avoid recomputing hypoerparameters from the beginning
-start_day = 55;
-
-data_4_s = data_4;
-deaths_s = deaths;
-for j=1:size(data_4, 1)
-    data_4_s(j, :) = [data_4(j, 1) cumsum(smooth(diff(data_4(j, :))', 7)')];
-    deaths_s(j, :)= [deaths(j, 1) cumsum(smooth(diff(deaths(j, :))', 7)')];
-end
+start_day = 53;
 
 %%
 
@@ -30,16 +23,23 @@ for daynum = start_day:skip_length:(size(data_4, 2))
     display(['Until ' num2str(daynum)]);
     fname = ['./hyper_params/' prefix '_hyperparam_ref_' num2str(daynum)];
     
-    T_tr = daynum; % Choose reference day here
+    T_tr = daynum; % Day until which we train
+    smooth_factor = 7;
     
     if daynum <= saved_days
         load(fname);
+        data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4(:, 1:T_tr+horizon)')', smooth_factor, 2), 2)];
+        deaths_s = [deaths(:, 1) cumsum(movmean(diff(deaths(:, 1:T_tr+horizon)')', smooth_factor, 2), 2)];
     elseif T_tr+horizon <= size(data_4, 2)
+        data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4(:, 1:T_tr+horizon)')', smooth_factor, 2), 2)];
+        deaths_s = [deaths(:, 1) cumsum(movmean(diff(deaths(:, 1:T_tr+horizon)')', smooth_factor, 2), 2)];
         [best_param_list_no, MAPEtable_notravel_fixed_s] = hyperparam_tuning(data_4(:, 1:T_tr+horizon), data_4_s(:, 1:T_tr+horizon), popu, 0, un, T_tr+horizon);
-        [best_death_hyperparam, one_dhyperparam] = death_hyperparams(deaths, data_4_s, deaths_s, T_tr+horizon, horizon, popu, passengerFlow, best_param_list, un);
+        [best_death_hyperparam, one_dhyperparam] = death_hyperparams(deaths, data_4_s, deaths_s, T_tr+horizon, horizon, popu, 0, best_param_list_no, un);
         save(fname, 'MAPEtable_notravel_fixed_s', 'best_param_list_no', 'best_death_hyperparam', 'one_dhyperparam');
     else
         horizon = 0;
+        data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4(:, 1:T_tr+horizon)')', smooth_factor, 2), 2)];
+        deaths_s = [deaths(:, 1) cumsum(movmean(diff(deaths(:, 1:T_tr+horizon)')', smooth_factor, 2), 2)];
     end
     
     % Compute scores

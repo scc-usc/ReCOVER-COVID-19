@@ -12,12 +12,17 @@ if all(isnan(vals(:, end)))
     vals(:, end) = [];
 end
 data_4 = zeros(length(countries), size(vals, 2));
+lats = zeros(length(countries), 1);
+longs = zeros(length(countries), 1);
 for cidx = 1:length(countries)
     idx = strcmpi(tableConfirmed.Province_State, countries{cidx});
     if(isempty(idx))
         disp([countries{cidx} 'not found']);
     end
     data_4(cidx, :) = sum(vals(idx, :), 1);
+    idx = find(idx);
+    lats(cidx) = double(tableConfirmed.Lat(idx(1)));
+    longs(cidx) = double(tableConfirmed.Long_(idx(1)));
 end
 
 %% Extract deaths from JHU data
@@ -34,7 +39,7 @@ for cidx = 1:length(countries)
     deaths(cidx, :) = sum(vals(idx, :), 1);
 end
 data_4_JHU = data_4; deaths_JHU = deaths;
-clear tableConfirmed tableDeaths;
+%clear tableConfirmed tableDeaths;
 
 %% Load from NY Times
 fsource = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv';
