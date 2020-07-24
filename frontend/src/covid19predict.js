@@ -521,6 +521,7 @@ class Covid19Predict extends PureComponent {
                   initialValue={days}
                   max={days+50<=99?days+50:99}
                   onAfterChange={this.onDaysToPredictChange}
+                  step = {7}
                 />
               </Form.Item>
 

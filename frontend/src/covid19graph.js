@@ -271,13 +271,12 @@ class Covid19Graph extends Component {
             const modelName = p.model.name;
             const distancing = p.distancing;
             const timeSeries = p.time_series;
-            timeSeries.unshift(observedData[observedData.length - 1]);
-            console.log(timeSeries);
+            let augmented_timeSeries = [observedData[observedData.length - 1]].concat(timeSeries);
             chartData.push({
               id: `${area} (${modelName}, distancing=${distancing})`,
               // If we're displaying deltas, we pass in the last observed value as
               // the initial value for calculating the predicted deltas.
-              data: this.processData(timeSeries, {
+              data: this.processData(augmented_timeSeries, {
                 statistic: statistic,
                 yScale: yScale,
                 initialVal: observedData[observedData.length - 2].value
