@@ -9,12 +9,18 @@ if all(isnan(vals(:, end)))
     vals(:, end) = [];
 end
 data_4 = zeros(length(countries), size(vals, 2));
+lats = zeros(length(countries), 1);
+longs = zeros(length(countries), 1);
 for cidx = 1:length(countries)
     idx = strcmpi(countries{cidx}, tableConfirmed.CountryRegion);
     if(sum(idx)<1)
         disp([countries{cidx} ' not found']);
+        continue;
     end
     data_4(cidx, :) = sum(vals(idx, :), 1);
+    idx = find(idx);
+    lats(cidx) = tableConfirmed.Lat(idx(1));
+    longs(cidx) = tableConfirmed.Long(idx(1));
 end
 
 writetable(infec2table(data_4, countries, zeros(length(countries), 1), datetime(2020, 1, 23)), '../results/forecasts/global_data.csv');

@@ -1,13 +1,24 @@
-function tt = infec2table(infec, countries, lowidx, start_date)
+function tt = infec2table(infec, countries, lowidx, start_date, skip_days, first_day)
 % function to create tables in the correct output format
 
     if nargin <3
         lowidx = zeros(length(countries), 1);
     end
     if nargin < 4
-        start_date = datetime(floor(now),'ConvertFrom','datenum');
+        start_date = datetime((now),'ConvertFrom','datenum', 'TimeZone', 'UTC');
+        start_date.TimeZone = 'America/Los_Angeles';
     end
-    datecols = datestr(start_date +caldays(0:size(infec, 2)-1), 'yyyy-mm-dd');
+    if nargin < 5
+        skip_days = 7;
+    end
+    if nargin < 6   % Default first day is the first Sunday
+        xx = weekday(start_date);
+        first_day = mod(1-xx, skip_days)+1; % Index for the first Sunday
+    end
+    
+    infec = round(infec(:, first_day:skip_days:end));
+    last_day = first_day-1 + skip_days*(size(infec, 2)-1);
+    datecols = datestr(start_date + caldays(first_day-1:skip_days:last_day), 'yyyy-mm-dd');
     datecols = cellstr(datecols);
     allcols = [{'id'; 'Country'}; datecols];
     badidx = any(infec<0 | isnan(infec), 2);

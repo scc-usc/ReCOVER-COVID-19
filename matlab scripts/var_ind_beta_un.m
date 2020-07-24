@@ -33,6 +33,8 @@ function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, a
     end
     
     deldata = diff(data_4')';
+    opts1=  optimset('display','off');
+    
     for j=1:length(popu)
         jp = jp_l(j);
         k = k_l(j);
@@ -54,10 +56,10 @@ function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, a
         
         
         for t = jk+1:maxt-1
-            Ikt1 = deldata(:, t-jk:t-1);
+            Ikt1 = deldata(j, t-jk:t-1);
             S = (1-un_fact(j)*data_4(j,t)./popu(j));
             for kk=1:k
-                Ikt(kk) = S*sum(Ikt1(j, (kk-1)*jp+1 : kk*jp), 2);
+                Ikt(kk) = S*sum(Ikt1((kk-1)*jp+1 : kk*jp), 2);
             end
             
             if size(F, 1) ~= length(popu)   % Avoids unnecessary computation
@@ -70,7 +72,6 @@ function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, a
             y(t-jk) = deldata(j, t)';
         end
         
-        opts1=  optimset('display','off');
         X = alphamat.*X; y = alphavec.*y;
         
         if ~isempty(X) && ~isempty(y)

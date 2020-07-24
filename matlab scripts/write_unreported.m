@@ -8,7 +8,7 @@ horizon = 100; % days of predcitions
 dhorizon = horizon;
 passengerFlow = 0;
 %%
-
+base_infec = data_4(:, T_full);
 for un_id = 1:length(un_array)
     % Train with hyperparams before and after
     un = un_array(un_id); % Select the ratio of true cases to reported cases. 1 for default.
@@ -30,16 +30,16 @@ for un_id = 1:length(un_array)
     
     % Predict with unreported cases
     
-    infec_un = var_simulate_pred_un(data_4_s(:, 1:T_full), passengerFlow*0, beta_after, popu, best_param_list(:, 1), horizon, best_param_list(:, 2), un);
-    infec_released_un = var_simulate_pred_un(data_4_s(:, 1:T_full), passengerFlow*0, beta_notravel, popu, best_param_list_no(:, 1), horizon, best_param_list_no(:, 2), un);
+    infec_un = var_simulate_pred_un(data_4_s(:, 1:T_full), passengerFlow*0, beta_after, popu, best_param_list(:, 1), horizon, best_param_list(:, 2), un, base_infec);
+    infec_released_un = var_simulate_pred_un(data_4_s(:, 1:T_full), passengerFlow*0, beta_notravel, popu, best_param_list_no(:, 1), horizon, best_param_list_no(:, 2), un, base_infec);
     
     k_l = MAPEtable_s(1, 1)*ones(length(popu), 1);
     jp_l = MAPEtable_s(1, 2)*ones(length(popu), 1);
-    infec_f_un = var_simulate_pred_un(data_4(:, 1:T_full), passengerFlow*0, beta_after_f, popu, k_l, horizon, jp_l, un);
+    infec_f_un = var_simulate_pred_un(data_4_s(:, 1:T_full), passengerFlow*0, beta_after_f, popu, k_l, horizon, jp_l, un, base_infec);
     
     k_l = MAPEtable_notravel_fixed_s(1, 1)*ones(length(popu), 1);
     jp_l = MAPEtable_notravel_fixed_s(1, 2)*ones(length(popu), 1);
-    infec_released_f_un = var_simulate_pred_un(data_4_s(:, 1:T_full), passengerFlow*0, beta_notravel_f, popu, k_l, horizon, jp_l, un);
+    infec_released_f_un = var_simulate_pred_un(data_4_s(:, 1:T_full), passengerFlow*0, beta_notravel_f, popu, k_l, horizon, jp_l, un, base_infec);
     
     
     infec_released_avg = 0.5*(infec_released_f_un + infec_released_un);
@@ -48,7 +48,7 @@ for un_id = 1:length(un_array)
     infec_data_released = [data_4_s(:, 1:T_full), infec_released_avg];
     base_deaths = deaths(:, T_full);
     
-    [death_rates] = var_ind_deaths(data_4, deaths, dalpha, dk, djp, dwin);
+    [death_rates] = var_ind_deaths(data_4_s, deaths_s, dalpha, dk, djp, dwin);
     [pred_deaths] = var_simulate_deaths(infec_data, death_rates, dk, djp, dhorizon, base_deaths, T_full-1);
     [pred_deaths_released] = var_simulate_deaths(infec_data_released, death_rates, dk, djp, dhorizon, base_deaths, T_full-1);
     
