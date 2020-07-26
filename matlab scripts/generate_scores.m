@@ -56,6 +56,8 @@ for daynum = start_day:skip_length:(size(data_4, 2))
     MFR_ub = cellfun(@(xx)nansum(xx(:, 2)), death_ci).*djp;
     MFR_lb = cellfun(@(xx)nansum(xx(:, 1)), death_ci).*djp;
     
+    save(fname, 'ci', 'death_ci', 'thisscore', '-append');
+    
     all_scores = [all_scores thisscore];
     Rt_scores = [Rt_scores, thisRt];
     Rt_dev = [Rt_dev, (thisRt-Rtconf(:, 1))];

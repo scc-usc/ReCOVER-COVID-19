@@ -558,7 +558,7 @@ class Covid19Predict extends PureComponent {
                 onChange={this.handleStatisticSelect}
               >
                 <Radio value="cumulative">Cumulative Cases</Radio>
-                {/*<Radio value="delta">New Cases</Radio>*/}
+                <Radio value="delta">New Cases</Radio>
               </Radio.Group>
             </div>
             <br />
