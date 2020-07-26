@@ -9,11 +9,12 @@ load us_hyperparam_latest.mat
 param_state = best_param_list;
 param_state_deaths = best_death_hyperparam;
 best_param_list = zeros(length(countries), size(param_state, 2));
-best_death_hyperparam = zeros(length(countries), size(param_state, 2));
+best_death_hyperparam = zeros(length(countries), size(param_state_deaths, 2));
 for idx = 1:length(countries)
     best_param_list(idx, :) = param_state(county_to_state(idx), :);
     best_death_hyperparam(idx, :) = param_state_deaths(county_to_state(idx), :);
 end
+
 %% Set hyper-parameters and prepare data generation
 
 dk = best_death_hyperparam(:, 1);
@@ -21,7 +22,7 @@ djp = best_death_hyperparam(:, 2);
 dwin = best_death_hyperparam(:, 3);
 dalpha = 1;
 
-bad_idx = data_4(:, end) < 1 | popu < 1; % Only predict for counties with at least one case
+bad_idx = data_4(:, end) < 1 | popu < 1 | data_4(:, end) > popu ; % Only predict for counties with at least one case
 lowidx = data_4(:, 60) < 50; % Note the regions with unreliable data on reference day
 
 prefix = 'county';
@@ -31,12 +32,11 @@ reference_day = 64; % reference day for "released"
 horizon = 100;
 dhorizon = 100;
 smooth_factor = 7;
-data_4_s = data_4(:, 1:T_full);
-deaths_s = deaths(:, 1:T_full);
-for j=1:size(data_4, 1)
-    data_4_s(j, :) = [data_4(j, 1) cumsum(smooth(diff(data_4(j, 1:T_full))', 7)')];
-    deaths_s(j, :)= [deaths(j, 1) cumsum(smooth(diff(deaths(j, 1:T_full))', 7)')];
-end
+smooth_factor = 7;
+data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4')', smooth_factor, 2), 2)];
+deaths_s = [deaths(:, 1) cumsum(movmean(diff(deaths')', smooth_factor, 2), 2)];
+
+no_un_idx = data_4(:, end)./popu > 0.1; % Treat them as if there are no unreported cases, forcasts are likely not affected by this
 
 
 %%
@@ -44,12 +44,13 @@ tic;
 compute_region = ~bad_idx; % Compute only for these regions
 passengerFlow = 0;
 un_array = [20];
+un = zeros(length(popu), 1);
 for un_id = 1:length(un_array)
     % Train with hyperparams before and after
-    un = un_array(un_id); % Select the ratio of true cases to reported cases. 1 for default.
-    
-    beta_notravel = var_ind_beta_un(data_4_s(:, 1:reference_day), passengerFlow*0, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), un, popu, best_param_list_no(:, 2), 0, compute_region);
-    beta_after = var_ind_beta_un(data_4_s(:, 1:T_full), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, compute_region);
+    un(:) = un_array(un_id); % Select the ratio of true cases to reported cases. 1 for default.
+    un(no_un_idx) = 1;
+    beta_notravel = var_ind_beta_un(data_4_s(:, 1:reference_day), passengerFlow, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), un, popu, best_param_list_no(:, 2), 0, compute_region);
+    beta_after = var_ind_beta_un(data_4_s(:, 1:T_full), passengerFlow, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, compute_region);
     disp('trained reported cases');
     alpha_l = MAPEtable_notravel_fixed_s(1, 3)*0.1*ones(length(popu), 1);
     k_l = MAPEtable_notravel_fixed_s(1, 1)*ones(length(popu), 1);
@@ -76,6 +77,11 @@ for un_id = 1:length(un_array)
     [pred_deaths_released] = var_simulate_deaths(infec_data_released, death_rates, dk, djp, dhorizon, base_deaths, T_full-1);
 
     disp('predicted deaths');
+    
+    un = un_array(un_id);
+    eval(['deaths_un_' num2str(un) '= pred_deaths;']);
+    eval(['infec_un_' num2str(un) '= infec_un;']);    
+    
     startdate = datetime(2020, 1, 23) + caldays(T_full);
     file_suffix = num2str(un); % Factor for unreported cases
     writetable(infec2table(infec_un, cellstr(num2str(FIP_data.FIPS)), bad_idx, startdate), [file_prefix '_forecasts_quarantine_' file_suffix '.csv']);

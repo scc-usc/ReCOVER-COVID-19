@@ -40,6 +40,7 @@ for daynum = start_day:skip_length:(size(data_4, 2))
         horizon = 0;
         data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4(:, 1:T_tr+horizon)')', smooth_factor, 2), 2)];
         deaths_s = [deaths(:, 1) cumsum(movmean(diff(deaths(:, 1:T_tr+horizon)')', smooth_factor, 2), 2)];
+        
     end
     
     % Compute scores
@@ -56,7 +57,11 @@ for daynum = start_day:skip_length:(size(data_4, 2))
     MFR_ub = cellfun(@(xx)nansum(xx(:, 2)), death_ci).*djp;
     MFR_lb = cellfun(@(xx)nansum(xx(:, 1)), death_ci).*djp;
     
-    save(fname, 'ci', 'death_ci', 'thisscore', '-append');
+    if exist([fname '.mat'], 'file')
+        save(fname, 'ci', 'death_ci', 'thisscore', '-append');
+    else
+        save(fname, 'ci', 'death_ci', 'thisscore');
+    end
     
     all_scores = [all_scores thisscore];
     Rt_scores = [Rt_scores, thisRt];

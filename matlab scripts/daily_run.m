@@ -26,3 +26,20 @@ write_unreported;
 save global_hyperparam_latest.mat best_param_list MAPEtable_s best_death_hyperparam one_hyperparam;
 
 disp('Finished updating Global forecasts');
+
+%% Add the entry to historical forecasts
+path = '../results/historical_forecasts/';
+thisday = size(data_4, 2);
+forecast_date = datetime(2020, 1, 23)+caldays(thisday);
+dirname = datestr(forecast_date, 'yyyy-mm-dd');
+
+fullpath = [path dirname];
+
+if ~exist(fullpath, 'dir')
+    mkdir(fullpath);
+end
+
+copyfile('../results/forecasts/us_forecasts_quarantine_20.csv', [fullpath '/us_forecasts_cases.csv']);
+copyfile('../results/forecasts/us_deaths_quarantine_20.csv', [fullpath '/us_forecasts_deaths.csv']);
+copyfile('../results/forecasts/global_forecasts_quarantine_20.csv', [fullpath '/global_forecasts_cases.csv']);
+copyfile('../results/forecasts/global_deaths_quarantine_20.csv', [fullpath '/global_forecasts_deaths.csv']);
