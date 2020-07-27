@@ -4,8 +4,8 @@ import csv
 import urllib.request
 import io
 
-FORECAST_DATE = datetime.datetime(2020, 7, 19)
-FIRST_WEEK = datetime.datetime(2020, 7, 25)
+FORECAST_DATE = datetime.datetime(2020, 7, 26)
+FIRST_WEEK = datetime.datetime(2020, 8, 1)
 INPUT_FILENAME_STATE = "us_forecasts_quarantine_20.csv"
 INPUT_FILENAME_GLOBAL = "global_forecasts_quarantine_20.csv"
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha.csv"
@@ -157,18 +157,19 @@ def add_to_dataframe(dataframe, forecast):
                 last_week_date = target_end_date - datetime.timedelta(7)
                 last_week_date_str = last_week_date.strftime("%Y-%m-%d")
                 
-                # For the first week, we use first Saturday - forecast day as the incident casts.
-                if target_end_date == FIRST_WEEK and state_id in forecast[forecast_date_str]:
-                    dataframe = dataframe.append(
-                        generate_new_row(
-                            forecast_date=forecast_date_str,
-                            target=target,
-                            target_end_date=target_end_date_str,
-                            location=str(state_id),
-                            type="point",
-                            quantile="NA",
-                            value=forecast[target_end_date_str][state_id]-forecast[forecast_date_str][state_id]
-                        ), ignore_index=True)
+                # Skip the first week incident cases.
+                if target_end_date == FIRST_WEEK:
+                    continue
+                    # dataframe = dataframe.append(
+                    #    generate_new_row(
+                    #        forecast_date=forecast_date_str,
+                    #        target=target,
+                    #        target_end_date=target_end_date_str,
+                    #        location=str(state_id),
+                    #        type="point",
+                    #        quantile="NA",
+                    #        value=forecast[target_end_date_str][state_id]-forecast[forecast_date_str][state_id]
+                    #    ), ignore_index=True)
                 
                 elif last_week_date_str in forecast and state_id in forecast[last_week_date_str]:
                     dataframe = dataframe.append(
