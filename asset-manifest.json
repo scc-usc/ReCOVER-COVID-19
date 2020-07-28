@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/ReCOVER-COVID-19/static/css/main.304c7e20.chunk.css",
-    "main.js": "/ReCOVER-COVID-19/static/js/main.3d117c8a.chunk.js",
-    "main.js.map": "/ReCOVER-COVID-19/static/js/main.3d117c8a.chunk.js.map",
+    "main.js": "/ReCOVER-COVID-19/static/js/main.80fa8414.chunk.js",
+    "main.js.map": "/ReCOVER-COVID-19/static/js/main.80fa8414.chunk.js.map",
     "runtime-main.js": "/ReCOVER-COVID-19/static/js/runtime-main.70569eb9.js",
     "runtime-main.js.map": "/ReCOVER-COVID-19/static/js/runtime-main.70569eb9.js.map",
     "xlsx.js": "/ReCOVER-COVID-19/static/js/xlsx.9ba8a60c.chunk.js",
@@ -17,24 +17,24 @@
     "static/js/6.8a0868ec.chunk.js": "/ReCOVER-COVID-19/static/js/6.8a0868ec.chunk.js",
     "static/js/6.8a0868ec.chunk.js.map": "/ReCOVER-COVID-19/static/js/6.8a0868ec.chunk.js.map",
     "index.html": "/ReCOVER-COVID-19/index.html",
-    "precache-manifest.96b6153ee47724dd61bc0cc0fa84c595.js": "/ReCOVER-COVID-19/precache-manifest.96b6153ee47724dd61bc0cc0fa84c595.js",
+    "precache-manifest.85702064192e217a4b3ef2d4a69cee85.js": "/ReCOVER-COVID-19/precache-manifest.85702064192e217a4b3ef2d4a69cee85.js",
     "service-worker.js": "/ReCOVER-COVID-19/service-worker.js",
     "static/css/3.fca20ba5.chunk.css.map": "/ReCOVER-COVID-19/static/css/3.fca20ba5.chunk.css.map",
     "static/css/main.304c7e20.chunk.css.map": "/ReCOVER-COVID-19/static/css/main.304c7e20.chunk.css.map",
     "static/js/3.6d274410.chunk.js.LICENSE.txt": "/ReCOVER-COVID-19/static/js/3.6d274410.chunk.js.LICENSE.txt",
     "static/js/5.c8ebf02d.chunk.js.LICENSE.txt": "/ReCOVER-COVID-19/static/js/5.c8ebf02d.chunk.js.LICENSE.txt",
-    "static/media/all_graph.png": "/ReCOVER-COVID-19/static/media/all_graph.93f37691.png",
+    "static/media/all_graph.png": "/ReCOVER-COVID-19/static/media/all_graph.dfcc4857.png",
     "static/media/semantic.min.css": "/ReCOVER-COVID-19/static/media/outline-icons.ef60a4f6.woff",
-    "static/media/highlights.pdf": "/ReCOVER-COVID-19/static/media/highlights.b31ea6a7.pdf",
-    "static/media/jhu_graph.png": "/ReCOVER-COVID-19/static/media/jhu_graph.748ca91e.png",
-    "static/media/nyt_graph.png": "/ReCOVER-COVID-19/static/media/nyt_graph.32121536.png",
-    "static/media/usf_graph.png": "/ReCOVER-COVID-19/static/media/usf_graph.6d8464eb.png"
+    "static/media/highlights.pdf": "/ReCOVER-COVID-19/static/media/highlights.8cdfc81c.pdf",
+    "static/media/jhu_graph.png": "/ReCOVER-COVID-19/static/media/jhu_graph.e3354c5f.png",
+    "static/media/nyt_graph.png": "/ReCOVER-COVID-19/static/media/nyt_graph.58c0d7c9.png",
+    "static/media/usf_graph.png": "/ReCOVER-COVID-19/static/media/usf_graph.eddfbb0c.png"
   },
   "entrypoints": [
     "static/js/runtime-main.70569eb9.js",
     "static/css/3.fca20ba5.chunk.css",
     "static/js/3.6d274410.chunk.js",
     "static/css/main.304c7e20.chunk.css",
-    "static/js/main.3d117c8a.chunk.js"
+    "static/js/main.80fa8414.chunk.js"
   ]
 }

@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f04457283b6cb8eb37b545a7efb9ad98",
+    "revision": "e65c7c588efe546e2fc92037e149afb6",
     "url": "/ReCOVER-COVID-19/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/css/3.fca20ba5.chunk.css"
   },
   {
-    "revision": "97d27207bcd6ba772743",
+    "revision": "7fc8010be65e1aff71b5",
     "url": "/ReCOVER-COVID-19/static/css/main.304c7e20.chunk.css"
   },
   {
@@ -36,8 +36,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/js/6.8a0868ec.chunk.js"
   },
   {
-    "revision": "97d27207bcd6ba772743",
-    "url": "/ReCOVER-COVID-19/static/js/main.3d117c8a.chunk.js"
+    "revision": "7fc8010be65e1aff71b5",
+    "url": "/ReCOVER-COVID-19/static/js/main.80fa8414.chunk.js"
   },
   {
     "revision": "7d900305d2b3d822a13e",
@@ -48,8 +48,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/js/xlsx.9ba8a60c.chunk.js"
   },
   {
-    "revision": "93f376911863b11f5f031457b19aa479",
-    "url": "/ReCOVER-COVID-19/static/media/all_graph.93f37691.png"
+    "revision": "dfcc48577628cf3ba4aec0ce975b266a",
+    "url": "/ReCOVER-COVID-19/static/media/all_graph.dfcc4857.png"
   },
   {
     "revision": "13db00b7a34fee4d819ab7f9838cc428",
@@ -76,8 +76,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/media/flags.9c74e172.png"
   },
   {
-    "revision": "b31ea6a78822fea322b598cc0fbe64a5",
-    "url": "/ReCOVER-COVID-19/static/media/highlights.b31ea6a7.pdf"
+    "revision": "8cdfc81cd324d54f23fd03d6dd26f754",
+    "url": "/ReCOVER-COVID-19/static/media/highlights.8cdfc81c.pdf"
   },
   {
     "revision": "0ab54153eeeca0ce03978cc463b257f7",
@@ -100,12 +100,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/media/icons.faff9214.woff"
   },
   {
-    "revision": "748ca91e0d5c10ceb2672984569e94ec",
-    "url": "/ReCOVER-COVID-19/static/media/jhu_graph.748ca91e.png"
+    "revision": "e3354c5f049a4bd6f3b29376f3b94858",
+    "url": "/ReCOVER-COVID-19/static/media/jhu_graph.e3354c5f.png"
   },
   {
-    "revision": "321215365b90f2921f66a03304c7e8ba",
-    "url": "/ReCOVER-COVID-19/static/media/nyt_graph.32121536.png"
+    "revision": "58c0d7c9dead93e293b3e1950a5c9acb",
+    "url": "/ReCOVER-COVID-19/static/media/nyt_graph.58c0d7c9.png"
   },
   {
     "revision": "701ae6abd4719e9c2ada3535a497b341",
@@ -128,7 +128,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/media/outline-icons.ef60a4f6.woff"
   },
   {
-    "revision": "6d8464ebb4784cdb33bf0c00526d63da",
-    "url": "/ReCOVER-COVID-19/static/media/usf_graph.6d8464eb.png"
+    "revision": "eddfbb0cd28540be5bf3d9d7a86c0b7c",
+    "url": "/ReCOVER-COVID-19/static/media/usf_graph.eddfbb0c.png"
   }
 ]);
