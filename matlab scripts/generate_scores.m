@@ -14,7 +14,7 @@ skip_length = 7;
 horizon = 7; % Same as validation
 un = 20;
 dalpha = 1;
-saved_days = 0; % Set it to higher number to avoid recomputing hypoerparameters from the beginning
+saved_days = 178; % Set it to higher number to avoid recomputing hypoerparameters from the beginning
 start_day = 53;
 
 %%
@@ -24,7 +24,7 @@ for daynum = start_day:skip_length:(size(data_4, 2))
     fname = ['./hyper_params/' prefix '_hyperparam_ref_' num2str(daynum)];
     
     T_tr = daynum; % Day until which we train
-    smooth_factor = 7;
+    smooth_factor = 14;
     
     if daynum <= saved_days
         load(fname);

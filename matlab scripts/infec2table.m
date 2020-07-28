@@ -13,7 +13,7 @@ function tt = infec2table(infec, countries, lowidx, start_date, skip_days, first
     end
     if nargin < 6   % Default first day is the first Sunday
         xx = weekday(start_date);
-        first_day = mod(1-xx, skip_days)+1; % Index for the first Sunday
+        first_day = 8-xx; % Index for the first Sunday
     end
     
     infec = round(infec(:, first_day:skip_days:end));

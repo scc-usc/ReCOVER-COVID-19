@@ -1,4 +1,4 @@
-function [best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, passengerFlow, un, T_full, T_val, k_array, jp_array)
+function [best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, passengerFlow, un_list, T_full, T_val, k_array, jp_array)
 % Script to identify optimal hyperparameters of the model
 %% Configure
 
@@ -17,9 +17,9 @@ end
 T_tr = T_full - T_val; % Jan 21 is day 0
 F_notravel = passengerFlow;
  
-ff_array = (5:10);
+ff_array = (6:10);
 
-[X, Y, Z, A] = ndgrid(k_array, jp_array, ff_array, un);
+[X, Y, Z, A] = ndgrid(k_array, jp_array, ff_array, un_list);
 param_list = [X(:), Y(:), Z(:), A(:)];
 
 idx = param_list(:, 1).*param_list(:, 2) <=14;
@@ -33,7 +33,7 @@ for ii = 1:size(param_list, 1)
     k = param_list(ii, 1);
     jp = param_list(ii, 2);
     alpha = 0.1*param_list(ii, 3);
-    un = param_list(:, 4);
+    un = param_list(ii, 4);
     beta_notravel = var_ind_beta_un(data_4_s(:, 1:T_tr), F_notravel, alpha, k, un, popu, jp);
     infec_notravel = var_simulate_pred_un(data_4_s(:, 1:T_tr), F_notravel, beta_notravel, popu, k, T_val, jp, un, data_4(:, T_tr));
     

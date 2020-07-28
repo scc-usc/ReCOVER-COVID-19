@@ -3,7 +3,7 @@ addpath('./hyper_params');
 
 %% For US
 load_data_us;
-smooth_factor = 7;
+smooth_factor = 14;
 data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4')', smooth_factor, 2), 2)];
 deaths_s = [deaths(:, 1) cumsum(movmean(diff(deaths')', smooth_factor, 2), 2)];
 load us_hyperparam_ref_64.mat
@@ -16,7 +16,7 @@ disp('Finished updating US forecasts');
 %% For Global
 clear;
 load_data_global;
-smooth_factor = 7;
+smooth_factor = 14;
 data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4')', smooth_factor, 2), 2)];
 deaths_s = [deaths(:, 1) cumsum(movmean(diff(deaths')', smooth_factor, 2), 2)];
 load global_hyperparam_ref_64.mat
