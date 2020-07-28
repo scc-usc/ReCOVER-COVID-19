@@ -23,10 +23,15 @@ def getCurrentDate(request):
     """
     This endpoint returns the date of the most recent cumulative data of observed data
     """
-    observed = Covid19DataPoint.objects.filter(
-        area=Area.objects.get(country="US", state="")
-    )
-    date = [{'date': max([d.date for d in observed])}]
+    # observed = Covid19DataPoint.objects.filter(
+    #     area=Area.objects.get(country="US", state="")
+    # )
+    currentDate = Covid19DataPoint.objects.last().date
+    firstDate = Covid19DataPoint.objects.first().date
+    date = [{
+        'date': currentDate,
+        'firstDate': firstDate
+        }]
     return Response(date)
 
 
@@ -320,7 +325,7 @@ def scores(request):
 
     }
 
-    score_start_date = datetime(2020, 3, 15)
+    score_start_date = QuarantineScoreDataPoint.objects.first().date
     score_end_date = score_start_date + timedelta(days=7*weeks)
 
     quarantine_scores = QuarantineScoreDataPoint.objects.filter(
@@ -355,7 +360,8 @@ def scores_all(request):
     "weeks" denote the number of weeks after 2020-3-11.
     """
     weeks = int(float(request.query_params.get("weeks")))
-    date = datetime(2020, 3, 15) + timedelta(days=7*weeks)
+    score_start_date = QuarantineScoreDataPoint.objects.first().date
+    date = score_start_date + timedelta(days=7*weeks)
 
     quarantine_scores = QuarantineScoreDataPoint.objects.filter(
         date=date
@@ -378,15 +384,15 @@ def scores_all(request):
 @api_view(['GET'])
 def latest_score_date(request):
     """
-    return the last date which the QuarantineScore data is aviliable
+    return the last date which the QuarantineScore data is aviliable (also returns first date)
     """
-    observed = QuarantineScoreDataPoint.objects.all()
-    latest_date = observed.last().date
-    date2 = date(2020, 3, 15)
+    latest_date = QuarantineScoreDataPoint.objects.last().date
+    date2 = QuarantineScoreDataPoint.objects.first().date
     delta = latest_date - date2
     response = [{
         'date': latest_date,
-        'weeks': delta.days/7
+        'weeks': delta.days/7,
+        'firstDate': date2
     }]
     return Response(response)
 
@@ -399,7 +405,8 @@ def all_mrf_scores(request):
         "weeks" denote the number of weeks after 2020-3-11.
     """
     weeks = int(float(request.query_params.get("weeks")))
-    date = datetime(2020, 3, 15) + timedelta(days=7 * weeks)
+    firstDate = MRFScoreDataPoint.objects.first().date
+    date = firstDate + timedelta(days=7 * weeks)
 
     mrf_scores = MRFScoreDataPoint.objects.filter(
         date=date
