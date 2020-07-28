@@ -26,6 +26,7 @@ class ScorePage extends PureComponent{
             areas: this.props.areas || [],
             areasList: [],
             latestDate: "",
+            firstDate: "",
             mainGraphData: {},
             weeks: this.props.weeks || 0, // will later be set to be the weeks to the latest date as initial value
             latestWeek: 0, //will change later and remain unchange until database updated
@@ -56,7 +57,8 @@ class ScorePage extends PureComponent{
             this.setState({
                 latestDate: latestDate[0].date,
                 weeks: latestDate[0].weeks,
-                latestWeek: latestDate[0].weeks
+                latestWeek: latestDate[0].weeks,
+                firstDate: latestDate[0].firstDate
             }, ()=>{
                 this.addAreaByStr('US');
                 this.formRef.current.setFieldsValue({
@@ -191,10 +193,8 @@ class ScorePage extends PureComponent{
     }
 
     generateMarks = ()=>{
-        const {weeks, lastDate, latestWeek} = this.state;
-        let latestDate = new Date(`${lastDate}T00:00`);
-        let firstDate = new Date(2020, 2, 15);
-        let currentDate = new Date(2020, 2, 15);
+        const {weeks, lastDate, latestWeek, firstDate} = this.state;
+        let currentDate = new Date(`${firstDate}T00:00`);
         currentDate.setDate(currentDate.getDate(Date) + 7*weeks);
         //get the date of the selected date on slider
         let marks = {};
@@ -206,7 +206,7 @@ class ScorePage extends PureComponent{
            i++;
         }
         i = 1
-        currentDate = new Date(2020, 2, 15);
+        currentDate = new Date(`${firstDate}T00:00`);
         currentDate.setDate(currentDate.getDate(Date) + 7*(weeks-1));
         while (i <= 5 && weeks - i >= 0)
         {
@@ -214,7 +214,7 @@ class ScorePage extends PureComponent{
             currentDate.setDate(currentDate.getDate(Date) - 7);
             i++;
         }
-        currentDate = new Date(2020, 2, 15);
+        currentDate = new Date(`${firstDate}T00:00`);
         currentDate.setDate(currentDate.getDate(Date) + 7*weeks);
         return [currentDate, marks];
       }

@@ -95,6 +95,7 @@ class Covid19Predict extends PureComponent {
       death_models: ['SI-kJalpha - 20x under-reported positive cases (death prediction)'],
       modelsList: [],
       currentDate: "",
+      firstDate: "",
       distancingOn: true,
       distancingOff: false,
       mainGraphData: {},
@@ -142,7 +143,8 @@ class Covid19Predict extends PureComponent {
 
     this.modelAPI.getCurrentDate(currentDate => 
       this.setState({
-        currentDate: currentDate[0].date
+        currentDate: currentDate[0].date,
+        firstDate: currentDate[0].firstDate
       })
     );
   }
@@ -374,9 +376,9 @@ class Covid19Predict extends PureComponent {
   }
 
   generateMarks = ()=>{
-    const {currentDate, days} = this.state;
+    const {currentDate, days, firstDate} = this.state;
     let date = new Date(`${currentDate}T00:00`);
-    let firstDate = new Date(2020,0,22);
+    let beginDate = new Date(`${firstDate}T00:00`);
     //get the date of the selected date on slider
     date.setDate(date.getDate(Date) + days);
     let marks = {};
@@ -394,7 +396,7 @@ class Covid19Predict extends PureComponent {
     date.setDate(date.getDate(Date) + days);
     date.setDate(date.getDate() - 7);
     i = days-7;
-    while (date >= firstDate && i > days-30){
+    while (date >= beginDate && i > days-30){
       marks[i] = `${date.getMonth()+1}/${date.getDate()}`;
       date.setDate(date.getDate() - 7);
       i -= 7;
@@ -403,10 +405,10 @@ class Covid19Predict extends PureComponent {
   }
 
   getDaysToFirstDate = ()=>{
-    const {currentDate} = this.state;
+    const {currentDate, firstDate} = this.state;
     let date = new Date(`${currentDate}T00:00`);
-    let firstDate = new Date(2020,0,22);
-    return Math.ceil(Math.abs(date - firstDate)/ (1000 * 60 * 60 * 24));
+    let beginningDate = new Date(`${firstDate}T00:00`);
+    return Math.ceil(Math.abs(date - beginningDate)/ (1000 * 60 * 60 * 24));
   }
 
   render() {
@@ -521,7 +523,7 @@ class Covid19Predict extends PureComponent {
                   initialValue={days}
                   max={days+50<=99?days+50:99}
                   onAfterChange={this.onDaysToPredictChange}
-                  step = {7}
+                  step = {null}
                 />
               </Form.Item>
 
