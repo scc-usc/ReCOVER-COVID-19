@@ -4,10 +4,10 @@ import csv
 import urllib.request
 import io
 
-FORECAST_DATE = datetime.datetime(2020, 7, 27)
-FIRST_WEEK = datetime.datetime(2020, 8, 1)
-INPUT_FILENAME_STATE = "us_deaths_quarantine_20.csv"
-INPUT_FILENAME_GLOBAL = "global_deaths_quarantine_20.csv"
+FORECAST_DATE = datetime.datetime(2020, 8, 2)
+FIRST_WEEK = datetime.datetime(2020, 8, 8)
+INPUT_FILENAME_STATE = "us_deaths_current_20.csv"
+INPUT_FILENAME_GLOBAL = "global_deaths_current_20.csv"
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha.csv"
 COLUMNS = ["forecast_date", "target", "target_end_date", "location", "type", "quantile", "value"]
 ID_STATE_MAPPING = {}
@@ -298,7 +298,7 @@ def generate_dataframe(forecast, observed):
                             location=str(state_id),
                             type="point",
                             quantile="NA",
-                            value=forecast[target_end_date_str][state_id]-observed[last_week_date_str][state_id]
+                            value=max(forecast[target_end_date_str][state_id]-observed[last_week_date_str][state_id], 0)
                         ), ignore_index=True)
             
             elif last_week_date_str in forecast:
@@ -311,7 +311,7 @@ def generate_dataframe(forecast, observed):
                             location=str(state_id),
                             type="point",
                             quantile="NA",
-                            value=forecast[target_end_date_str][state_id]-forecast[last_week_date_str][state_id]
+                            value=max(forecast[target_end_date_str][state_id]-forecast[last_week_date_str][state_id], 0)
                         ), ignore_index=True)
 
 

@@ -4,8 +4,8 @@ import csv
 import urllib.request
 import io
 
-FORECAST_DATE = datetime.datetime(2020, 7, 27)
-FIRST_WEEK = datetime.datetime(2020, 8, 1)
+FORECAST_DATE = datetime.datetime(2020, 8, 2)
+FIRST_WEEK = datetime.datetime(2020, 8, 8)
 INPUT_FILENAME = "county_forecasts_quarantine_20.csv"
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha.csv"
 COLUMNS = ["forecast_date", "target", "target_end_date", "location", "type", "quantile", "value"]
@@ -152,16 +152,17 @@ def add_to_dataframe(dataframe, forecast, observed):
 
             if last_week_date_str in observed:
                 for region_id in forecast[target_end_date_str].keys():
-                    dataframe = dataframe.append(
-                        generate_new_row(
-                            forecast_date=forecast_date_str,
-                            target=target,
-                            target_end_date=target_end_date_str,
-                            location=str(region_id),
-                            type="point",
-                            quantile="NA",
-                            value=max(forecast[target_end_date_str][region_id]-observed[last_week_date_str][region_id], 0)
-                        ), ignore_index=True)
+                    if region_id in observed[last_week_date_str]:
+                        dataframe = dataframe.append(
+                            generate_new_row(
+                                forecast_date=forecast_date_str,
+                                target=target,
+                                target_end_date=target_end_date_str,
+                                location=str(region_id),
+                                type="point",
+                                quantile="NA",
+                                value=max(forecast[target_end_date_str][region_id]-observed[last_week_date_str][region_id], 0)
+                            ), ignore_index=True)
                 
             elif last_week_date_str in forecast:
                 for region_id in forecast[target_end_date_str].keys():
@@ -173,7 +174,7 @@ def add_to_dataframe(dataframe, forecast, observed):
                             location=str(region_id),
                             type="point",
                             quantile="NA",
-                            value=forecast[target_end_date_str][region_id]-forecast[last_week_date_str][region_id]
+                            value=max(forecast[target_end_date_str][region_id]-forecast[last_week_date_str][region_id], 0)
                         ), ignore_index=True)
 
     return dataframe

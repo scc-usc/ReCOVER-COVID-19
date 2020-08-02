@@ -20,7 +20,7 @@ class StaticForeignModel:
 
 STATIC_FOREIGN_MODELS = [
     StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/CU-select/2020-07-19-CU-select.csv",
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/CU-select/2020-07-26-CU-select.csv",
         name="Columbia University - Select (US state level death prediction only)",
         description="This metapopulation county-level SEIR model makes projections of future COVID-19 deaths. \
         The predictions are provided by the Shaman Lab at Columbia University. \
@@ -28,7 +28,7 @@ STATIC_FOREIGN_MODELS = [
     ), 
 
     StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/UCLA-SuEIR/2020-07-19-UCLA-SuEIR.csv",
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/UCLA-SuEIR/2020-07-26-UCLA-SuEIR.csv",
         name="UCLA - SuEIR (US state level death prediction only)",
         description="The SuEIR model is a variant of the SEIR model considering both untested and unreported cases. \
         The model takes reopening into consideration and assumes that the contact rate will increase after the reopen.\
@@ -37,7 +37,7 @@ STATIC_FOREIGN_MODELS = [
     ),
     
     StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/JHU_IDD-CovidSP/2020-07-19-JHU_IDD-CovidSP.csv",
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/JHU_IDD-CovidSP/2020-07-26-JHU_IDD-CovidSP.csv",
         name="JHU - IDD (US state level death prediction only)",
         description="County-level metapopulation model with commuting and stochastic SEIR disease dynamics. \
         The predictions are provided by the Johns Hopkins ID Dynamics COVID-19 Working Group. \
@@ -45,7 +45,7 @@ STATIC_FOREIGN_MODELS = [
     ), 
 
     StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/Covid19Sim-Simulator/2020-07-19-Covid19Sim-Simulator.csv",
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/Covid19Sim-Simulator/2020-07-26-Covid19Sim-Simulator.csv",
         name="Covid19 Simulator (US state level death prediction only)",
         description="An interactive tool developed by researchers at Mass General Hospital, \
         Harvard Medical School, Georgia Tech and Boston Medical Center to inform COVID-19 intervention policy decisions in the US. \
@@ -53,7 +53,7 @@ STATIC_FOREIGN_MODELS = [
     ), 
 
     StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/YYG-ParamSearch/2020-07-19-YYG-ParamSearch.csv",
+        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/YYG-ParamSearch/2020-07-26-YYG-ParamSearch.csv",
         name="YYG - ParamSearch",
         description="Based on the SEIR model to make daily projections regarding \
         COVID-19 infections and deaths in 50 US states. The model accounts for \
