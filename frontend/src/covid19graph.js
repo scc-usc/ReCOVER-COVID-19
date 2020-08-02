@@ -234,7 +234,6 @@ class Covid19Graph extends Component {
   render() {
     let { data } = this.props;
     const { statistic, yScale, dataType } = this.props;
-
     // chartData contains the data that we will pass into Nivo line chart.
     let chartData = [];
     // colors holds hex values for each line in the chart.
@@ -246,32 +245,66 @@ class Covid19Graph extends Component {
       .sort()
       .forEach((area, idx) => {
         const lineColor = getLineColor(idx);
-        const observedData = dataType == "confirmed" ? data[area].observed : data[area].observed_deaths;
+        const observedConfirmed = data[area].observed
+        const observedDeath = data[area].observed_deaths;
+        // Add the observed infection data if confirmed is selected
+        if (dataType.includes("confirmed"))
+        {
+          chartData.push({
+            id: area,
+            data: this.processData(observedConfirmed, {
+              statistic: statistic,
+              yScale: yScale,
+              initialVal: 0
+            }),
+            // 'predicted' is a custom prop that we add so later we can tell the
+            // difference between observed/predicted data when drawing the lines.
+            predicted: false
+          });
+  
+          colors.push(lineColor[4]);
+        }
+        if (dataType.includes("death"))
+        {
+          //also push death value to the same graph
+          chartData.push({
+            id: `${area} death`,
+            data: this.processData(observedDeath, {
+              statistic: statistic,
+              yScale: yScale,
+              initialVal: 0
+            }),
+            // 'predicted' is a custom prop that we add so later we can tell the
+            // difference between observed/predicted data when drawing the lines.
+            predicted: false
+          });
 
-        // Add the observed infection data.
-        chartData.push({
-          id: area,
-          data: this.processData(observedData, {
-            statistic: statistic,
-            yScale: yScale,
-            initialVal: 0
-          }),
-          // 'predicted' is a custom prop that we add so later we can tell the
-          // difference between observed/predicted data when drawing the lines.
-          predicted: false
-        });
-
-        colors.push(lineColor[4]);
-
+          colors.push(lineColor[6])
+        }
+        
         // Add the data for each of the predicted time series. Filter out time
         // series that don't have any data associated.
         data[area].predictions
           .filter(p => p.time_series.length > 0)
           .forEach((p,idx) => {
             const modelName = p.model.name;
+            const isDeathModel = modelName.substring(0, 10) !== "SI-kJalpha" || modelName.includes("death prediction")
             const distancing = p.distancing;
             const timeSeries = p.time_series;
-            let augmented_timeSeries = [observedData[observedData.length - 1]].concat(timeSeries);
+            //check if the model is a death model
+            let augmented_timeSeries = []
+            if (dataType.includes("death") && isDeathModel)
+            {
+              augmented_timeSeries = [observedDeath[observedDeath.length - 1]].concat(timeSeries);
+            }
+            else if (dataType.includes("confirmed") && !isDeathModel)
+            {
+              augmented_timeSeries = [observedConfirmed[observedConfirmed.length - 1]].concat(timeSeries);
+            }
+            else
+            {
+              return
+            }
             chartData.push({
               id: `${area} (${modelName}, distancing=${distancing})`,
               // If we're displaying deltas, we pass in the last observed value as
@@ -279,7 +312,7 @@ class Covid19Graph extends Component {
               data: this.processData(augmented_timeSeries, {
                 statistic: statistic,
                 yScale: yScale,
-                initialVal: observedData[observedData.length - 2].value
+                initialVal: isDeathModel?observedDeath[observedDeath.length - 2].value:observedConfirmed[observedConfirmed.length - 2].value
               }),
               // 'predicted' is a custom prop that we add so later we can tell the
               // difference between observed/predicted data when drawing the lines.

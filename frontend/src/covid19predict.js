@@ -47,43 +47,18 @@ class Covid19Predict extends PureComponent {
   };
 
   handleDataTypeSelect = e => {
-    if (e.target.value === "confirmed") {
-      this.modelAPI.infection_models(infection_models => {
-        this.setState({
-          modelsList: infection_models,
-          dataType: e.target.value,
-          models: this.state.confirmed_models
-        }, ()=>{
-          this.formRef.current.setFieldsValue({
-            models: this.state.models
-          });
-          this.reloadAll();
-          if (!this.state.dynamicMapOn)
-          {
-            this.map.fetchData(this.state.dynamicMapOn);
-          }
-        });
-      });
-    } 
-    else {
-      this.modelAPI.death_models(death_models =>{
-          this.setState({
-            modelsList: death_models,
-            dataType: e.target.value,
-            models: this.state.death_models
-          }, ()=>{
-            this.formRef.current.setFieldsValue({
-              models: this.state.models
-            });
-            this.reloadAll();
-            if (!this.state.dynamicMapOn)
-            {
-              this.map.fetchData(this.state.dynamicMapOn);
-            }
-          }); 
-        });
-    }
+    this.setState({
+      dataType: e
+    });
   };
+
+  handleMapShownSelect = e =>{
+    this.setState({
+      mapShown: e.target.value
+    }, ()=>{
+      this.map.fetchData(this.state.dynamicMapOn);
+    })
+  }
 
   constructor(props) {
     super(props);
@@ -91,8 +66,6 @@ class Covid19Predict extends PureComponent {
       areas: this.props.areas || [],
       areasList: [],
       models: this.props.models || ['SI-kJalpha - 20x under-reported positive cases'],
-      confirmed_models: ['SI-kJalpha - 20x under-reported positive cases'],
-      death_models: ['SI-kJalpha - 20x under-reported positive cases (death prediction)'],
       modelsList: [],
       currentDate: "",
       firstDate: "",
@@ -101,8 +74,9 @@ class Covid19Predict extends PureComponent {
       mainGraphData: {},
       days: 14,
       dynamicMapOn: false,
-      dataType: "confirmed",
+      dataType: ["confirmed"],
       statistic: "cumulative",
+      mapShown: "confirmed",
       yScale: "linear",
       noDataError: false,
       errorDescription: ""
@@ -138,8 +112,17 @@ class Covid19Predict extends PureComponent {
     this.modelAPI.infection_models(infectionModels =>
       this.setState({
         modelsList: infectionModels
-      })
-    );
+      }, ()=>{
+        this.modelAPI.death_models(deathModels =>{
+            for (let i = 6; i < deathModels.length; ++i)
+            {
+                this.setState(prevState => ({
+                  modelsList: [...prevState.modelsList, deathModels[i]]
+                }));
+            }
+          });
+        }
+    ));
 
     this.modelAPI.getCurrentDate(currentDate => 
       this.setState({
@@ -272,25 +255,11 @@ class Covid19Predict extends PureComponent {
     } 
     if ("models" in changedValues)
     {
-        if (dataType === "confirmed")
-        {
           this.setState({
             models: changedValues.models,
-            confirmed_models: allValues.models
           }, ()=>{
             this.reloadAll();
-          });
-        }
-        else
-        {
-          this.setState({
-            models: changedValues.models,
-            death_models: allValues.models
-          }, ()=>{
-            this.reloadAll();
-          });
-        }
-        
+          });      
     }
     else {
       // If we're here it means the user either added or deleted an area, so we
@@ -422,6 +391,7 @@ class Covid19Predict extends PureComponent {
       dynamicMapOn,
       dataType,
       statistic,
+      mapShown,
       yScale,
       noDataError,
       errorDescription
@@ -457,6 +427,24 @@ class Covid19Predict extends PureComponent {
           <a href="https://arxiv.org/abs/2004.11372"> https://arxiv.org/abs/2004.11372</a>.
         </p>
       );
+    let confirmed_model_map = ""
+    let death_model_map = ""
+    for (let i = models.length - 1; i>=0; i--)
+    {
+       if (models[i].substring(0,10) === "SI-kJalpha")
+       {
+          confirmed_model_map = models[i]
+          if (death_model_map.length === 0)
+          { 
+            death_model_map = models[i] + " (death prediction)"
+          }
+          break
+       }
+       else
+       {
+          death_model_map = models[i]
+       }
+    }
     return (
       <div className="covid-19-predict">
         <Row type="flex" justify="space-around">
@@ -545,13 +533,13 @@ class Covid19Predict extends PureComponent {
               </Popover>
             </Form>
             <div>Data Type:&nbsp;&nbsp;  
-              <Radio.Group
-                value={dataType}
+              <Checkbox.Group
+                defaultValue={['confirmed']}
                 onChange={this.handleDataTypeSelect}
               >
-                <Radio value="confirmed">Confirmed Cases</Radio>
-                <Radio value="death">Deaths</Radio>
-              </Radio.Group>
+                <Checkbox defaultChecked value="confirmed">Confirmed Cases</Checkbox>
+                <Checkbox value="death">Deaths</Checkbox>
+              </Checkbox.Group>
             </div>
             <br />
             <div>Statistic:&nbsp;&nbsp;  
@@ -586,14 +574,21 @@ class Covid19Predict extends PureComponent {
               triggerRef={this.bindRef}
               dynamicMapOn={dynamicMapOn}
               days={days}
-              model={this.state.models == null || this.state.models.length ===0? "" : this.state.models[this.state.models.length-1]}
+              confirmed_model = {confirmed_model_map}
+              death_model = {death_model_map}
               onMapClick={this.onMapClick} 
               onNoData = {this.onNoData}
               statistic={statistic}
-              dataType = {dataType}
+              dataType = {mapShown}
             />
+            <Radio.Group
+                value={mapShown}
+                onChange={this.handleMapShownSelect}
+              >
+                <Radio value="confirmed">Show Confirmed Cases</Radio>
+                <Radio value="death">Show Deaths</Radio>
+          </Radio.Group>
           </div>
-        {/* </div> */}
         </Col>
         </Row>
         {areas.length?

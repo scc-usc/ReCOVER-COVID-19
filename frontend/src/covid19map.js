@@ -52,7 +52,7 @@ class Covid19Map extends Component {
   }
 
   fetchData(dynamicMapOn) {
-    if (!dynamicMapOn || this.props.model === "") {
+    if (!dynamicMapOn || (this.props.confirmed_model === "" && this.props.death_model === "")) {
       //without dynamic map,show to cumulative cases to date
       if (this.props.dataType === "confirmed")
       {
@@ -96,9 +96,8 @@ class Covid19Map extends Component {
         {
           this.modelAPI.predict_all({
             days: this.props.days,
-            model: this.props.model
+            model: this.props.dataType === "confirmed"?this.props.confirmed_model:this.props.death_model
           }, cumulativeInfections => {
-            console.log(cumulativeInfections);
             let heatmapData = cumulativeInfections.map(d => {
               return {
                 id: d.area.iso_2,
@@ -156,14 +155,14 @@ class Covid19Map extends Component {
           //prediction
           this.modelAPI.predict_all({
             days: this.props.days,
-            model: this.props.model
+            model: this.props.dataType === "confirmed"?this.props.confirmed_model:this.props.death_model
           }, cumulativeInfections => {
             //if days is one, we need data from days = 0, which is in history_cumulative
-            if (this.props.days > 1)
+            if (this.props.days > 7)
             {
               this.modelAPI.predict_all({
-                days: this.props.days - 1,
-                model: this.props.model
+                days: this.props.days - 7,
+                model: this.props.dataType === "confirmed"?this.props.confirmed_model:this.props.death_model
               }, previousCumulative =>{
                 let heatmapData = cumulativeInfections.map((d, index) =>{
                   return {
@@ -179,7 +178,7 @@ class Covid19Map extends Component {
             else
             {
               this.modelAPI.history_cumulative({
-                days: this.props.days - 1
+                days: this.props.days - 7
               }, previousCumulative =>{
                 let heatmapData = cumulativeInfections.map((d, index) =>{
                   if (this.props.dataType === "confirmed")
@@ -214,11 +213,9 @@ class Covid19Map extends Component {
           //history
           this.modelAPI.history_cumulative({
             days: this.props.days,
-            model: this.props.model
           }, historyInfections => {
             this.modelAPI.history_cumulative({
-              days: this.props.days - 1,
-              model: this.props.model
+              days: this.props.days - 7,
             }, nextDayCumulative =>{
               let heatmapData = historyInfections.map((d, index) =>{
                 if (this.props.dataType === "confirmed")

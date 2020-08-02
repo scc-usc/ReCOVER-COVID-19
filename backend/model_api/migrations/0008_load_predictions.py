@@ -29,7 +29,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_avg_1.csv",
             "../results/forecasts/us_forecasts_released_avg_1.csv"
         ],
-        name="SI-kJalpha - No under-reported positive cases (default)",
+        name="SI-kJalpha - No under-reported positive cases",
         description="The default version of the SI-kJalpha model, with no assumptions about under-reporting."
     ),
     StaticModel(

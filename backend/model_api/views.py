@@ -169,7 +169,10 @@ def predict(request):
 
     for model_name in models:
         model = Covid19Model.objects.get(name=model_name)
-
+        model_death = None
+        if model_name[:10] == "SI-kJalpha":
+            print(model_name + " (death prediction)")
+            model_death = Covid19Model.objects.get(name=model_name + " (death prediction)")
         if distancing_on:
             qs = Covid19PredictionDataPoint.objects.filter(
                 model=model,
@@ -177,6 +180,14 @@ def predict(request):
                 area=area,
                 date__range=(prediction_start_date, prediction_end_date)
             )
+
+            if model_death:
+                qs_death = Covid19PredictionDataPoint.objects.filter(
+                        model=model_death,
+                        social_distancing=True,
+                        area=area,
+                        date__range=(prediction_start_date, prediction_end_date)
+                )
 
             response["predictions"].append({
                 "model": {
@@ -190,6 +201,19 @@ def predict(request):
                 } for d in qs]
             })
 
+            if model_death:
+                response["predictions"].append({
+                    "model": {
+                        "name": model_death.name,
+                        "description": model_death.description
+                    },
+                    "distancing": True,
+                    "time_series": [{
+                        "date": d.date,
+                        "value": d.val,
+                    } for d in qs_death]
+                })
+
         if distancing_off:
             qs = Covid19PredictionDataPoint.objects.filter(
                 model=model,
@@ -197,6 +221,14 @@ def predict(request):
                 area=area,
                 date__range=(prediction_start_date, prediction_end_date)
             )
+
+            if model_death:
+                qs_death = Covid19PredictionDataPoint.objects.filter(
+                    model=model_death,
+                    social_distancing=False,
+                    area=area,
+                    date__range=(prediction_start_date, prediction_end_date)
+                )
 
             response["predictions"].append({
                 "model": {
@@ -209,6 +241,19 @@ def predict(request):
                     "value": d.val,
                 } for d in qs]
             })
+
+            if model_death:
+                response["predictions"].append({
+                    "model": {
+                        "name": model_death.name,
+                        "description": model_death.description
+                    },
+                    "distancing": False,
+                    "time_series": [{
+                        "date": d.date,
+                        "value": d.val,
+                    } for d in qs_death]
+                })
 
     return Response(response)
 
