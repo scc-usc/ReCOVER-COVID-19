@@ -1,5 +1,7 @@
-function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, alpha_l, k_l, un_fact, popu, jp_l, ret_conf, compute_region)
+function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, alpha_l, k_l, un_fact, popu, jp_l, ret_conf, compute_region, window_size)
     
+    maxt = size(data_4, 2);    
+
     if nargin < 9
         compute_region = ones(length(popu), 1);
     end
@@ -8,13 +10,15 @@ function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, a
         ret_conf = 0;
     end
     
+    if nargin < 10
+        window_size = maxt*ones(size(data_4, 1), 1); % By default, use all death data to fit parameters
+    end
     
-    maxt = size(data_4, 2);
     F = passengerFlow;
     beta_all_cell = cell(length(popu), 1);
     fittedC = cell(length(popu), 1);
     ci = cell(length(popu), 1);
-    
+    nn = length(popu);
     
     if length(un_fact)==1
         un_fact = un_fact*ones(length(popu), 1);
@@ -30,6 +34,10 @@ function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, a
     
     if length(alpha_l) == 1
         alpha_l = ones(length(popu), 1)*alpha_l;
+    end
+    
+    if length(window_size) == 1
+        window_size = ones(nn, 1)*window_size;
     end
     
     deldata = diff(data_4')';
@@ -48,14 +56,19 @@ function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, a
             continue;
         end
         
-        alphavec = power(alpha, (maxt-jk-1:-1:1)');
+        skip_days = maxt - window_size(j);
+        if skip_days < 0
+            skip_days = 0;
+        end
+        
+        alphavec = power(alpha, (maxt-skip_days - jk-1:-1:1)');
         alphamat = repmat(alphavec, [1 k+1]);
-        y = zeros(maxt - jk - 1, 1);
-        X = zeros(maxt - jk - 1, k+1);
+        y = zeros(maxt - jk - skip_days - 1, 1);
+        X = zeros(maxt - jk - skip_days - 1, k+1);
         Ikt = zeros(1,k);
         
         
-        for t = jk+1:maxt-1
+        for t = skip_days+jk+1:maxt-1
             Ikt1 = deldata(j, t-jk:t-1);
             S = (1-un_fact(j)*data_4(j,t)./popu(j));
             for kk=1:k
@@ -68,8 +81,8 @@ function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, a
                 incoming_travel = (F(:, j)./popu)' * sum(Ikt1, 2);
             end
 
-            X(t-jk, :) = [Ikt incoming_travel] ;
-            y(t-jk) = deldata(j, t)';
+            X(t-jk-skip_days, :) = [Ikt incoming_travel] ;
+            y(t-jk-skip_days) = deldata(j, t)';
         end
         
         X = alphamat.*X; y = alphavec.*y;

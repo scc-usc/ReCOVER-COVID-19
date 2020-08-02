@@ -6,9 +6,6 @@ To generate forecasts, run
 The code is divided into sections for US state-level forecasts and global country-level forecasts that can be individually run
 Population data , travel data, and country names are included here. COVID-19 related data is pulled from https://github.com/CSSEGISandData/COVID-19
 
-### Visualizing Reported Cases in Matlab
-
-Run live script `plot_gen.mlx` to visualize forecasts instead of writing forecasts in files.
 
 ### Visualizing Reported Cases in Matlab
 

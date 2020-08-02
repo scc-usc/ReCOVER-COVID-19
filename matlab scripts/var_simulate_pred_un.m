@@ -51,6 +51,7 @@ if length(F) <= 1    % Optimized code when mobility not considered
             end
             Xt = [S*Ikt; 0];
             yt = sum(beta_all_cell{j}'*Xt);
+            yt(yt < 0) = 0;
             lastinfec = lastinfec + yt;
             infec(j, t) = lastinfec;
             Ikt1 = [Ikt1 yt];

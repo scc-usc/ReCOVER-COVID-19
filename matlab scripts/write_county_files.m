@@ -31,8 +31,7 @@ T_full = size(data_4, 2);
 reference_day = 64; % reference day for "released"
 horizon = 100;
 dhorizon = 100;
-smooth_factor = 7;
-smooth_factor = 7;
+smooth_factor = 14;
 data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4')', smooth_factor, 2), 2)];
 deaths_s = [deaths(:, 1) cumsum(movmean(diff(deaths')', smooth_factor, 2), 2)];
 
