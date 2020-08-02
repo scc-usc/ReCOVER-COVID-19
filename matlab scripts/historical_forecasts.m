@@ -1,6 +1,6 @@
 %%% Must run the appropriate data loading script first
 %% Setup
-daynums = 100:1:183;
+daynums = 100:1:size(data_4, 2);
 path = '../results/historical_forecasts/';
 smooth_factor = 7;
 dalpha = 1;
@@ -8,7 +8,7 @@ un = 20;
 horizon = 100; % days of predcitions
 dhorizon = horizon;
 passengerFlow = 0;
-
+ihme_countries = readcell(['ihme_' prefix '.txt']);
 %% Compute for all days
 
 for day_idx = 1:length(daynums)
@@ -43,8 +43,8 @@ for day_idx = 1:length(daynums)
     
     lowidx = popu < 1; % No lowidx
     
-    writetable(infec2table(infec_un, countries, lowidx, forecast_date), [fullpath '/' prefix '_forecasts_cases.csv']);
-    writetable(infec2table(pred_deaths, countries, lowidx, forecast_date), [fullpath '/' prefix '_forecasts_deaths.csv']);
+    writetable(infec2table([base_infec infec_un], ihme_countries, lowidx, forecast_date-1, 1, 1), [fullpath '/' prefix '_forecasts_cases.csv']);
+    writetable(infec2table([base_deaths pred_deaths], ihme_countries, lowidx, forecast_date-1, 1, 1), [fullpath '/' prefix '_forecasts_deaths.csv']);
     
     disp(['Finished for day' dirname]);
 end
