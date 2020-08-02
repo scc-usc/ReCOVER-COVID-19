@@ -4,7 +4,7 @@ import csv
 import urllib.request
 import io
 
-FORECAST_DATE = datetime.datetime(2020, 7, 26)
+FORECAST_DATE = datetime.datetime(2020, 7, 27)
 FIRST_WEEK = datetime.datetime(2020, 8, 1)
 INPUT_FILENAME_STATE = "us_deaths_quarantine_20.csv"
 INPUT_FILENAME_GLOBAL = "global_deaths_quarantine_20.csv"

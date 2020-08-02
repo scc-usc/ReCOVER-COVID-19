@@ -4,7 +4,7 @@ import csv
 import urllib.request
 import io
 
-FORECAST_DATE = datetime.datetime(2020, 7, 26)
+FORECAST_DATE = datetime.datetime(2020, 7, 27)
 FIRST_WEEK = datetime.datetime(2020, 8, 1)
 INPUT_FILENAME_STATE = "us_forecasts_quarantine_20.csv"
 INPUT_FILENAME_GLOBAL = "global_forecasts_quarantine_20.csv"
@@ -53,6 +53,38 @@ def load_id_state_mapping():
             id_state_mapping[state_id] = state_name
         
         return id_state_mapping
+
+
+def load_truth_cumulative_cases():
+    dataset = {}
+    URL = "https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-truth/truth-Cumulative%20Cases.csv"
+
+    f = io.StringIO(urllib.request.urlopen(URL).read().decode('utf-8'))
+    reader = csv.reader(f)
+    header = next(reader, None)
+
+    location_col = -1
+    date_col = -1
+    value_col = -1
+
+    for i in range(0, len(header)):
+        if (header[i] == "location"):
+            location_col = i
+        elif (header[i] == "date"):
+            date_col = i
+        elif (header[i] == "value"):
+            value_col = i
+
+    for row in reader:
+        state_id = row[location_col]
+        date = row[date_col]
+        val = int(row[value_col])
+        if date not in dataset:
+            dataset[date] = {}
+                
+        dataset[date][state_id] = val
+
+    return dataset
 
 
 def load_csv(input_filename_state, input_filename_global):
@@ -133,9 +165,10 @@ def generate_new_row(forecast_date, target, target_end_date,
 
 
 
-def add_to_dataframe(dataframe, forecast):
+def add_to_dataframe(dataframe, forecast, observed):
     """
-    Given dataframe and forecast, generate a pandas dataframe of incident cases.
+    Given a dataframe, forecast, and observed data, 
+    generate a pandas dataframe of incident cases.
     """
     # Write incident forecasts.
     cum_week = 0
@@ -152,26 +185,26 @@ def add_to_dataframe(dataframe, forecast):
 
         if target_end_date >= FIRST_WEEK and target_end_date.weekday() == 5:
             cum_week += 1
-            for state_id in forecast[target_end_date_str].keys():
-                target = str(cum_week) + " wk ahead inc case"
-                last_week_date = target_end_date - datetime.timedelta(7)
-                last_week_date_str = last_week_date.strftime("%Y-%m-%d")
+            target = str(cum_week) + " wk ahead inc case"
+            last_week_date = target_end_date - datetime.timedelta(7)
+            last_week_date_str = last_week_date.strftime("%Y-%m-%d")
+
+            if last_week_date_str in observed:
+                for state_id in forecast[target_end_date_str].keys():
+                    dataframe = dataframe.append(
+                        generate_new_row(
+                            forecast_date=forecast_date_str,
+                            target=target,
+                            target_end_date=target_end_date_str,
+                            location=str(state_id),
+                            type="point",
+                            quantile="NA",
+                            value=forecast[target_end_date_str][state_id]-observed[last_week_date_str][state_id]
+                        ), ignore_index=True)
+            
                 
-                # Skip the first week incident cases.
-                if target_end_date == FIRST_WEEK:
-                    continue
-                    # dataframe = dataframe.append(
-                    #    generate_new_row(
-                    #        forecast_date=forecast_date_str,
-                    #        target=target,
-                    #        target_end_date=target_end_date_str,
-                    #        location=str(state_id),
-                    #        type="point",
-                    #        quantile="NA",
-                    #        value=forecast[target_end_date_str][state_id]-forecast[forecast_date_str][state_id]
-                    #    ), ignore_index=True)
-                
-                elif last_week_date_str in forecast and state_id in forecast[last_week_date_str]:
+            elif last_week_date_str in forecast:
+                for state_id in forecast[target_end_date_str].keys():
                     dataframe = dataframe.append(
                         generate_new_row(
                             forecast_date=forecast_date_str,
@@ -185,15 +218,15 @@ def add_to_dataframe(dataframe, forecast):
 
     return dataframe
 
-
 # Main function
 if __name__ == "__main__":
     STATE_ID_MAPPING = load_state_id_mapping()
     ID_STATE_MAPPING = load_id_state_mapping()
     print("loading forecast...")
     forecast = load_csv(INPUT_FILENAME_STATE, INPUT_FILENAME_GLOBAL)
+    observed = load_truth_cumulative_cases()
     dataframe = pd.read_csv(OUTPUT_FILENAME, na_filter=False)
-    dataframe = add_to_dataframe(dataframe, forecast)
+    dataframe = add_to_dataframe(dataframe, forecast, observed)
     print("writing files...")
     dataframe.to_csv(OUTPUT_FILENAME, index=False)
     print("done")
