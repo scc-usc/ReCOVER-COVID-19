@@ -1,13 +1,2 @@
-2020-05-10-CU-select.csv
-2020-05-17-CU-select.csv
-2020-05-24-CU-select.csv
-2020-05-31-CU-select.csv
-2020-06-07-CU-select.csv
-2020-06-14-CU-select.csv
-2020-06-21-CU-select.csv
-2020-05-17-JHU_IDD-CovidSP.csv
-2020-05-24-JHU_IDD-CovidSP.csv
-2020-05-31-JHU_IDD-CovidSP.csv
-2020-06-07-JHU_IDD-CovidSP.csv
-2020-06-14-JHU_IDD-CovidSP.csv
-2020-06-21-JHU_IDD-CovidSP.csv
+2020-07-26-CU-select.csv2020-07-19-CU-select.csv
+2020-07-19-JHU_IDD-CovidSP.csv2020-07-26-JHU_IDD-CovidSP.csv
