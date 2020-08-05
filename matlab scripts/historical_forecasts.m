@@ -1,6 +1,7 @@
 %%% Must run the appropriate data loading script first
 %% Setup
 daynums = 100:1:size(data_4, 2);
+%daynums = size(data_4, 2)-10:1:size(data_4, 2);
 path = '../results/historical_forecasts/';
 smooth_factor = 7;
 dalpha = 1;
@@ -22,8 +23,9 @@ for day_idx = 1:length(daynums)
     end
     
     T_full = thisday;
-    data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4(:, 1:T_full)')', smooth_factor, 2), 2)];
-    deaths_s = [deaths(:, 1) cumsum(movmean(diff(deaths(:, 1:T_full)')', smooth_factor, 2), 2)];
+    smooth_factor = 14;
+    data_4_s = smooth_epidata(data_4(:, 1:T_full), smooth_factor);
+    deaths_s = smooth_epidata(deaths(:, 1:T_full), smooth_factor);
     
     [best_param_list] = hyperparam_tuning(data_4(:, 1:T_full), data_4_s, popu, 0, 20, T_full);
     [best_death_hyperparam, one_hyperparam] = death_hyperparams(deaths(:, 1:T_full), data_4_s, deaths_s, T_full, 7, popu, 0, best_param_list, 20);
@@ -35,7 +37,8 @@ for day_idx = 1:length(daynums)
     beta_after = var_ind_beta_un(data_4_s(:, 1:T_full), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2));
     infec_un = var_simulate_pred_un(data_4_s(:, 1:T_full), passengerFlow*0, beta_after, popu, best_param_list(:, 1), horizon, best_param_list(:, 2), un, base_infec);
     
-    infec_data = [data_4_s(:, 1:T_full), infec_un];
+    infec_un_re = infec_un - repmat(base_infec - data_4_s(:, T_full), [1, size(infec_un, 2)]);
+    infec_data = [data_4_s(:, 1:T_full), infec_un_re];
     base_deaths = deaths(:, T_full);
     
     [death_rates] = var_ind_deaths(data_4_s, deaths_s, dalpha, dk, djp, dwin);

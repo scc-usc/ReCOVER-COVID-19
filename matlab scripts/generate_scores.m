@@ -14,8 +14,8 @@ skip_length = 7;
 horizon = 7; % Same as validation
 un = 20;
 dalpha = 1;
-saved_days = 178; % Set it to higher number to avoid recomputing hypoerparameters from the beginning
-start_day = 53;
+saved_days = 0; % Set it to higher number to avoid recomputing hypoerparameters from the beginning
+start_day = 52;
 
 %%
 

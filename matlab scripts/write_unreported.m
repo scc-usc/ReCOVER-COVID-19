@@ -9,7 +9,7 @@ passengerFlow = 0; % No travel considered
 
 %% Identify best and worst infection rates from the past
 % Assumes that "generate_score" is run once a week
-start_day = 53; skip_length = 7;
+start_day = 52; skip_length = 7;
 [beta_best, beta_worst, param_best, param_worst, Rt_mat] = best_and_worst((start_day:skip_length:(size(data_4, 2))-2), prefix);
 %%
 base_infec = data_4(:, T_full);
