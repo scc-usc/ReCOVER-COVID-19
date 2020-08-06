@@ -40,8 +40,6 @@ class Covid19Predict extends PureComponent {
   handleStatisticSelect = e => {
     this.setState({
       statistic: e.target.value
-    }, () => {
-      this.reloadAll();
     });
 
   };

@@ -159,10 +159,11 @@ class ScorePage extends PureComponent{
     }
 
     onWeeksChange(weeks) {
-        this.setState({ weeks });
-        if (this.state.dynamicMapOn) {
-            this.map.fetchData(this.state.dynamicMapOn);
-        }
+        this.setState({ weeks }, ()=>{
+            if (this.state.dynamicMapOn) {
+                this.map.fetchData(this.state.dynamicMapOn);
+            }    
+        });
     }
 
     bindRef = ref => { 
