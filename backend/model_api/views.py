@@ -120,8 +120,9 @@ def predict(request):
     days = int(request.query_params.get("days"))
 
     true_vals = ['True', 'true']
-    distancing_on = request.query_params.get("distancingOn", None) in true_vals
-    distancing_off = request.query_params.get("distancingOff", None) in true_vals
+    current = request.query_params.get("current", None) in true_vals
+    worst_effort = request.query_params.get("worst_effort", None) in true_vals
+    best_effort = request.query_params.get("best_effort", None) in true_vals
 
     # Get the models from the URl query parameters.
     # Django expects it to be of the form: 'models=foo&models=bar&...'
@@ -173,10 +174,10 @@ def predict(request):
         if model_name[:10] == "SI-kJalpha":
             print(model_name + " (death prediction)")
             model_death = Covid19Model.objects.get(name=model_name + " (death prediction)")
-        if distancing_on:
+        if current:
             qs = Covid19PredictionDataPoint.objects.filter(
                 model=model,
-                social_distancing=True,
+                social_distancing=1,
                 area=area,
                 date__range=(prediction_start_date, prediction_end_date)
             )
@@ -184,7 +185,7 @@ def predict(request):
             if model_death:
                 qs_death = Covid19PredictionDataPoint.objects.filter(
                         model=model_death,
-                        social_distancing=True,
+                        social_distancing=1,
                         area=area,
                         date__range=(prediction_start_date, prediction_end_date)
                 )
@@ -194,7 +195,7 @@ def predict(request):
                     "name": model.name,
                     "description": model.description
                 },
-                "distancing": True,
+                "distancing": "current",
                 "time_series": [{
                     "date": d.date,
                     "value": d.val,
@@ -207,17 +208,17 @@ def predict(request):
                         "name": model_death.name,
                         "description": model_death.description
                     },
-                    "distancing": True,
+                    "distancing": current,
                     "time_series": [{
                         "date": d.date,
                         "value": d.val,
                     } for d in qs_death]
                 })
 
-        if distancing_off:
+        if worst_effort:
             qs = Covid19PredictionDataPoint.objects.filter(
                 model=model,
-                social_distancing=False,
+                social_distancing=0,
                 area=area,
                 date__range=(prediction_start_date, prediction_end_date)
             )
@@ -225,7 +226,7 @@ def predict(request):
             if model_death:
                 qs_death = Covid19PredictionDataPoint.objects.filter(
                     model=model_death,
-                    social_distancing=False,
+                    social_distancing=0,
                     area=area,
                     date__range=(prediction_start_date, prediction_end_date)
                 )
@@ -235,7 +236,7 @@ def predict(request):
                     "name": model.name,
                     "description": model.description
                 },
-                "distancing": False,
+                "distancing": "worst_effort",
                 "time_series": [{
                     "date": d.date,
                     "value": d.val,
@@ -248,12 +249,54 @@ def predict(request):
                         "name": model_death.name,
                         "description": model_death.description
                     },
-                    "distancing": False,
+                    "distancing": "worst_effort",
                     "time_series": [{
                         "date": d.date,
                         "value": d.val,
                     } for d in qs_death]
                 })
+
+        if best_effort:
+            qs = Covid19PredictionDataPoint.objects.filter(
+                model=model,
+                social_distancing=2,
+                area=area,
+                date__range=(prediction_start_date, prediction_end_date)
+            )
+
+            if model_death:
+                qs_death = Covid19PredictionDataPoint.objects.filter(
+                    model=model_death,
+                    social_distancing=2,
+                    area=area,
+                    date__range=(prediction_start_date, prediction_end_date)
+                )
+
+            response["predictions"].append({
+                "model": {
+                    "name": model.name,
+                    "description": model.description
+                },
+                "distancing": "best_effort",
+                "time_series": [{
+                    "date": d.date,
+                    "value": d.val,
+                } for d in qs]
+            })
+
+            if model_death:
+                response["predictions"].append({
+                    "model": {
+                        "name": model_death.name,
+                        "description": model_death.description
+                    },
+                    "distancing": "best_effort",
+                    "time_series": [{
+                        "date": d.date,
+                        "value": d.val,
+                    } for d in qs_death]
+                })
+
 
     return Response(response)
 

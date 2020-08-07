@@ -321,13 +321,13 @@ class Covid19Graph extends Component {
               // line patterns differently between yes/no social distancing.
               distancing: distancing
             });
-            if (idx <= 2)
+            if (idx <= 4)
             {
-              colors.push(lineColor[4+idx*2]);
+              colors.push(lineColor[4+idx]);
             }
-            else if (idx <= 4)
+            else if (idx <= 8)
             {
-              colors.push(lineColor[8 - idx*2]);
+              colors.push(lineColor[8 - idx]);
 
             }
             else 
