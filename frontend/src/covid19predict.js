@@ -67,8 +67,9 @@ class Covid19Predict extends PureComponent {
       modelsList: [],
       currentDate: "",
       firstDate: "",
-      distancingOn: true,
-      distancingOff: false,
+      current: true,
+      worst_effort: false,
+      best_effort: false,
       mainGraphData: {},
       days: 14,
       dynamicMapOn: false,
@@ -163,8 +164,9 @@ class Covid19Predict extends PureComponent {
               country: areaObj.country,
               models: this.state.models,
               days: this.state.days,
-              distancingOn: this.state.distancingOn,
-              distancingOff: this.state.distancingOff
+              current: this.state.current,
+              worst_effort: this.state.worst_effort,
+              best_effort: this.state.best_effort
             },
             data => {
               this.setState(prevState => ({
@@ -243,8 +245,9 @@ class Covid19Predict extends PureComponent {
       // predict here (see onDaysToPredictChange).
       this.setState(
         {
-          distancingOn: allValues.socialDistancing.includes("distancingOn"),
-          distancingOff: allValues.socialDistancing.includes("distancingOff")
+          current: allValues.socialDistancing.includes("current"),
+          worst_effort: allValues.socialDistancing.includes("worst_effort"),
+          best_effort: allValues.socialDistancing.includes("best_effort"),
         },
         () => {
           this.reloadAll();
@@ -465,7 +468,7 @@ class Covid19Predict extends PureComponent {
                 areas: areas,
                 models: models,
                 days: 14,
-                socialDistancing: ["distancingOn"]
+                socialDistancing: ["current"]
               }}
             >
               <Form.Item
@@ -519,13 +522,20 @@ class Covid19Predict extends PureComponent {
                 placement="topLeft"
               >
               <Form.Item label="Social Distancing" name="socialDistancing">
-                <Checkbox.Group>
-                  <Checkbox defaultChecked value="distancingOn">
+                <Checkbox.Group style={{ width: '100%' }}>
+                  <Row>
+                  <Checkbox defaultChecked value="current">
                     Current Trend
                   </Checkbox>
-                  <Checkbox value="distancingOff"> 
-                    Social Distancing Off
+                  <Checkbox value="worst_effort"> 
+                    Worst Distancing Effort
                   </Checkbox>
+                  </Row>
+                  <Row>
+                  <Checkbox value="best_effort"> 
+                    Best Distancing Effort
+                  </Checkbox>
+                  </Row>
                 </Checkbox.Group>
               </Form.Item>
               </Popover>

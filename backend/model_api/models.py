@@ -64,7 +64,7 @@ class Covid19DeathDataPoint(models.Model):
 
 class Covid19PredictionDataPoint(models.Model):
     model = models.ForeignKey(Covid19Model, on_delete=models.CASCADE)
-    social_distancing = models.BooleanField()
+    social_distancing = models.IntegerField()
 
     area = models.ForeignKey(Area, on_delete=models.CASCADE)
     date = models.DateField()

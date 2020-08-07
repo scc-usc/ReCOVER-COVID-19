@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
             name='Covid19PredictionDataPoint',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('social_distancing', models.BooleanField()),
+                ('social_distancing', models.IntegerField()),
                 ('date', models.DateField()),
                 ('val', models.PositiveIntegerField()),
                 ('area', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='model_api.Area')),

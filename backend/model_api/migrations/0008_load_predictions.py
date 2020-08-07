@@ -11,10 +11,12 @@ class StaticModel:
     def __init__(self,
                  quarantined_prediction_paths: List[str],
                  released_prediction_paths: List[str],
+                 restricted_prediction_paths: List[str],
                  name: str,
                  description: str = ""):
         self.quarantined_prediction_paths = quarantined_prediction_paths
         self.released_prediction_paths = released_prediction_paths
+        self.restricted_prediction_paths = restricted_prediction_paths
         self.name = name
         self.description = description
 
@@ -29,6 +31,10 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_1.csv",
             "../results/forecasts/us_forecasts_released_1.csv"
         ],
+        restricted_prediction_paths=[
+            "../results/forecasts/global_forecasts_restricted_1.csv",
+            "../results/forecasts/us_forecasts_restricted_1.csv"
+        ],
         name="SI-kJalpha - No under-reported positive cases",
         description="The default version of the SI-kJalpha model, with no assumptions about under-reporting."
     ),
@@ -40,6 +46,10 @@ STATIC_MODELS = [
         released_prediction_paths=[
             "../results/forecasts/global_forecasts_released_2.csv",
             "../results/forecasts/us_forecasts_released_2.csv"
+        ],
+        restricted_prediction_paths=[
+            "../results/forecasts/global_forecasts_restricted_2.csv",
+            "../results/forecasts/us_forecasts_restricted_2.csv"
         ],
         name="SI-kJalpha - 2x under-reported positive cases",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 2x."
@@ -53,6 +63,10 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_5.csv",
             "../results/forecasts/us_forecasts_released_5.csv"
         ],
+        restricted_prediction_paths=[
+            "../results/forecasts/global_forecasts_restricted_5.csv",
+            "../results/forecasts/us_forecasts_restricted_5.csv"
+        ],
         name="SI-kJalpha - 5x under-reported positive cases",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 5x."
     ),
@@ -64,6 +78,10 @@ STATIC_MODELS = [
         released_prediction_paths=[
             "../results/forecasts/global_forecasts_released_10.csv",
             "../results/forecasts/us_forecasts_released_10.csv"
+        ],
+        restricted_prediction_paths=[
+            "../results/forecasts/global_forecasts_restricted_10.csv",
+            "../results/forecasts/us_forecasts_restricted_10.csv"
         ],
         name="SI-kJalpha - 10x under-reported positive cases",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 10x."
@@ -77,6 +95,10 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_released_20.csv",
             "../results/forecasts/us_forecasts_released_20.csv"
         ],
+        restricted_prediction_paths=[
+            "../results/forecasts/global_forecasts_restricted_20.csv",
+            "../results/forecasts/us_forecasts_restricted_20.csv"
+        ],
         name="SI-kJalpha - 20x under-reported positive cases",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 20x."
     ),
@@ -88,6 +110,10 @@ STATIC_MODELS = [
         released_prediction_paths=[
             "../results/forecasts/global_forecasts_released_40.csv",
             "../results/forecasts/us_forecasts_released_40.csv"
+        ],
+        restricted_prediction_paths=[
+            "../results/forecasts/global_forecasts_restricted_40.csv",
+            "../results/forecasts/us_forecasts_restricted_40.csv"
         ],
         name="SI-kJalpha - 40x under-reported positive cases",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 40x."
@@ -104,6 +130,10 @@ STATIC_DEATH_MODELS = [
             "../results/forecasts/global_deaths_released_1.csv",
             "../results/forecasts/us_deaths_released_1.csv"
         ],
+        restricted_prediction_paths=[
+            "../results/forecasts/global_deaths_restricted_1.csv",
+            "../results/forecasts/us_deaths_restricted_1.csv"
+        ],
         name="SI-kJalpha - No under-reported positive cases (death prediction)",
         description="The SI-kJalpha model with no assumptions about under-reporting positive cases."
     ),
@@ -116,6 +146,10 @@ STATIC_DEATH_MODELS = [
         released_prediction_paths=[
             "../results/forecasts/global_deaths_released_2.csv",
             "../results/forecasts/us_deaths_released_2.csv"
+        ],
+        restricted_prediction_paths=[
+            "../results/forecasts/global_deaths_restricted_2.csv",
+            "../results/forecasts/us_deaths_restricted_2.csv"
         ],
         name="SI-kJalpha - 2x under-reported positive cases (death prediction)",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 2x."
@@ -130,6 +164,10 @@ STATIC_DEATH_MODELS = [
             "../results/forecasts/global_deaths_released_5.csv",
             "../results/forecasts/us_deaths_released_5.csv"
         ],
+        restricted_prediction_paths=[
+            "../results/forecasts/global_deaths_restricted_5.csv",
+            "../results/forecasts/us_deaths_restricted_5.csv"
+        ],
         name="SI-kJalpha - 5x under-reported positive cases (death prediction)",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 5x."
     ),
@@ -142,6 +180,10 @@ STATIC_DEATH_MODELS = [
         released_prediction_paths=[
             "../results/forecasts/global_deaths_released_10.csv",
             "../results/forecasts/us_deaths_released_10.csv"
+        ],
+        restricted_prediction_paths=[
+            "../results/forecasts/global_deaths_restricted_10.csv",
+            "../results/forecasts/us_deaths_restricted_10.csv"
         ],
         name="SI-kJalpha - 10x under-reported positive cases (death prediction)",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 10x."
@@ -156,6 +198,10 @@ STATIC_DEATH_MODELS = [
             "../results/forecasts/global_deaths_released_20.csv",
             "../results/forecasts/us_deaths_released_20.csv"
         ],
+        restricted_prediction_paths=[
+            "../results/forecasts/global_deaths_restricted_20.csv",
+            "../results/forecasts/us_deaths_restricted_20.csv"
+        ],
         name="SI-kJalpha - 20x under-reported positive cases (death prediction)",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 20x."
     ),
@@ -168,6 +214,10 @@ STATIC_DEATH_MODELS = [
         released_prediction_paths=[
             "../results/forecasts/global_deaths_released_40.csv",
             "../results/forecasts/us_deaths_released_40.csv"
+        ],
+        restricted_prediction_paths=[
+            "../results/forecasts/global_deaths_restricted_40.csv",
+            "../results/forecasts/us_deaths_restricted_40.csv"
         ],
         name="SI-kJalpha - 40x under-reported positive cases (death prediction)",
         description="The SI-kJalpha model with the assumption that observed deaths are under-reported by 40x."
@@ -275,7 +325,7 @@ def load_covid19_predictions(apps, schema_editor):
             # Update additional params and write to database.
             for p in new_predictions:
                 p.model = covid19_model
-                p.social_distancing = True
+                p.social_distancing = 1
                 p.save()
 
         # Load released predictions.
@@ -284,7 +334,16 @@ def load_covid19_predictions(apps, schema_editor):
             # Update additional params and write to database.
             for p in new_predictions:
                 p.model = covid19_model
-                p.social_distancing = False
+                p.social_distancing = 0
+                p.save()
+
+        # Load restricted predictions.
+        for path in static_model.restricted_prediction_paths:
+            new_predictions = load_csv(apps, path)
+            # Update additional params and write to database.
+            for p in new_predictions:
+                p.model = covid19_model
+                p.social_distancing = 2
                 p.save()
 
     for static_model in STATIC_DEATH_MODELS:
@@ -302,7 +361,7 @@ def load_covid19_predictions(apps, schema_editor):
             # Update additional params and write to database.
             for p in new_predictions:
                 p.model = covid19_model
-                p.social_distancing = True
+                p.social_distancing = 1
                 p.save()
 
         # Load released predictions.
@@ -311,7 +370,16 @@ def load_covid19_predictions(apps, schema_editor):
             # Update additional params and write to database.
             for p in new_predictions:
                 p.model = covid19_model
-                p.social_distancing = False
+                p.social_distancing = 0
+                p.save()
+
+        #Load restricted predictions
+        for path in static_model.restricted_prediction_paths:
+            new_predictions = load_csv(apps, path)
+            # Update additional params and write to database.
+            for p in new_predictions:
+                p.model = covid19_model
+                p.social_distancing = 2
                 p.save()
 
 
