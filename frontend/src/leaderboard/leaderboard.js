@@ -9,63 +9,63 @@ import all_graph from "./img/all_graph.png"
 
 const data = {
     jhu: {
-        runningAvgRankings: [
+runningAvgRankings: [
     {
      model: {
  name: "SIkJa_USC",
  description: "This is our SI-kJalpha model.",
  link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
 },
- RMSE: 38.93
+ RMSE: 39.3
 },  {
      model: {
  name: "YYG_ParamSearch",
  description: "Based on the SEIR model to make daily projections regarding COVID-19 infections and deaths in 50 US states. The model's contributor is Youyang Gu.",
  link: "http://covid19-projections.com/about/"
 },
- RMSE: 39.17
+ RMSE: 39.87
 },  {
      model: {
  name: "Covid19Sim_Simulator",
  description: "An interactive tool developed by researchers at Mass General Hospital, Harvard Medical School, Georgia Tech and Boston Medical Center.",
  link: "https://covid19sim.org/"
 },
- RMSE: 55.51
+ RMSE: 59.42
 },  {
      model: {
  name: "UCLA_SuEIR",
  description: "SEIR model by UCLA Statistical Machine Learning Lab.",
  link: "https://covid19.uclaml.org/"
 },
- RMSE: 69.87
+ RMSE: 68.37
 },  {
      model: {
  name: "CU_select",
  description: "A metapopulation county-level SEIR model by Columbia University.",
  link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
 },
- RMSE: 78.26
+ RMSE: 75.92
 },  {
      model: {
  name: "JHU_IDD_CovidSP",
  description: "County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
  link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
 },
- RMSE: 96.49
+ RMSE: 92.72
 },  {
      model: {
  name: "IowaStateLW_STEM",
  description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
  link: "https://covid19.stat.iastate.edu"
 },
- RMSE: 98.01
+ RMSE: 95.26
 },  {
      model: {
  name: "CovidActNow_SEIR_CAN",
  description: "SEIR model by the CovidActNow research team.",
  link: "https://covidactnow.org/"
 },
- RMSE: 111.19
+ RMSE: 110.36
 },],
 recentRankings: [
     {
@@ -74,49 +74,49 @@ recentRankings: [
  description: "This is our SI-kJalpha model.",
  link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
 },
- RMSE: 42.01
+ RMSE: 38.08
 },  {
      model: {
  name: "YYG_ParamSearch",
  description: "Based on the SEIR model to make daily projections regarding COVID-19 infections and deaths in 50 US states. The model's contributor is Youyang Gu.",
  link: "http://covid19-projections.com/about/"
 },
- RMSE: 44.7
+ RMSE: 40.29
 },  {
      model: {
  name: "UCLA_SuEIR",
  description: "SEIR model by UCLA Statistical Machine Learning Lab.",
  link: "https://covid19.uclaml.org/"
 },
- RMSE: 56.28
-},  {
-     model: {
- name: "Covid19Sim_Simulator",
- description: "An interactive tool developed by researchers at Mass General Hospital, Harvard Medical School, Georgia Tech and Boston Medical Center.",
- link: "https://covid19sim.org/"
-},
- RMSE: 59.59
+ RMSE: 42.79
 },  {
      model: {
  name: "JHU_IDD_CovidSP",
  description: "County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
  link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
 },
- RMSE: 64.11
+ RMSE: 55.01
 },  {
      model: {
  name: "CU_select",
  description: "A metapopulation county-level SEIR model by Columbia University.",
  link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
 },
- RMSE: 65.45
+ RMSE: 55.22
 },  {
      model: {
  name: "IowaStateLW_STEM",
  description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
  link: "https://covid19.stat.iastate.edu"
 },
- RMSE: 71.28
+ RMSE: 56.13
+},  {
+     model: {
+ name: "Covid19Sim_Simulator",
+ description: "An interactive tool developed by researchers at Mass General Hospital, Harvard Medical School, Georgia Tech and Boston Medical Center.",
+ link: "https://covid19sim.org/"
+},
+ RMSE: 82.57
 },  {
      model: {
  name: "CovidActNow_SEIR_CAN",
