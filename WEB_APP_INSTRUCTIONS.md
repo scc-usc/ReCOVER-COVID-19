@@ -61,7 +61,7 @@ After the backend server and frontend page has been running locally. Please exam
 ## Deployment: Deploy the updates to the public website.
 1. Push your commits to the GitHub repository.
 
-2. Navigate to `backend/` directory, run the following script to deploy backend changes to the heroku servers:
+2. Navigate to the parent directory, run the following script to deploy backend changes to the heroku servers:
     ```
     git subtree push --prefix backend heroku master
     ```
