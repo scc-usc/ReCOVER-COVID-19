@@ -1,4 +1,4 @@
-2020-07-19-UCLA-SuEIR.csv2020-07-26-UCLA-SuEIR.csv
-2020-07-26-YYG-ParamSearch.csv2020-07-19-YYG-ParamSearch.csv
-2020-07-19-Covid19Sim-Simulator.csv2020-07-26-Covid19Sim-Simulator.csv
-2020-07-26-USC-SI_kJalpha.csv2020-07-19-USC-SI_kJalpha.csv
+2020-08-02-UCLA-SuEIR.csv2020-08-09-UCLA-SuEIR.csv
+2020-08-09-YYG-ParamSearch.csv2020-08-02-YYG-ParamSearch.csv
+2020-08-02-Covid19Sim-Simulator.csv
+2020-08-09-USC-SI_kJalpha.csv2020-08-02-USC-SI_kJalpha.csv
