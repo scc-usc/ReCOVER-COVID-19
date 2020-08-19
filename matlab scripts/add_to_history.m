@@ -10,7 +10,12 @@ if ~exist(fullpath, 'dir')
     mkdir(fullpath);
 end
 
-ihme_countries = readcell(['ihme_' prefix '.txt']);
+if strcmpi(prefix, 'us') || strcmpi(prefix, 'global')
+    ihme_countries = readcell(['ihme_' prefix '.txt']);
+else
+    ihme_countries = countries;
+end
+
 lowidx = popu < 1; % No lowidx
 base_infec = data_4(:, T_full); base_deaths = deaths(:, T_full);
 writetable(infec2table([base_infec infec_un_20], ihme_countries, lowidx, forecast_date-1, 1, 1), [fullpath '/' prefix '_forecasts_cases.csv']);

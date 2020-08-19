@@ -21,8 +21,8 @@ for cidx = 1:length(countries)
     end
     data_4(cidx, :) = sum(vals(idx, :), 1);
     idx = find(idx);
-    lats(cidx) = double(tableConfirmed.Lat(idx(1)));
-    longs(cidx) = double(tableConfirmed.Long_(idx(1)));
+    lats(cidx) = mean(double(tableConfirmed.Lat(idx)));
+    longs(cidx) = mean(double(tableConfirmed.Long_(idx)));
 end
 
 %% Extract deaths from JHU data

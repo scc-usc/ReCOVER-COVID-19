@@ -5,8 +5,7 @@ function tt = infec2table(infec, countries, lowidx, start_date, skip_days, first
         lowidx = zeros(length(countries), 1);
     end
     if nargin < 4
-        start_date = datetime((now),'ConvertFrom','datenum', 'TimeZone', 'UTC');
-        start_date.TimeZone = 'America/Los_Angeles';
+        start_date = datetime((now),'ConvertFrom','datenum', 'TimeZone', 'America/Los_Angeles');
     end
     if nargin < 5
         skip_days = 7;

@@ -9,7 +9,12 @@ un = 20;
 horizon = 100; % days of predcitions
 dhorizon = horizon;
 passengerFlow = 0;
-ihme_countries = readcell(['ihme_' prefix '.txt']);
+
+if strcmpi(prefix, 'us') || strcmpi(prefix, 'global')
+    ihme_countries = readcell(['ihme_' prefix '.txt']);
+else
+    ihme_countries = countries;
+end
 %% Compute for all days
 
 for day_idx = 1:length(daynums)
