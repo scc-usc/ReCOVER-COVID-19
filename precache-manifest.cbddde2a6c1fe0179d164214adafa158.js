@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b6813400ccceeb82ff7145b0d91579d6",
+    "revision": "e10452a2efd81abfe87f53227246b6ff",
     "url": "/ReCOVER-COVID-19/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/css/3.fca20ba5.chunk.css"
   },
   {
-    "revision": "f05b2bf04a70ba898e30",
+    "revision": "2a95120d782cf3239d48",
     "url": "/ReCOVER-COVID-19/static/css/main.304c7e20.chunk.css"
   },
   {
@@ -36,8 +36,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/js/6.63931b19.chunk.js"
   },
   {
-    "revision": "f05b2bf04a70ba898e30",
-    "url": "/ReCOVER-COVID-19/static/js/main.7c5dca71.chunk.js"
+    "revision": "2a95120d782cf3239d48",
+    "url": "/ReCOVER-COVID-19/static/js/main.4a83ea95.chunk.js"
   },
   {
     "revision": "ce2a065889b99cb00724",
@@ -48,8 +48,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/js/xlsx.9ba8a60c.chunk.js"
   },
   {
-    "revision": "c40652ede13509661a61eac55f774b80",
-    "url": "/ReCOVER-COVID-19/static/media/all_graph.c40652ed.png"
+    "revision": "7ce2764d5c7730c5dc0353fefa759409",
+    "url": "/ReCOVER-COVID-19/static/media/all_graph.7ce2764d.png"
   },
   {
     "revision": "13db00b7a34fee4d819ab7f9838cc428",
