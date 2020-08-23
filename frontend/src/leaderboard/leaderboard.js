@@ -176,7 +176,7 @@ class Leaderboard extends Component {
                             />
                         </Col>
                         <Col span={12}>
-                            <h2 className="title">Recent Performance (from 2020-07-18)</h2>
+                            <h2 className="title">Recent Performance (from 2020-08-09)</h2>
                             <List className="leaderboard"
                                 itemLayout="horizontal"
                                 dataSource={data.jhu.recentRankings}
