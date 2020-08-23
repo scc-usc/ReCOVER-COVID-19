@@ -7,6 +7,11 @@
     flex-flow: column;
 }
 
+.form-wrapper {
+    padding: 20px;
+    width: 90%;
+}
+
 .graph-wrapper{
     height: 45vh;
     width: 100%;

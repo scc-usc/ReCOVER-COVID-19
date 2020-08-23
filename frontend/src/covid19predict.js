@@ -507,211 +507,213 @@ class Covid19Predict extends PureComponent {
     return (
       <div className="covid-19-predict">
         <Row type="flex" justify="space-around">
-        {/* <div className="left-col"> */}
-        <Col span={10}>
-        {noDataError?
-          <Alert
-          message= {`${errorDescription}`}
-          description= "Please wait for our updates."
-          type="error"
-          closable
-          onClose={this.onAlertClose}
-        />: null
-        }
-          <div className="form-wrapper">
-            <Form
-              ref={this.formRef}
-              onValuesChange={this.onValuesChange}
-              initialValues={{
-                areas: areas,
-                models: models,
-                days: 14,
-                socialDistancing: ["current"]
-              }}
-            >
-              <Popover
-                content={CONTROL_INSTRUCTIONS.area}
-                placement="right"
-                visible={this.state.showControlInstructions}>
-                <Form.Item
-                  label="Areas"
-                  name="areas"
-                  rules={[{ required: true, message: "Please select areas!" }]}
+          {noDataError?
+            <Alert
+            message= {`${errorDescription}`}
+            description= "Please wait for our updates."
+            type="error"
+            closable
+            onClose={this.onAlertClose}
+          />: null
+          }
+          <Col span={14}>
+            <Row>
+              <div className="instruction-buttons">
+                <Button
+                    onClick={this.toggleControlInstructions}>
+                    {(this.state.showControlInstructions == false)? "Help with controls" : "Close control instructions"}
+                  </Button>
+              </div>
+            </Row>
+            <Row>
+              <div className="form-wrapper">
+                <Form
+                  ref={this.formRef}
+                  onValuesChange={this.onValuesChange}
+                  initialValues={{
+                    areas: areas,
+                    models: models,
+                    days: 14,
+                    socialDistancing: ["current"]
+                  }}
                 >
-                  <Select
-                    mode="multiple"
-                    style={{ width: "100%" }}
-                    placeholder="Select Areas"
-                  >
-                    {countryOptions}
-                  </Select>
-                </Form.Item>
-              </Popover>
-              <Popover
-                content={CONTROL_INSTRUCTIONS.model}
-                placement="right"
-                visible={this.state.showControlInstructions}>
-                <Form.Item
-                  label="Models:"
-                  name="models"
-                  rules={[
-                    { required: true, message: "Please select a prediction model!" }
-                  ]}
-                >
-                  <Select
-                    mode="multiple"
-                    style={{ width: "100%" }}
-                    placeholder="Select Prediction Models"
-                  >
-                    {modelOptions}
-                  </Select>
-                </Form.Item>
-              </Popover>
-              <Popover
-                content={CONTROL_INSTRUCTIONS.date}
-                placement="right"
-                visible={this.state.showControlInstructions}>
-                <Form.Item
-                  label="Date to Predict"
-                  name="days"
-                  rules={[
-                    { required: true, message: "Please select number of days!" }
-                  ]}
-                >
-                  <Slider
-                    marks={marks}
-                    min={days-30>=-daysToFirstDate?days-30:-daysToFirstDate}
-                    initialValue={days}
-                    max={days+50<=99?days+50:99}
-                    onAfterChange={this.onDaysToPredictChange}
-                    step = {null}
-                  />
-                </Form.Item>
-              </Popover>
-              <Popover 
-                content={CONTROL_INSTRUCTIONS.socialDistancing} 
-                placement="right"
-                visible={this.state.showControlInstructions}>
-                <Form.Item label="Social Distancing" name="socialDistancing">
-                  <Checkbox.Group style={{ width: '100%' }}>
-                    <Row>
-                    <Checkbox defaultChecked value="current">
-                      Current Trend
-                    </Checkbox>
-                    <Checkbox value="worst_effort"> 
-                      Worst Distancing Effort
-                    </Checkbox>
-                    </Row>
-                    <Row>
-                    <Checkbox value="best_effort"> 
-                      Best Distancing Effort
-                    </Checkbox>
-                    </Row>
-                  </Checkbox.Group>
-                </Form.Item>
-              </Popover>
-            </Form>
-            <Form>
-              <Popover
-                content={CONTROL_INSTRUCTIONS.data_type}
-                placement="right"
-                visible={this.state.showControlInstructions}>
-                <Form.Item>
-                  Data Type:&nbsp;&nbsp;  
-                  <Checkbox.Group
-                    defaultValue={['confirmed']}
-                    onChange={this.handleDataTypeSelect}
-                  >
-                    <Checkbox defaultChecked value="confirmed">Confirmed Cases</Checkbox>
-                    <Checkbox value="death">Deaths</Checkbox>
-                  </Checkbox.Group>
-                </Form.Item>
-              </Popover>
-              <Popover
-                content={CONTROL_INSTRUCTIONS.statistics}
-                placement="right"
-                visible={this.state.showControlInstructions}>
-                <Form.Item>
-                  Statistic:&nbsp;&nbsp;  
-                  <Radio.Group
-                    value={statistic}
-                    onChange={this.handleStatisticSelect}
-                  >
-                    <Radio value="cumulative">Cumulative Cases</Radio>
-                    <Radio value="delta">New Cases</Radio>
-                  </Radio.Group>
-                </Form.Item>
-              </Popover>
-              <Popover
-                content={CONTROL_INSTRUCTIONS.scale}
-                placement="right"
-                visible={this.state.showControlInstructions}>
-                <Form.Item>
-                  Scale:&nbsp;&nbsp;  
-                  <Radio.Group value={yScale} onChange={this.handleYScaleSelect}>
-                    <Radio value="linear">linear</Radio>
-                    <Radio value="log">logarithmic</Radio>
-                  </Radio.Group>
-                </Form.Item>
-              </Popover>
-              <Popover
-                content={DYNAMIC_MAP_INSTRUCTION}
-                placement="right"
-                visible={this.state.showControlInstructions}>
-                <Form.Item>
-                  Dynamic Map:&nbsp;&nbsp;  
-                  <Switch 
-                    onChange={this.switchDynamicMap} 
-                  />
-                </Form.Item>
-              </Popover>
-            </Form>
-            <Button
-              onClick={this.toggleControlInstructions}>
-              {(this.state.showControlInstructions == false)? "Show Instructions" : "Close Instructions"}
-            </Button>
-          </div>
-        </Col>
-        <Col span={14}>
-          <div className="map-wrapper">
-            <Covid19Map className="map"
-              triggerRef={this.bindRef}
-              dynamicMapOn={dynamicMapOn}
-              days={days}
-              confirmed_model = {confirmed_model_map}
-              death_model = {death_model_map}
-              onMapClick={this.onMapClick} 
-              onNoData = {this.onNoData}
-              statistic={statistic}
-              dataType = {mapShown}
-            />
-            <Radio.Group
-                value={mapShown}
-                onChange={this.handleMapShownSelect}
-              >
-                <Radio value="confirmed">Show Confirmed Cases</Radio>
-                <Radio value="death">Show Deaths</Radio>
-          </Radio.Group>
-          </div>
-        </Col>
-        </Row>
-        {areas.length?
-          <Row>
-          <Col span={24}>
-          {/* <div className="right-col"> */}
-            <div className="graph-wrapper">
-              <Covid19Graph
-                data={mainGraphData}
-                dataType={dataType}
-                onNoData = {this.onNoData}
-                statistic={statistic}
-                yScale={yScale}
-              ></Covid19Graph>
-            </div>
-          {/* </div> */}
+                  <Popover
+                    content={CONTROL_INSTRUCTIONS.area}
+                    placement="right"
+                    visible={this.state.showControlInstructions}>
+                    <Form.Item
+                      label="Areas"
+                      name="areas"
+                      rules={[{ required: true, message: "Please select areas!" }]}
+                    >
+                      <Select
+                        mode="multiple"
+                        style={{ width: "100%" }}
+                        placeholder="Select Areas"
+                      >
+                        {countryOptions}
+                      </Select>
+                    </Form.Item>
+                  </Popover>
+                  <Popover
+                    content={CONTROL_INSTRUCTIONS.model}
+                    placement="right"
+                    visible={this.state.showControlInstructions}>
+                    <Form.Item
+                      label="Models:"
+                      name="models"
+                      rules={[
+                        { required: true, message: "Please select a prediction model!" }
+                      ]}
+                    >
+                      <Select
+                        mode="multiple"
+                        style={{ width: "100%" }}
+                        placeholder="Select Prediction Models"
+                      >
+                        {modelOptions}
+                      </Select>
+                    </Form.Item>
+                  </Popover>
+                  <Popover
+                    content={CONTROL_INSTRUCTIONS.date}
+                    placement="right"
+                    visible={this.state.showControlInstructions}>
+                    <Form.Item
+                      label="Date to Predict"
+                      name="days"
+                      rules={[
+                        { required: true, message: "Please select number of days!" }
+                      ]}
+                    >
+                      <Slider
+                        marks={marks}
+                        min={days-30>=-daysToFirstDate?days-30:-daysToFirstDate}
+                        initialValue={days}
+                        max={days+50<=99?days+50:99}
+                        onAfterChange={this.onDaysToPredictChange}
+                        step = {null}
+                      />
+                    </Form.Item>
+                  </Popover>
+                  <Popover 
+                    content={CONTROL_INSTRUCTIONS.socialDistancing} 
+                    placement="right"
+                    visible={this.state.showControlInstructions}>
+                    <Form.Item label="Social Distancing" name="socialDistancing">
+                      <Checkbox.Group style={{ width: '100%' }}>
+                        <Row>
+                          <Checkbox defaultChecked value="current">
+                            Current Trend
+                          </Checkbox>
+                          <Checkbox value="worst_effort"> 
+                            Worst Distancing Effort
+                          </Checkbox>
+                          <Checkbox value="best_effort"> 
+                            Best Distancing Effort
+                          </Checkbox>
+                        </Row>
+                      </Checkbox.Group>
+                    </Form.Item>
+                  </Popover>
+                </Form>
+                <Form>
+                  <Popover
+                    content={CONTROL_INSTRUCTIONS.data_type}
+                    placement="right"
+                    visible={this.state.showControlInstructions}>
+                    <Form.Item>
+                      Data Type:&nbsp;&nbsp;  
+                      <Checkbox.Group
+                        defaultValue={['confirmed']}
+                        onChange={this.handleDataTypeSelect}
+                      >
+                        <Checkbox defaultChecked value="confirmed">Confirmed Cases</Checkbox>
+                        <Checkbox value="death">Deaths</Checkbox>
+                      </Checkbox.Group>
+                    </Form.Item>
+                  </Popover>
+                  <Popover
+                    content={CONTROL_INSTRUCTIONS.statistics}
+                    placement="right"
+                    visible={this.state.showControlInstructions}>
+                    <Form.Item>
+                      Statistic:&nbsp;&nbsp;  
+                      <Radio.Group
+                        value={statistic}
+                        onChange={this.handleStatisticSelect}
+                      >
+                        <Radio value="cumulative">Cumulative Cases</Radio>
+                        <Radio value="delta">New Cases</Radio>
+                      </Radio.Group>
+                    </Form.Item>
+                  </Popover>
+                  <Popover
+                    content={CONTROL_INSTRUCTIONS.scale}
+                    placement="right"
+                    visible={this.state.showControlInstructions}>
+                    <Form.Item>
+                      Scale:&nbsp;&nbsp;  
+                      <Radio.Group value={yScale} onChange={this.handleYScaleSelect}>
+                        <Radio value="linear">linear</Radio>
+                        <Radio value="log">logarithmic</Radio>
+                      </Radio.Group>
+                    </Form.Item>
+                  </Popover>
+                </Form>
+              </div>
+            </Row>
           </Col>
-          </Row>
-        : null}
+          <Col span={10}>
+            <Row>
+              <span>
+                <Popover
+                  content={DYNAMIC_MAP_INSTRUCTION}
+                  placement="right"
+                  visible={this.state.showControlInstructions}>
+                  Dynamic Map:&nbsp;&nbsp;  
+                  <Switch onChange={this.switchDynamicMap} />
+                </Popover>
+              </span>
+              <span>
+                <Radio.Group
+                  value={mapShown}
+                  onChange={this.handleMapShownSelect}>
+                  <Radio value="confirmed">Show Confirmed Cases</Radio>
+                  <Radio value="death">Show Deaths</Radio>
+                </Radio.Group>
+              </span>
+            </Row>
+            <Row>
+              <div className="map-wrapper">
+                <Covid19Map className="map"
+                  triggerRef={this.bindRef}
+                  dynamicMapOn={dynamicMapOn}
+                  days={days}
+                  confirmed_model = {confirmed_model_map}
+                  death_model = {death_model_map}
+                  onMapClick={this.onMapClick} 
+                  onNoData = {this.onNoData}
+                  statistic={statistic}
+                  dataType = {mapShown}
+                />
+              </div>
+            </Row>
+            {areas.length?
+            <Row>
+              <div className="graph-wrapper">
+                <Covid19Graph
+                  data={mainGraphData}
+                  dataType={dataType}
+                  onNoData = {this.onNoData}
+                  statistic={statistic}
+                  yScale={yScale}
+                ></Covid19Graph>
+              </div>
+            </Row>
+            : null}
+          </Col>
+        </Row>
       </div>
     );
   }
