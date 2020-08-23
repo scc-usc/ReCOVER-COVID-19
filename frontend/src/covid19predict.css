@@ -11,3 +11,8 @@
     height: 45vh;
     width: 100%;
 }
+
+.instruction {
+    text-align: left;
+    width: 900px;
+}

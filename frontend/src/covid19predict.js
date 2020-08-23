@@ -420,14 +420,61 @@ class Covid19Predict extends PureComponent {
         );
       });
 
-      // The clarification message to be shown for the "social distancing" option.
-      const SOCIAL_DISTANCING_CLARIFICATION = (
-        <p>
-          The trend until March 18th has been used as a proxy for "Social distancing off". <br />
-          For modeling details, please see: 
-          <a href="https://arxiv.org/abs/2004.11372"> https://arxiv.org/abs/2004.11372</a>.
+    // Instruction messages for each form items.
+    const AREAS_INSTRUCTION = (
+      <p className="instruction">
+        Select the areas by clicking on the map or searching in this input box.
+      </p>
+    );
+
+    const MODELS_INSTRUCTION = (
+      <div className="instruction">
+        <p className="instruction">
+          Our model produces forecasts for multiple under-reported positive cases options.
+          For example, "SI-kJalpha - 20x " denotes the assumption that 
+          the under-reported positive cases are 20 times of the current reported cases.            For modeling details, please see: <a href="https://arxiv.org/abs/2004.11372" target="blank">https://arxiv.org/abs/2004.11372</a>.
         </p>
-      );
+      </div>
+    );
+
+    const DATE_TO_PREDICT_INSTRUCTION = (
+      <p className="instruction">
+        Predictions up to the date selected will be shown.
+      </p>
+    );
+
+    const SOCIAL_DISTANCING_INSTRUCTION = (
+      <p className="instruction">
+        Please select one of the three social distancing scenarios.  
+      </p>
+    );
+
+    const DATA_TYPE_INSTRUCTION = (
+      <p className="instruction">
+        Select the forecasts for cumulative infections or deaths.
+      </p>
+    );
+
+    const STATISTIC_INSTRUCTION = (
+      <p className="instruction">
+        Switch between cumulative view or incident view.
+      </p>
+    );
+
+    const SCALE_INSTRUCTION = (
+      <p className="instruction">
+        Switch between linear view or logarithmic view.
+      </p>
+    );
+
+    const DYNAMIC_MAP_INSTRUCTION = (
+      <p className="instruction">
+        Enable the map to dynamically change to reflect the prediction.
+        Note that this functionality is not yet perfect and the reaction time 
+        may be slow depending on your machine.
+      </p>
+    );
+
     let confirmed_model_map = ""
     let death_model_map = ""
     for (let i = models.length - 1; i>=0; i--)
@@ -471,109 +518,143 @@ class Covid19Predict extends PureComponent {
                 socialDistancing: ["current"]
               }}
             >
-              <Form.Item
-                label="Areas"
-                name="areas"
-                rules={[{ required: true, message: "Please select areas!" }]}
-              >
-                <Select
-                  mode="multiple"
-                  style={{ width: "100%" }}
-                  placeholder="Select Areas"
+              <Popover
+                content={AREAS_INSTRUCTION}
+                placement="right"
+                visible="true">
+                <Form.Item
+                  label="Areas"
+                  name="areas"
+                  rules={[{ required: true, message: "Please select areas!" }]}
                 >
-                  {countryOptions}
-                </Select>
-              </Form.Item>
-              <Form.Item
-                label="Models:"
-                name="models"
-                rules={[
-                  { required: true, message: "Please select a prediction model!" }
-                ]}
-              >
-                <Select
-                  mode="multiple"
-                  style={{ width: "100%" }}
-                  placeholder="Select Prediction Models"
+                  <Select
+                    mode="multiple"
+                    style={{ width: "100%" }}
+                    placeholder="Select Areas"
+                  >
+                    {countryOptions}
+                  </Select>
+                </Form.Item>
+              </Popover>
+              <Popover
+                content={MODELS_INSTRUCTION}
+                placement="right"
+                visible="true">
+                <Form.Item
+                  label="Models:"
+                  name="models"
+                  rules={[
+                    { required: true, message: "Please select a prediction model!" }
+                  ]}
                 >
-                  {modelOptions}
-                </Select>
-              </Form.Item>
-              <Form.Item
-                label="Date to Predict"
-                name="days"
-                rules={[
-                  { required: true, message: "Please select number of days!" }
-                ]}
-              >
-                <Slider
-                  marks={marks}
-                  min={days-30>=-daysToFirstDate?days-30:-daysToFirstDate}
-                  initialValue={days}
-                  max={days+50<=99?days+50:99}
-                  onAfterChange={this.onDaysToPredictChange}
-                  step = {null}
-                />
-              </Form.Item>
-
+                  <Select
+                    mode="multiple"
+                    style={{ width: "100%" }}
+                    placeholder="Select Prediction Models"
+                  >
+                    {modelOptions}
+                  </Select>
+                </Form.Item>
+              </Popover>
+              <Popover
+                content={DATE_TO_PREDICT_INSTRUCTION}
+                placement="right"
+                visible="true">
+                <Form.Item
+                  label="Date to Predict"
+                  name="days"
+                  rules={[
+                    { required: true, message: "Please select number of days!" }
+                  ]}
+                >
+                  <Slider
+                    marks={marks}
+                    min={days-30>=-daysToFirstDate?days-30:-daysToFirstDate}
+                    initialValue={days}
+                    max={days+50<=99?days+50:99}
+                    onAfterChange={this.onDaysToPredictChange}
+                    step = {null}
+                  />
+                </Form.Item>
+              </Popover>
               <Popover 
-                content={SOCIAL_DISTANCING_CLARIFICATION} 
-                title="Social Distancing Clarification"
-                placement="topLeft"
-              >
-              <Form.Item label="Social Distancing" name="socialDistancing">
-                <Checkbox.Group style={{ width: '100%' }}>
-                  <Row>
-                  <Checkbox defaultChecked value="current">
-                    Current Trend
-                  </Checkbox>
-                  <Checkbox value="worst_effort"> 
-                    Worst Distancing Effort
-                  </Checkbox>
-                  </Row>
-                  <Row>
-                  <Checkbox value="best_effort"> 
-                    Best Distancing Effort
-                  </Checkbox>
-                  </Row>
-                </Checkbox.Group>
-              </Form.Item>
+                content={SOCIAL_DISTANCING_INSTRUCTION} 
+                placement="right"
+                visible="true">
+                <Form.Item label="Social Distancing" name="socialDistancing">
+                  <Checkbox.Group style={{ width: '100%' }}>
+                    <Row>
+                    <Checkbox defaultChecked value="current">
+                      Current Trend
+                    </Checkbox>
+                    <Checkbox value="worst_effort"> 
+                      Worst Distancing Effort
+                    </Checkbox>
+                    </Row>
+                    <Row>
+                    <Checkbox value="best_effort"> 
+                      Best Distancing Effort
+                    </Checkbox>
+                    </Row>
+                  </Checkbox.Group>
+                </Form.Item>
               </Popover>
             </Form>
-            <div>Data Type:&nbsp;&nbsp;  
-              <Checkbox.Group
-                defaultValue={['confirmed']}
-                onChange={this.handleDataTypeSelect}
-              >
-                <Checkbox defaultChecked value="confirmed">Confirmed Cases</Checkbox>
-                <Checkbox value="death">Deaths</Checkbox>
-              </Checkbox.Group>
-            </div>
-            <br />
-            <div>Statistic:&nbsp;&nbsp;  
-              <Radio.Group
-                value={statistic}
-                onChange={this.handleStatisticSelect}
-              >
-                <Radio value="cumulative">Cumulative Cases</Radio>
-                <Radio value="delta">New Cases</Radio>
-              </Radio.Group>
-            </div>
-            <br />
-            <div>
-              Scale:&nbsp;&nbsp;  
-              <Radio.Group value={yScale} onChange={this.handleYScaleSelect}>
-                <Radio value="linear">linear</Radio>
-                <Radio value="log">logarithmic</Radio>
-              </Radio.Group>
-            </div>
-            <br />
-            <p>
-              Dynamic Map:&nbsp;&nbsp;  
-              <Switch 
-                onChange={this.switchDynamicMap} 
-              />
-            </p>
+            <Form>
+              <Popover
+                content={DATA_TYPE_INSTRUCTION}
+                placement="right"
+                visible="true">
+                <Form.Item>
+                  Data Type:&nbsp;&nbsp;  
+                  <Checkbox.Group
+                    defaultValue={['confirmed']}
+                    onChange={this.handleDataTypeSelect}
+                  >
+                    <Checkbox defaultChecked value="confirmed">Confirmed Cases</Checkbox>
+                    <Checkbox value="death">Deaths</Checkbox>
+                  </Checkbox.Group>
+                </Form.Item>
+              </Popover>
+              <Popover
+                content={STATISTIC_INSTRUCTION}
+                placement="right"
+                visible="true">
+                <Form.Item>
+                  Statistic:&nbsp;&nbsp;  
+                  <Radio.Group
+                    value={statistic}
+                    onChange={this.handleStatisticSelect}
+                  >
+                    <Radio value="cumulative">Cumulative Cases</Radio>
+                    <Radio value="delta">New Cases</Radio>
+                  </Radio.Group>
+                </Form.Item>
+              </Popover>
+              <Popover
+                content={SCALE_INSTRUCTION}
+                placement="right"
+                visible="true">
+                <Form.Item>
+                  Scale:&nbsp;&nbsp;  
+                  <Radio.Group value={yScale} onChange={this.handleYScaleSelect}>
+                    <Radio value="linear">linear</Radio>
+                    <Radio value="log">logarithmic</Radio>
+                  </Radio.Group>
+                </Form.Item>
+              </Popover>
+              <Popover
+                content={DYNAMIC_MAP_INSTRUCTION}
+                placement="right"
+                visible="true">
+                <Form.Item>
+                  Dynamic Map:&nbsp;&nbsp;  
+                  <Switch 
+                    onChange={this.switchDynamicMap} 
+                  />
+                </Form.Item>
+              </Popover>
+            </Form>
           </div>
         </Col>
         <Col span={14}>
