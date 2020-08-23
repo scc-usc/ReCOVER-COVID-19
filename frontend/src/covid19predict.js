@@ -78,7 +78,8 @@ class Covid19Predict extends PureComponent {
       mapShown: "confirmed",
       yScale: "linear",
       noDataError: false,
-      errorDescription: ""
+      errorDescription: "",
+      showControlInstructions: false
     };
 
     this.addAreaByStr = this.addAreaByStr.bind(this);
@@ -93,6 +94,7 @@ class Covid19Predict extends PureComponent {
     this.handleDataTypeSelect = this.handleDataTypeSelect.bind(this);
     this.handleStatisticSelect = this.handleStatisticSelect.bind(this);
     this.handleYScaleSelect = this.handleYScaleSelect.bind(this);
+    this.toggleControlInstructions = this.toggleControlInstructions.bind(this);
   }
 
   componentWillMount = ()=>{
@@ -381,6 +383,13 @@ class Covid19Predict extends PureComponent {
     return Math.ceil(Math.abs(date - beginningDate)/ (1000 * 60 * 60 * 24));
   }
 
+  toggleControlInstructions = () => {
+    const showControlInstructions = this.state.showControlInstructions;
+    this.setState({
+      showControlInstructions: !showControlInstructions
+    });
+  }
+
   render() {
     const {
       areas,
@@ -421,51 +430,53 @@ class Covid19Predict extends PureComponent {
       });
 
     // Instruction messages for each form items.
-    const AREAS_INSTRUCTION = (
-      <p className="instruction">
-        Select the areas by clicking on the map or searching in this input box.
-      </p>
-    );
-
-    const MODELS_INSTRUCTION = (
-      <div className="instruction">
+    const CONTROL_INSTRUCTIONS = {
+      area: (
         <p className="instruction">
-          Our model produces forecasts for multiple under-reported positive cases options.
-          For example, "SI-kJalpha - 20x " denotes the assumption that 
-          the under-reported positive cases are 20 times of the current reported cases.            For modeling details, please see: <a href="https://arxiv.org/abs/2004.11372" target="blank">https://arxiv.org/abs/2004.11372</a>.
+          Select the areas by clicking on the map or searching in this input box.
         </p>
-      </div>
-    );
+      ),
+      
+      model: (
+        <div className="instruction">
+          <p className="instruction">
+            Our model produces forecasts for multiple under-reported positive cases options.
+            For example, "SI-kJalpha - 20x " denotes the assumption that 
+            the under-reported positive cases are 20 times of the current reported cases.            For modeling details, please see: <a href="https://arxiv.org/abs/2004.11372" target="blank">https://arxiv.org/abs/2004.11372</a>.
+          </p>
+        </div>
+      ),
 
-    const DATE_TO_PREDICT_INSTRUCTION = (
-      <p className="instruction">
-        Predictions up to the date selected will be shown.
-      </p>
-    );
+      date: (
+        <p className="instruction">
+          Predictions up to the date selected will be shown.
+        </p>
+      ),
 
-    const SOCIAL_DISTANCING_INSTRUCTION = (
-      <p className="instruction">
-        Please select one of the three social distancing scenarios.  
-      </p>
-    );
+      socialDistancing: (
+        <p className="instruction">
+          Please select one of the three social distancing scenarios.  
+        </p>
+      ),
 
-    const DATA_TYPE_INSTRUCTION = (
-      <p className="instruction">
-        Select the forecasts for cumulative infections or deaths.
-      </p>
-    );
+      data_type: (
+        <p className="instruction">
+          Select the forecasts for cumulative infections or deaths.
+        </p>
+      ),
 
-    const STATISTIC_INSTRUCTION = (
-      <p className="instruction">
-        Switch between cumulative view or incident view.
-      </p>
-    );
+      statistics: (
+        <p className="instruction">
+          Switch between cumulative view or incident view.
+        </p>
+      ),
 
-    const SCALE_INSTRUCTION = (
-      <p className="instruction">
-        Switch between linear view or logarithmic view.
-      </p>
-    );
+      scale: (
+        <p className="instruction">
+          Switch between linear view or logarithmic view.
+        </p>
+      )
+    };
 
     const DYNAMIC_MAP_INSTRUCTION = (
       <p className="instruction">
@@ -519,9 +530,9 @@ class Covid19Predict extends PureComponent {
               }}
             >
               <Popover
-                content={AREAS_INSTRUCTION}
+                content={CONTROL_INSTRUCTIONS.area}
                 placement="right"
-                visible="true">
+                visible={this.state.showControlInstructions}>
                 <Form.Item
                   label="Areas"
                   name="areas"
@@ -537,9 +548,9 @@ class Covid19Predict extends PureComponent {
                 </Form.Item>
               </Popover>
               <Popover
-                content={MODELS_INSTRUCTION}
+                content={CONTROL_INSTRUCTIONS.model}
                 placement="right"
-                visible="true">
+                visible={this.state.showControlInstructions}>
                 <Form.Item
                   label="Models:"
                   name="models"
@@ -557,9 +568,9 @@ class Covid19Predict extends PureComponent {
                 </Form.Item>
               </Popover>
               <Popover
-                content={DATE_TO_PREDICT_INSTRUCTION}
+                content={CONTROL_INSTRUCTIONS.date}
                 placement="right"
-                visible="true">
+                visible={this.state.showControlInstructions}>
                 <Form.Item
                   label="Date to Predict"
                   name="days"
@@ -578,9 +589,9 @@ class Covid19Predict extends PureComponent {
                 </Form.Item>
               </Popover>
               <Popover 
-                content={SOCIAL_DISTANCING_INSTRUCTION} 
+                content={CONTROL_INSTRUCTIONS.socialDistancing} 
                 placement="right"
-                visible="true">
+                visible={this.state.showControlInstructions}>
                 <Form.Item label="Social Distancing" name="socialDistancing">
                   <Checkbox.Group style={{ width: '100%' }}>
                     <Row>
@@ -602,9 +613,9 @@ class Covid19Predict extends PureComponent {
             </Form>
             <Form>
               <Popover
-                content={DATA_TYPE_INSTRUCTION}
+                content={CONTROL_INSTRUCTIONS.data_type}
                 placement="right"
-                visible="true">
+                visible={this.state.showControlInstructions}>
                 <Form.Item>
                   Data Type:&nbsp;&nbsp;  
                   <Checkbox.Group
@@ -617,9 +628,9 @@ class Covid19Predict extends PureComponent {
                 </Form.Item>
               </Popover>
               <Popover
-                content={STATISTIC_INSTRUCTION}
+                content={CONTROL_INSTRUCTIONS.statistics}
                 placement="right"
-                visible="true">
+                visible={this.state.showControlInstructions}>
                 <Form.Item>
                   Statistic:&nbsp;&nbsp;  
                   <Radio.Group
@@ -632,9 +643,9 @@ class Covid19Predict extends PureComponent {
                 </Form.Item>
               </Popover>
               <Popover
-                content={SCALE_INSTRUCTION}
+                content={CONTROL_INSTRUCTIONS.scale}
                 placement="right"
-                visible="true">
+                visible={this.state.showControlInstructions}>
                 <Form.Item>
                   Scale:&nbsp;&nbsp;  
                   <Radio.Group value={yScale} onChange={this.handleYScaleSelect}>
@@ -646,7 +657,7 @@ class Covid19Predict extends PureComponent {
               <Popover
                 content={DYNAMIC_MAP_INSTRUCTION}
                 placement="right"
-                visible="true">
+                visible={this.state.showControlInstructions}>
                 <Form.Item>
                   Dynamic Map:&nbsp;&nbsp;  
                   <Switch 
@@ -655,6 +666,10 @@ class Covid19Predict extends PureComponent {
                 </Form.Item>
               </Popover>
             </Form>
+            <Button
+              onClick={this.toggleControlInstructions}>
+              {(this.state.showControlInstructions == false)? "Show Instructions" : "Close Instructions"}
+            </Button>
           </div>
         </Col>
         <Col span={14}>
