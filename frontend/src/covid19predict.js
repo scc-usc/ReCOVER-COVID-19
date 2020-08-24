@@ -27,6 +27,7 @@ import {
   InfoCircleOutlined
 } from '@ant-design/icons';
 import { value } from "numeral";
+import RadioGroup from "antd/lib/radio/group";
 
 const { Option } = Select;
 
@@ -79,7 +80,10 @@ class Covid19Predict extends PureComponent {
       yScale: "linear",
       noDataError: false,
       errorDescription: "",
-      showControlInstructions: false
+      showControlInstructions: false,
+      showMapInstructions: false,
+      totalConfirmed: 0,
+      totalDeaths: 0
     };
 
     this.addAreaByStr = this.addAreaByStr.bind(this);
@@ -95,6 +99,7 @@ class Covid19Predict extends PureComponent {
     this.handleStatisticSelect = this.handleStatisticSelect.bind(this);
     this.handleYScaleSelect = this.handleYScaleSelect.bind(this);
     this.toggleControlInstructions = this.toggleControlInstructions.bind(this);
+    this.toggleMapInstructions = this.toggleMapInstructions.bind(this);
   }
 
   componentWillMount = ()=>{
@@ -131,6 +136,13 @@ class Covid19Predict extends PureComponent {
         firstDate: currentDate[0].firstDate
       })
     );
+
+    this.modelAPI.real_time(global => {
+      this.setState({
+        totalConfirmed: global.totalConfirmed,
+        totalDeaths: global.totalDeaths
+      })
+    })
   }
 
   onMapClick(area) {
@@ -390,6 +402,13 @@ class Covid19Predict extends PureComponent {
     });
   }
 
+  toggleMapInstructions = () => {
+    const showMapInstructions = this.state.showMapInstructions;
+    this.setState({
+      showMapInstructions: !showMapInstructions
+    });
+  }
+
   render() {
     const {
       areas,
@@ -438,53 +457,80 @@ class Covid19Predict extends PureComponent {
       ),
       
       model: (
-        <div className="instruction">
-          <p className="instruction">
+        <div className="instruction horizontal">
+          <p className="instruction horizontal">
             Our model produces forecasts for multiple under-reported positive cases options.
             For example, "SI-kJalpha - 20x " denotes the assumption that 
-            the under-reported positive cases are 20 times of the current reported cases.            For modeling details, please see: <a href="https://arxiv.org/abs/2004.11372" target="blank">https://arxiv.org/abs/2004.11372</a>.
+            the under-reported positive cases are 20 times of the current reported cases.            
+            For modeling details, please see: <a href="https://arxiv.org/abs/2004.11372" target="blank">https://arxiv.org/abs/2004.11372</a>.
           </p>
         </div>
       ),
 
       date: (
-        <p className="instruction">
+        <p className="instruction horizontal">
           Predictions up to the date selected will be shown.
         </p>
       ),
 
       socialDistancing: (
-        <p className="instruction">
+        <p className="instruction horizontal">
           Please select one of the three social distancing scenarios.  
         </p>
       ),
 
       data_type: (
-        <p className="instruction">
+        <p className="instruction horizontal">
           Select the forecasts for cumulative infections or deaths.
         </p>
       ),
 
       statistics: (
-        <p className="instruction">
+        <p className="instruction horizontal">
           Switch between cumulative view or incident view.
         </p>
       ),
 
       scale: (
-        <p className="instruction">
+        <p className="instruction horizontal">
           Switch between linear view or logarithmic view.
         </p>
       )
     };
 
-    const DYNAMIC_MAP_INSTRUCTION = (
-      <p className="instruction">
+    const MAP_INSTRUCTION = {
+      dynamicMap: (
+        <p className="instruction vertical">
         Enable the map to dynamically change to reflect the prediction.
         Note that this functionality is not yet perfect and the reaction time 
         may be slow depending on your machine.
-      </p>
-    );
+        </p>
+      ),
+
+      radioGroup: (
+        <p className="instruction vertical">
+          Switch between cumulative infection view or death view on the heatmap. 
+        </p>
+      )
+    };
+
+    // Generate the global overview paragraph
+    let overview = "";
+
+    // In case we cannot fetch data from the external API, 
+    // the overview will not show up.
+    if (this.state.totalConfirmed != 0 && this.state.totalDeaths != 0) {
+      const today = new Date();
+      const dd = String(today.getDate()).padStart(2, '0');
+      const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      const yyyy = today.getFullYear();
+  
+      //today = mm + '/' + dd + '/' + yyyy;
+      const totalConfirmed = this.state.totalConfirmed.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      const totalDeaths = this.state.totalDeaths.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      overview = "By " + mm + '/' + dd + '/' + yyyy + ", " + totalConfirmed + " people around the world have been tested positive, and "
+      + totalDeaths + " people have died of Covid-19.";
+    }
 
     let confirmed_model_map = ""
     let death_model_map = ""
@@ -516,13 +562,20 @@ class Covid19Predict extends PureComponent {
             onClose={this.onAlertClose}
           />: null
           }
-          <Col span={14}>
+          <Col span={10}>
             <Row>
-              <div className="instruction-buttons">
-                <Button
+              <p className="overview">{overview}</p>
+            </Row>
+            <Row>
+              <div style={{"margin": "0 auto"}}>
+                <Button className="instruction-button"
                     onClick={this.toggleControlInstructions}>
                     {(this.state.showControlInstructions == false)? "Help with controls" : "Close control instructions"}
-                  </Button>
+                </Button>
+                <Button className="instruction-button"
+                    onClick={this.toggleMapInstructions}>
+                    {(this.state.showMapInstructions == false)? "Help with the map" : "Close map instructions"}
+                </Button>
               </div>
             </Row>
             <Row>
@@ -664,24 +717,29 @@ class Covid19Predict extends PureComponent {
               </div>
             </Row>
           </Col>
-          <Col span={10}>
+          <Col span={12}>
             <Row>
-              <span>
+              <span className="map-control">
                 <Popover
-                  content={DYNAMIC_MAP_INSTRUCTION}
-                  placement="right"
-                  visible={this.state.showControlInstructions}>
+                  content={MAP_INSTRUCTION.dynamicMap}
+                  placement="bottom"
+                  visible={this.state.showMapInstructions}>
                   Dynamic Map:&nbsp;&nbsp;  
                   <Switch onChange={this.switchDynamicMap} />
                 </Popover>
               </span>
-              <span>
-                <Radio.Group
-                  value={mapShown}
-                  onChange={this.handleMapShownSelect}>
-                  <Radio value="confirmed">Show Confirmed Cases</Radio>
-                  <Radio value="death">Show Deaths</Radio>
-                </Radio.Group>
+              <span className="map-control">
+                <Popover
+                  content={MAP_INSTRUCTION.radioGroup}
+                  placement="bottom"
+                  visible={this.state.showMapInstructions}>
+                    <Radio.Group
+                      value={mapShown}
+                      onChange={this.handleMapShownSelect}>
+                      <Radio value="confirmed">Show Confirmed Cases</Radio>
+                      <Radio value="death">Show Deaths</Radio>
+                    </Radio.Group>
+                  </Popover>
               </span>
             </Row>
             <Row>

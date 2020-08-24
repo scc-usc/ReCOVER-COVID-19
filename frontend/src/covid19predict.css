@@ -10,6 +10,7 @@
 .form-wrapper {
     padding: 20px;
     width: 90%;
+    margin-top: auto;
 }
 
 .graph-wrapper{
@@ -17,7 +18,34 @@
     width: 100%;
 }
 
+.instruction-button {
+    margin: 20px 40px;
+    padding: 4px;
+}
+
 .instruction {
     text-align: left;
+    
+}
+
+.instruction.horizontal {
     width: 900px;
 }
+
+.instruction.vertical {
+    width: 300px;
+}
+
+.map-control {
+    margin: 10px auto;
+}
+
+.overview {
+    padding: 30px 40px;
+    padding-top: 70px;
+    font-size: x-large;
+    font-weight: bold;
+    color: brown;
+}
+
+
