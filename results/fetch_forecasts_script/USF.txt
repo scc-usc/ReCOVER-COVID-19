@@ -1,2 +1,2 @@
-2020-08-09-CU-select.csv2020-08-02-CU-select.csv
-2020-08-09-JHU_IDD-CovidSP.csv2020-08-02-JHU_IDD-CovidSP.csv
+2020-08-23-CU-select.csv2020-08-16-CU-select.csv
+2020-08-16-JHU_IDD-CovidSP.csv2020-08-23-JHU_IDD-CovidSP.csv
