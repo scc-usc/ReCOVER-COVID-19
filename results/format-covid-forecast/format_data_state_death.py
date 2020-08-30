@@ -4,8 +4,8 @@ import csv
 import urllib.request
 import io
 
-FORECAST_DATE = datetime.datetime(2020, 8, 23)
-FIRST_WEEK = datetime.datetime(2020, 8, 29)
+FORECAST_DATE = datetime.datetime(2020, 8, 30)
+FIRST_WEEK = datetime.datetime(2020, 9, 5)
 INPUT_FILENAME_STATE = "us_deaths_current_20.csv"
 INPUT_FILENAME_GLOBAL = "global_deaths_current_20.csv"
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha.csv"
