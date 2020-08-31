@@ -185,7 +185,7 @@ STATIC_DEATH_MODELS = [
             "../results/forecasts/global_deaths_restricted_10.csv",
             "../results/forecasts/us_deaths_restricted_10.csv"
         ],
-        name="SI-kJalpha - 10x under-reported positive cases (death prediction)",
+        name="SI-kJalpha - 10x (death prediction)",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 10x."
     ),
 
