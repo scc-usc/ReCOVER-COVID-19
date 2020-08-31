@@ -157,6 +157,23 @@ class ModelAPI {
         callback(res.data);
       });
   }
+
+  //fetch real time data for the whole world
+  real_time(callback) {
+    const EXTERNAL_API = "https://api.covid19api.com/summary";
+    axios
+      .get(EXTERNAL_API)
+      .then(res => {
+        const total_confirmed = res.data.Global.TotalConfirmed;
+        const total_deaths = res.data.Global.TotalDeaths;
+        const global = {
+          totalConfirmed: total_confirmed,
+          totalDeaths: total_deaths
+        }
+        callback(global);
+      }
+    )
+  }
 }
 
 export default ModelAPI;

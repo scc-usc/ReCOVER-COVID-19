@@ -3,11 +3,53 @@
     margin-left: auto;
     margin-right: auto;
     display: flex;
-    height: 50vh;
+    height: 64vh;
     flex-flow: column;
 }
 
+.form-wrapper {
+    padding: 20px;
+    padding-bottom: 0;
+    width: 90%;
+    font-size: large;
+}
+
 .graph-wrapper{
-    height: 45vh;
+    height: 48vh;
     width: 100%;
 }
+
+.instruction-button {
+    margin: 20px 40px;
+    padding: 4px;
+}
+
+.instruction-buttons-wrapper {
+    margin: 40px auto;
+}
+
+.instruction {
+    text-align: left;
+}
+
+.instruction.horizontal {
+    width: 900px;
+}
+
+.instruction.vertical {
+    width: 300px;
+}
+
+.map-control {
+    margin: 10px auto;
+}
+
+.overview {
+    padding: 30px 40px;
+    font-size: large;
+    font-weight: bold;
+    color: brown;
+    margin: 0 auto;
+}
+
+
