@@ -54,7 +54,7 @@ STATIC_FOREIGN_MODELS = [
 
     StaticForeignModel(
         us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/YYG-ParamSearch/2020-07-26-YYG-ParamSearch.csv",
-        name="YYG - ParamSearch",
+        name="YYG - ParamSearch (US state level death prediction only)",
         description="Based on the SEIR model to make daily projections regarding \
         COVID-19 infections and deaths in 50 US states. The model accounts for \
         state reopenings and its effects on infections and deaths. \
@@ -64,7 +64,7 @@ STATIC_FOREIGN_MODELS = [
     
     StaticForeignModel(
         us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/CovidActNow-SEIR_CAN/2020-07-05-CovidActNow-SEIR_CAN.csv",
-        name="CovidActNow - SEIR_CAN",
+        name="CovidActNow - SEIR_CAN (US state level death prediction only)",
         description="SEIR model by CovidActNow research team. \
         The model forecasts cumulative deaths, incident deaths, incident hospitalizations \
         by fitting predicted cases, deaths, and hospitalizations to the observations. \
@@ -73,7 +73,7 @@ STATIC_FOREIGN_MODELS = [
 
     StaticForeignModel(
         us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/IowaStateLW-STEM/2020-07-19-IowaStateLW-STEM.csv",
-        name="Iowa State Lily Wang's Research Group - Spatiotemporal Epidemic Modeling",
+        name="Iowa State Lily Wang's Research Group - Spatiotemporal Epidemic Modeling (US state level death prediction only)",
         description="A COVID19 forecast project led by Lily Wang in Iowa State University. \
         They study on a nonparametric space-time disease transmission model for the epidemic data. \
         More info on https://covid19.stat.iastate.edu."

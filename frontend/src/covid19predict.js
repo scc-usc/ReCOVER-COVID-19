@@ -564,21 +564,6 @@ class Covid19Predict extends PureComponent {
           }
           <Col span={10}>
             <Row>
-              <p className="overview">{overview}</p>
-            </Row>
-            <Row>
-              <div style={{"margin": "0 auto"}}>
-                <Button className="instruction-button"
-                    onClick={this.toggleControlInstructions}>
-                    {(this.state.showControlInstructions == false)? "Help with controls" : "Close control instructions"}
-                </Button>
-                <Button className="instruction-button"
-                    onClick={this.toggleMapInstructions}>
-                    {(this.state.showMapInstructions == false)? "Help with the map" : "Close map instructions"}
-                </Button>
-              </div>
-            </Row>
-            <Row>
               <div className="form-wrapper">
                 <Form
                   ref={this.formRef}
@@ -716,8 +701,24 @@ class Covid19Predict extends PureComponent {
                 </Form>
               </div>
             </Row>
+            {areas.length?
+            <Row>
+              <div className="graph-wrapper">
+                <Covid19Graph
+                  data={mainGraphData}
+                  dataType={dataType}
+                  onNoData = {this.onNoData}
+                  statistic={statistic}
+                  yScale={yScale}
+                ></Covid19Graph>
+              </div>
+            </Row>
+            : null}
           </Col>
           <Col span={12}>
+            <Row>
+              <p className="overview">{overview}</p>
+            </Row>
             <Row>
               <span className="map-control">
                 <Popover
@@ -757,19 +758,18 @@ class Covid19Predict extends PureComponent {
                 />
               </div>
             </Row>
-            {areas.length?
             <Row>
-              <div className="graph-wrapper">
-                <Covid19Graph
-                  data={mainGraphData}
-                  dataType={dataType}
-                  onNoData = {this.onNoData}
-                  statistic={statistic}
-                  yScale={yScale}
-                ></Covid19Graph>
+              <div className="instruction-buttons-wrapper">
+                <Button className="instruction-button"
+                    onClick={this.toggleControlInstructions}>
+                    {(this.state.showControlInstructions == false)? "Help with controls" : "Close control instructions"}
+                </Button>
+                <Button className="instruction-button"
+                    onClick={this.toggleMapInstructions}>
+                    {(this.state.showMapInstructions == false)? "Help with the map" : "Close map instructions"}
+                </Button>
               </div>
             </Row>
-            : null}
           </Col>
         </Row>
       </div>
