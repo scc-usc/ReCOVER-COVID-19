@@ -208,7 +208,7 @@ def predict(request):
                         "name": model_death.name,
                         "description": model_death.description
                     },
-                    "distancing": current,
+                    "distancing": "current",
                     "time_series": [{
                         "date": d.date,
                         "value": d.val,
