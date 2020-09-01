@@ -35,7 +35,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_restricted_1.csv",
             "../results/forecasts/us_forecasts_restricted_1.csv"
         ],
-        name="SI-kJalpha - No under-reported positive cases",
+        name="SI-kJalpha - No under-reported",
         description="The default version of the SI-kJalpha model, with no assumptions about under-reporting."
     ),
     StaticModel(
@@ -51,7 +51,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_restricted_2.csv",
             "../results/forecasts/us_forecasts_restricted_2.csv"
         ],
-        name="SI-kJalpha - 2x under-reported positive cases",
+        name="SI-kJalpha - 2x",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 2x."
     ),
     StaticModel(
@@ -67,7 +67,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_restricted_5.csv",
             "../results/forecasts/us_forecasts_restricted_5.csv"
         ],
-        name="SI-kJalpha - 5x under-reported positive cases",
+        name="SI-kJalpha - 5x",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 5x."
     ),
     StaticModel(
@@ -83,7 +83,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_restricted_10.csv",
             "../results/forecasts/us_forecasts_restricted_10.csv"
         ],
-        name="SI-kJalpha - 10x under-reported positive cases",
+        name="SI-kJalpha - 10x",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 10x."
     ),
     StaticModel(
@@ -99,7 +99,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_restricted_20.csv",
             "../results/forecasts/us_forecasts_restricted_20.csv"
         ],
-        name="SI-kJalpha - 20x under-reported positive cases",
+        name="SI-kJalpha - 20x",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 20x."
     ),
     StaticModel(
@@ -115,7 +115,7 @@ STATIC_MODELS = [
             "../results/forecasts/global_forecasts_restricted_40.csv",
             "../results/forecasts/us_forecasts_restricted_40.csv"
         ],
-        name="SI-kJalpha - 40x under-reported positive cases",
+        name="SI-kJalpha - 40x",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 40x."
     ),
 ]
@@ -134,7 +134,7 @@ STATIC_DEATH_MODELS = [
             "../results/forecasts/global_deaths_restricted_1.csv",
             "../results/forecasts/us_deaths_restricted_1.csv"
         ],
-        name="SI-kJalpha - No under-reported positive cases (death prediction)",
+        name="SI-kJalpha - No under-reported (death prediction)",
         description="The SI-kJalpha model with no assumptions about under-reporting positive cases."
     ),
 
@@ -151,7 +151,7 @@ STATIC_DEATH_MODELS = [
             "../results/forecasts/global_deaths_restricted_2.csv",
             "../results/forecasts/us_deaths_restricted_2.csv"
         ],
-        name="SI-kJalpha - 2x under-reported positive cases (death prediction)",
+        name="SI-kJalpha - 2x (death prediction)",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 2x."
     ),
 
@@ -168,7 +168,7 @@ STATIC_DEATH_MODELS = [
             "../results/forecasts/global_deaths_restricted_5.csv",
             "../results/forecasts/us_deaths_restricted_5.csv"
         ],
-        name="SI-kJalpha - 5x under-reported positive cases (death prediction)",
+        name="SI-kJalpha - 5x (death prediction)",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 5x."
     ),
 
@@ -185,7 +185,7 @@ STATIC_DEATH_MODELS = [
             "../results/forecasts/global_deaths_restricted_10.csv",
             "../results/forecasts/us_deaths_restricted_10.csv"
         ],
-        name="SI-kJalpha - 10x under-reported positive cases (death prediction)",
+        name="SI-kJalpha - 10x (death prediction)",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 10x."
     ),
 
@@ -202,7 +202,7 @@ STATIC_DEATH_MODELS = [
             "../results/forecasts/global_deaths_restricted_20.csv",
             "../results/forecasts/us_deaths_restricted_20.csv"
         ],
-        name="SI-kJalpha - 20x under-reported positive cases (death prediction)",
+        name="SI-kJalpha - 20x (death prediction)",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 20x."
     ),
 
@@ -219,8 +219,8 @@ STATIC_DEATH_MODELS = [
             "../results/forecasts/global_deaths_restricted_40.csv",
             "../results/forecasts/us_deaths_restricted_40.csv"
         ],
-        name="SI-kJalpha - 40x under-reported positive cases (death prediction)",
-        description="The SI-kJalpha model with the assumption that observed deaths are under-reported by 40x."
+        name="SI-kJalpha - 40x (death prediction)",
+        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 40x."
     ),
 ]
 
