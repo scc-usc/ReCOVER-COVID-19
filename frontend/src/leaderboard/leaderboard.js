@@ -16,112 +16,112 @@ runningAvgRankings: [
  description: "This is our SI-kJalpha model.",
  link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
 },
- RMSE: 37.2
+ RMSE: 35.82
 },	{
 	 model: {
  name: "YYG_ParamSearch",
  description: "Based on the SEIR model to make daily projections regarding COVID-19 infections and deaths in 50 US states. The model's contributor is Youyang Gu.",
  link: "http://covid19-projections.com/about/"
 },
- RMSE: 38.6
-},	{
-	 model: {
- name: "Covid19Sim_Simulator",
- description: "An interactive tool developed by researchers at Mass General Hospital, Harvard Medical School, Georgia Tech and Boston Medical Center.",
- link: "https://covid19sim.org/"
-},
- RMSE: 59.81
+ RMSE: 37.06
 },	{
 	 model: {
  name: "UCLA_SuEIR",
  description: "SEIR model by UCLA Statistical Machine Learning Lab.",
  link: "https://covid19.uclaml.org/"
 },
- RMSE: 62.95
+ RMSE: 58.87
+},	{
+	 model: {
+ name: "Covid19Sim_Simulator",
+ description: "An interactive tool developed by researchers at Mass General Hospital, Harvard Medical School, Georgia Tech and Boston Medical Center.",
+ link: "https://covid19sim.org/"
+},
+ RMSE: 67.66
 },	{
 	 model: {
  name: "CU_select",
  description: "A metapopulation county-level SEIR model by Columbia University.",
  link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
 },
- RMSE: 72.5
+ RMSE: 70.13
 },	{
 	 model: {
  name: "JHU_IDD_CovidSP",
  description: "County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
  link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
 },
- RMSE: 87.49
+ RMSE: 82.93
 },	{
 	 model: {
  name: "IowaStateLW_STEM",
  description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
  link: "https://covid19.stat.iastate.edu"
 },
- RMSE: 91.94
+ RMSE: 87.6
 },	{
 	 model: {
  name: "CovidActNow_SEIR_CAN",
  description: "SEIR model by the CovidActNow research team.",
  link: "https://covidactnow.org/"
 },
- RMSE: 110.36
+ RMSE: 110.82
 },],
 recentRankings: [
 	{
+	 model: {
+ name: "YYG_ParamSearch",
+ description: "Based on the SEIR model to make daily projections regarding COVID-19 infections and deaths in 50 US states. The model's contributor is Youyang Gu.",
+ link: "http://covid19-projections.com/about/"
+},
+ RMSE: 27.89
+},	{
 	 model: {
  name: "SIkJa_USC",
  description: "This is our SI-kJalpha model.",
  link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
 },
- RMSE: 23.6
-},	{
-	 model: {
- name: "YYG_ParamSearch",
- description: "Based on the SEIR model to make daily projections regarding COVID-19 infections and deaths in 50 US states. The model's contributor is Youyang Gu.",
- link: "http://covid19-projections.com/about/"
-},
- RMSE: 25.09
+ RMSE: 28.81
 },	{
 	 model: {
  name: "UCLA_SuEIR",
  description: "SEIR model by UCLA Statistical Machine Learning Lab.",
  link: "https://covid19.uclaml.org/"
 },
- RMSE: 28.64
-},	{
-	 model: {
- name: "CU_select",
- description: "A metapopulation county-level SEIR model by Columbia University.",
- link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
-},
- RMSE: 52.23
+ RMSE: 30
 },	{
 	 model: {
  name: "JHU_IDD_CovidSP",
  description: "County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
  link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
 },
- RMSE: 56.64
+ RMSE: 43.82
+},	{
+	 model: {
+ name: "CU_select",
+ description: "A metapopulation county-level SEIR model by Columbia University.",
+ link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
+},
+ RMSE: 48.51
+},	{
+	 model: {
+ name: "IowaStateLW_STEM",
+ description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
+ link: "https://covid19.stat.iastate.edu"
+},
+ RMSE: 64.08
 },	{
 	 model: {
  name: "Covid19Sim_Simulator",
  description: "An interactive tool developed by researchers at Mass General Hospital, Harvard Medical School, Georgia Tech and Boston Medical Center.",
  link: "https://covid19sim.org/"
 },
- RMSE: NaN
+ RMSE: 92.55
 },	{
 	 model: {
  name: "CovidActNow_SEIR_CAN",
  description: "SEIR model by the CovidActNow research team.",
  link: "https://covidactnow.org/"
-},
- RMSE: NaN
-},	{
-	 model: {
- name: "IowaStateLW_STEM",
- description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
- link: "https://covid19.stat.iastate.edu"
 },
  RMSE: NaN
 },]
@@ -176,7 +176,7 @@ class Leaderboard extends Component {
                             />
                         </Col>
                         <Col span={12}>
-                            <h2 className="title">Recent Performance (from 2020-08-16)</h2>
+                            <h2 className="title">Recent Performance (from 2020-08-23)</h2>
                             <List className="leaderboard"
                                 itemLayout="horizontal"
                                 dataSource={data.jhu.recentRankings}
