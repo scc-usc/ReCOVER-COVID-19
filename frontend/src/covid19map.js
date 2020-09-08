@@ -61,7 +61,8 @@ class Covid19Map extends Component {
             return {
               id: d.area.iso_2,
               // Adjust all heatmap values by log scale.
-              value: d.value > 0 ? Math.log(d.value) : 0,
+              //value: d.value > 0 ? Math.log(d.value) : 0,
+              value: Math.log(d.percentage),
               // Store the true value so we can display tooltips correctly.
               valueTrue: d.value,
               area: d.area
@@ -79,7 +80,8 @@ class Covid19Map extends Component {
             return {
               id: d.area.iso_2,
               // Adjust all heatmap values by log scale.
-              value: d.value > 0 ? Math.log(d.value) : 0,
+              //value: d.value > 0 ? Math.log(d.value) : 0,
+              value:Math.log(d.percentage),
               // Store the true value so we can display tooltips correctly.
               valueTrue: d.value,
               area: d.area
@@ -102,7 +104,8 @@ class Covid19Map extends Component {
               return {
                 id: d.area.iso_2,
                 // Adjust all heatmap values by log scale.
-                value: d.value > 0 ? Math.log(d.value) : 0,
+                // value: d.value > 0 ? Math.log(d.value) : 0,
+                value: Math.log(d.percentage),
                 // Store the true value so we can display tooltips correctly.
                 valueTrue: d.value,
                 area: d.area
@@ -123,7 +126,8 @@ class Covid19Map extends Component {
                   return {
                     id: d.area.iso_2,
                     // Adjust all heatmap values by log scale.
-                    value: d.value > 0 ? Math.log(d.value) : 0,
+                    // value: d.value > 0 ? Math.log(d.value) : 0,
+                    value:Math.log(d.value_percentage),
                     // Store the true value so we can display tooltips correctly.
                     valueTrue: d.value,
                     area: d.area
@@ -134,7 +138,8 @@ class Covid19Map extends Component {
                   return {
                     id: d.area.iso_2,
                     // Adjust all heatmap values by log scale.
-                    value: d.deathValue > 0 ? Math.log(d.deathValue) : 0,
+                    //value: d.deathValue > 0 ? Math.log(d.deathValue) : 0,
+                    value: Math.log(d.death_percentage),
                     // Store the true value so we can display tooltips correctly.
                     valueTrue: d.deathValue,
                     area: d.area
@@ -312,7 +317,7 @@ class Covid19Map extends Component {
         min: am4core.color(HEAT_MAP_MIN_COLOR),
         max: am4core.color(HEAT_MAP_MAX_COLOR),
         minValue: 0,
-        maxValue: Math.log(5000000)
+        maxValue: Math.log(1000)
       });
     }
     else 
@@ -323,7 +328,7 @@ class Covid19Map extends Component {
         min: am4core.color(HEAT_MAP_MIN_COLOR),
         max: am4core.color(HEAT_MAP_MAX_COLOR),
         minValue: 0,
-        maxValue: Math.log(1000000)
+        maxValue: Math.log(1000)
       });
     }
     
