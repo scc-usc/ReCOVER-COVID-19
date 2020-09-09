@@ -196,8 +196,15 @@ class Job(object):
         """
         columns = ['State']
         columns.append((forecast_date - self.costant.DAY_ZERO).days)
-        for i in range(1, 9):
-            columns.append((forecast_date - self.costant.DAY_ZERO).days + i*7 - 1)
+        # Find the next Saturday.
+        next_saturday = forecast_date + datetime.timedelta(1)
+        while (True):
+            if (next_saturday.weekday() == 5):
+                break;
+            next_saturday += datetime.timedelta(1)
+        
+        for i in range(0, 8):
+            columns.append((next_saturday - self.costant.DAY_ZERO).days + i*7)
         dataframe = pd.DataFrame(columns=columns)
         for state in self.costant.STATES:
             new_row = {}
@@ -209,13 +216,15 @@ class Job(object):
                 new_row[(forecast_date - self.costant.DAY_ZERO).days] = "NaN"
 
             # Write the incident deaths for the following two weeks.
-            for i in range(1, 9):
-                date = forecast_date + datetime.timedelta(i * 7 - 1)
-                prev_date = forecast_date + datetime.timedelta((i-1) * 7 - 1)
+            first_col = True
+            for i in range(0, 8):
+                date = next_saturday + datetime.timedelta(i * 7)
+                prev_date = next_saturday + datetime.timedelta((i-1) * 7)
                 date_str = date.strftime("%Y-%m-%d")
                 prev_date_str = prev_date.strftime("%Y-%m-%d")
-                if state in predicted and state in observed and date_str in predicted[state] and prev_date_str in observed[state] and i == 1:
+                if state in predicted and state in observed and date_str in predicted[state] and prev_date_str in observed[state] and first_col:
                     new_row[(date - self.costant.DAY_ZERO).days] = predicted[state][date_str] - observed[state][prev_date_str]
+                    first_col = False
                 elif state in predicted and date_str in predicted[state] and prev_date_str in predicted[state]:
                     new_row[(date - self.costant.DAY_ZERO).days] = predicted[state][date_str] - predicted[state][prev_date_str]
                 else:
