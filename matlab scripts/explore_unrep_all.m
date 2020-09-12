@@ -1,13 +1,13 @@
 %% Load Data
 
 clear;
-load_data_us;
+load_data_county;
 smooth_factor = 14;
 data_4_s = smooth_epidata(data_4, smooth_factor);
 
 %% Fixed params
 meta_start = 100;
-meta_end = 195;
+meta_end = 220;
 min_period = 14;
 max_period = 28;
 skip_days = 7;
@@ -22,8 +22,8 @@ un_fact_ll = zeros(length(popu), 3);
 st_mid_end = zeros(length(popu), 4);
 %% Iterate through all regions
 
-for cid = 11:11
-%for cid = 1:length(popu)
+%for cid = 11:11
+for cid = 1:length(popu)
     new_infec = diff(data_4_s(cid, meta_start:meta_end));
     [yy, peaksat] = findpeaks(new_infec);
     
@@ -69,9 +69,14 @@ for cid = 11:11
     
     % Auto-detect using FIR and NLR
     
-    [beta_cell, un_prob_f, err, init_dat, ci_f, del, fittedC] = learn_un_fix_beta(data_4_s(cid, start_time-k*jp:end_time), popu(cid), k, jp, alpha, a_T, ii, 'l', 1);   
-    [beta_auto_un1, un_prob_i, init_dat, fittedC, ci_i] = learn_nonlin(data_4_s(cid, start_time-k*jp:end_time), popu(cid), k, jp, 1, [], 'i');    
-    [beta_auto_un2, un_prob_ll, init_dat, fittedC, ci_ll] = learn_nonlin(data_4_s(cid, start_time-k*jp:end_time), popu(cid), k, jp, 1, [], 'l');
+    try
+        [beta_cell, un_prob_f, err, init_dat, ci_f, del, fittedC] = learn_un_fix_beta(data_4_s(cid, start_time-k*jp:end_time), popu(cid), k, jp, alpha, a_T, ii, 'l', 1);   
+        [beta_auto_un1, un_prob_i, init_dat, fittedC, ci_i] = learn_nonlin(data_4_s(cid, start_time-k*jp:end_time), popu(cid), k, jp, 1, [], 'i');    
+        [beta_auto_un2, un_prob_ll, init_dat, fittedC, ci_ll] = learn_nonlin(data_4_s(cid, start_time-k*jp:end_time), popu(cid), k, jp, 1, [], 'l');
+    catch
+        un_prob_i = 0;
+        un_prob_ii = 0;
+    end
 
     % Generate table for unreported cases
     % We have assumed that the dynamics don't change in the time period under consideration.
@@ -94,3 +99,6 @@ for cid = 11:11
     
     disp([countries{cid}, delim, res_i{j}, delim, res_ll{j}, delim res_f{j}, 'Error = ', num2str(err) ,endline]);
 end
+
+%%
+good_cid = del<1 & del > 0 & st_mid_end(:, 4)<0.1 & un_fact_f(:, 2) > 0;
