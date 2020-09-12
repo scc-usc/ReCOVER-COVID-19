@@ -33,8 +33,9 @@ deltemp = diff(temp')';
 
 if length(F) <= 1    % Optimized code when mobility not considered
     for j=1:length(popu)
+        lastinfec = base_infec(j,end);
         if sum(beta_all_cell{j})==0
-            yt(j) = 0;
+            infec(j, :) = lastinfec;
             continue;
         end
         jp = jp_l(j);
@@ -42,7 +43,6 @@ if length(F) <= 1    % Optimized code when mobility not considered
         jk = jp*k;
         Ikt1 = deltemp(j, end-jk+1:end);
         Ikt = zeros(k, 1);
-        lastinfec = base_infec(j,end);
         
         for t=1:horizon
             S = (1 - un_fact(j)*lastinfec./popu(j));
