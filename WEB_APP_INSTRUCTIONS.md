@@ -4,6 +4,9 @@
 0. Make sure MATLAB® and Python (Python3 is encouraged) are installed.
 1. Navigate to the `backend/` folder. Install required Python packages by running the the script:
     ```
+    pip install django
+    pip install django-cors-headers
+    pip install djangorestframeworks
     pip3 install -r requirements.txt
     ```
 2. Install the frontend tool [yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable).
