@@ -4,8 +4,8 @@ import csv
 import urllib.request
 import io
 
-FORECAST_DATE = datetime.datetime(2020, 9, 6)
-FIRST_WEEK = datetime.datetime(2020, 9, 12)
+FORECAST_DATE = datetime.date.today()
+FIRST_WEEK = datetime.date.today() + datetime.timedelta(6)
 INPUT_FILENAME = "county_forecasts_quarantine_20.csv"
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha.csv"
 COLUMNS = ["forecast_date", "target", "target_end_date", "location", "type", "quantile", "value"]
