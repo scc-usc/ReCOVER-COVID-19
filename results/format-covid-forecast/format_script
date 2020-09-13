@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# NOTE: PLEASE RUN THIS FILE ON EVERY SUNDAY
+# Copy the latest forecasts into the current directory.
+cp ../forecasts/global_deaths_current_20.csv global_deaths_current_20.csv
+cp ../forecasts/global_forecasts_current_20.csv global_forecasts_current_20.csv
+cp ../forecasts/us_deaths_current_20.csv us_deaths_current_20.csv
+cp ../forecasts/us_forecasts_current_20.csv us_forecasts_current_20.csv
+cp ../forecasts/county_forecasts_quarantine_20.csv county_forecasts_quarantine_20.csv
+
+# Run formatting python code.
+python format_data_state_death.py
+python format_data_state_case.py
+python format_data_county_case.py
+
+
