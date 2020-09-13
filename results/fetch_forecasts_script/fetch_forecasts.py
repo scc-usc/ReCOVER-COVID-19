@@ -188,6 +188,51 @@ class Job(object):
         return dataset
 
 
+    def fetch_forecast_inc_deaths(self, file_dir):
+        dataset = {}
+        with open(file_dir) as f:
+            reader = csv.reader(f)
+            header = next(reader, None)
+
+            # Because different csv files have different column arrangements,
+            # find out the index the columns containing different data fields first.
+            location_col = -1
+            date_col = -1
+            target_col = -1
+            type_col = -1
+            value_col = -1
+
+            for i in range(0, len(header)):
+                if (header[i] == "location"):
+                    location_col = i
+                elif (header[i] == "target_end_date"):
+                    date_col = i
+                elif (header[i] == "target"):
+                    target_col = i
+                elif (header[i] == "type"):
+                    type_col = i
+                elif (header[i] == "value"):
+                    value_col = i
+        
+            for row in reader:  
+                if (row[type_col] == "point" \
+                    and "inc" in row[target_col] \
+                    and row[location_col] != "US"):
+                    state_id = int(row[location_col])
+                    state = self.costant.STATE_MAPPING[state_id]
+                    date = row[date_col]
+                    val = int(float(row[value_col]))
+                    if state not in dataset:
+                        dataset[state] = {}
+            
+                    # Skip duplicate predictions on the same date.
+                    if date in dataset[state]:
+                        continue
+            
+                    dataset[state][date] = val
+        return dataset
+
+
     def write_report(self, model_name, forecast_date, observed, predicted):
         """ 
         Given a dataset of observed deaths, 
@@ -196,16 +241,11 @@ class Job(object):
         """
         columns = ['State']
         columns.append((forecast_date - self.costant.DAY_ZERO).days)
-        # Find the next Saturday.
-        next_saturday = forecast_date + datetime.timedelta(1)
-        while (True):
-            if (next_saturday.weekday() == 5):
-                break;
-            next_saturday += datetime.timedelta(1)
-        
-        for i in range(0, 8):
-            columns.append((next_saturday - self.costant.DAY_ZERO).days + i*7)
+
+        for date_str in predicted[self.costant.STATES[0]]:
+            columns.append((datetime.datetime.strptime(date_str,"%Y-%m-%d") - self.costant.DAY_ZERO).days)
         dataframe = pd.DataFrame(columns=columns)
+        
         for state in self.costant.STATES:
             new_row = {}
             new_row["State"] = state
@@ -216,17 +256,10 @@ class Job(object):
                 new_row[(forecast_date - self.costant.DAY_ZERO).days] = "NaN"
 
             # Write the incident deaths for the following two weeks.
-            first_col = True
-            for i in range(0, 8):
-                date = next_saturday + datetime.timedelta(i * 7)
-                prev_date = next_saturday + datetime.timedelta((i-1) * 7)
-                date_str = date.strftime("%Y-%m-%d")
-                prev_date_str = prev_date.strftime("%Y-%m-%d")
-                if state in predicted and state in observed and date_str in predicted[state] and prev_date_str in observed[state] and first_col:
-                    new_row[(date - self.costant.DAY_ZERO).days] = predicted[state][date_str] - observed[state][prev_date_str]
-                    first_col = False
-                elif state in predicted and date_str in predicted[state] and prev_date_str in predicted[state]:
-                    new_row[(date - self.costant.DAY_ZERO).days] = predicted[state][date_str] - predicted[state][prev_date_str]
+            for date_str in predicted[self.costant.STATES[0]]:
+                date = datetime.datetime.strptime(date_str,"%Y-%m-%d")
+                if state in predicted and date_str in predicted[state]:
+                    new_row[(date - self.costant.DAY_ZERO).days] = predicted[state][date_str]
                 else:
                     new_row[(date - self.costant.DAY_ZERO).days] = "NaN"
 
@@ -252,10 +285,13 @@ class Job(object):
     
         observed = self.fetch_truth_cumulative_deaths()
         for forecast_filename in forecasts:
-            forecast_date = datetime.datetime.strptime(forecast_filename[:10],"%Y-%m-%d")
-            model_name = forecast_filename[11:-4]
-            predicted = self.fetch_forecast_deaths(self.input_directory + forecast_filename)
-            self.write_report(model_name, forecast_date, observed,predicted,)
+            try:
+                forecast_date = datetime.datetime.strptime(forecast_filename[:10],"%Y-%m-%d")
+                model_name = forecast_filename[11:-4]
+                predicted = self.fetch_forecast_inc_deaths(self.input_directory + forecast_filename)
+                self.write_report(model_name, forecast_date, observed,predicted)
+            except:
+                print("fail to read file " + forecast_filename + ".")
             
 
 if __name__ == "__main__":
@@ -268,5 +304,4 @@ if __name__ == "__main__":
     job.run()
     job.set_source("USF")
     job.run()
-    
     
