@@ -33,7 +33,7 @@ for cid = 1:length(popu)
     
     [~, pidx] = max(yy);
     
-    if 2*min(new_infec) > yy(pidx) % If the "peak" is not at least double the max value in the range, then it is noise
+    if 2*min(new_infec) > yy(pidx) % If the "peak" is not at least double the min value in the range, then it is noise
         continue;
     end
     
@@ -73,9 +73,11 @@ for cid = 1:length(popu)
         [beta_cell, un_prob_f, err, init_dat, ci_f, del, fittedC] = learn_un_fix_beta(data_4_s(cid, start_time-k*jp:end_time), popu(cid), k, jp, alpha, a_T, ii, 'l', 1);   
         [beta_auto_un1, un_prob_i, init_dat, fittedC, ci_i] = learn_nonlin(data_4_s(cid, start_time-k*jp:end_time), popu(cid), k, jp, 1, [], 'i');    
         [beta_auto_un2, un_prob_ll, init_dat, fittedC, ci_ll] = learn_nonlin(data_4_s(cid, start_time-k*jp:end_time), popu(cid), k, jp, 1, [], 'l');
+        delta_list(cid) = del;
     catch
         un_prob_i = 0;
         un_prob_ii = 0;
+        delta_list(cid) = -1;
     end
 
     % Generate table for unreported cases
@@ -101,4 +103,4 @@ for cid = 1:length(popu)
 end
 
 %%
-good_cid = del<1 & del > 0 & st_mid_end(:, 4)<0.1 & un_fact_f(:, 2) > 0;
+good_cid = st_mid_end(:, 4)<0.1 & un_fact_f(:, 2) > 0;
