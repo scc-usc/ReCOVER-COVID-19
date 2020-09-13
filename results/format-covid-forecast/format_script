@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# RELATIVE address of our submission folder in Forecast Hub from the current directory.
-FORECAST_HUB_DIR = "../../../covid19-forecast-hub/data-processed/USC-SI_kJalpha/"
-
 # NOTE: PLEASE RUN THIS FILE ON EVERY SUNDAY
 # Copy the latest forecasts into the current directory.
 cp ../forecasts/global_deaths_current_20.csv global_deaths_current_20.csv
@@ -16,6 +13,4 @@ python format_data_state_death.py
 python format_data_state_case.py
 python format_data_county_case.py
 
-echo ${FORECAST_HUB_DIR}
-cd ${FORECAST_HUB_DIR}
 
