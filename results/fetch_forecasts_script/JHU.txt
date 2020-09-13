@@ -1,1 +1,6 @@
-2020-05-01-YYG-ParamSearch.csv
+2020-08-30-Covid19Sim-Simulator.csv2020-09-06-Covid19Sim-Simulator.csv
+2020-09-06-CU-select.csv2020-08-30-CU-select.csv
+2020-08-30-IowaStateLW-STEM.csv2020-09-06-IowaStateLW-STEM.csv
+2020-08-30-JHU_IDD-CovidSP.csv2020-09-06-JHU_IDD-CovidSP.csv
+2020-08-30-UCLA-SuEIR.csv2020-09-06-UCLA-SuEIR.csv
+2020-09-06-YYG-ParamSearch.csv2020-08-30-YYG-ParamSearch.csv
