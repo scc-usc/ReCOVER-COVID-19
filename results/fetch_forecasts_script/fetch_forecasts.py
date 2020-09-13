@@ -243,6 +243,10 @@ class Job(object):
         columns.append((forecast_date - self.costant.DAY_ZERO).days)
 
         for date_str in predicted[self.costant.STATES[0]]:
+            date = datetime.datetime.strptime(date_str,"%Y-%m-%d")
+            # Skip if the target end day is not Saturday.
+            if (date.weekday() != 5):
+                continue
             columns.append((datetime.datetime.strptime(date_str,"%Y-%m-%d") - self.costant.DAY_ZERO).days)
         dataframe = pd.DataFrame(columns=columns)
         
@@ -258,6 +262,9 @@ class Job(object):
             # Write the incident deaths for the following two weeks.
             for date_str in predicted[self.costant.STATES[0]]:
                 date = datetime.datetime.strptime(date_str,"%Y-%m-%d")
+                # Skip if the target end day is not Saturday.
+                if (date.weekday() != 5):
+                    continue
                 if state in predicted and date_str in predicted[state]:
                     new_row[(date - self.costant.DAY_ZERO).days] = predicted[state][date_str]
                 else:
@@ -300,8 +307,8 @@ if __name__ == "__main__":
     job.set_output_directory("./output/")
     job.set_source("JHU")
     job.run()
-    job.set_source("NYT")
-    job.run()
-    job.set_source("USF")
-    job.run()
+    #job.set_source("NYT")
+    #job.run()
+    #job.set_source("USF")
+    #job.run()
     
