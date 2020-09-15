@@ -23,7 +23,21 @@ runningAvgRankings: [
  description: "Based on the SEIR model to make daily projections regarding COVID-19 infections and deaths in 50 US states. The model's contributor is Youyang Gu.",
  link: "http://covid19-projections.com/about/"
 },
- RMSE: 36.34
+ RMSE: 36.3
+},  {
+     model: {
+ name: "UCLA_SuEIR",
+ description: "SEIR model by UCLA Statistical Machine Learning Lab.",
+ link: "https://covid19.uclaml.org/"
+},
+ RMSE: 57.07
+},  {
+     model: {
+ name: "Covid19Sim_Simulator",
+ description: "An interactive tool developed by researchers at Mass General Hospital, Harvard Medical School, Georgia Tech and Boston Medical Center.",
+ link: "https://covid19sim.org/"
+},
+ RMSE: 64.88
 },  {
      model: {
  name: "CU_select",
@@ -33,18 +47,18 @@ runningAvgRankings: [
  RMSE: 68.17
 },  {
      model: {
- name: "UCLA_SuEIR",
- description: "SEIR model by UCLA Statistical Machine Learning Lab.",
- link: "https://covid19.uclaml.org/"
+ name: "JHU_IDD_CovidSP",
+ description: "County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
+ link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
 },
- RMSE: 84.67
+ RMSE: 80.6
 },  {
      model: {
- name: "Covid19Sim_Simulator",
- description: "An interactive tool developed by researchers at Mass General Hospital, Harvard Medical School, Georgia Tech and Boston Medical Center.",
- link: "https://covid19sim.org/"
+ name: "IowaStateLW_STEM",
+ description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
+ link: "https://covid19.stat.iastate.edu"
 },
- RMSE: 97.81
+ RMSE: 84.1
 },  {
      model: {
  name: "CovidActNow_SEIR_CAN",
@@ -52,20 +66,6 @@ runningAvgRankings: [
  link: "https://covidactnow.org/"
 },
  RMSE: 110.82
-},  {
-     model: {
- name: "IowaStateLW_STEM",
- description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
- link: "https://covid19.stat.iastate.edu"
-},
- RMSE: 122.24
-},  {
-     model: {
- name: "JHU_IDD_CovidSP",
- description: "County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
- link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
-},
- RMSE: 419.38
 },],
 recentRankings: [
     {
@@ -74,7 +74,7 @@ recentRankings: [
  description: "Based on the SEIR model to make daily projections regarding COVID-19 infections and deaths in 50 US states. The model's contributor is Youyang Gu.",
  link: "http://covid19-projections.com/about/"
 },
- RMSE: 24.77
+ RMSE: 24.2
 },  {
      model: {
  name: "SIkJa_USC",
@@ -84,39 +84,39 @@ recentRankings: [
  RMSE: 25.41
 },  {
      model: {
- name: "CU_select",
- description: "A metapopulation county-level SEIR model by Columbia University.",
- link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
+ name: "UCLA_SuEIR",
+ description: "SEIR model by UCLA Statistical Machine Learning Lab.",
+ link: "https://covid19.uclaml.org/"
 },
- RMSE: 36.9
+ RMSE: 28.03
 },  {
      model: {
  name: "Covid19Sim_Simulator",
  description: "An interactive tool developed by researchers at Mass General Hospital, Harvard Medical School, Georgia Tech and Boston Medical Center.",
  link: "https://covid19sim.org/"
 },
- RMSE: 489.76
-},  {
-     model: {
- name: "UCLA_SuEIR",
- description: "SEIR model by UCLA Statistical Machine Learning Lab.",
- link: "https://covid19.uclaml.org/"
-},
- RMSE: 497.16
+ RMSE: 28.83
 },  {
      model: {
  name: "IowaStateLW_STEM",
  description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
  link: "https://covid19.stat.iastate.edu"
 },
- RMSE: 607.15
+ RMSE: 35.14
+},  {
+     model: {
+ name: "CU_select",
+ description: "A metapopulation county-level SEIR model by Columbia University.",
+ link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
+},
+ RMSE: 36.93
 },  {
      model: {
  name: "JHU_IDD_CovidSP",
  description: "County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
  link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
 },
- RMSE: 5466.04
+ RMSE: 45.56
 },  {
      model: {
  name: "CovidActNow_SEIR_CAN",
