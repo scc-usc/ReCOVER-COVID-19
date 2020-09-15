@@ -125,68 +125,6 @@ class Job(object):
                 
             dataset[state][date] = val
         return dataset
-    
-
-    def fetch_forecast_deaths(self, file_dir):
-        """
-            Read the prediction files and returns a 2D dictionary structuring of <state, <date, value>>.
-            An example looks like:
-            { "California" : {
-                "2020-06-18": 5562,
-                "2020-06-19": 5659,
-                }, 
-            "Colorado" : {
-                "2020-06-18": 1637,
-                "2020-06-19": 1645,
-                }
-            }
-        """
-        dataset = {}
-        with open(file_dir) as f:
-            reader = csv.reader(f)
-            header = next(reader, None)
-
-            # Because different csv files have different column arrangements,
-            # find out the index the columns containing different data fields first.
-            location_col = -1
-            date_col = -1
-            target_col = -1
-            type_col = -1
-            value_col = -1
-
-            for i in range(0, len(header)):
-                if (header[i] == "location"):
-                    location_col = i
-                elif (header[i] == "target_end_date"):
-                    date_col = i
-                elif (header[i] == "target"):
-                    target_col = i
-                elif (header[i] == "type"):
-                    type_col = i
-                elif (header[i] == "value"):
-                    value_col = i
-        
-            for row in reader:
-                # Skip the row of quantile-type prediction, non-cumulative type, or US country-level data.
-                if (row[type_col] != "point"  \
-                    or "cum death" not in row[target_col] \
-                    or row[location_col] == "US"):
-                    continue
-
-                state_id = int(row[location_col])
-                state = self.costant.STATE_MAPPING[state_id]
-                date = row[date_col]
-                val = int(float(row[value_col]))
-                if state not in dataset:
-                    dataset[state] = {}
-            
-                # Skip duplicate predictions on the same date.
-                if date in dataset[state]:
-                    continue
-            
-                dataset[state][date] = val
-        return dataset
-
 
     def fetch_forecast_inc_deaths(self, file_dir):
         dataset = {}
@@ -216,7 +154,7 @@ class Job(object):
         
             for row in reader:  
                 if (row[type_col] == "point" \
-                    and "inc" in row[target_col] \
+                    and "inc death" in row[target_col] \
                     and row[location_col] != "US"):
                     state_id = int(row[location_col])
                     state = self.costant.STATE_MAPPING[state_id]
