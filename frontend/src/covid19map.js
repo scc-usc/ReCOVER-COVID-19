@@ -5,6 +5,7 @@ import { areaToStr, strToArea } from "./covid19util";
 
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4maps from "@amcharts/amcharts4/maps";
+import * as am4charts from "@amcharts/amcharts4/charts";
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import am4geodata_usaLow from "@amcharts/amcharts4-geodata/usaLow";
 import am4geodata_chinaLow from "@amcharts/amcharts4-geodata/chinaLow";
@@ -12,8 +13,10 @@ import am4geodata_canadaLow from "@amcharts/amcharts4-geodata/canadaLow";
 import am4geodata_australiaLow from "@amcharts/amcharts4-geodata/australiaLow";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
-const HEAT_MAP_MIN_COLOR = "#fcbba0";
-const HEAT_MAP_MAX_COLOR = "#66000d";
+// const HEAT_MAP_MIN_COLOR = "#fcbba0";
+// const HEAT_MAP_MAX_COLOR = "#66000d";
+const HEAT_MAP_MIN_COLOR = "#ffffff";
+const HEAT_MAP_MAX_COLOR = "#000000";
 const MAP_HOVER_COLOR = "#e43027";
 
 am4core.useTheme(am4themes_animated);
@@ -62,7 +65,7 @@ class Covid19Map extends Component {
               id: d.area.iso_2,
               // Adjust all heatmap values by log scale.
               //value: d.value > 0 ? Math.log(d.value) : 0,
-              value: Math.log(d.percentage),
+              value: Math.log(d.max_percentage),
               // Store the true value so we can display tooltips correctly.
               valueTrue: d.value,
               area: d.area
@@ -81,7 +84,7 @@ class Covid19Map extends Component {
               id: d.area.iso_2,
               // Adjust all heatmap values by log scale.
               //value: d.value > 0 ? Math.log(d.value) : 0,
-              value:Math.log(d.percentage),
+              value:Math.log(d.max_percentage),
               // Store the true value so we can display tooltips correctly.
               valueTrue: d.value,
               area: d.area
@@ -105,7 +108,7 @@ class Covid19Map extends Component {
                 id: d.area.iso_2,
                 // Adjust all heatmap values by log scale.
                 // value: d.value > 0 ? Math.log(d.value) : 0,
-                value: Math.log(d.percentage),
+                value: this.props.dataType === "confirmed"?Math.log(d.max_val_percentage):Math.log(d.max_death_percentage),
                 // Store the true value so we can display tooltips correctly.
                 valueTrue: d.value,
                 area: d.area
@@ -127,7 +130,7 @@ class Covid19Map extends Component {
                     id: d.area.iso_2,
                     // Adjust all heatmap values by log scale.
                     // value: d.value > 0 ? Math.log(d.value) : 0,
-                    value:Math.log(d.value_percentage),
+                    value:Math.log(d.max_val_percentage),
                     // Store the true value so we can display tooltips correctly.
                     valueTrue: d.value,
                     area: d.area
@@ -139,7 +142,7 @@ class Covid19Map extends Component {
                     id: d.area.iso_2,
                     // Adjust all heatmap values by log scale.
                     //value: d.deathValue > 0 ? Math.log(d.deathValue) : 0,
-                    value: Math.log(d.death_percentage),
+                    value: Math.log(d.max_death_percentage),
                     // Store the true value so we can display tooltips correctly.
                     valueTrue: d.deathValue,
                     area: d.area
@@ -289,6 +292,18 @@ class Covid19Map extends Component {
     });
     
     this.stateSeries = [usaSeries];
+
+      // //add heat legends
+      // let heatLegend = this.chart.chartContainer.createChild(am4charts.HeatLegend);
+      // heatLegend.padding(5,5,5,5);
+      // heatLegend.align = "left";
+      // heatLegend.valign = "bottom";
+      // heatLegend.marginLeft = 15;
+      // heatLegend.series = worldSeries;
+
+      // heatLegend.valueAxis.renderer.labels.template.adapter.add("text", function(labelText) {
+      //   return "";
+      // });
     
     this.initChartInterface();
 
@@ -311,13 +326,90 @@ class Covid19Map extends Component {
     // Heatmap fill.
     if (statistic === "cumulative")
     {
-      series.heatRules.push({
-        property: "fill",
-        target: polygonTemplate,
-        min: am4core.color(HEAT_MAP_MIN_COLOR),
-        max: am4core.color(HEAT_MAP_MAX_COLOR),
-        minValue: 0,
-        maxValue: Math.log(1000)
+      // series.heatRules.push({
+      //   property: "fill",
+      //   target: polygonTemplate,
+      //   min: am4core.color(HEAT_MAP_MIN_COLOR),
+      //   max: am4core.color(HEAT_MAP_MAX_COLOR),
+      //   minValue: 0,
+      //   maxValue: Math.log(1000)
+      // });
+      polygonTemplate.polygon.adapter.add("fill", function(fill, target) {
+        if (target.dataItem) {
+          if (target.dataItem.value >= Math.log(9000)) {
+            return am4core.color("#140000")
+          }
+          else if (target.dataItem.value >= Math.log(7000)) {
+            return am4core.color("#290000")
+          }
+          else if (target.dataItem.value >= Math.log(4000)) {
+            return am4core.color("#3D0000")
+          }
+          else if (target.dataItem.value >= Math.log(1000)) {
+            return am4core.color("#520000")
+          }
+          else if (target.dataItem.value >= Math.log(750)) {
+            return am4core.color("#660000")
+          }
+          else if (target.dataItem.value >= Math.log(450)) {
+            return am4core.color("#7A0000")
+          }
+          else if (target.dataItem.value >= Math.log(340)) {
+            return am4core.color("#8F0000")
+          }
+          else if (target.dataItem.value >= Math.log(188)) {
+            return am4core.color("#A30000")
+          }
+          else if (target.dataItem.value >= Math.log(160)) {
+            return am4core.color("#B80000")
+          }
+          else if (target.dataItem.value >= Math.log(121)) {
+            return am4core.color("#CC0000")
+          }
+          else if (target.dataItem.value >= Math.log(104)) {
+            return am4core.color("#E00000")
+          }
+          else if (target.dataItem.value >= Math.log(93)) {
+            return am4core.color("#F50000")
+          }
+          else if (target.dataItem.value >= Math.log(80)) {
+            return am4core.color("#FF0A0A")
+          }
+          else if (target.dataItem.value >= Math.log(62)) {
+            return am4core.color("#FF1F1F")
+          }
+          else if (target.dataItem.value >= Math.log(49)) {
+            return am4core.color("#FF3333")
+          }
+          else if (target.dataItem.value >= Math.log(39)) {
+            return am4core.color("#FF4747")
+          }
+          else if (target.dataItem.value >= Math.log(28)) {
+            return am4core.color("#FF5C5C")
+          }
+          else if (target.dataItem.value >= Math.log(21)) {
+            return am4core.color("#FF7070")
+          }
+          else if (target.dataItem.value >= Math.log(10)) {
+            return am4core.color("#FF8585")
+          }
+          else if (target.dataItem.value >= Math.log(15)) {
+            return am4core.color("#FF9999")
+          }
+          else if (target.dataItem.value >= Math.log(12)) {
+            return am4core.color("#FFADAD")
+          }
+          else if (target.dataItem.value >= Math.log(9)) {
+            return am4core.color("#FFC2CD")
+          }
+          else if (target.dataItem.value >= Math.log(6)) {
+            return am4core.color("#FFD6DE")
+          }
+          else {
+            return am4core.color("#FFEBEE");
+          }
+        }
+        return fill;
       });
     }
     else 
@@ -328,15 +420,15 @@ class Covid19Map extends Component {
         min: am4core.color(HEAT_MAP_MIN_COLOR),
         max: am4core.color(HEAT_MAP_MAX_COLOR),
         minValue: 0,
-        maxValue: Math.log(1000)
+        maxValue: Math.log(10000)
       });
     }
-    
 
     // Configure series tooltip. Display the true value of infections.
     polygonTemplate.tooltipText = "{name}: {valueTrue}";
     polygonTemplate.nonScalingStroke = true;
-    polygonTemplate.strokeWidth = 0.5;
+    polygonTemplate.strokeWidth = 1;
+    polygonTemplate.stroke = am4core.color("black");
 
     // Create hover state and set alternative fill color.
     let hs = polygonTemplate.states.create("hover");
