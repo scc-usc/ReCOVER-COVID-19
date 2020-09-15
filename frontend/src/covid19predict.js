@@ -41,8 +41,9 @@ class Covid19Predict extends PureComponent {
   handleStatisticSelect = e => {
     this.setState({
       statistic: e.target.value
-    });
-
+    },  ()=>{
+      this.map.fetchData(this.state.dynamicMapOn);
+    })
   };
 
   handleDataTypeSelect = e => {
