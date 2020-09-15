@@ -53,12 +53,12 @@ def cumulative_infections(request):
     This endpoint returns the number of cumulative infections for each area to
     date.
     """
-    #area_num = len(Covid19CumulativeDataPoint.objects.all())
-    total = sum([d.data_point.val for d in Covid19CumulativeDataPoint.objects.all()])
-    #last_day = Covid19PredictionDataPoint.objects.filter(date=Covid19PredictionDataPoint.objects.last().date)
-    # mean = sum([d.data_point.val for d in Covid19CumulativeDataPoint.objects.all()])/area_num
-    # var = sum([(d.data_point.val - mean)**2 for d in Covid19CumulativeDataPoint.objects.all()])/area_num
-    # min_norm = (min([d.data_point.val for d in Covid19CumulativeDataPoint.objects.all()]) - mean)/var
+    #total = sum([d.data_point.val for d in Covid19CumulativeDataPoint.objects.all()])
+    greatest_model = Covid19Model.objects.get(name="SI-kJalpha - 40x")
+    greatest_predictions = Covid19PredictionDataPoint.objects.filter(model=greatest_model)
+    greatest_predictions = greatest_predictions.filter(date=greatest_predictions.last().date, social_distancing=1)
+    greatest_vals = [d.val for d in greatest_predictions]
+    max_val = max(greatest_vals)
     response = [{
         'area': {
             'country': d.area.country,
@@ -67,12 +67,19 @@ def cumulative_infections(request):
         },
         'value': d.data_point.val,
         #'norm': 1e7*((d.data_point.val - mean)/var - min_norm),
-        'percentage': 1e3*d.data_point.val/total,
-        #'max': last_day.filter(area = d.area).val,
+        #'percentage': 1e3*d.data_point.val/total,
+        'max_percentage': 1e4*d.data_point.val/max_val,
         'date': d.data_point.date,
     } for d in Covid19CumulativeDataPoint.objects.all()]
 
-
+    #experiment to check for infection number's distribution
+    # values = [1e4*d/max_val for d in greatest_vals]
+    # values.sort()
+    # print(values)
+    # marks = []
+    # for i in range(0, 240, 10):
+    #     marks.append(values[i])
+    # print(marks)
     return Response(response)
 
 @api_view(['GET'])
@@ -80,15 +87,20 @@ def cumulative_death(request):
     days = int(request.query_params.get("days"))
     lastDate = Covid19DeathDataPoint.objects.last().date
     historyDate = lastDate - timedelta(days=-days)
-    total = sum([d.val for d in Covid19DeathDataPoint.objects.filter(date=historyDate)])
+    greatest_death_model = Covid19Model.objects.get(name="SI-kJalpha - 40x (death prediction)")
+    greatest_death_predictions = Covid19PredictionDataPoint.objects.filter(model=greatest_death_model)
+    greatest_death_predictions = greatest_death_predictions.filter(date=greatest_death_predictions.last().date, social_distancing = 1)
+    greatest_death_vals = [d.val for d in greatest_death_predictions]
+    max_death_val = max(greatest_death_vals)
+    print(max_death_val)
     return Response([{
         'area': {
             'country': m.area.country,
             'state': m.area.state,
             'iso_2': m.area.iso_2,
         },
-        'percentage': 1e3*m.val/total,
         'value': m.val,
+        'max_percentage':1e4*m.val/max_death_val,
         'date': m.date
     } for m in Covid19DeathDataPoint.objects.filter(date=historyDate)])
 
@@ -377,10 +389,21 @@ def predict_all(request):
     model = Covid19Model.objects.get(name=model_name)
 
     qs = Covid19PredictionDataPoint.objects.filter(model=model, date=date)
-    total = sum([d.val for d in qs])
+    #total = sum([d.val for d in qs])
     # mean = sum([d.val for d in qs])/len(qs)
     # var = sum([(d.val-mean)**2 for d in qs])/len(qs)
     # min_norm = (min([d.val for d in qs]) - mean)/var
+    greatest_model = Covid19Model.objects.get(name="SI-kJalpha - 40x")
+    greatest_predictions = Covid19PredictionDataPoint.objects.filter(model=greatest_model)
+    greatest_predictions = greatest_predictions.filter(date=greatest_predictions.last().date, social_distancing=1)
+    greatest_vals = [d.val for d in greatest_predictions]
+    max_val = max(greatest_vals)
+    greatest_death_model = Covid19Model.objects.get(name="SI-kJalpha - 40x (death prediction)")
+    greatest_death_predictions = Covid19PredictionDataPoint.objects.filter(model=greatest_death_model)
+    greatest_death_predictions = greatest_death_predictions.filter(date=greatest_death_predictions.last().date,
+                                                                   social_distancing=1)
+    greatest_death_vals = [d.val for d in greatest_death_predictions]
+    max_death_val = max(greatest_death_vals)
 
     response = [{
         'area': {
@@ -389,7 +412,9 @@ def predict_all(request):
             'iso_2': d.area.iso_2,
         },
         #'norm': 1e7 * ((d.val - mean) / var - min_norm),
-        'percentage': 1e3*d.val/total,
+        #'percentage': 1e3*d.val/total,
+        'max_val_percentage': 1e4*d.val/max_val,
+        'max_death_percentage': 1e4*d.val/max_death_val,
         'value': d.val,
         'date': d.date,
     } for d in qs]
@@ -540,8 +565,20 @@ def history_cumulative(request):
     historyDate = max([d.date for d in observed]) - timedelta(days=-days)
     shownData = observed.filter(date=historyDate)
     deathData = Covid19DeathDataPoint.objects.filter(date=historyDate)
-    total_confirmed = sum([d.val for d in shownData])
-    total_death = sum([d.val for d in deathData])
+    #total_confirmed = sum([d.val for d in shownData])
+    #total_death = sum([d.val for d in deathData])
+    greatest_model = Covid19Model.objects.get(name="SI-kJalpha - 40x")
+
+    greatest_predictions = Covid19PredictionDataPoint.objects.filter(model=greatest_model)
+    greatest_predictions = greatest_predictions.filter(date=greatest_predictions.last().date, social_distancing=1)
+    greatest_vals = [d.val for d in greatest_predictions]
+    max_val = max(greatest_vals)
+    greatest_death_model = Covid19Model.objects.get(name="SI-kJalpha - 40x (death prediction)")
+    greatest_death_predictions = Covid19PredictionDataPoint.objects.filter(model=greatest_death_model)
+    greatest_death_predictions = greatest_death_predictions.filter(date=greatest_death_predictions.last().date,
+                                                                   social_distancing=1)
+    greatest_death_vals = [d.val for d in greatest_death_predictions]
+    max_death_val = max(greatest_death_vals)
     response = [{
         'area': {
             'country': d.area.country,
@@ -549,10 +586,12 @@ def history_cumulative(request):
             'iso_2': d.area.iso_2,
         },
         'value': d.val,
-        'value_percentage': 1e3*d.val/total_confirmed,
+        #'value_percentage': 1e3*d.val/total_confirmed,
+        'max_val_percentage': 1e4*d.val/max_val,
         'date': d.date,
         'deathValue': deathData.filter(area=d.area, date=d.date).first().val,
-        'death_percentage': 1e3*deathData.filter(area=d.area, date=d.date).first().val/total_death,
+        'max_death_percentage':1e4*deathData.filter(area=d.area, date=d.date).first().val/max_death_val,
+        #'death_percentage': 1e3*deathData.filter(area=d.area, date=d.date).first().val/total_death,
     } for d in shownData]
 
     return Response(response)
