@@ -27,10 +27,7 @@ function [pred_deaths] = var_simulate_deaths(data_4, beta_all_cell, k_l, jp_l, h
         k = k_l(j);
     
         jk = jp*k;
-        %lag = 7;
-        lag = 0;
-        jk = jk + lag;
-        
+                
         Ikt = zeros(1,k);
         for t = T_start:maxt-1
             Ikt1 = deldata(j, t-jk:t-1);

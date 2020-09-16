@@ -1,4 +1,4 @@
-function [beta_all_cell, ci, fittedC] = var_ind_deaths(data_4, death_data, alpha_l, k_l, jp_l, window_size, ret_conf, compute_region)
+function [beta_all_cell, ci, fittedC] = var_ind_deaths(data_4, death_data, alpha_l, k_l, jp_l, window_size, ret_conf, compute_region, lags)
     
     maxt = size(data_4, 2);
     nn = size(data_4, 1);
@@ -23,6 +23,14 @@ function [beta_all_cell, ci, fittedC] = var_ind_deaths(data_4, death_data, alpha
     
     if length(k_l) == 1
         k_l = ones(nn, 1)*k_l;
+    end
+    
+    if nargin < 9
+        lags = k_l - 1;
+    end
+    
+    if length(lags) == 1
+        lags = ones(nn, 1)*lags;
     end
     
     if length(alpha_l) == 1
@@ -53,10 +61,7 @@ function [beta_all_cell, ci, fittedC] = var_ind_deaths(data_4, death_data, alpha
         end
         
         scalefactor = 0.5*nanmean(data_4(j, death_data(j, :)>10)./death_data(j, death_data(j, :)>10)); % Scales deaths so that the parameters learned are not negligible        
-        
-        lag = 0; % To enforce there is a delay between positive report and death
-        jk = jk+lag;
-        
+                
         if death_data(j, end) < 1
             continue;
         end
@@ -81,16 +86,22 @@ function [beta_all_cell, ci, fittedC] = var_ind_deaths(data_4, death_data, alpha
         end
         scalefactor = 1;
         X1 = (alphamat.*X); y1 = scalefactor*(alphavec.*y);
+        
+        lag = lags(j);
+        k1 = k - lag;
+        X1 = X1(:, 1:k1);
+        
+        
        opts1=  optimset('display','off');
        if ret_conf == 0    % If confidence intervals are not required, we will run this as this seems to be faster
-        beta_vec =  lsqlin(X1, y1,[],[],[],[],zeros(k, 1), [ones(k, 1)], [], opts1);
+        beta_vec =  lsqlin(X1, y1,[],[],[],[],zeros(k1, 1), [ones(k1, 1)], [], opts1);
        else
-        mdl = fitnlm(X1, y1, @(w, X1)(X1*(1./(1+exp(-w)))), zeros(k, 1));
+        mdl = fitnlm(X1, y1, @(w, X1)(X1*(1./(1+exp(-w)))), zeros(k1, 1));
         beta_vec = 1./(1+ exp(-mdl.Coefficients.Estimate));
         beta_CI = 1./(1+ exp(-mdl.coefCI));
         ci{j} = beta_CI./scalefactor;
        end
-        beta_all_cell{j} = beta_vec./scalefactor;
-        fittedC{j} = [X*beta_all_cell{j} y/scalefactor];
+        beta_all_cell{j}(1:k1) = beta_vec./scalefactor;
+        fittedC{j} = [X1*beta_all_cell{j}(1:k1) y/scalefactor];
     end
     
