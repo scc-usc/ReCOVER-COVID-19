@@ -12,18 +12,18 @@ const data = {
 runningAvgRankings: [
     {
      model: {
- name: "SIkJa_USC",
- description: "This is our SI-kJalpha model.",
- link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
-},
- RMSE: 35.21
-},  {
-     model: {
  name: "YYG_ParamSearch",
  description: "Based on the SEIR model to make daily projections regarding COVID-19 infections and deaths in 50 US states. The model's contributor is Youyang Gu.",
  link: "http://covid19-projections.com/about/"
 },
  RMSE: 36.3
+},  {
+     model: {
+ name: "SIkJa_USC",
+ description: "This is our SI-kJalpha model.",
+ link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
+},
+ RMSE: 37.08
 },  {
      model: {
  name: "UCLA_SuEIR",
