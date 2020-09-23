@@ -306,7 +306,7 @@ class Covid19Graph extends Component {
               return
             }
             chartData.push({
-              id: `${area} (${modelName}, distancing=${distancing})`,
+              id: `${area} (${modelName}, ${distancing})`,
               // If we're displaying deltas, we pass in the last observed value as
               // the initial value for calculating the predicted deltas.
               data: this.processData(augmented_timeSeries, {
