@@ -1,1 +1,0 @@
-2020-09-13-Covid19Sim-Simulator.csv2020-09-13-CU-select.csv2020-09-13-IowaStateLW-STEM.csv2020-09-13-JHU_IDD-CovidSP.csv2020-09-13-UCLA-SuEIR.csv2020-09-13-YYG-ParamSearch.csv2020-09-20-Covid19Sim-Simulator.csv2020-09-20-CU-select.csv2020-09-20-IowaStateLW-STEM.csv2020-09-20-JHU_IDD-CovidSP.csv2020-09-20-UCLA-SuEIR.csv2020-09-20-YYG-ParamSearch.csv
