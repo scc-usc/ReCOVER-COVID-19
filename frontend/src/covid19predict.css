@@ -26,6 +26,7 @@
 
 .instruction-buttons-wrapper {
     margin: 40px auto;
+    margin-top: 20px;
 }
 
 .instruction {
@@ -51,5 +52,156 @@
     color: brown;
     margin: 0 auto;
 }
+.color-legend{
+    width: 100vw;
+}
 
+.number {
+    float:left;
+    margin-right: 10px;
+    margin-left: 10px;
+}
 
+.box_1 {
+    background-color: #FFEBEE ;
+    padding: 10px;
+    float: left;
+}
+
+.box_2 {
+    background-color: #FFD6DE ;
+    padding: 10px;
+    float: left;
+}
+
+.box_3 {
+    background-color: #FFC2CD ;
+    padding: 10px;
+    float: left;
+}
+
+.box_4 {
+    background-color: #FFADAD;
+    padding: 10px;
+    float: left;
+}
+
+.box_5 {
+    background-color: #FF9999 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_6 {
+    background-color: #FF8585 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_7 {
+    background-color: #FF7070 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_8 {
+    background-color: #FF5C5C ;
+    padding: 10px;
+    float: left;
+}
+
+.box_9 {
+    background-color: #FF4747 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_10 {
+    background-color: #FF3333 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_11 {
+    background-color: #FF1F1F ;
+    padding: 10px;
+    float: left;
+}
+
+.box_12 {
+    background-color: #FF0A0A ;
+    padding: 10px;
+    float: left;
+}
+
+.box_13 {
+    background-color: #F50000 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_14 {
+    background-color: #E00000 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_15 {
+    background-color: #CC0000 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_16 {
+    background-color: #B80000 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_17 {
+    background-color: #A30000 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_18 {
+    background-color: #8F0000 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_19 {
+    background-color: #7A0000 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_20 {
+    background-color: #660000 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_21 {
+    background-color: #520000 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_22 {
+    background-color: #3D0000 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_23 {
+    background-color: #290000 ;
+    padding: 10px;
+    float: left;
+}
+
+.box_24 {
+    background-color: #140000 ;
+    padding: 10px;
+    float: left;
+}
