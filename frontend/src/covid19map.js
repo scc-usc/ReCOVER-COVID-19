@@ -504,7 +504,10 @@ class Covid19Map extends Component {
 
   render() {
     
-    return <div id="chartdiv"></div>;
+    return (
+      <div id="chartdiv">
+      </div>
+    );
   }
 }
 

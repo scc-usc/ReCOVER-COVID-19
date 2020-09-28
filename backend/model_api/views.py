@@ -595,3 +595,26 @@ def history_cumulative(request):
     } for d in shownData]
 
     return Response(response)
+
+@api_view(["GET"])
+def get_maximum(request):
+    greatest_death_model = Covid19Model.objects.get(name="SI-kJalpha - 40x (death prediction)")
+    greatest_death_predictions = Covid19PredictionDataPoint.objects.filter(model=greatest_death_model)
+    greatest_death_predictions = greatest_death_predictions.filter(date=greatest_death_predictions.last().date,
+                                                                   social_distancing=1)
+    greatest_death_vals = [d.val for d in greatest_death_predictions]
+    max_death_val = max(greatest_death_vals)
+
+    greatest_model = Covid19Model.objects.get(name="SI-kJalpha - 40x")
+    greatest_predictions = Covid19PredictionDataPoint.objects.filter(model=greatest_model)
+    greatest_predictions = greatest_predictions.filter(date=greatest_predictions.last().date, social_distancing=1)
+    greatest_vals = [d.val for d in greatest_predictions]
+    max_val = max(greatest_vals)
+
+    response = [{
+        "max_val": max_val,
+        "max_death_val": max_death_val
+    }]
+
+    return Response(response)
+
