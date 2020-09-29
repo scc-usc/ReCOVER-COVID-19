@@ -5,7 +5,7 @@ import urllib.request
 import io
 
 FORECAST_DATE = datetime.datetime.today()
-FIRST_WEEK = datetime.datetime.today() + datetime.timedelta(5)
+FIRST_WEEK = FORECAST_DATE + datetime.timedelta(5)
 INPUT_FILENAME_STATE = "us_forecasts_current_20.csv"
 INPUT_FILENAME_GLOBAL = "global_forecasts_current_20.csv"
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha.csv"

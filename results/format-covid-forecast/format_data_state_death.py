@@ -5,7 +5,7 @@ import urllib.request
 import io
 
 FORECAST_DATE = datetime.datetime.today()
-FIRST_WEEK = datetime.datetime.today() + datetime.timedelta(5)
+FIRST_WEEK = FORECAST_DATE + datetime.timedelta(5)
 INPUT_FILENAME_STATE = "us_deaths_current_20.csv"
 INPUT_FILENAME_GLOBAL = "global_deaths_current_20.csv"
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha.csv"
@@ -187,7 +187,7 @@ def generate_dataframe(forecast, observed):
     """
     Given our forecast and observed data, generate a pandas dataframe according to reichlab's required format.
     """
-    dataframe = pd.DataFrame(columns=COLUMNS)
+    dataframe = pd.DataFrame(columns=COLUMNS, dtype=str)
 
     # Write cumulative forecasts.
     cum_week = 0
