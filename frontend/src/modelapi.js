@@ -174,6 +174,18 @@ class ModelAPI {
       }
     )
   }
+
+  //get maximum case and death
+  get_maximum(callback) {
+    const endpoint =  `${API_BASE_URL}/get_maximum`;
+    axios.get(endpoint).then(res => {
+      const max = {
+        max_val: res.data[0].max_val,
+        max_death_val: res.data[0].max_death_val
+      };
+      callback(max);
+    });
+  }
 }
 
 export default ModelAPI;

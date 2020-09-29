@@ -18,5 +18,6 @@ urlpatterns = [
     path('history_cumulative/', views.history_cumulative),
     path('latest_score_date/', views.latest_score_date),
     path('cumulative_death/', views.cumulative_death),
-    path('all_mrf_scores/', views.all_mrf_scores)
+    path('all_mrf_scores/', views.all_mrf_scores),
+    path('get_maximum/', views.get_maximum)
 ]

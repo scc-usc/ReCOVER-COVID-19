@@ -84,7 +84,9 @@ class Covid19Predict extends PureComponent {
       showControlInstructions: false,
       showMapInstructions: false,
       totalConfirmed: 0,
-      totalDeaths: 0
+      totalDeaths: 0,
+      max_val: 0,
+      max_death_val: 0
     };
 
     this.addAreaByStr = this.addAreaByStr.bind(this);
@@ -142,6 +144,13 @@ class Covid19Predict extends PureComponent {
       this.setState({
         totalConfirmed: global.totalConfirmed,
         totalDeaths: global.totalDeaths
+      })
+    })
+
+    this.modelAPI.get_maximum(max => {
+      this.setState({
+        max_val: max.max_val,
+        max_death_val: max.max_death_val
       })
     })
   }
@@ -424,7 +433,9 @@ class Covid19Predict extends PureComponent {
       mapShown,
       yScale,
       noDataError,
-      errorDescription
+      errorDescription,
+      max_val,
+      max_death_val
     } = this.state;
     const marks = this.generateMarks();
     const daysToFirstDate = this.getDaysToFirstDate();
@@ -757,6 +768,36 @@ class Covid19Predict extends PureComponent {
                   statistic={statistic}
                   dataType = {mapShown}
                 />
+              </div>   
+            </Row>
+            <Row>
+              <div className = "color-legend">
+                <div className = "number"> 0 </div>
+                <div className = "box_1"></div>
+                <div className = "box_2"></div>
+                <div className = "box_3"></div>
+                <div className = "box_4"></div>
+                <div className = "box_5"></div>
+                <div className = "box_6"></div>
+                <div className = "box_7"></div>
+                <div className = "box_8"></div>
+                <div className = "box_9"></div>
+                <div className = "box_10"></div>
+                <div className = "box_11"></div>
+                <div className = "box_12"></div>
+                <div className = "box_13"></div>
+                <div className = "box_14"></div>
+                <div className = "box_15"></div>
+                <div className = "box_16"></div>
+                <div className = "box_17"></div>
+                <div className = "box_18"></div>
+                <div className = "box_19"></div>
+                <div className = "box_20"></div>
+                <div className = "box_21"></div>
+                <div className = "box_22"></div>
+                <div className = "box_23"></div>
+                <div className = "box_24"></div>
+                <div className = "number"> {mapShown==="confirmed"?`${max_val}`:`${max_death_val}`}</div>
               </div>
             </Row>
             <Row>
