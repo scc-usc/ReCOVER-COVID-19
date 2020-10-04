@@ -1,12 +1,12 @@
 %% Load Data
 
 clear;
-load_data_county;
+load_data_us;
 smooth_factor = 14;
 data_4_s = smooth_epidata(data_4, smooth_factor);
 
 %% Fixed params
-meta_start = 100;
+meta_start = 150;
 meta_end = 220;
 min_period = 14;
 max_period = 28;
@@ -38,7 +38,7 @@ for cid = 1:length(popu)
     end
     
     peakday = meta_start + peaksat(pidx);
-    periods = [(peakday-max_period:skip_days:peakday)' (peakday:skip_days:peakday+max_period)'];
+    periods = [(peakday-max_period:skip_days:peakday-2*skip_days)' (peakday+2*skip_days:skip_days:peakday+max_period)'];
     err_mat = Inf*ones(size(periods, 1), max_period+1);
     for pp=1:size(periods, 1)
         start_time = periods(pp, 1);
@@ -65,7 +65,7 @@ for cid = 1:length(popu)
     ii = ceil(lidx/size(periods, 1));
     start_time = periods(pp, 1);
     end_time = periods(pp, 2);
-    st_mid_end(cid, :) = [start_time, start_time+ii, end_time err];
+    st_mid_end(cid, :) = [start_time, start_time+ii, end_time val];
     
     % Auto-detect using FIR and NLR
     
@@ -92,11 +92,13 @@ for cid = 1:length(popu)
     
     if del(j)>1 || del(j) < 0
         res_f{j} = 'FAILED';
+        st_mid_end(cid, 4) = Inf;
     else
         res_f{j} = [num2str(1./(ci_f{j}(1, 2))),' - ' , num2str(1./(un_prob_f(j))),' - ', num2str(1./((1-del(j))*ci_f{j}(1, 1)))];
         un_fact_f(cid, :) = [ci_f{j}(1, 2), un_prob_f(j), (1-del(j))*ci_f{j}(1, 1)];
         un_fact_i(cid, :) = [ci_i{j}(1, 2), un_prob_i(j), ci_i{j}(1, 1)];
         un_fact_ll(cid, :) = [ci_ll{j}(1, 2), un_prob_ll(j), ci_ll{j}(1, 1)];
+        st_mid_end(cid, 4) = err;
     end
     
     disp([countries{cid}, delim, res_i{j}, delim, res_ll{j}, delim res_f{j}, 'Error = ', num2str(err) ,endline]);
