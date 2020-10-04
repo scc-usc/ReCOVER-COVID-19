@@ -186,7 +186,7 @@ if __name__ == "__main__":
     print("loading forecast...")
     forecast = load_csv(INPUT_FILENAME)
     observed = load_truth_cumulative_cases()
-    dataframe = pd.read_csv(OUTPUT_FILENAME, na_filter=False, dtype=str)
+    dataframe = pd.read_csv(OUTPUT_FILENAME, na_filter=False)
     dataframe = add_to_dataframe(dataframe, forecast, observed)
     print("writing files...")
     dataframe.to_csv(OUTPUT_FILENAME, index=False)
