@@ -24,6 +24,23 @@ class StaticModel:
 STATIC_MODELS = [
     StaticModel(
         quarantined_prediction_paths=[
+            "../results/forecasts/global_forecasts_current_0.csv",
+            "../results/forecasts/us_forecasts_current_0.csv"
+        ],
+        released_prediction_paths=[
+            "../results/forecasts/global_forecasts_released_0.csv",
+            "../results/forecasts/us_forecasts_released_0.csv"
+        ],
+        restricted_prediction_paths=[
+            "../results/forecasts/global_forecasts_restricted_0.csv",
+            "../results/forecasts/us_forecasts_restricted_0.csv"
+        ],
+        name="SI-kJalpha - Default",
+        description="The default version of the SI-kJalpha model, \
+        the model calculates the under-reporting ratio based on the training data."
+    ),
+    StaticModel(
+        quarantined_prediction_paths=[
             "../results/forecasts/global_forecasts_current_1.csv",
             "../results/forecasts/us_forecasts_current_1.csv"
         ],
@@ -36,8 +53,9 @@ STATIC_MODELS = [
             "../results/forecasts/us_forecasts_restricted_1.csv"
         ],
         name="SI-kJalpha - No under-reported",
-        description="The default version of the SI-kJalpha model, with no assumptions about under-reporting."
+        description="The SI-kJalpha model with no assumptions about under-reporting positive cases."
     ),
+
     StaticModel(
         quarantined_prediction_paths=[
             "../results/forecasts/global_forecasts_current_2.csv",
@@ -54,6 +72,7 @@ STATIC_MODELS = [
         name="SI-kJalpha - 2x",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 2x."
     ),
+
     StaticModel(
         quarantined_prediction_paths=[
             "../results/forecasts/global_forecasts_current_5.csv",
@@ -70,6 +89,7 @@ STATIC_MODELS = [
         name="SI-kJalpha - 5x",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 5x."
     ),
+
     StaticModel(
         quarantined_prediction_paths=[
             "../results/forecasts/global_forecasts_current_10.csv",
@@ -86,6 +106,7 @@ STATIC_MODELS = [
         name="SI-kJalpha - 10x",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 10x."
     ),
+
     StaticModel(
         quarantined_prediction_paths=[
             "../results/forecasts/global_forecasts_current_20.csv",
@@ -102,6 +123,7 @@ STATIC_MODELS = [
         name="SI-kJalpha - 20x",
         description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 20x."
     ),
+
     StaticModel(
         quarantined_prediction_paths=[
             "../results/forecasts/global_forecasts_current_40.csv",
@@ -121,6 +143,24 @@ STATIC_MODELS = [
 ]
 
 STATIC_DEATH_MODELS = [
+    StaticModel(
+        quarantined_prediction_paths=[
+            "../results/forecasts/global_deaths_current_0.csv",
+            "../results/forecasts/us_deaths_current_0.csv"
+        ],
+        released_prediction_paths=[
+            "../results/forecasts/global_deaths_released_0.csv",
+            "../results/forecasts/us_deaths_released_0.csv"
+        ],
+        restricted_prediction_paths=[
+            "../results/forecasts/global_deaths_restricted_0.csv",
+            "../results/forecasts/us_deaths_restricted_0.csv"
+        ],
+        name="SI-kJalpha - Default (death prediction)",
+        description="The default version of the SI-kJalpha model, \
+        the model calculates the under-reporting ratio based on the training data."
+    ),
+
     StaticModel(
         quarantined_prediction_paths=[
             "../results/forecasts/global_deaths_current_1.csv",

@@ -65,7 +65,7 @@ class Covid19Predict extends PureComponent {
     this.state = {
       areas: this.props.areas || [],
       areasList: [],
-      models: this.props.models || ['SI-kJalpha - 20x'],
+      models: this.props.models || ['SI-kJalpha - Default'],
       modelsList: [],
       currentDate: "",
       firstDate: "",

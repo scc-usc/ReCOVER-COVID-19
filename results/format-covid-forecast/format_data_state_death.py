@@ -6,8 +6,8 @@ import io
 
 FORECAST_DATE = datetime.datetime.today()
 FIRST_WEEK = FORECAST_DATE + datetime.timedelta(5)
-INPUT_FILENAME_STATE = "us_deaths_current_20.csv"
-INPUT_FILENAME_GLOBAL = "global_deaths_current_20.csv"
+INPUT_FILENAME_STATE = "us_deaths_current_0.csv"
+INPUT_FILENAME_GLOBAL = "global_deaths_current_0.csv"
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha.csv"
 COLUMNS = ["forecast_date", "target", "target_end_date", "location", "type", "quantile", "value"]
 ID_STATE_MAPPING = {}

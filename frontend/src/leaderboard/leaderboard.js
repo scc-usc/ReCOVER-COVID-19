@@ -16,49 +16,49 @@ runningAvgRankings: [
  description: "Based on the SEIR model to make daily projections regarding COVID-19 infections and deaths in 50 US states. The model's contributor is Youyang Gu.",
  link: "http://covid19-projections.com/about/"
 },
- RMSE: 35.18
+ RMSE: 34.35
 },  {
      model: {
  name: "SIkJa_USC",
  description: "This is our SI-kJalpha model.",
  link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
 },
- RMSE: 36.22
+ RMSE: 35.41
 },  {
      model: {
  name: "UCLA_SuEIR",
  description: "SEIR model by UCLA Statistical Machine Learning Lab.",
  link: "https://covid19.uclaml.org/"
 },
- RMSE: 53.99
+ RMSE: 52.53
 },  {
      model: {
  name: "Covid19Sim_Simulator",
  description: "An interactive tool developed by researchers at Mass General Hospital, Harvard Medical School, Georgia Tech and Boston Medical Center.",
  link: "https://covid19sim.org/"
 },
- RMSE: 60.63
+ RMSE: 58.28
 },  {
      model: {
  name: "CU_select",
  description: "A metapopulation county-level SEIR model by Columbia University.",
  link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
 },
- RMSE: 65.48
+ RMSE: 64.22
 },  {
      model: {
  name: "JHU_IDD_CovidSP",
  description: "County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
  link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
 },
- RMSE: 75.37
+ RMSE: 72.68
 },  {
      model: {
  name: "IowaStateLW_STEM",
  description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
  link: "https://covid19.stat.iastate.edu"
 },
- RMSE: 78.18
+ RMSE: 76.08
 },  {
      model: {
  name: "CovidActNow_SEIR_CAN",
@@ -74,49 +74,49 @@ recentRankings: [
  description: "Based on the SEIR model to make daily projections regarding COVID-19 infections and deaths in 50 US states. The model's contributor is Youyang Gu.",
  link: "http://covid19-projections.com/about/"
 },
- RMSE: 24.53
-},  {
-     model: {
- name: "UCLA_SuEIR",
- description: "SEIR model by UCLA Statistical Machine Learning Lab.",
- link: "https://covid19.uclaml.org/"
-},
- RMSE: 24.75
+ RMSE: 18.6
 },  {
      model: {
  name: "SIkJa_USC",
  description: "This is our SI-kJalpha model.",
  link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
 },
- RMSE: 26.6
+ RMSE: 20.03
 },  {
      model: {
  name: "Covid19Sim_Simulator",
  description: "An interactive tool developed by researchers at Mass General Hospital, Harvard Medical School, Georgia Tech and Boston Medical Center.",
  link: "https://covid19sim.org/"
 },
- RMSE: 27.9
+ RMSE: 20.58
 },  {
      model: {
  name: "JHU_IDD_CovidSP",
  description: "County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
  link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
 },
- RMSE: 30.16
+ RMSE: 24.22
 },  {
      model: {
- name: "IowaStateLW_STEM",
- description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
- link: "https://covid19.stat.iastate.edu"
+ name: "UCLA_SuEIR",
+ description: "SEIR model by UCLA Statistical Machine Learning Lab.",
+ link: "https://covid19.uclaml.org/"
 },
- RMSE: 31.71
+ RMSE: 24.6
 },  {
      model: {
  name: "CU_select",
  description: "A metapopulation county-level SEIR model by Columbia University.",
  link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
 },
- RMSE: 44.12
+ RMSE: 40.24
+},  {
+     model: {
+ name: "IowaStateLW_STEM",
+ description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
+ link: "https://covid19.stat.iastate.edu"
+},
+ RMSE: 40.41
 },  {
      model: {
  name: "CovidActNow_SEIR_CAN",
@@ -176,7 +176,7 @@ class Leaderboard extends Component {
                             />
                         </Col>
                         <Col span={12}>
-                            <h2 className="title">Recent Performance (from 2020-08-13)</h2>
+                            <h2 className="title">Recent Performance (from 2020-09-20)</h2>
                             <List className="leaderboard"
                                 itemLayout="horizontal"
                                 dataSource={data.jhu.recentRankings}
