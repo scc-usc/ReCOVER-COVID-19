@@ -41,9 +41,8 @@ class Covid19Predict extends PureComponent {
   handleStatisticSelect = e => {
     this.setState({
       statistic: e.target.value
-    },  ()=>{
-      this.map.fetchData(this.state.dynamicMapOn);
-    })
+    });
+
   };
 
   handleDataTypeSelect = e => {
@@ -551,9 +550,45 @@ class Covid19Predict extends PureComponent {
           death_model_map = models[i]
        }
     }
+    const Heading = ( 
+       <div id="header" className="text-center"> 
+            <h1>COVID-19 Forecast</h1> 
+            <div id="overview">{overview}</div> 
+       </div> 
+      ); 
     return (
       <div className="covid-19-predict">
-        <Row type="flex" justify="space-around">
+        {Heading}
+
+        <div id="tabs"> 
+              <div class="text">COUNTRY</div> 
+              <div class="text">STATE</div> 
+              <div class="text">COUNTY</div> 
+         </div> 
+          <div id="common" className="text-center"> 
+            <div id="slider">
+            </div>
+            <div id="statistics">
+            Statistics
+            <Popover
+                    content={CONTROL_INSTRUCTIONS.statistics}
+                    placement="right"
+                    visible={this.state.showControlInstructions}>
+                    <Form.Item>
+                      Statistic:&nbsp;&nbsp;  
+                      <Radio.Group
+                        value={statistic}
+                        onChange={this.handleStatisticSelect}
+                      >
+                        <Radio value="cumulative">Cumulative Cases</Radio>
+                        <Radio value="delta">New Cases</Radio>
+                      </Radio.Group>
+                    </Form.Item>
+                  </Popover>
+            </div>
+          </div> 
+
+        <Row type="flex" justify="space-around" id="charts">
           {noDataError?
             <Alert
             message= {`${errorDescription}`}
@@ -563,9 +598,10 @@ class Covid19Predict extends PureComponent {
             onClose={this.onAlertClose}
           />: null
           }
+          
           <Col span={10}>
             <Row>
-              <div className="form-wrapper">
+              <div className="form-wrapper" id="graph_options">
                 <Form
                   ref={this.formRef}
                   onValuesChange={this.onValuesChange}
@@ -672,21 +708,7 @@ class Covid19Predict extends PureComponent {
                       </Checkbox.Group>
                     </Form.Item>
                   </Popover>
-                  <Popover
-                    content={CONTROL_INSTRUCTIONS.statistics}
-                    placement="right"
-                    visible={this.state.showControlInstructions}>
-                    <Form.Item>
-                      Statistic:&nbsp;&nbsp;  
-                      <Radio.Group
-                        value={statistic}
-                        onChange={this.handleStatisticSelect}
-                      >
-                        <Radio value="cumulative">Cumulative Cases</Radio>
-                        <Radio value="delta">New Cases</Radio>
-                      </Radio.Group>
-                    </Form.Item>
-                  </Popover>
+                  
                   <Popover
                     content={CONTROL_INSTRUCTIONS.scale}
                     placement="right"
@@ -718,7 +740,6 @@ class Covid19Predict extends PureComponent {
           </Col>
           <Col span={12}>
             <Row>
-              <p className="overview">{overview}</p>
             </Row>
             <Row>
               <span className="map-control">
