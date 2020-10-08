@@ -50,7 +50,7 @@ for un_id = 1:length(un_array)
     if un_array(un_id) > 0
         un(:) = un_array(un_id); % Select the ratio of true cases to reported cases. 1 for default.
     else
-        un = load('..\results\unreported\countiesunreported.txt');
+        un = load('../results/unreported/countiesunreported.txt');
     end
     un(no_un_idx) = 1;
     beta_notravel = var_ind_beta_un(data_4_s(:, 1:reference_day), passengerFlow, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), un, popu, best_param_list_no(:, 2), 0, compute_region);
