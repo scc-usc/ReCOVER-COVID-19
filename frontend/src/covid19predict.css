@@ -60,11 +60,11 @@
     /*background-color: yellow;*/
     margin-top: 20%;
     top: 20%;
-      justify-content: center;
-      align-items: center;
-      margin: 0 auto;
-      width: 60%;
-      text-align: center
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
 }
 
 #charts{
@@ -79,7 +79,12 @@
     position: relative;
     padding-top: 20px;
     /*background-color: purple;*/
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 80%;
 }
+
 #tabs .text {
     margin-left: 3%;
     margin-right: 3%;
@@ -88,10 +93,21 @@
     /*padding: 15px;*/
     font-size: x-large;
 }
+
+#tabs .selected {
+    padding-bottom: 5px;
+    border-bottom: 5px solid #990000;
+}
+
+#tabs .deselected {
+    padding-bottom: 5px;
+    border-bottom: 5px solid #D3D3D3;
+}
 #overview {
     /*background-color: #F2F2F2;*/
     font-size: 20px;
     border-style: outset;
+    padding: 30px 40px;
 }
 #slider {
     width: 50%;

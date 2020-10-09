@@ -561,9 +561,9 @@ class Covid19Predict extends PureComponent {
         {Heading}
 
         <div id="tabs"> 
-              <div class="text">COUNTRY</div> 
-              <div class="text">STATE</div> 
-              <div class="text">COUNTY</div> 
+              <div class="text selected">COUNTRY</div> 
+              <div class="text deselected">STATE</div> 
+              <div class="text deselected">COUNTY</div> 
          </div> 
           <div id="common" className="text-center"> 
             <div id="slider">
