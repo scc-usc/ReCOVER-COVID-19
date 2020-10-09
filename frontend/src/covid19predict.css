@@ -124,3 +124,24 @@
     position: relative;
 }
 
+.ant-radio-checked .ant-radio-inner{
+  border-color: red !important ;
+}
+
+.ant-radio-checked .ant-radio-inner:after{
+  background-color: red !important;
+}
+
+.ant-radio:hover .ant-radio-inner {
+  border-color: red !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: red !important;
+  border-color: red !important;
+}
+
+.ant-steps-item-process .ant-steps-item-icon { 
+    background: red !important; 
+}
+

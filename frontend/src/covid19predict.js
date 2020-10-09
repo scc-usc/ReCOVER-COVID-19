@@ -569,7 +569,7 @@ class Covid19Predict extends PureComponent {
             <div id="slider">
             </div>
             <div id="statistics">
-            Statistics
+            
             <Popover
                     content={CONTROL_INSTRUCTIONS.statistics}
                     placement="right"
