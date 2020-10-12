@@ -183,11 +183,7 @@ let data = {
         { "name": "Yemen", "coordinates": [15.552727, 48.516388], "population": 29825968 },
         { "name": "Zambia", "coordinates": [-13.133897, 27.849332], "population": 18383956 },
         { "name": "Zimbabwe", "coordinates": [-19.015438, 29.154857], "population": 14862927 },
-    ],
-    minLat: 5.499550,
-    maxLat: 83.162102,
-    minLong: -167.276413,
-    maxLong: -52.233040
+    ]
 }
 
 export default data

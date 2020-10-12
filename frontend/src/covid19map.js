@@ -9,39 +9,56 @@ import globalLL from "./frontendData/global_lats_longs.txt"
 import global_data from "./frontendData/global_data.csv"
 import usLL from "./frontendData/us_lats_longs.txt"
 import us_data from "./frontendData/us_data.csv"
+import usDeath from './frontendData/us_deaths.csv'
+import globalDeath from './frontendData/global_deaths.csv'
 
 import Papa from "papaparse";
 
 var global_lat_long;
-var combined_global_data;
-var us_lat_long;
-var combined_us_data;
+// var us_lat_long;
+
+var combined_global_data = { country: [ { "name": "", "coordinates": [0, 0], "cases": 0, "deaths": 0} ] };
+// var combined_us_data;
+// var us_death;
+var global_death;
 
 function parse_lat_long_global(data) {
     global_lat_long = data;
 }
 
+// function readUsDeath(data) {
+//   us_death = data;
+// }
+
+function readGlobalDeath(data) {
+  global_death = data;
+}
+
 function combineGlobal(data) {
-    combined_global_data = data;
-    for (var i = 0; i < global_lat_long.length; i++) {
-        combined_global_data[i+1].push(global_lat_long[i][1]);
-        combined_global_data[i+1].push(global_lat_long[i][2]);
-    }
-    console.log(combined_global_data);
+  for (var i = 0; i < global_lat_long.length; i++) {
+      data[i+1].push(global_lat_long[i][1]);
+      data[i+1].push(global_lat_long[i][2]);
+  }
+  combined_global_data.country = [];
+  for (var i = 0; i < data.length - 2; i++) {
+    var country = {"name": data[i+1][1], "coordinates": [global_lat_long[i][1], global_lat_long[i][2]], "cases": data[i+1][data[i+1].length - 3], "deaths": global_death[i+1][global_death[i+1].length - 1]};
+    combined_global_data.country.push(country);
+  }
+  console.log(combined_global_data);
 }
 
-function parse_lat_long_us(data) {
-    us_lat_long = data;
-}
+// function parse_lat_long_us(data) {
+//     us_lat_long = data;
+// }
 
-function combineUs(data) {
-    combined_us_data = data;
-    for (var i = 0; i < us_lat_long.length; i++) {
-        combined_us_data[i+1].push(us_lat_long[i][1]);
-        combined_us_data[i+1].push(us_lat_long[i][2]);
-    }
-    console.log(combined_us_data);
-}
+// function combineUs(data) {
+//     combined_us_data = data;
+//     for (var i = 0; i < us_lat_long.length; i++) {
+//         combined_us_data[i+1].push(us_lat_long[i][1]);
+//         combined_us_data[i+1].push(us_lat_long[i][2]);
+//     }
+//     console.log(combined_us_data);
+// }
 
 function parseData(url, callBack) {
     Papa.parse(url, {
@@ -55,8 +72,10 @@ function parseData(url, callBack) {
 
 parseData(globalLL, parse_lat_long_global);
 parseData(global_data, combineGlobal);
-parseData(usLL, parse_lat_long_us);
-parseData(us_data, combineUs);
+// parseData(usLL, parse_lat_long_us);
+// parseData(us_data, combineUs);
+// parseData(usDeath, readUsDeath);
+parseData(globalDeath, readGlobalDeath);
 
 class Covid19Map extends Component {
 
@@ -71,8 +90,9 @@ class Covid19Map extends Component {
     }
   }
 
-  getRadius(population) {
-  	var radius = Math.log(population / 1000000);
+  getRadius(value) {
+    var radius = Math.log(value / 1000000);
+  	// var radius = Math.log(value / 100);
 
   	if (radius < .5)
   		radius = .5;
@@ -115,30 +135,63 @@ class Covid19Map extends Component {
     		>
     			<TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
 
+          {/* {combined_global_data.country.map((country, k) => {
+            return (
+              <CircleMarker
+                key={k}
+                center={[country["coordinates"][0], country["coordinates"][1]]}
+                radius={this.getRadius(country["deaths"])}
+                color="black"
+                fillOpacity={1}
+                stroke={false}
+                onClick={ (e) => this.handleMapClick(data, e) }
+              >
+                <CircleMarker
+                  key={k}
+                  center={[country["coordinates"][0], country["coordinates"][1]]}
+                  radius={5 * this.getRadius(country["cases"])}
+                  color={this.getColor(country["cases"] / 10000)}
+                  fillOpacity={0.5}
+                  stroke={false}
+                ></CircleMarker>
+                <Tooltip direction="right" offset={[-8, -2]} opacity={1}>
+                  <span>{country["name"]}</span><br></br>
+                  <span>{"Cases: " + country["cases"]}</span><br></br>
+                  <span>{"Deaths: " + country["deaths"]}</span>
+                </Tooltip>
+              </CircleMarker>
+            )
+          })} */}
+
     			{data.country.map((country, k) => {
     				return (
-    					<CircleMarker
-    						key={k}
-    						center={[country["coordinates"][0], country["coordinates"][1]]}
-    						radius={10 * this.getRadius(country["population"])}
-    						color={this.getColor(country["population"] / 1000000)}
-    						fillOpacity={0.5}
+              <CircleMarker
+                key={k}
+                center={[country["coordinates"][0], country["coordinates"][1]]}
+                radius={2 * this.getRadius(country["population"])}
+                color="black"
+                fillOpacity={1}
                 stroke={false}
                 onClick={ (e) => this.handleMapClick(data, e)}
-    					>
-    						<CircleMarker
-    							key={k}
-    							center={[country["coordinates"][0], country["coordinates"][1]]}
-    							radius={2 * this.getRadius(country["population"])}
-    							color="black"
-    							fillOpacity={1}
-    							stroke={false}
-    						></CircleMarker>
-    						<Tooltip direction="right" offset={[-8, -2]} opacity={1}>
+              >
+                <CircleMarker
+                  key={k}
+                  center={[country["coordinates"][0], country["coordinates"][1]]}
+                  radius={10 * this.getRadius(country["population"])}
+                  color={this.getColor(country["population"] / 1000000)}
+                  fillOpacity={0.5}
+                  stroke={false}
+                  // onClick={ (e) => this.handleMapClick(data, e)}
+                >
+                  <Tooltip direction="right" opacity={1} sticky={true}>
+                    <span>{country["name"] + ": Population " + country["population"]}</span>
+                  </Tooltip>
+                </CircleMarker>
+                <Tooltip direction="right" opacity={1} sticky={true}>
     							<span>{country["name"] + ": Population " + country["population"]}</span>
     						</Tooltip>
-    					</CircleMarker>
-    					)
+              </CircleMarker>
+    				)
     			})
     			}
     		</Map>
