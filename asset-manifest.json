@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/ReCOVER-COVID-19/static/css/main.28dfab6a.chunk.css",
-    "main.js": "/ReCOVER-COVID-19/static/js/main.8e44aa34.chunk.js",
-    "main.js.map": "/ReCOVER-COVID-19/static/js/main.8e44aa34.chunk.js.map",
+    "main.js": "/ReCOVER-COVID-19/static/js/main.d894d2f1.chunk.js",
+    "main.js.map": "/ReCOVER-COVID-19/static/js/main.d894d2f1.chunk.js.map",
     "runtime-main.js": "/ReCOVER-COVID-19/static/js/runtime-main.3fae1d04.js",
     "runtime-main.js.map": "/ReCOVER-COVID-19/static/js/runtime-main.3fae1d04.js.map",
     "xlsx.js": "/ReCOVER-COVID-19/static/js/xlsx.5e3b8ae2.chunk.js",
@@ -17,7 +17,7 @@
     "static/js/6.fcd87b2f.chunk.js": "/ReCOVER-COVID-19/static/js/6.fcd87b2f.chunk.js",
     "static/js/6.fcd87b2f.chunk.js.map": "/ReCOVER-COVID-19/static/js/6.fcd87b2f.chunk.js.map",
     "index.html": "/ReCOVER-COVID-19/index.html",
-    "precache-manifest.ec9be2984a30e1fb79facd8128893b39.js": "/ReCOVER-COVID-19/precache-manifest.ec9be2984a30e1fb79facd8128893b39.js",
+    "precache-manifest.7244fe7168cefa9fab0254e9308b656b.js": "/ReCOVER-COVID-19/precache-manifest.7244fe7168cefa9fab0254e9308b656b.js",
     "service-worker.js": "/ReCOVER-COVID-19/service-worker.js",
     "static/css/3.8d71f864.chunk.css.map": "/ReCOVER-COVID-19/static/css/3.8d71f864.chunk.css.map",
     "static/css/main.28dfab6a.chunk.css.map": "/ReCOVER-COVID-19/static/css/main.28dfab6a.chunk.css.map",
@@ -25,7 +25,7 @@
     "static/js/5.e32dbfc0.chunk.js.LICENSE.txt": "/ReCOVER-COVID-19/static/js/5.e32dbfc0.chunk.js.LICENSE.txt",
     "static/media/all_graph.png": "/ReCOVER-COVID-19/static/media/all_graph.dfa8be3f.png",
     "static/media/semantic.min.css": "/ReCOVER-COVID-19/static/media/outline-icons.ef60a4f6.woff",
-    "static/media/highlights.pdf": "/ReCOVER-COVID-19/static/media/highlights.7fc490e9.pdf",
+    "static/media/highlights.pdf": "/ReCOVER-COVID-19/static/media/highlights.adf46f48.pdf",
     "static/media/jhu_graph.png": "/ReCOVER-COVID-19/static/media/jhu_graph.39518de8.png",
     "static/media/nyt_graph.png": "/ReCOVER-COVID-19/static/media/nyt_graph.b82f8664.png",
     "static/media/usf_graph.png": "/ReCOVER-COVID-19/static/media/usf_graph.35c9b379.png"
@@ -35,6 +35,6 @@
     "static/css/3.8d71f864.chunk.css",
     "static/js/3.00118e71.chunk.js",
     "static/css/main.28dfab6a.chunk.css",
-    "static/js/main.8e44aa34.chunk.js"
+    "static/js/main.d894d2f1.chunk.js"
   ]
 }
