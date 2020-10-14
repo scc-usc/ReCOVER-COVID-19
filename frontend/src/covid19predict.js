@@ -147,7 +147,8 @@ class Covid19Predict extends PureComponent {
 
   onMapClick(area) {
     if (!this.areaIsSelected(area)) {
-      this.addAreaByStr(areaToStr(area));
+      // this.addAreaByStr(areaToStr(area));
+      this.addAreaByStr(area);
     }
   }
 
@@ -156,8 +157,9 @@ class Covid19Predict extends PureComponent {
    */
   areaIsSelected(area) {
     if (this.state.areas && area) {
-      const newAreaStr = areaToStr(area);
-      return this.state.areas.includes(newAreaStr);
+      // const newAreaStr = areaToStr(area);
+      // return this.state.areas.includes(newAreaStr);
+      return this.state.areas.includes(area);
     }
     return false;
   }
