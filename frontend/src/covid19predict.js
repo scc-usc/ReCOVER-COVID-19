@@ -1,10 +1,14 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, useState, Sonnet } from "react";
 import Covid19Graph from "./covid19graph";
 import Covid19Map from "./covid19map";
 import ModelAPI from "./modelapi";
 import { areaToStr, strToArea, modelToStr } from "./covid19util";
 import { test_data } from "./test_data";
 import "./covid19predict.css";
+// import Tabs from 'react-bootstrap/Tabs';
+import { Tab, Tabs } from "react-tabify";
+// import Tab from 'react-bootstrap/Tab';
+// import Tabs from "./tabs/Tabs";
 
 import {
   Form,
@@ -314,6 +318,8 @@ class Covid19Predict extends PureComponent {
     this.map = ref 
   }
 
+
+
   /**
    * reloadAll refreshes the prediction data for all currently-selected
    * countries.
@@ -438,6 +444,7 @@ class Covid19Predict extends PureComponent {
         return <Option key={s}> {s} </Option>;
       });
 
+
     const modelOptions = modelsList
       .filter(model => !this.modelIsSelected(model))
       .map(model => {
@@ -552,6 +559,7 @@ class Covid19Predict extends PureComponent {
           death_model_map = models[i]
        }
     }
+
     const Heading = ( 
        <div id="header" className="text-center"> 
             <h1>COVID-19 Forecast</h1> 
@@ -561,10 +569,19 @@ class Covid19Predict extends PureComponent {
     return (
       <div className="covid-19-predict">
         {Heading}
+        <div>
+    <Tabs>
+      <Tab label="Country">First Content</Tab>
+      <Tab label="State">Second Content</Tab>
+      <Tab label="County">Third Content</Tab>
+    </Tabs>
+  </div>
 
         <div id="tabs"> 
               <div class="text selected">COUNTRY</div> 
+              
               <div class="text deselected">STATE</div> 
+           
               <div class="text deselected">COUNTY</div> 
          </div> 
           <div id="common" className="text-center"> 
