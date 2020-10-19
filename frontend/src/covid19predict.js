@@ -216,10 +216,12 @@ class Covid19Predict extends PureComponent {
 
           );
         }
-
-        this.formRef.current.setFieldsValue({
-          areas: this.state.areas
-        });
+        if(this.formRef.current != null){
+          this.formRef.current.setFieldsValue({
+            areas: this.state.areas
+          });
+        }
+        
       }
     );
   }
@@ -523,6 +525,15 @@ class Covid19Predict extends PureComponent {
       )
     };
 
+    const tabTheme = {
+      tabs: {
+        color: "black",
+        active: {
+          color: "#990000"
+        }
+      }
+    };
+
     // Generate the global overview paragraph
     let overview = "";
 
@@ -560,6 +571,9 @@ class Covid19Predict extends PureComponent {
        }
     }
 
+    
+
+
     const Heading = ( 
        <div id="header" className="text-center"> 
             <h1>COVID-19 Forecast</h1> 
@@ -570,57 +584,42 @@ class Covid19Predict extends PureComponent {
       <div className="covid-19-predict">
         {Heading}
         <div>
-    <Tabs>
-      <Tab label="Country">First Content</Tab>
-      <Tab label="State">Second Content</Tab>
-      <Tab label="County">Third Content</Tab>
-    </Tabs>
-  </div>
-
-        <div id="tabs"> 
-              <div class="text selected">COUNTRY</div> 
-              
-              <div class="text deselected">STATE</div> 
-           
-              <div class="text deselected">COUNTY</div> 
-         </div> 
-          <div id="common" className="text-center"> 
+    <Tabs theme={tabTheme}>
+      <Tab label="Country">
+        <div id="common" className="text-center"> 
             <div id="slider">
             </div>
             <div id="statistics">
-            
-            <Popover
-                    content={CONTROL_INSTRUCTIONS.statistics}
-                    placement="right"
-                    visible={this.state.showControlInstructions}>
-                    <Form.Item>
-                      Statistic:&nbsp;&nbsp;  
-                      <Radio.Group
-                        value={statistic}
-                        onChange={this.handleStatisticSelect}
-                      >
-                        <Radio value="cumulative">Cumulative Cases</Radio>
-                        <Radio value="delta">New Cases</Radio>
-                      </Radio.Group>
-                    </Form.Item>
-                  </Popover>
+              <Popover
+                content={CONTROL_INSTRUCTIONS.statistics}
+                placement="right"
+                visible={this.state.showControlInstructions}>
+                <Form.Item>
+                  Statistic:&nbsp;&nbsp;  
+                  <Radio.Group
+                    value={statistic}
+                    onChange={this.handleStatisticSelect}
+                  >
+                    <Radio value="cumulative">Cumulative Cases</Radio>
+                    <Radio value="delta">New Cases</Radio>
+                  </Radio.Group>
+                </Form.Item>
+              </Popover>
             </div>
           </div> 
-
         <Row type="flex" justify="space-around" id="charts">
-          {noDataError?
-            <Alert
-            message= {`${errorDescription}`}
-            description= "Please wait for our updates."
-            type="error"
-            closable
-            onClose={this.onAlertClose}
-          />: null
-          }
-          
+            {noDataError?
+              <Alert
+              message= {`${errorDescription}`}
+              description= "Please wait for our updates."
+              type="error"
+              closable
+              onClose={this.onAlertClose}
+            />: null
+            }
           <Col span={10}>
             <Row>
-              <div className="form-wrapper" id="graph_options">
+              <div className="form-wrapper gray" id="graph_options">
                 <Form
                   ref={this.formRef}
                   onValuesChange={this.onValuesChange}
@@ -758,32 +757,55 @@ class Covid19Predict extends PureComponent {
             : null}
           </Col>
           <Col span={12}>
-            <Row>
-            </Row>
-            <Row>
-              <span className="map-control">
-                <Popover
-                  content={MAP_INSTRUCTION.dynamicMap}
-                  placement="bottom"
-                  visible={this.state.showMapInstructions}>
-                  Dynamic Map:&nbsp;&nbsp;  
-                  <Switch onChange={this.switchDynamicMap} />
-                </Popover>
-              </span>
-              <span className="map-control">
-                <Popover
-                  content={MAP_INSTRUCTION.radioGroup}
-                  placement="bottom"
-                  visible={this.state.showMapInstructions}>
-                    <Radio.Group
-                      value={mapShown}
-                      onChange={this.handleMapShownSelect}>
-                      <Radio value="confirmed">Show Confirmed Cases</Radio>
-                      <Radio value="death">Show Deaths</Radio>
-                    </Radio.Group>
+            <div className="form-wrapper gray" id="graph_options">
+              <Row>
+              Show:
+                <span className="map-control">
+                  <Popover>
+                    States/Provinces:&nbsp;&nbsp;  
+                    <Switch onChange={this.switchDynamicMap} />
                   </Popover>
-              </span>
-            </Row>
+                </span>
+                <span className="map-control">
+                  <Popover
+                    content={MAP_INSTRUCTION.dynamicMap}
+                    placement="bottom"
+                    visible={this.state.showMapInstructions}>
+                    Dynamic Map:&nbsp;&nbsp;  
+                    <Switch onChange={this.switchDynamicMap} />
+                  </Popover>
+                </span>
+              </Row>
+
+              <Row>
+                  Show:
+                  <span className="map-control">
+                    <Popover
+                      content={MAP_INSTRUCTION.radioGroup}
+                      placement="bottom"
+                      visible={this.state.showMapInstructions}>
+                        <Radio.Group
+                          value={mapShown}
+                          onChange={this.handleMapShownSelect}>
+                          <Radio value="confirmed">Show Confirmed Cases</Radio>
+                        </Radio.Group>
+                      </Popover>
+                  </span>
+                  <span className="map-control">
+                      <Popover
+                      content={MAP_INSTRUCTION.radioGroup}
+                      placement="bottom"
+                      visible={this.state.showMapInstructions}>
+                        <Radio.Group
+                          value={mapShown}
+                          onChange={this.handleMapShownSelect}>
+                          <Radio value="death">Show Deaths</Radio>
+                        </Radio.Group>
+                      </Popover>
+                  </span>
+              </Row>
+
+            </div>
             <Row>
               <div className="map-wrapper">
                 <Covid19Map className="map"
@@ -812,7 +834,42 @@ class Covid19Predict extends PureComponent {
               </div>
             </Row>
           </Col>
-        </Row>
+          </Row>
+      </Tab>
+      <Tab label="State">
+        <div id="common" className="text-center"> 
+            <div id="slider">
+            </div>
+            <div id="statistics">
+              <Popover
+                content={CONTROL_INSTRUCTIONS.statistics}
+                placement="right"
+                visible={this.state.showControlInstructions}>
+                <Form.Item>
+                  Statistic:&nbsp;&nbsp;  
+                  <Radio.Group
+                    value={statistic}
+                    onChange={this.handleStatisticSelect}
+                  >
+                    <Radio value="cumulative">Cumulative Cases</Radio>
+                    <Radio value="delta">New Cases</Radio>
+                  </Radio.Group>
+                </Form.Item>
+              </Popover>
+            </div>
+          </div> 
+
+      </Tab>
+      <Tab label="County">Third Content</Tab>
+    </Tabs>
+  </div>
+
+
+        
+          
+          
+          
+        
       </div>
     );
   }

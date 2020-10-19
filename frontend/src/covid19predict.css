@@ -120,8 +120,10 @@
     padding: 10px 30px;
 }
 #graph_options {
-    /*background-color: #E1DFDF;*/
+    background-color: #E1DFDF;
     position: relative;
+    margin-bottom: 5%;
+    width: 100%;
 }
 
 .ant-radio-checked .ant-radio-inner{
@@ -168,3 +170,8 @@
   background-color: red;
   height: 20px;
 }
+
+/*.gray{
+    background-color: #808080;
+}
+*/
