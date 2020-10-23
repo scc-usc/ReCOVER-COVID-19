@@ -716,11 +716,10 @@ class Covid19Predict extends PureComponent {
                     placement="right"
                     visible={this.state.showControlInstructions}>
                     <Form.Item>
-                      Data Type:&nbsp;&nbsp;  
+                      Data Types:&nbsp;&nbsp;  
                       <Checkbox.Group
                         defaultValue={['confirmed']}
-                        onChange={this.handleDataTypeSelect}
-                      >
+                        onChange={this.handleDataTypeSelect}>
                         <Checkbox defaultChecked value="confirmed">Confirmed Cases</Checkbox>
                         <Checkbox value="death">Deaths</Checkbox>
                       </Checkbox.Group>
@@ -734,8 +733,8 @@ class Covid19Predict extends PureComponent {
                     <Form.Item>
                       Scale:&nbsp;&nbsp;  
                       <Radio.Group value={yScale} onChange={this.handleYScaleSelect}>
-                        <Radio value="linear">linear</Radio>
-                        <Radio value="log">logarithmic</Radio>
+                        <Radio value="linear">Linear</Radio>
+                        <Radio value="log">Logarithmic</Radio>
                       </Radio.Group>
                     </Form.Item>
                   </Popover>
@@ -759,11 +758,13 @@ class Covid19Predict extends PureComponent {
           <Col span={12}>
             <div className="form-wrapper gray" id="graph_options">
               <Row>
-              Show:
+      			Show:
+              </Row>
+              <Row>
                 <span className="map-control">
                   <Popover>
-                    States/Provinces:&nbsp;&nbsp;  
-                    <Switch onChange={this.switchDynamicMap} />
+                  	<Switch onChange={this.switchDynamicMap} />
+                    &nbsp;&nbsp;States/Provinces&nbsp;&nbsp;  
                   </Popover>
                 </span>
                 <span className="map-control">
@@ -771,14 +772,16 @@ class Covid19Predict extends PureComponent {
                     content={MAP_INSTRUCTION.dynamicMap}
                     placement="bottom"
                     visible={this.state.showMapInstructions}>
-                    Dynamic Map:&nbsp;&nbsp;  
                     <Switch onChange={this.switchDynamicMap} />
+                    &nbsp;&nbsp;Dynamic Map&nbsp;&nbsp;  
                   </Popover>
                 </span>
               </Row>
 
               <Row>
-                  Show:
+              	Show:
+              </Row>
+              <Row>
                   <span className="map-control">
                     <Popover
                       content={MAP_INSTRUCTION.radioGroup}
@@ -787,7 +790,7 @@ class Covid19Predict extends PureComponent {
                         <Radio.Group
                           value={mapShown}
                           onChange={this.handleMapShownSelect}>
-                          <Radio value="confirmed">Show Confirmed Cases</Radio>
+                          <Radio value="confirmed">Confirmed Cases</Radio>
                         </Radio.Group>
                       </Popover>
                   </span>
@@ -799,7 +802,7 @@ class Covid19Predict extends PureComponent {
                         <Radio.Group
                           value={mapShown}
                           onChange={this.handleMapShownSelect}>
-                          <Radio value="death">Show Deaths</Radio>
+                          <Radio value="death">Deaths</Radio>
                         </Radio.Group>
                       </Popover>
                   </span>

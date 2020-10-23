@@ -147,6 +147,14 @@
     background: red !important; 
 }
 
+.ant-switch-checked { 
+    background:red!important;
+}
+
+.ant-slider-handle {
+    background-color:red!important;
+}
+
 .tab-list {
   border-bottom: 1px solid #ccc;
   padding-left: 0;
