@@ -146,6 +146,9 @@ def load_csv(input_filename_state, input_filename_global):
                 date_str = header[i]
                 val = float(row[i])
                 dataset[date_str][state_id] = val
+                if "US" not in dataset[date_str]:
+                    dataset[date_str]["US"] = 0
+                dataset[date_str]["US"] += val / 2  # Average of country report and sum of state reports. 
 
     with open(input_filename_global) as f:
         reader = csv.reader(f)
@@ -161,8 +164,8 @@ def load_csv(input_filename_state, input_filename_global):
             for i in range(2, len(header)):
                 date_str = header[i]
                 val = float(row[i])
-                dataset[date_str]["US"] = val
-    
+                dataset[date_str]["US"] += val / 2  # Average of country report and sum of state reports.
+
     return dataset
 
 
