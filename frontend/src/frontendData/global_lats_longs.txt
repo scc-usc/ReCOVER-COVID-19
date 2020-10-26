@@ -6,7 +6,7 @@ Angola,-11.2027,17.8739
 Antigua and Barbuda,17.0608,-61.7964
 Argentina,-38.4161,-63.6167
 Armenia,40.0691,45.0382
-Australia,-35.4735,149.0124
+Australia,-25,133
 Austria,47.5162,14.5501
 Azerbaijan,40.1431,47.5769
 Bahamas,25.025885,-78.035889
@@ -26,14 +26,14 @@ Burkina Faso,12.2383,-1.5616
 Cabo Verde,16.5388,-23.0418
 Cambodia,11.55,104.9167
 Cameroon,3.848,11.5021
-Canada,53.9333,-116.5765
+Canada,60,-95
 Central African Republic,6.6111,20.9394
 Chad,15.4542,18.7322
 Chile,-35.6751,-71.543
-China,31.8257,117.2264
+China,30.5928,114.3055
 Colombia,4.5709,-74.2973
-Congo (Brazzaville),-0.228,15.8277
-Congo (Kinshasa),-4.0383,21.7587
+Congo (Brazzaville),-4.2634,15.2832
+Congo (Kinshasa),-4.322447,15.307045
 Costa Rica,9.7489,-83.7534
 Cote d'Ivoire,7.54,-5.5471
 Croatia,45.1,15.2
@@ -41,7 +41,7 @@ Diamond Princess,0,0
 Cuba,21.521757,-77.781167
 Cyprus,35.1264,33.4299
 Czechia,49.8175,15.473
-Denmark,61.8926,-6.9118
+Denmark,56.2639,9.5018
 Djibouti,11.8251,42.5903
 Dominican Republic,18.7357,-70.1627
 Ecuador,-1.8312,-78.1834
@@ -54,7 +54,7 @@ Eswatini,-26.5225,31.4659
 Ethiopia,9.145,40.4897
 Fiji,-17.7134,178.065
 Finland,61.92411,25.748151
-France,3.9339,-53.1258
+France,46.2276,2.2137
 Gabon,-0.8037,11.6094
 Gambia,13.4432,-15.3101
 Georgia,42.3154,43.3569
@@ -104,7 +104,7 @@ Montenegro,42.708678,19.37439
 Morocco,31.7917,-7.0926
 Namibia,-22.9576,18.4904
 Nepal,28.1667,84.25
-Netherlands,12.5211,-69.9683
+Netherlands,52.1326,5.2913
 New Zealand,-40.9006,174.886
 Nicaragua,12.865416,-85.207229
 Niger,17.607789,8.081666
@@ -151,7 +151,7 @@ Turkey,38.9637,35.2433
 Uganda,1.373333,32.290275
 Ukraine,48.3794,31.1656
 United Arab Emirates,23.424076,53.847818
-United Kingdom,18.2206,-63.0686
+United Kingdom,55.3781,-3.436
 Uruguay,-32.5228,-55.7658
 US,40,-100
 Uzbekistan,41.377491,64.585262

@@ -17,7 +17,7 @@ import Papa from "papaparse";
 var global_lat_long;
 // var us_lat_long;
 
-var combined_global_data = { country: [ { "name": "", "coordinates": [0, 0], "cases": 0, "deaths": 0} ] };
+var combined_global_data = { country: [ { "name": "", "coordinates": [0, 0], "cases": [0], "deaths": [0]} ] };
 // var combined_us_data;
 // var us_death;
 var global_death;
@@ -41,7 +41,12 @@ function combineGlobal(data) {
   }
   combined_global_data.country = [];
   for (var i = 0; i < data.length - 2; i++) {
-    var country = {"name": data[i+1][1], "coordinates": [global_lat_long[i][1], global_lat_long[i][2]], "cases": data[i+1][data[i+1].length - 3], "deaths": global_death[i+1][global_death[i+1].length - 1]};
+    var id = data[i+1].splice(0,1)[0];
+    var name = data[i+1].splice(0,1)[0];
+    var coordinates = data[i+1].splice(data[i+1].length-2, data[i+1].length-1);
+    var deathID = global_death[i+1].splice(0,1);
+    var deathName = global_death[i+1].splice(0,1);
+    var country = {"name": name, "coordinates": coordinates, "cases": data[i+1], "deaths": global_death[i+1]};
     combined_global_data.country.push(country);
   }
   console.log(combined_global_data);
@@ -79,9 +84,101 @@ parseData(globalDeath, readGlobalDeath);
 
 class Covid19Map extends Component {
 
-  handleMapClick(data, e) {
+  /*fetchData(dynamicMapOn, date) {
+    if (!dynamicMapOn || (this.props.confirmed_model === "" && this.props.death_model === "")) {
+      // without dynamic map, show cumulative cases to date
+      this.modelAPI.cumulative_infections(cumulativeInfections => {
+        let caseData = cumulativeInfections.map(d => {
+          return {
+            id: d.area.iso_2,
+            value: Math.log(d.max_percentage),
+            valueTrue: d.value,
+            area: d.area
+          };
+        });
+        this.setState({ caseData }, this.resetMap);
+      });
+      this.modelAPI.cumulative_death({
+        days: 0
+      }, cumulativeDeath => {
+        let deathData = cumulativeDeath.map(d => {
+          return {
+            id: d.area.iso_2,
+            value: Math.log(d.max_percentage),
+            valueTrue: d.value,
+            area: d.area
+          };
+        });
+        this.setState({ deathData }, this.resetMap);
+      });
+    } else {
+      // with dynamic map
+      if (this.props.statistic === "cumulative") {
+        if (this.props.days > 0) {
+          this.modelAPI.predict_all({
+            days: this.props.days,
+            model: this.props.confirmed_model
+          }, cumulativeInfections => {
+            let caseData = cumulativeInfections.map(d => {
+              return {
+                id: d.area.iso_2,
+                value: Math.log(d.max_val_percentage),
+                valueTrue: d.value,
+                area: d.area
+              };
+            });
+            this.setState({ caseData }, this.resetMap);
+          });
+          this.modelAPI.predict_all({
+            days: this.props.days,
+            model: this.props.death_model
+          }, cumulativeInfections => {
+            let deathData = cumulativeInfections.map(d => {
+              return {
+                id: d.area.iso_2,
+                value: Math.log(d.max_death_percentage),
+                valueTrue: d.value,
+                area: d.area
+              };
+            });
+            this.setState({ deathData }, this.resetMap);
+          });
+        } else {
+          // show history cumulative
+          this.modelAPI.history_cumulative({
+            days: this.props.days
+          }, historyCumulative => {
+            let caseData = historyCumulative.map(d => {
+              return {
+                id: d.area.iso_2,
+                value: Math.log(d.max_val_percentage),
+                valueTrue: d.value,
+                area: d.area
+              };
+            });
+            this.setState({ caseData }, this.resetMap);
+          });
+          this.modelAPI.history_cumulative({
+            days: this.props.days,
+          }, historyCumulative => {
+            let deathData = historyCumulative.map(d => {
+              return {
+                id: d.area.iso_2,
+                value: Math.log(d.max_death_percentage),
+                valueTrue: d.deathValue,
+                area: d.area
+              };
+            });
+            this.setState({ deathData }, this.resetMap)
+          })
+        }
+      }
+    }
+  }*/
+
+  handleMapClick( e) {
     const { onMapClick, onNoData } = this.props;
-    var area = data.country[e.target.options.children[0].key].name;
+    var area = e.target.options.data;
     if (area) {
       console.log("Clicked on " + area);
       onMapClick(area);
@@ -91,8 +188,10 @@ class Covid19Map extends Component {
   }
 
   getRadius(value) {
-    var radius = Math.log(value / 1000000);
-  	// var radius = Math.log(value / 100);
+    // var radius = Math.log(value / 1000000);
+    if (value == 0)
+      return value;
+  	var radius = Math.log(value / 100);
 
   	if (radius < .5)
   		radius = .5;
@@ -135,53 +234,64 @@ class Covid19Map extends Component {
     		>
     			<TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
 
-          {/* {combined_global_data.country.map((country, k) => {
+          {combined_global_data.country.map((country, k) => {
             return (
               <CircleMarker
                 key={k}
+                data={country["name"]}
                 center={[country["coordinates"][0], country["coordinates"][1]]}
-                radius={this.getRadius(country["deaths"])}
+                radius={this.getRadius(country["deaths"][country["deaths"].length-1])}
                 color="black"
                 fillOpacity={1}
                 stroke={false}
-                onClick={ (e) => this.handleMapClick(data, e) }
+                onClick={ (e) => this.handleMapClick(e) }
               >
                 <CircleMarker
                   key={k}
+                  data={country["name"]}
                   center={[country["coordinates"][0], country["coordinates"][1]]}
-                  radius={5 * this.getRadius(country["cases"])}
-                  color={this.getColor(country["cases"] / 10000)}
+                  radius={5 * this.getRadius(country["cases"][country["cases"].length-1])}
+                  color={this.getColor(country["cases"][country["cases"].length-1] / 10000)}
                   fillOpacity={0.5}
                   stroke={false}
-                ></CircleMarker>
-                <Tooltip direction="right" offset={[-8, -2]} opacity={1}>
+                  onClick={ (e) => this.handleMapClick(e)}
+                >
+                  <Tooltip direction="right" opacity={1} sticky={true}>
+                    <span>{country["name"]}</span><br></br>
+                    <span>{"Cases: " + country["cases"][country["cases"].length-1]}</span><br></br>
+                    <span>{"Deaths: " + country["deaths"][country["deaths"].length-1]}</span>
+                  </Tooltip>
+                </CircleMarker>
+                <Tooltip direction="right" opacity={1} sticky={true}>
                   <span>{country["name"]}</span><br></br>
-                  <span>{"Cases: " + country["cases"]}</span><br></br>
-                  <span>{"Deaths: " + country["deaths"]}</span>
+                  <span>{"Cases: " + country["cases"][country["cases"].length-1]}</span><br></br>
+                  <span>{"Deaths: " + country["deaths"][country["deaths"].length-1]}</span>
                 </Tooltip>
               </CircleMarker>
             )
-          })} */}
+          })}
 
-    			{data.country.map((country, k) => {
+    			{/* {data.country.map((country, k) => {
     				return (
               <CircleMarker
                 key={k}
+                data={country["name"]}
                 center={[country["coordinates"][0], country["coordinates"][1]]}
                 radius={2 * this.getRadius(country["population"])}
                 color="black"
                 fillOpacity={1}
                 stroke={false}
-                onClick={ (e) => this.handleMapClick(data, e)}
+                onClick={ (e) => this.handleMapClick(e)}
               >
                 <CircleMarker
                   key={k}
+                  data={country["name"]}
                   center={[country["coordinates"][0], country["coordinates"][1]]}
                   radius={10 * this.getRadius(country["population"])}
                   color={this.getColor(country["population"] / 1000000)}
                   fillOpacity={0.5}
                   stroke={false}
-                  // onClick={ (e) => this.handleMapClick(data, e)}
+                  onClick={ (e) => this.handleMapClick(e)}
                 >
                   <Tooltip direction="right" opacity={1} sticky={true}>
                     <span>{country["name"] + ": Population " + country["population"]}</span>
@@ -193,7 +303,7 @@ class Covid19Map extends Component {
               </CircleMarker>
     				)
     			})
-    			}
+    			} */}
     		</Map>
     	</div>
     );
