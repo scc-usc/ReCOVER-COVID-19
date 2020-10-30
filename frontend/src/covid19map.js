@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css";
 import globalLL from "./frontendData/global_lats_longs.txt"
 import global_data from "./frontendData/global_data.csv"
 import globalDeath from './frontendData/global_deaths.csv'
+import population from './frontendData/global_population_data.txt'
 
 import Papa from "papaparse";
 
@@ -13,9 +14,14 @@ var global_lat_long;
 
 var combined_global_data = { country: [ { "name": "", "coordinates": [0, 0], "cases": [0], "deaths": [0]} ] };
 var global_death;
+var populationVect;
 
 function parse_lat_long_global(data) {
     global_lat_long = data;
+}
+
+function parse_population(data) {
+    populationVect = data;
 }
 
 function readGlobalDeath(data) {
@@ -26,15 +32,17 @@ function combineGlobal(data) {
   for (var i = 0; i < global_lat_long.length; i++) {
       data[i+1].push(global_lat_long[i][1]);
       data[i+1].push(global_lat_long[i][2]);
+      data[i+1].push(populationVect[i]);
   }
   combined_global_data.country = [];
   for (var i = 0; i < data.length - 2; i++) {
     var id = data[i+1].splice(0,1)[0];
     var name = data[i+1].splice(0,1)[0];
-    var coordinates = data[i+1].splice(data[i+1].length-2, data[i+1].length-1);
+    var coordinates = data[i+1].splice(data[i+1].length-3, data[i+1].length-2);
     var deathID = global_death[i+1].splice(0,1);
     var deathName = global_death[i+1].splice(0,1);
-    var country = {"name": name, "coordinates": coordinates, "cases": data[i+1], "deaths": global_death[i+1]};
+    var pop = data[i+1][data[i+1].length-1];
+    var country = {"name": name, "coordinates": coordinates, "cases": data[i+1], "deaths": global_death[i+1], "populations": pop};
     combined_global_data.country.push(country);
   }
   console.log(combined_global_data);
@@ -50,9 +58,15 @@ function parseData(url, callBack) {
     });
 }
 
+function perMillionMath(numCases) {
+  numCases /= 1000000;
+  return numCases;
+}
+
 parseData(globalLL, parse_lat_long_global);
 parseData(global_data, combineGlobal);
 parseData(globalDeath, readGlobalDeath);
+parseData(population, parse_population);
 
 const Covid19Marker = ({ caseKey, deathKey, data, center, caseRadius, deathRadius, caseValue, deathValue, color, caseOpacity, deathOpacity, stroke, onClick }) => (
   <CircleMarker
@@ -75,16 +89,24 @@ const Covid19Marker = ({ caseKey, deathKey, data, center, caseRadius, deathRadiu
       stroke={false}
       onClick={onClick}
     >
+    // const numCases = perMillionMath(caseValue);
+    // 
+    // var numCases = ;
+    // console.log(numCases);
       <Tooltip direction="right" opacity={1} sticky={true}>
+
         <span>{data}</span><br></br>
         <span>{"Cases: " + caseValue}</span><br></br>
+        <span>{"Cases per million: " + perMillionMath(caseValue)}</span><br></br>
         <span>{"Deaths: " + deathValue}</span>
       </Tooltip>
     </CircleMarker>
     <Tooltip direction="right" opacity={1} sticky={true}>
       <span>{data}</span><br></br>
       <span>{"Cases: " + caseValue}</span><br></br>
+      <span>{"Cases per million: " + caseValue}</span><br></br>
       <span>{"Deaths: " + deathValue}</span>
+
     </Tooltip>
   </CircleMarker>
 );
