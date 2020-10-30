@@ -1,34 +1,22 @@
-import React, { Component } from "react";
-import { Circle, Map, Marker, Popup, TileLayer, CircleMarker, Tooltip } from "react-leaflet";
+import React, { Component, Fragment } from "react";
+import { Map, TileLayer, CircleMarker, Tooltip } from "react-leaflet";
 import ModelAPI from "./modelapi";
-import { areaToStr, strToArea } from "./covid19util";
 import "leaflet/dist/leaflet.css";
-import data from "./countries";
 
 import globalLL from "./frontendData/global_lats_longs.txt"
 import global_data from "./frontendData/global_data.csv"
-import usLL from "./frontendData/us_lats_longs.txt"
-import us_data from "./frontendData/us_data.csv"
-import usDeath from './frontendData/us_deaths.csv'
 import globalDeath from './frontendData/global_deaths.csv'
 
 import Papa from "papaparse";
 
 var global_lat_long;
-// var us_lat_long;
 
 var combined_global_data = { country: [ { "name": "", "coordinates": [0, 0], "cases": [0], "deaths": [0]} ] };
-// var combined_us_data;
-// var us_death;
 var global_death;
 
 function parse_lat_long_global(data) {
     global_lat_long = data;
 }
-
-// function readUsDeath(data) {
-//   us_death = data;
-// }
 
 function readGlobalDeath(data) {
   global_death = data;
@@ -52,19 +40,6 @@ function combineGlobal(data) {
   console.log(combined_global_data);
 }
 
-// function parse_lat_long_us(data) {
-//     us_lat_long = data;
-// }
-
-// function combineUs(data) {
-//     combined_us_data = data;
-//     for (var i = 0; i < us_lat_long.length; i++) {
-//         combined_us_data[i+1].push(us_lat_long[i][1]);
-//         combined_us_data[i+1].push(us_lat_long[i][2]);
-//     }
-//     console.log(combined_us_data);
-// }
-
 function parseData(url, callBack) {
     Papa.parse(url, {
         download: true,
@@ -77,26 +52,90 @@ function parseData(url, callBack) {
 
 parseData(globalLL, parse_lat_long_global);
 parseData(global_data, combineGlobal);
-// parseData(usLL, parse_lat_long_us);
-// parseData(us_data, combineUs);
-// parseData(usDeath, readUsDeath);
 parseData(globalDeath, readGlobalDeath);
+
+const Covid19Marker = ({ caseKey, deathKey, data, center, caseRadius, deathRadius, caseValue, deathValue, color, caseOpacity, deathOpacity, stroke, onClick }) => (
+  <CircleMarker
+    key={deathKey}
+    data={data}
+    center={center}
+    radius={deathRadius}
+    color="black"
+    fillOpacity={deathOpacity}
+    stroke={false}
+    onClick={onClick}
+  >
+    <CircleMarker
+      key={caseKey}
+      data={data}
+      center={center}
+      radius={caseRadius}
+      color={color}
+      fillOpacity={caseOpacity}
+      stroke={false}
+      onClick={onClick}
+    >
+      <Tooltip direction="right" opacity={1} sticky={true}>
+        <span>{data}</span><br></br>
+        <span>{"Cases: " + caseValue}</span><br></br>
+        <span>{"Deaths: " + deathValue}</span>
+      </Tooltip>
+    </CircleMarker>
+    <Tooltip direction="right" opacity={1} sticky={true}>
+      <span>{data}</span><br></br>
+      <span>{"Cases: " + caseValue}</span><br></br>
+      <span>{"Deaths: " + deathValue}</span>
+    </Tooltip>
+  </CircleMarker>
+);
+
+const Covid19MarkerList = ({ markers }) => {
+  const items = markers.map(({ ...props }) => (
+    <Covid19Marker {...props} />
+  ));
+  return <Fragment>{items}</Fragment>;
+}
 
 class Covid19Map extends Component {
 
-  /*fetchData(dynamicMapOn, date) {
+  constructor() {
+    super();
+    this.modelAPI = new ModelAPI();
+
+    this.state = {
+      areasList : [],
+      worldCases: [],
+      worldDeaths: [],
+      markers: []
+    };
+
+    this.modelAPI.areas(allAreas =>
+      this.setState({
+        areasList: allAreas
+      })
+    );
+  }
+
+  componentDidMount() {
+    this.props.triggerRef(this);
+    this.fetchData(this.props.dynamicMapOn);
+  }
+
+  fetchData(dynamicMapOn) {
     if (!dynamicMapOn || (this.props.confirmed_model === "" && this.props.death_model === "")) {
       // without dynamic map, show cumulative cases to date
       this.modelAPI.cumulative_infections(cumulativeInfections => {
         let caseData = cumulativeInfections.map(d => {
           return {
             id: d.area.iso_2,
+            name: d.area.country,
+            state: d.area.state,
+            area: d.area,
             value: Math.log(d.max_percentage),
-            valueTrue: d.value,
-            area: d.area
+            valueTrue: d.value
           };
         });
-        this.setState({ caseData }, this.resetMap);
+        this.setState({ caseData }, this.initCases);
       });
       this.modelAPI.cumulative_death({
         days: 0
@@ -104,12 +143,14 @@ class Covid19Map extends Component {
         let deathData = cumulativeDeath.map(d => {
           return {
             id: d.area.iso_2,
+            name: d.area.country,
+            state: d.area.state,
+            area: d.area,
             value: Math.log(d.max_percentage),
-            valueTrue: d.value,
-            area: d.area
+            valueTrue: d.value
           };
         });
-        this.setState({ deathData }, this.resetMap);
+        this.setState({ deathData }, this.initDeaths);
       });
     } else {
       // with dynamic map
@@ -122,12 +163,14 @@ class Covid19Map extends Component {
             let caseData = cumulativeInfections.map(d => {
               return {
                 id: d.area.iso_2,
+                name: d.area.country,
+                state: d.area.state,
+                area: d.area,
                 value: Math.log(d.max_val_percentage),
-                valueTrue: d.value,
-                area: d.area
+                valueTrue: d.value
               };
             });
-            this.setState({ caseData }, this.resetMap);
+            this.setState({ caseData }, this.setCases);
           });
           this.modelAPI.predict_all({
             days: this.props.days,
@@ -136,12 +179,14 @@ class Covid19Map extends Component {
             let deathData = cumulativeInfections.map(d => {
               return {
                 id: d.area.iso_2,
+                name: d.area.country,
+                state: d.area.state,
+                area: d.area,
                 value: Math.log(d.max_death_percentage),
-                valueTrue: d.value,
-                area: d.area
+                valueTrue: d.value
               };
             });
-            this.setState({ deathData }, this.resetMap);
+            this.setState({ deathData }, this.setDeaths);
           });
         } else {
           // show history cumulative
@@ -151,12 +196,14 @@ class Covid19Map extends Component {
             let caseData = historyCumulative.map(d => {
               return {
                 id: d.area.iso_2,
+                name: d.area.country,
+                state: d.area.state,
+                area: d.area,
                 value: Math.log(d.max_val_percentage),
-                valueTrue: d.value,
-                area: d.area
+                valueTrue: d.value
               };
             });
-            this.setState({ caseData }, this.resetMap);
+            this.setState({ caseData }, this.setCases);
           });
           this.modelAPI.history_cumulative({
             days: this.props.days,
@@ -164,19 +211,136 @@ class Covid19Map extends Component {
             let deathData = historyCumulative.map(d => {
               return {
                 id: d.area.iso_2,
+                name: d.area.country,
+                state: d.area.state,
+                area: d.area,
                 value: Math.log(d.max_death_percentage),
-                valueTrue: d.deathValue,
-                area: d.area
+                valueTrue: d.deathValue
               };
             });
-            this.setState({ deathData }, this.resetMap)
-          })
+            this.setState({ deathData }, this.setDeaths);
+          });
         }
+      } else {
+        // new cases
       }
     }
-  }*/
+  }
 
-  handleMapClick( e) {
+  initCases() {
+    //this.setState({ worldCases: this.state.caseData });
+    if (this.state.markers.length > 0) {
+      this.setCases();
+    } else {
+      for (var i = 0; i < global_lat_long.length; i++) {
+        let area = this.state.caseData[i];
+        if (typeof(area.deathRadius) === "undefined") {
+          area.deathRadius = 0;
+        }
+        if (typeof(area.deathValue) === "undefined") {
+          area.deathValue = 0;
+        }
+        if (typeof(area.deathOpacity) === "undefined") {
+          area.deathOpacity = 0;
+        }
+        let opacity = 0.5;
+        if (area.valueTrue === 0) {
+          opacity = 0;
+        }
+        this.state.markers.push({
+          key: area.name,
+          caseKey: area.name + "-cases",
+          deathKey: area.name + "-deaths",
+          data: area.name,
+          center: [global_lat_long[i][1], global_lat_long[i][2]],
+          caseRadius: 5 * this.getRadius(area.valueTrue),
+          deathRadius: area.deathRadius,
+          caseValue: area.valueTrue,
+          deathValue: area.deathValue,
+          color: this.getColor(area.valueTrue),
+          caseOpacity: opacity,
+          deathOpacity: area.deathOpacity,
+          stroke: false,
+          onclick: "(e) => this.handleMapClick(e)"
+        });
+      }
+      // this.setState({ markers: this.state.markers });
+    }
+  }
+
+  initDeaths() {
+    //this.setState({ worldDeaths: this.state.deathData });
+    if (this.state.markers.length > 0) {
+      this.setDeaths();
+    } else {
+      for (var i = 0; i < global_lat_long.length; i++) {
+        let area = this.state.deathData[i];
+        if (typeof(area.caseRadius) === "undefined") {
+          area.caseRadius = 0;
+        }
+        if (typeof(area.caseValue) === "undefined") {
+          area.caseValue = 0;
+        }
+        if (typeof(area.caseOpacity) === "undefined") {
+          area.caseOpacity = 0;
+        }
+        let opacity = 1;
+        if (area.valueTrue === 0) {
+          opacity = 0;
+        }
+        this.state.markers.push({
+          key: area.name,
+          caseKey: area.name + "-cases",
+          deathKey: area.name + "-deaths",
+          data: area.name,
+          center: [global_lat_long[i][1], global_lat_long[i][2]],
+          caseRadius: area.caseRadius,
+          deathRadius: this.getRadius(area.valueTrue),
+          caseValue: area.caseValue,
+          deathValue: area.valueTrue,
+          color: "black",
+          caseOpacity: area.caseOpacity,
+          deathOpacity: opacity,
+          stroke: false,
+          onclick: "(e) => this.handleMapClick(e)"
+        });
+      }
+      // this.setState({ markers: this.state.markers });
+    }
+  }
+
+  setCases() {
+    //this.setState({ worldCases: this.state.caseData });
+    for (var i = 0; i < this.state.markers.length; i++) {
+      let caseValue = this.state.caseData[i].valueTrue;
+      let opacity = 0.5;
+      if (caseValue === 0) {
+        opacity = 0;
+      }
+      this.state.markers[i].caseRadius = 5 * this.getRadius(caseValue);
+      this.state.markers[i].caseValue = caseValue;
+      this.state.markers[i].color = this.getColor(caseValue);
+      this.state.markers[i].caseOpacity = opacity;
+    }
+    //this.setState({ markers: this.state.markers });
+  }
+
+  setDeaths() {
+    //this.setState({ worldDeaths: this.state.deathData });
+    for (var i = 0; i < this.state.markers.length; i++) {
+      let deathValue = this.state.deathData[i].valueTrue;
+      let opacity = 1;
+      if (deathValue === 0) {
+        opacity = 0;
+      }
+      this.state.markers[i].deathRadius = this.getRadius(deathValue);
+      this.state.markers[i].deathValue = deathValue;
+      this.state.markers[i].deathOpacity = opacity;
+    }
+    //this.setState({ markers: this.setState.markers });
+  }
+
+  handleMapClick(e) {
     const { onMapClick, onNoData } = this.props;
     var area = e.target.options.data;
     if (area) {
@@ -188,8 +352,7 @@ class Covid19Map extends Component {
   }
 
   getRadius(value) {
-    // var radius = Math.log(value / 1000000);
-    if (value == 0)
+    if (value === 0)
       return value;
   	var radius = Math.log(value / 100);
 
@@ -200,6 +363,7 @@ class Covid19Map extends Component {
   }
 
   getColor(d) {
+    d /= 10000;
    	return d > 100 ? '#800026' :
            d > 50  ? '#BD0026' :
            d > 20  ? '#E31A1C' :
@@ -211,26 +375,39 @@ class Covid19Map extends Component {
   }
 
   render() {
-
-    // var centerLat = (data.minLat + data.maxLat) / 2;
-    // var distanceLat = data.maxLat - data.minLat;
-    // var bufferLat = distanceLat * 0.05;
-    // var centerLong = (data.minLong + data.maxLong) / 2;
-    // var distanceLong = data.maxLong - data.minLong;
-    // var bufferLong = distanceLong * 0.05;
-
     return (
-        //this.parseData(csvFile, doStuff)
+      <div>
+        <Map
+          style={{ height: "880px", width: "100%" }}
+          zoom={4}
+          minZoom={3}
+          center={[37.8, -96]}
+          maxBounds={[
+            [90, -Infinity],
+            [-90, Infinity]
+          ]}
+          worldCopyJump={true}
+        >
+          <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
+          <Covid19MarkerList markers={this.state.markers} />
+        </Map>
+      </div>
+    )
+  }
+
+  /*render() {
+    return (
     	<div>
     		<Map
     			style={{ height: "880px", width: "100%" }}
           zoom={4}
+          minZoom={3}
           center={[37.8, -96]}
-    			// center={[centerLat, centerLong]}
-    			// bounds={[
-    			// 	[data.minLat - bufferLat, data.minLong - bufferLong],
-    			// 	[data.maxLat + bufferLat, data.maxLong - bufferLong]
-    			// ]}
+          maxBounds={[
+            [90, -Infinity],
+            [-90, Infinity]
+          ]} 
+          worldCopyJump={true}
     		>
     			<TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
 
@@ -251,10 +428,10 @@ class Covid19Map extends Component {
                   data={country["name"]}
                   center={[country["coordinates"][0], country["coordinates"][1]]}
                   radius={5 * this.getRadius(country["cases"][country["cases"].length-1])}
-                  color={this.getColor(country["cases"][country["cases"].length-1] / 10000)}
+                  color={this.getColor(country["cases"][country["cases"].length-1])}
                   fillOpacity={0.5}
                   stroke={false}
-                  onClick={ (e) => this.handleMapClick(e)}
+                  onClick={ (e) => this.handleMapClick(e) }
                 >
                   <Tooltip direction="right" opacity={1} sticky={true}>
                     <span>{country["name"]}</span><br></br>
@@ -270,44 +447,10 @@ class Covid19Map extends Component {
               </CircleMarker>
             )
           })}
-
-    			{/* {data.country.map((country, k) => {
-    				return (
-              <CircleMarker
-                key={k}
-                data={country["name"]}
-                center={[country["coordinates"][0], country["coordinates"][1]]}
-                radius={2 * this.getRadius(country["population"])}
-                color="black"
-                fillOpacity={1}
-                stroke={false}
-                onClick={ (e) => this.handleMapClick(e)}
-              >
-                <CircleMarker
-                  key={k}
-                  data={country["name"]}
-                  center={[country["coordinates"][0], country["coordinates"][1]]}
-                  radius={10 * this.getRadius(country["population"])}
-                  color={this.getColor(country["population"] / 1000000)}
-                  fillOpacity={0.5}
-                  stroke={false}
-                  onClick={ (e) => this.handleMapClick(e)}
-                >
-                  <Tooltip direction="right" opacity={1} sticky={true}>
-                    <span>{country["name"] + ": Population " + country["population"]}</span>
-                  </Tooltip>
-                </CircleMarker>
-                <Tooltip direction="right" opacity={1} sticky={true}>
-    							<span>{country["name"] + ": Population " + country["population"]}</span>
-    						</Tooltip>
-              </CircleMarker>
-    				)
-    			})
-    			} */}
     		</Map>
     	</div>
     );
-  }
+  }*/
 }
 
 export default Covid19Map;
