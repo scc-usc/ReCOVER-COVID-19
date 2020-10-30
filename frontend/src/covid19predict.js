@@ -776,6 +776,12 @@ class Covid19Predict extends PureComponent {
                     &nbsp;&nbsp;Dynamic Map&nbsp;&nbsp;  
                   </Popover>
                 </span>
+                <span className="map-control">
+                  <Popover>
+                    <Switch onChange={this.switchDynamicMap} />
+                    &nbsp;&nbsp;Visualize cases per million&nbsp;&nbsp;  
+                  </Popover>
+                </span>
               </Row>
 
               <Row>
@@ -864,6 +870,7 @@ class Covid19Predict extends PureComponent {
 
       </Tab>
       <Tab label="County">Third Content</Tab>
+      <Tab label="Reproduction">Third Content</Tab>
     </Tabs>
   </div>
 
