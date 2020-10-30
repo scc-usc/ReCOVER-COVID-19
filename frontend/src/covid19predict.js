@@ -588,6 +588,29 @@ class Covid19Predict extends PureComponent {
       <Tab label="Country">
         <div id="common" className="text-center"> 
             <div id="slider">
+            	<Popover
+                placement="left">
+                <Form.Item>
+            	{/* 
+            	  INTEGRATES BACKEND
+                  <Slider
+                        range={true}
+                        marks={marks}
+                        min={days-30>=-daysToFirstDate?days-30:-daysToFirstDate}
+                        max={days+50<=99?days+50:99}
+                        defaultValue={[days-30>=-daysToFirstDate?days-30:-daysToFirstDate,days+50<=99?days+50:99]}
+                        onAfterChange={this.onDaysToPredictChange}
+                        step = {null}
+                  />
+              	*/}
+                  <Slider
+                        min={0}
+                        defaultValue={[20,70]}
+                        max={100}
+                        range={true}
+                  />
+                </Form.Item>
+              </Popover>
             </div>
             <div id="statistics">
               <Popover

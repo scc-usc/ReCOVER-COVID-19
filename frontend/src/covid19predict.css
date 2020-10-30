@@ -109,13 +109,18 @@
     border-style: outset;
     padding: 30px 40px;
 }
+#common {
+  display:flex;
+  flex-direction:row;
+}
 #slider {
     width: 50%;
-    /*background-color: red;*/
-    float: left;
+    display:block;
+    padding: 10px 30px;
 }
 #statistics {
-    /*width: 50%;*/
+    display:block;
+    width: 50%;
     position:relative;
     padding: 10px 30px;
 }
@@ -153,7 +158,12 @@
 
 .ant-slider-handle {
     background-color:red!important;
+    border: solid 2px red!important;
 }
+.ant-slider-track {
+    background-color:red!important;
+}
+
 
 .tab-list {
   border-bottom: 1px solid #ccc;
