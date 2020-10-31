@@ -63,12 +63,17 @@ function perMillionMath(numCases) {
   return numCases;
 }
 
+function casesPerPersonCalculation(populationNum, numCases) {
+  numCases = populationNum/numCases;
+  return Math.round(numCases);
+}
+
 parseData(globalLL, parse_lat_long_global);
 parseData(global_data, combineGlobal);
 parseData(globalDeath, readGlobalDeath);
 parseData(population, parse_population);
 
-const Covid19Marker = ({ caseKey, deathKey, data, center, caseRadius, deathRadius, caseValue, deathValue, color, caseOpacity, deathOpacity, stroke, onClick }) => (
+const Covid19Marker = ({ caseKey, deathKey, data, center, caseRadius, deathRadius, caseValue, deathValue, popNum, color, caseOpacity, deathOpacity, stroke, onClick }) => (
   <CircleMarker
     key={deathKey}
     data={data}
@@ -97,15 +102,15 @@ const Covid19Marker = ({ caseKey, deathKey, data, center, caseRadius, deathRadiu
 
         <span>{data}</span><br></br>
         <span>{"Cases: " + caseValue}</span><br></br>
-        <span>{"Cases per million: " + perMillionMath(caseValue)}</span><br></br>
+        <span>{"1 case : " + casesPerPersonCalculation(popNum, caseValue) + " people"}</span><br></br>
         <span>{"Deaths: " + deathValue}</span>
       </Tooltip>
     </CircleMarker>
     <Tooltip direction="right" opacity={1} sticky={true}>
       <span>{data}</span><br></br>
       <span>{"Cases: " + caseValue}</span><br></br>
-      <span>{"Cases per million: " + caseValue}</span><br></br>
-      <span>{"Deaths: " + deathValue}</span>
+      <span>{"Deaths: " + deathValue}</span><br></br>
+      <span>{"1 death : " + casesPerPersonCalculation(popNum, deathValue) + " people"}</span>
 
     </Tooltip>
   </CircleMarker>
@@ -279,6 +284,7 @@ class Covid19Map extends Component {
           deathRadius: area.deathRadius,
           caseValue: area.valueTrue,
           deathValue: area.deathValue,
+          population: populationVect[i],
           color: this.getColor(area.valueTrue),
           caseOpacity: opacity,
           deathOpacity: area.deathOpacity,
@@ -320,6 +326,7 @@ class Covid19Map extends Component {
           deathRadius: this.getRadius(area.valueTrue),
           caseValue: area.caseValue,
           deathValue: area.valueTrue,
+          popNum: populationVect[i],
           color: "black",
           caseOpacity: area.caseOpacity,
           deathOpacity: opacity,

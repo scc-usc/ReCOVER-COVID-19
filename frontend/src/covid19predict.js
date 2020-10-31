@@ -37,6 +37,7 @@ const { Option } = Select;
 
 class Covid19Predict extends PureComponent {
   handleYScaleSelect = e => {
+    console.log(e);
     this.setState({
       yScale: e.target.value
     });
@@ -50,8 +51,11 @@ class Covid19Predict extends PureComponent {
   };
 
   handleDataTypeSelect = e => {
+    console.log(e);
+
     this.setState({
       dataType: e
+
     });
   };
 
@@ -621,7 +625,7 @@ class Covid19Predict extends PureComponent {
                   Statistic:&nbsp;&nbsp;  
                   <Radio.Group
                     value={statistic}
-                    onChange={this.handleStatisticSelect}
+                    onChange={this.handleYScaleSelect}
                   >
                     <Radio value="cumulative">Cumulative Cases</Radio>
                     <Radio value="delta">New Cases</Radio>
@@ -741,7 +745,7 @@ class Covid19Predict extends PureComponent {
                     <Form.Item>
                       Data Types:&nbsp;&nbsp;  
                       <Checkbox.Group
-                        defaultValue={['confirmed']}
+                        value={dataType}
                         onChange={this.handleDataTypeSelect}>
                         <Checkbox defaultChecked value="confirmed">Confirmed Cases</Checkbox>
                         <Checkbox value="death">Deaths</Checkbox>
