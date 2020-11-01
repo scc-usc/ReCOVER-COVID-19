@@ -11,7 +11,7 @@ DATA_SOURCE_PATHS = {
     "US": {
         "INFECTION": "../results/forecasts/us_data.csv",
         "DEATH": "../results/forecasts/us_deaths.csv"
-    }
+    } 
 }
 
 def load_csv(apps, path, scope, type):
