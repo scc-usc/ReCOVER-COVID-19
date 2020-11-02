@@ -289,7 +289,7 @@ class Covid19Map extends Component {
           caseOpacity: opacity,
           deathOpacity: area.deathOpacity,
           stroke: false,
-          onclick: "(e) => this.handleMapClick(e)"
+          onClick: (e) => this.handleMapClick(e)
         });
       }
       // this.setState({ markers: this.state.markers });
@@ -331,7 +331,7 @@ class Covid19Map extends Component {
           caseOpacity: area.caseOpacity,
           deathOpacity: opacity,
           stroke: false,
-          onclick: "(e) => this.handleMapClick(e)"
+          onClick: (e) => this.handleMapClick(e)
         });
       }
       // this.setState({ markers: this.state.markers });
