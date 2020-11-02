@@ -110,7 +110,7 @@ def load_csv(input_filename_state):
             state_id = STATE_ID_MAPPING[state]
             week_ahead = int(row[week_ahead_col])
             quantile = row[quantile_col]
-            val = float(row[value_col])
+            val = max(float(row[value_col]), 0)
             if week_ahead not in dataset:
                 dataset[week_ahead] = {}
             if state_id not in dataset[week_ahead]:
