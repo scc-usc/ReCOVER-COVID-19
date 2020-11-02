@@ -6,8 +6,7 @@ import io
 
 FORECAST_DATE = datetime.datetime.today()
 FIRST_WEEK = FORECAST_DATE + datetime.timedelta(5)
-INPUT_FILENAME_STATE = "INPUT" 
-INPUT_FILENAME_GLOBAL = "INPUT"
+INPUT_FILENAME_STATE = "./us_deaths_quants.csv" 
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha_RF.csv"
 COLUMNS = ["forecast_date", "target", "target_end_date", "location", "type", "quantile", "value"]
 ID_STATE_MAPPING = {}
@@ -105,23 +104,26 @@ def load_truth_cumulative_deaths():
     return dataset
 
 
-def load_csv(input_filename_state, input_filename_global):
+def load_csv(input_filename_state):
     """
-    Read our forecast reports and return a dictionary structuring of <date_str, <state_id, <quantile, value>>>
-    e.g.
+    Read our forecast reports and return a dictionary structuring 
+    of <week_ahead, <state_id, <quantile, weekly_inc_death>>>
+    e.g:
     {
-        "2020-06-22": {
-            '10': 2000.0,
-            '11': 3000.0,
+        1: {
+            '10':{ 
+                0.05: 2000.0,
+                0.10: 2100.0,
+                ... 
+                
+            },
+            '11': {
+                0.05: 3000.0,
+                0.10: 3100.0,
+                ...
+            }
             ...
         },
-
-        "2020-06-23": {
-            '10': 800.0,
-            '11': 900.0,
-            ...
-        },
-        ...
     }
     """
     dataset = {}
@@ -129,42 +131,43 @@ def load_csv(input_filename_state, input_filename_global):
         reader = csv.reader(f)
         header = next(reader, None)
 
-        for i in range(2, len(header)):
-            date_str = header[i]
-            # Initialize the dataset entry on each date.
-            dataset[date_str] = {}
-        
+        location_col = -1
+        week_ahead_col = -1
+        quantile_col = -1
+        value_col = -1 
+
+
+        for i in range(len(header)):
+            if header[i] == "place":
+                location_col = i
+            elif header[i] == "week_ahead":
+                week_ahead_col = i
+            elif header[i] == "quantile":
+                quantile_col = i 
+            elif header[i] == "value":
+                value_col = i
+       
         for row in reader:
-            state = row[1]
-            
+            state = row[location_col]
+
             # Skip the state if it is not listed in reichlab's state list.
             if state not in STATE_ID_MAPPING:
                 continue
-
             state_id = STATE_ID_MAPPING[state]
-            for i in range(2, len(header)):
-                date_str = header[i]
-                val = float(row[i])
-                dataset[date_str][state_id] = val
-                if "US" not in dataset[date_str]:
-                    dataset[date_str]["US"] = 0
-                dataset[date_str]["US"] += val / 2  # Average of country report and sum of state reports. 
-
-    with open(input_filename_global) as f:
-        reader = csv.reader(f)
-        header = next(reader, None)
-
-        
-        for row in reader:
-            country = row[1]
-            # Skip other countries.
-            if not country == "US":
-                continue
-
-            for i in range(2, len(header)):
-                date_str = header[i]
-                val = float(row[i])
-                dataset[date_str]["US"] += val / 2  # Average of country report and sum of state reports.
+            week_ahead = int(row[week_ahead_col])
+            quantile = float(row[value_col])
+            val = float(row[value_col])
+            if week_ahead not in dataset:
+                dataset[week_ahead] = {}
+            if state_id not in dataset[week_ahead]:
+                dataset[week_ahead][state_id] = {}
+            dataset[week_ahead][state_id][quantile] = val
+            # Sum up total data of each state to be US data 
+            if "US" not in dataset[week_ahead]:
+                dataset[week_ahead]["US"] = {} 
+            if quantile not in dataset[week_ahead]["US"]:
+                dataset[week_ahead]["US"][quantile] = 0 
+            dataset[week_ahead]["US"][quantile] += val
 
     return dataset
 
@@ -193,10 +196,10 @@ def generate_dataframe(forecast, observed):
     dataframe = pd.DataFrame(columns=COLUMNS, dtype=str)
 
     # Write cumulative forecasts.
-    cum_week = 0
     forecast_date_str = FORECAST_DATE.strftime("%Y-%m-%d")
-    for target_end_date_str in sorted(forecast.keys()):
-        target_end_date = datetime.datetime.strptime(target_end_date_str, "%Y-%m-%d")
+    for cum_week in sorted(forecast.keys()):
+        target_end_date = FIRST_WEEK + ((cum_week - 1) * datetime.timedelta(7)) 
+        target_end_date_str = target_end_date.strftime("%Y-%m-%d")
         # Terminate the loop after 8 weeks of forecasts.
         if cum_week >= 8:
             break
@@ -204,44 +207,31 @@ def generate_dataframe(forecast, observed):
         # Skip forecasts before the forecast date.
         if target_end_date <= FORECAST_DATE:
             continue
-
-        # Daily cumulative report.
-        """
-        target = str((target_end_date - FORECAST_DATE).days) + " day ahead cum death"
-        for state_id in forecast[target_end_date_str].keys():
-            dataframe = dataframe.append(
-                generate_new_row(
-                    forecast_date=forecast_date_str,
-                    target=target,
-                    target_end_date=target_end_date_str,
-                    location=str(state_id),
-                    type="Point",
-                    quantile="NA",
-                    value=forecast[target_end_date_str][state_id]
-                ), ignore_index=True)
-        """
 
         # Write a row for "weeks ahead" if forecast end day is a Saturday.
-        if target_end_date >= FIRST_WEEK and target_end_date.weekday() == 5 :
-            cum_week += 1
+        if target_end_date >= FIRST_WEEK and target_end_date.weekday() == 5:
             target = str(cum_week) + " wk ahead cum death"
-            for state_id in forecast[target_end_date_str].keys():
-                dataframe = dataframe.append(
-                    generate_new_row(
-                        forecast_date=forecast_date_str,
-                        target=target,
-                        target_end_date=target_end_date_str,
-                        location=str(state_id),
-                        type="point",
-                        quantile="NA",
-                        value=forecast[target_end_date_str][state_id]
-                    ), ignore_index=True)
+            for state_id in forecast[cum_week].keys():
+                for quantile in forecast[cum_week][state_id].keys():
+                    val = observed[(FORECAST_DATE - datetime.timedelta(1)).strftime("%Y-%m-%d")][state_id]
+                    for i in range(1, cum_week + 1):
+                        val += forecast[i][state_id][quantile]
+                    dataframe = dataframe.append(
+                        generate_new_row(
+                            forecast_date=forecast_date_str,
+                            target=target,
+                            target_end_date=target_end_date_str,
+                            location=str(state_id),
+                            type="quantile",
+                            quantile=quantile,
+                            value=val
+                        ), ignore_index=True)
                 
     # Write incident forecasts.
-    cum_week = 0
     forecast_date_str = FORECAST_DATE.strftime("%Y-%m-%d")
-    for target_end_date_str in sorted(forecast.keys()):
-        target_end_date = datetime.datetime.strptime(target_end_date_str, "%Y-%m-%d")
+    for cum_week in sorted(forecast.keys()):
+        target_end_date = FIRST_WEEK + ((cum_week - 1) * datetime.timedelta(7)) 
+        target_end_date_str = target_end_date.strftime("%Y-%m-%d")
         # Terminate the loop after 8 weeks of forecasts.
         if cum_week >= 8:
             break
@@ -250,83 +240,30 @@ def generate_dataframe(forecast, observed):
         if target_end_date <= FORECAST_DATE:
             continue
 
-        target = str((target_end_date - FORECAST_DATE).days) + " day ahead inc death"
-
-        # Daily Incident report.
-        """
-        prev_date = target_end_date - datetime.timedelta(1)
-        prev_date_str = prev_date.strftime("%Y-%m-%d")
-
-        if prev_date_str in observed:
-            for state_id in forecast[target_end_date_str].keys():
-                dataframe = dataframe.append(
-                    generate_new_row(
-                        forecast_date=forecast_date_str,
-                        target=target,
-                        target_end_date=target_end_date_str,
-                        location=str(state_id),
-                        type="Point",
-                        quantile="NA",
-                        value=forecast[target_end_date_str][state_id]-observed[prev_date_str][state_id]
-                    ), ignore_index=True)
-
-        elif prev_date_str in forecast:
-            for state_id in forecast[target_end_date_str].keys():
-                dataframe = dataframe.append(
-                    generate_new_row(
-                        forecast_date=forecast_date_str,
-                        target=target,
-                        target_end_date=target_end_date_str,
-                        location=str(state_id),
-                        type="Point",
-                        quantile="NA",
-                        value=forecast[target_end_date_str][state_id]-forecast[prev_date_str][state_id]
-                    ), ignore_index=True)
-        """
-
         if target_end_date >= FIRST_WEEK and target_end_date.weekday() == 5:
-            cum_week += 1
             target = str(cum_week) + " wk ahead inc death"
-
-            last_week_date = target_end_date - datetime.timedelta(7)
-            last_week_date_str = last_week_date.strftime("%Y-%m-%d")
-            
-            if last_week_date_str in observed:
-                for state_id in forecast[target_end_date_str].keys():
+            for state_id in forecast[cum_week].keys():
+                for quantile in forecast[cum_week][state_id].keys():
                     dataframe = dataframe.append(
                         generate_new_row(
                             forecast_date=forecast_date_str,
                             target=target,
                             target_end_date=target_end_date_str,
                             location=str(state_id),
-                            type="point",
-                            quantile="NA",
-                            value=max(forecast[target_end_date_str][state_id]-observed[last_week_date_str][state_id], 0)
+                            type="quantile",
+                            quantile=quantile,
+                            value=forecast[cum_week][state_id][quantile]
                         ), ignore_index=True)
-            
-            elif last_week_date_str in forecast:
-                for state_id in forecast[target_end_date_str].keys():
-                    dataframe = dataframe.append(
-                        generate_new_row(
-                            forecast_date=forecast_date_str,
-                            target=target,
-                            target_end_date=target_end_date_str,
-                            location=str(state_id),
-                            type="point",
-                            quantile="NA",
-                            value=max(forecast[target_end_date_str][state_id]-forecast[last_week_date_str][state_id], 0)
-                        ), ignore_index=True)
-
-
+ 
+           
     return dataframe
-
 
 # Main function
 if __name__ == "__main__":
     STATE_ID_MAPPING = load_state_id_mapping()
     ID_STATE_MAPPING = load_id_state_mapping()
     print("loading forecast...")
-    forecast = load_csv(INPUT_FILENAME_STATE, INPUT_FILENAME_GLOBAL)
+    forecast = load_csv(INPUT_FILENAME_STATE)
     observed = load_truth_cumulative_deaths()
     dataframe = generate_dataframe(forecast, observed)
     print("writing files...")
