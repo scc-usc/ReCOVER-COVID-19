@@ -11,7 +11,7 @@ for i in range(0, 8):
     if FIRST_WEEK.weekday() == 5:
         break
     FIRST_WEEK += datetime.timedelta(1)
-INPUT_FILENAME_STATE = "./us_deaths_quants.csv" 
+INPUT_FILENAME_STATE = "./us_cases_quants.csv" 
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha_RF.csv"
 COLUMNS = ["forecast_date", "target", "target_end_date", "location", "type", "quantile", "value"]
 ID_STATE_MAPPING = {}
@@ -57,57 +57,6 @@ def load_id_state_mapping():
             id_state_mapping[state_id] = state_name
         
         return id_state_mapping
-
-
-
-def load_truth_cumulative_deaths():
-    """
-    Load the observed cumulative deaths from the data source.
-    Return A 2D dictionary structuring of <date_str, <state_id, value>>
-    An example looks like:
-    { 
-        "2020-06-17" : {
-            "10": 1000,
-            "11": 2000,
-            ...
-        }, 
-        "2020-06-18" : {
-            "10": 1100,
-            "11": 2100,
-            ...
-        }, 
-    }
-    """
-    dataset = {}
-    URL = "https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-truth/truth-Cumulative%20Deaths.csv"
-
-    f = io.StringIO(urllib.request.urlopen(URL).read().decode('utf-8'))
-    reader = csv.reader(f)
-    header = next(reader, None)
-
-    location_col = -1
-    date_col = -1
-    value_col = -1
-
-    for i in range(0, len(header)):
-        if (header[i] == "location"):
-            location_col = i
-        elif (header[i] == "date"):
-            date_col = i
-        elif (header[i] == "value"):
-            value_col = i
-
-    for row in reader:
-        state_id = row[location_col]
-        date = row[date_col]
-        val = int(row[value_col])
-        if date not in dataset:
-            dataset[date] = {}
-                
-        dataset[date][state_id] = val
-
-    return dataset
-
 
 def load_csv(input_filename_state):
     """
@@ -193,56 +142,11 @@ def generate_new_row(forecast_date, target, target_end_date,
 
 
 
-def generate_dataframe(forecast, observed):
+def add_to_dataframe(dataframe, forecast):
     """
-    Given our forecast and observed data, generate a pandas dataframe according to reichlab's required format.
+    Given a dataframe and forecast data 
+    generate a pandas dataframe of incident cases.
     """
-    dataframe = pd.DataFrame(columns=COLUMNS, dtype=str)
-
-    # Write cumulative forecasts.
-    forecast_date_str = FORECAST_DATE.strftime("%Y-%m-%d")
-    for cum_week in sorted(forecast.keys()):
-        target_end_date = FIRST_WEEK + ((cum_week - 1) * datetime.timedelta(7)) 
-        target_end_date_str = target_end_date.strftime("%Y-%m-%d")
-        # Terminate the loop after 8 weeks of forecasts.
-        if cum_week >= 8:
-            break
-        
-        # Skip forecasts before the forecast date.
-        if target_end_date <= FORECAST_DATE:
-            continue
-
-        # Write a row for "weeks ahead" if forecast end day is a Saturday.
-        if target_end_date >= FIRST_WEEK and target_end_date.weekday() == 5:
-            target = str(cum_week) + " wk ahead cum death"
-            for state_id in forecast[cum_week].keys():
-                for quantile in forecast[cum_week][state_id].keys():
-                    val = observed[(FORECAST_DATE - datetime.timedelta(1)).strftime("%Y-%m-%d")][state_id]
-                    for i in range(1, cum_week + 1):
-                        val += forecast[i][state_id][quantile]
-                    if quantile == "point":
-                        dataframe = dataframe.append(
-                            generate_new_row(
-                                forecast_date=forecast_date_str,
-                                target=target,
-                                target_end_date=target_end_date_str,
-                                location=str(state_id),
-                                type="point",
-                                quantile="NA",
-                                value=val
-                            ), ignore_index=True)
-                    else:
-                        dataframe = dataframe.append(
-                            generate_new_row(
-                                forecast_date=forecast_date_str,
-                                target=target,
-                                target_end_date=target_end_date_str,
-                                location=str(state_id),
-                                type="quantile",
-                                quantile=quantile,
-                                value=val
-                            ), ignore_index=True)
-                
     # Write incident forecasts.
     forecast_date_str = FORECAST_DATE.strftime("%Y-%m-%d")
     for cum_week in sorted(forecast.keys()):
@@ -257,7 +161,7 @@ def generate_dataframe(forecast, observed):
             continue
 
         if target_end_date >= FIRST_WEEK and target_end_date.weekday() == 5:
-            target = str(cum_week) + " wk ahead inc death"
+            target = str(cum_week) + " wk ahead inc case"
             for state_id in forecast[cum_week].keys():
                 for quantile in forecast[cum_week][state_id].keys():
                     if quantile == "point":
@@ -291,8 +195,8 @@ if __name__ == "__main__":
     ID_STATE_MAPPING = load_id_state_mapping()
     print("loading forecast...")
     forecast = load_csv(INPUT_FILENAME_STATE)
-    observed = load_truth_cumulative_deaths()
-    dataframe = generate_dataframe(forecast, observed)
+    dataframe = pd.read_csv(OUTPUT_FILENAME, na_filter=False)
+    dataframe = add_to_dataframe(dataframe, forecast)
     print("writing files...")
     dataframe.to_csv(OUTPUT_FILENAME, index=False)
     print("done")
