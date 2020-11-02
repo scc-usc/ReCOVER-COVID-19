@@ -4,12 +4,14 @@
 # RELATIVE address of our submission folder in Forecast Hub from the current directory.
 FORECAST_HUB_DIR="../../../covid19-forecast-hub/data-processed/USC-SI_kJalpha/"
 TODAY=$(date +"%Y-%m-%d")
-FILENAME="${TODAY}-USC-SI_kJalpha.csv"
+FILENAME="{TODAY}-USC-SI_kJalpha.csv"
+FILENAME_FROM_HUB = "../../../ReCOVER-COVID-19/results/format-covid-forecast/{TODAY}-USC-SI_kJalpha.csv" 
 
 #echo ${FORECAST_HUB_DIR}
 #echo ${FILENAME}
-cp ${FILENAME} ${FORECAST_HUB_DIR}
 cd $FORECAST_HUB_DIR
+git checkout usc-si-kjalpha
+cp ${FILENAME_FROM_HUB} ./
 git add ${FILENAME}
 git commit -m "Weekly update"
 git push 
