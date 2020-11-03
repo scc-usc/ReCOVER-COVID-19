@@ -78,4 +78,8 @@ for dd = first_day:skipdays:last_day
     eval(['save ./hyper_params/county_hyperparam_ref_' num2str(dd) ' best_param_list_no MAPEtable_notravel_fixed_s']);
 end
 
+prefix = 'county';
+
+writetable(infec2table(data_4, cellstr(num2str(FIP_data.FIPS)), zeros(length(countries), 1), datetime(2020, 1, 23)), '../results/forecasts/county_data.csv');
+writetable(infec2table(deaths, cellstr(num2str(FIP_data.FIPS)), zeros(length(countries), 1), datetime(2020, 1, 23)), '../results/forecasts/county_deaths.csv');
 
