@@ -32,7 +32,7 @@ disp('Finished updating Global forecasts');
 clear;
 write_county_files;
 
-%% For Others (Currently only Germany)
+%% For Others (Currently only Germany, Poland)
 
 clear;
 load_data_other;
@@ -40,7 +40,9 @@ smooth_factor = 14;
 data_4_s = smooth_epidata(data_4, smooth_factor);
 deaths_s = smooth_epidata(deaths, smooth_factor);
 
-[best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, 20, size(data_4, 2));
+un = 10; % Select the ratio of true cases to reported cases. 1 for default.
+
+[best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, un, size(data_4, 2));
 dhyperparams;
 
 T_full = size(data_4, 2); % Consider all data for predictions
@@ -49,7 +51,6 @@ passengerFlow = 0;
 base_infec = data_4(:, T_full);
 compute_region = popu > -1; % Compute for all regions!
     
-un = 20; % Select the ratio of true cases to reported cases. 1 for default.
 
 beta_after = var_ind_beta_un(data_4_s(:, 1:T_full), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, compute_region);
 infec_un = var_simulate_pred_un(data_4_s(:, 1:T_full), passengerFlow*0, beta_after, popu, best_param_list(:, 1), horizon, best_param_list(:, 2), un, base_infec);
