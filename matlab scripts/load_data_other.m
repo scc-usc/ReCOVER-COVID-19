@@ -28,11 +28,11 @@ germanycasetable = [germanycasetable; polandcasetable];
 germanydeathtable = [germanydeathtable; polanddeathtable];
 
 %% Prepare data
-maxt = days(max(germanycasetable.date) - datetime(2020, 1, 22));
+maxt = days(max(germanycasetable.date) - datetime(2020, 1, 23));
 nn = length(popu);
 data_4 = zeros(nn, maxt); data_4(:, end-7:end) = -1; %-1 indicates data not available
 for ll = 1:length(germanycasetable.date)
-    tt = days(germanycasetable.date(ll) - datetime(2020, 1, 22));
+    tt = days(germanycasetable.date(ll) - datetime(2020, 1, 23));
     cc = find(strcmpi(countries, germanycasetable.location(ll)));
     if length(cc)==1
         data_4(cc, tt) = germanycasetable.value(ll);
@@ -41,11 +41,11 @@ for ll = 1:length(germanycasetable.date)
     end
 end
 
-maxt = days(max(germanydeathtable.date) - datetime(2020, 1, 22));
+maxt = days(max(germanydeathtable.date) - datetime(2020, 1, 23));
 nn = length(popu);
 deaths = zeros(nn, maxt); deaths(:, end-7:end) = -1; %-1 indicates data not available
 for ll = 1:length(germanydeathtable.date)
-    tt = days(germanydeathtable.date(ll) - datetime(2020, 1, 22));
+    tt = days(germanydeathtable.date(ll) - datetime(2020, 1, 23));
     cc = find(strcmpi(countries, germanydeathtable.location(ll)));
     if length(cc)==1
         deaths(cc, tt) = germanydeathtable.value(ll);
