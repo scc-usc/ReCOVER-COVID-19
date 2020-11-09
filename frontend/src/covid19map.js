@@ -4,40 +4,13 @@ import ModelAPI from "./modelapi";
 import "leaflet/dist/leaflet.css";
 
 import globalLL from "./frontendData/global_lats_longs.txt"
-import global_data from "./frontendData/global_data.csv"
-import globalDeath from './frontendData/global_deaths.csv'
 
 import Papa from "papaparse";
 
 var global_lat_long;
 
-var combined_global_data = { country: [ { "name": "", "coordinates": [0, 0], "cases": [0], "deaths": [0]} ] };
-var global_death;
-
 function parse_lat_long_global(data) {
     global_lat_long = data;
-}
-
-function readGlobalDeath(data) {
-  global_death = data;
-}
-
-function combineGlobal(data) {
-  for (var i = 0; i < global_lat_long.length; i++) {
-      data[i+1].push(global_lat_long[i][1]);
-      data[i+1].push(global_lat_long[i][2]);
-  }
-  combined_global_data.country = [];
-  for (var i = 0; i < data.length - 2; i++) {
-    var id = data[i+1].splice(0,1)[0];
-    var name = data[i+1].splice(0,1)[0];
-    var coordinates = data[i+1].splice(data[i+1].length-2, data[i+1].length-1);
-    var deathID = global_death[i+1].splice(0,1);
-    var deathName = global_death[i+1].splice(0,1);
-    var country = {"name": name, "coordinates": coordinates, "cases": data[i+1], "deaths": global_death[i+1]};
-    combined_global_data.country.push(country);
-  }
-  console.log(combined_global_data);
 }
 
 function parseData(url, callBack) {
@@ -51,8 +24,6 @@ function parseData(url, callBack) {
 }
 
 parseData(globalLL, parse_lat_long_global);
-parseData(global_data, combineGlobal);
-parseData(globalDeath, readGlobalDeath);
 
 const Covid19Marker = ({ caseKey, deathKey, data, center, caseRadius, deathRadius, caseValue, deathValue, color, caseOpacity, deathOpacity, stroke, onClick }) => (
   <CircleMarker
@@ -394,63 +365,6 @@ class Covid19Map extends Component {
       </div>
     )
   }
-
-  /*render() {
-    return (
-    	<div>
-    		<Map
-    			style={{ height: "880px", width: "100%" }}
-          zoom={4}
-          minZoom={3}
-          center={[37.8, -96]}
-          maxBounds={[
-            [90, -Infinity],
-            [-90, Infinity]
-          ]} 
-          worldCopyJump={true}
-    		>
-    			<TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
-
-          {combined_global_data.country.map((country, k) => {
-            return (
-              <CircleMarker
-                key={k}
-                data={country["name"]}
-                center={[country["coordinates"][0], country["coordinates"][1]]}
-                radius={this.getRadius(country["deaths"][country["deaths"].length-1])}
-                color="black"
-                fillOpacity={1}
-                stroke={false}
-                onClick={ (e) => this.handleMapClick(e) }
-              >
-                <CircleMarker
-                  key={k}
-                  data={country["name"]}
-                  center={[country["coordinates"][0], country["coordinates"][1]]}
-                  radius={5 * this.getRadius(country["cases"][country["cases"].length-1])}
-                  color={this.getColor(country["cases"][country["cases"].length-1])}
-                  fillOpacity={0.5}
-                  stroke={false}
-                  onClick={ (e) => this.handleMapClick(e) }
-                >
-                  <Tooltip direction="right" opacity={1} sticky={true}>
-                    <span>{country["name"]}</span><br></br>
-                    <span>{"Cases: " + country["cases"][country["cases"].length-1]}</span><br></br>
-                    <span>{"Deaths: " + country["deaths"][country["deaths"].length-1]}</span>
-                  </Tooltip>
-                </CircleMarker>
-                <Tooltip direction="right" opacity={1} sticky={true}>
-                  <span>{country["name"]}</span><br></br>
-                  <span>{"Cases: " + country["cases"][country["cases"].length-1]}</span><br></br>
-                  <span>{"Deaths: " + country["deaths"][country["deaths"].length-1]}</span>
-                </Tooltip>
-              </CircleMarker>
-            )
-          })}
-    		</Map>
-    	</div>
-    );
-  }*/
 }
 
 export default Covid19Map;
