@@ -1,12 +1,11 @@
 import React, { Component, Fragment } from "react";
-import { Map, TileLayer, CircleMarker, Tooltip } from "react-leaflet";
+import { Map, TileLayer, CircleMarker, Tooltip, LayersControl, LayerGroup } from "react-leaflet";
 import ModelAPI from "./modelapi";
 import "leaflet/dist/leaflet.css";
 
 import globalLL from "./frontendData/global_lats_longs.txt"
 
 import Papa from "papaparse";
-import { copyProperties } from "@amcharts/amcharts4/.internal/core/utils/Object";
 
 var global_lat_long;
 var callbackCounter = 0;
@@ -82,7 +81,9 @@ class Covid19Map extends Component {
       areasList : [],
       worldCases: [],
       worldDeaths: [],
-      markers: []
+      markers: [],
+      stateMarkers: [],
+      us: []
     };
 
     this.modelAPI.areas(allAreas =>
@@ -104,7 +105,7 @@ class Covid19Map extends Component {
       if (!mapInitialized) {
         mapInitialized = true;
         if (typeof(this.state.caseData) != "undefined" && typeof(this.state.deathData) != "undefined") {
-          for (var i = 0; i < global_lat_long.length; i++) {
+          for (var i = 0; i < global_lat_long.length - 1; i++) {
             let caseArea = this.state.caseData[i];
             let deathArea = this.state.deathData[i];
             let caseOpacity = 0.5;
@@ -115,25 +116,67 @@ class Covid19Map extends Component {
             if (deathArea.valueTrue === 0) {
               deathOpacity = 0;
             }
-            this.state.markers.push({
-              key: caseArea.name,
-              caseKey: caseArea.name + "-cases",
-              deathKey: caseArea.name + "-deaths",
-              data: caseArea.name,
-              center: [global_lat_long[i][1], global_lat_long[i][2]],
-              caseRadius: 4 * this.getRadius(caseArea.caseValueTrue),
-              deathRadius: this.getRadius(deathArea.deathValueTrue),
-              caseValue: caseArea.caseValueTrue,
-              deathValue: deathArea.deathValueTrue,
-              color: this.getColor(caseArea.caseValueTrue),
-              caseOpacity: caseOpacity,
-              deathOpacity: deathOpacity,
-              stroke: true,
-              onClick: (e) => this.handleMapClick(e)
-            });
+            if (i < 184) {
+              let compare = this.state.areasList[i].country + " ";
+              if ("US " === compare) {
+                this.state.us.push({
+                  key: caseArea.name,
+                  caseKey: caseArea.name + "-cases",
+                  deathKey: caseArea.name + "-deaths",
+                  data: caseArea.name,
+                  center: [global_lat_long[i][1], global_lat_long[i][2]],
+                  caseRadius: 4 * this.getRadius(caseArea.caseValueTrue),
+                  deathRadius: this.getRadius(deathArea.deathValueTrue),
+                  caseValue: caseArea.caseValueTrue,
+                  deathValue: deathArea.deathValueTrue,
+                  color: this.getColor(caseArea.caseValueTrue),
+                  caseOpacity: caseOpacity,
+                  deathOpacity: deathOpacity,
+                  stroke: true,
+                  onClick: (e) => this.handleMapClick(e)
+                });
+              } else {
+                this.state.markers.push({
+                  key: caseArea.name,
+                  caseKey: caseArea.name + "-cases",
+                  deathKey: caseArea.name + "-deaths",
+                  data: caseArea.name,
+                  center: [global_lat_long[i][1], global_lat_long[i][2]],
+                  caseRadius: 4 * this.getRadius(caseArea.caseValueTrue),
+                  deathRadius: this.getRadius(deathArea.deathValueTrue),
+                  caseValue: caseArea.caseValueTrue,
+                  deathValue: deathArea.deathValueTrue,
+                  color: this.getColor(caseArea.caseValueTrue),
+                  caseOpacity: caseOpacity,
+                  deathOpacity: deathOpacity,
+                  stroke: true,
+                  onClick: (e) => this.handleMapClick(e)
+                });
+              }
+            } else {
+              this.state.stateMarkers.push({
+                key: caseArea.id,
+                caseKey: caseArea.state + "-cases",
+                deathKey: caseArea.state + "-deaths",
+                data: caseArea.name +  " / " + caseArea.state,
+                center: [global_lat_long[i][1], global_lat_long[i][2]],
+                caseRadius: 4 * this.getRadius(caseArea.caseValueTrue),
+                deathRadius: this.getRadius(deathArea.deathValueTrue),
+                caseValue: caseArea.caseValueTrue,
+                deathValue: deathArea.deathValueTrue,
+                color: this.getColor(caseArea.caseValueTrue),
+                display: "none",
+                caseOpacity: caseOpacity,
+                deathOpacity: deathOpacity,
+                stroke: true,
+                onClick: (e) => this.handleMapClick(e)
+              });
+            }
           }
           let markers = this.state.markers;
-          this.setState({ markers });
+          let stateMarkers = this.state.stateMarkers;
+          let us = this.state.us;
+          this.setState({ markers, stateMarkers, us });
         }
       } else {
         for (var i = 0; i < this.state.markers.length; i++) {
@@ -306,6 +349,14 @@ class Covid19Map extends Component {
                       '#FFEDA0';
   }
 
+  renderFirst() {
+    return <Covid19MarkerList markers={this.state.us} />;
+  }
+
+  renderSecond() {
+    return <Covid19MarkerList markers={this.state.stateMarkers} />;
+  }
+
   render() {
     return (
       <div>
@@ -314,6 +365,7 @@ class Covid19Map extends Component {
           zoom={4}
           minZoom={3}
           center={[37.8, -96]}
+          ref={(ref) => { this.map = ref; }}
           maxBounds={[
             [90, -Infinity],
             [-90, Infinity]
@@ -322,6 +374,18 @@ class Covid19Map extends Component {
         >
           <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
           <Covid19MarkerList markers={this.state.markers} />
+          <LayersControl position="topright">
+            <LayersControl.BaseLayer checked name="Show US Country">
+              <LayerGroup>
+                {this.renderFirst()}
+              </LayerGroup>
+            </LayersControl.BaseLayer>
+            <LayersControl.BaseLayer name="Show US State">
+              <LayerGroup>
+                {this.renderSecond()}
+              </LayerGroup>
+            </LayersControl.BaseLayer>
+          </LayersControl>
         </Map>
       </div>
     )
