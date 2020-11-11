@@ -8,8 +8,6 @@ import globalLL from "./frontendData/global_lats_longs.txt"
 import Papa from "papaparse";
 
 var global_lat_long;
-var callbackCounter = 0;
-var mapInitialized = false;
 
 function parse_lat_long_global(data) {
     global_lat_long = data;
@@ -83,7 +81,9 @@ class Covid19Map extends Component {
       worldDeaths: [],
       markers: [],
       stateMarkers: [],
-      us: []
+      us: [],
+      callbackCounter: 0,
+      mapInitialized: false
     };
 
     this.modelAPI.areas(allAreas =>
@@ -99,13 +99,13 @@ class Covid19Map extends Component {
   }
 
   setCaseDeathData() {
-    if (callbackCounter > 1) {
-      callbackCounter = 0;
+    if (this.state.callbackCounter > 1) {
+      this.state.callbackCounter = 0;
 
-      if (!mapInitialized) {
-        mapInitialized = true;
+      if (!this.state.mapInitialized) {
+        this.state.mapInitialized = true;
         if (typeof(this.state.caseData) != "undefined" && typeof(this.state.deathData) != "undefined") {
-          for (var i = 0; i < global_lat_long.length - 1; i++) {
+          for (var i = 0; i < global_lat_long.length; i++) {
             let caseArea = this.state.caseData[i];
             let deathArea = this.state.deathData[i];
             let caseOpacity = 0.5;
@@ -179,7 +179,9 @@ class Covid19Map extends Component {
           this.setState({ markers, stateMarkers, us });
         }
       } else {
-        for (var i = 0; i < this.state.markers.length; i++) {
+        let usFound = false;
+        let stateCount = 0;
+        for (var i = 0; i < global_lat_long.length; i++) {
           let caseValue = this.state.caseData[i].caseValueTrue;
           let deathValue = this.state.deathData[i].deathValueTrue;
           let caseOpacity = 0.5;
@@ -190,16 +192,50 @@ class Covid19Map extends Component {
           if (deathValue === 0) {
             deathOpacity = 0;
           }
-          this.state.markers[i].caseRadius = 4 * this.getRadius(caseValue);
-          this.state.markers[i].caseValue = caseValue;
-          this.state.markers[i].color = this.getColor(caseValue);
-          this.state.markers[i].caseOpacity = caseOpacity;
-          this.state.markers[i].deathRadius = this.getRadius(deathValue);
-          this.state.markers[i].deathValue = deathValue;
-          this.state.markers[i].deathOpacity = deathOpacity;
+          if (i < 184) {
+            if (i == 155) {
+              usFound = true;
+              this.state.us[0].caseRadius = 4 * this.getRadius(caseValue);
+              this.state.us[0].caseValue = caseValue;
+              this.state.us[0].color = this.getColor(caseValue);
+              this.state.us[0].caseOpacity = caseOpacity;
+              this.state.us[0].deathRadius = this.getRadius(deathValue);
+              this.state.us[0].deathValue = deathValue;
+              this.state.us[0].deathOpacity = deathOpacity;
+            } else {
+              if (usFound) {
+                this.state.markers[i-1].caseRadius = 4 * this.getRadius(caseValue);
+                this.state.markers[i-1].caseValue = caseValue;
+                this.state.markers[i-1].color = this.getColor(caseValue);
+                this.state.markers[i-1].caseOpacity = caseOpacity;
+                this.state.markers[i-1].deathRadius = this.getRadius(deathValue);
+                this.state.markers[i-1].deathValue = deathValue;
+                this.state.markers[i-1].deathOpacity = deathOpacity;
+              } else {
+                this.state.markers[i].caseRadius = 4 * this.getRadius(caseValue);
+                this.state.markers[i].caseValue = caseValue;
+                this.state.markers[i].color = this.getColor(caseValue);
+                this.state.markers[i].caseOpacity = caseOpacity;
+                this.state.markers[i].deathRadius = this.getRadius(deathValue);
+                this.state.markers[i].deathValue = deathValue;
+                this.state.markers[i].deathOpacity = deathOpacity;
+              }
+            }
+          } else {
+            this.state.stateMarkers[stateCount].caseRadius = 4 * this.getRadius(caseValue);
+            this.state.stateMarkers[stateCount].caseValue = caseValue;
+            this.state.stateMarkers[stateCount].color = this.getColor(caseValue);
+            this.state.stateMarkers[stateCount].caseOpacity = caseOpacity;
+            this.state.stateMarkers[stateCount].deathRadius = this.getRadius(deathValue);
+            this.state.stateMarkers[stateCount].deathValue = deathValue;
+            this.state.stateMarkers[stateCount].deathOpacity = deathOpacity;
+            stateCount++;
+          }
         }
         let markers = this.state.markers;
-        this.setState({ markers });
+        let stateMarkers = this.state.stateMarkers;
+        let us = this.state.us;
+        this.setState({ markers, stateMarkers, us });
       }
     }
   }
@@ -216,7 +252,7 @@ class Covid19Map extends Component {
           caseValueTrue: d.value
         };
       });
-      callbackCounter++;
+      this.state.callbackCounter++;
       this.setState({ caseData }, this.setCaseDeathData);
     });
     this.modelAPI.cumulative_death({
@@ -232,7 +268,7 @@ class Covid19Map extends Component {
           deathValueTrue: d.value
         };
       });
-      callbackCounter++;
+      this.state.callbackCounter++;
       this.setState({ deathData }, this.setCaseDeathData);
     });
   }
@@ -252,7 +288,7 @@ class Covid19Map extends Component {
           caseValueTrue: d.value
         };
       });
-      callbackCounter++;
+      this.state.callbackCounter++;
       this.setState({ caseData }, this.setCaseDeathData);
     });
     this.modelAPI.predict_all({
@@ -269,7 +305,7 @@ class Covid19Map extends Component {
           deathValueTrue: d.value
         };
       });
-      callbackCounter++;
+      this.state.callbackCounter++;
       this.setState({ deathData }, this.setCaseDeathData);
     });
   }
@@ -291,7 +327,7 @@ class Covid19Map extends Component {
         };
       });
       let deathData = caseData;
-      callbackCounter += 2;
+      this.state.callbackCounter += 2;
       this.setState({ caseData, deathData }, this.setCaseDeathData);
     });
   }
@@ -372,7 +408,7 @@ class Covid19Map extends Component {
           ]}
           worldCopyJump={true}
         >
-          <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
+          <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
           <Covid19MarkerList markers={this.state.markers} />
           <LayersControl position="topright">
             <LayersControl.BaseLayer checked name="Show US Country">
