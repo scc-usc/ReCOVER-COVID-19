@@ -74,7 +74,7 @@ class Covid19Predict extends PureComponent {
       best_effort: false,
       mainGraphData: {},
       days: 14,
-      dynamicMapOn: false,
+      dynamicMapOn: true,
       dataType: ["confirmed"],
       statistic: "cumulative",
       mapShown: "confirmed",
@@ -729,7 +729,7 @@ class Covid19Predict extends PureComponent {
                   placement="bottom"
                   visible={this.state.showMapInstructions}>
                   Dynamic Map:&nbsp;&nbsp;  
-                  <Switch onChange={this.switchDynamicMap} />
+                  <Switch defaultChecked onChange={this.switchDynamicMap} />
                 </Popover>
               </span>
               <span className="map-control">
