@@ -1,10 +1,14 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, useState, Sonnet } from "react";
 import Covid19Graph from "./covid19graph";
 import Covid19Map from "./covid19map";
 import ModelAPI from "./modelapi";
 import { areaToStr, strToArea, modelToStr } from "./covid19util";
 import { test_data } from "./test_data";
 import "./covid19predict.css";
+// import Tabs from 'react-bootstrap/Tabs';
+import { Tab, Tabs } from "react-tabify";
+// import Tab from 'react-bootstrap/Tab';
+// import Tabs from "./tabs/Tabs";
 
 import {
   Form,
@@ -33,6 +37,7 @@ const { Option } = Select;
 
 class Covid19Predict extends PureComponent {
   handleYScaleSelect = e => {
+    console.log(e);
     this.setState({
       yScale: e.target.value
     });
@@ -41,14 +46,16 @@ class Covid19Predict extends PureComponent {
   handleStatisticSelect = e => {
     this.setState({
       statistic: e.target.value
-    },  ()=>{
-      this.map.fetchData(this.state.dynamicMapOn);
-    })
+    });
+
   };
 
   handleDataTypeSelect = e => {
+    console.log(e);
+
     this.setState({
       dataType: e
+
     });
   };
 
@@ -213,10 +220,12 @@ class Covid19Predict extends PureComponent {
 
           );
         }
-
-        this.formRef.current.setFieldsValue({
-          areas: this.state.areas
-        });
+        if(this.formRef.current != null){
+          this.formRef.current.setFieldsValue({
+            areas: this.state.areas
+          });
+        }
+        
       }
     );
   }
@@ -314,6 +323,8 @@ class Covid19Predict extends PureComponent {
   bindRef = ref => { 
     this.map = ref 
   }
+
+
 
   /**
    * reloadAll refreshes the prediction data for all currently-selected
@@ -439,6 +450,7 @@ class Covid19Predict extends PureComponent {
         return <Option key={s}> {s} </Option>;
       });
 
+
     const modelOptions = modelsList
       .filter(model => !this.modelIsSelected(model))
       .map(model => {
@@ -517,6 +529,15 @@ class Covid19Predict extends PureComponent {
       )
     };
 
+    const tabTheme = {
+      tabs: {
+        color: "black",
+        active: {
+          color: "#990000"
+        }
+      }
+    };
+
     // Generate the global overview paragraph
     let overview = "";
 
@@ -553,21 +574,79 @@ class Covid19Predict extends PureComponent {
           death_model_map = models[i]
        }
     }
+
+    
+
+
+    const Heading = ( 
+       <div id="header" className="text-center"> 
+            <h1>COVID-19 Forecast</h1> 
+            <div id="overview">{overview}</div> 
+       </div> 
+      ); 
     return (
       <div className="covid-19-predict">
-        <Row type="flex" justify="space-around">
-          {noDataError?
-            <Alert
-            message= {`${errorDescription}`}
-            description= "Please wait for our updates."
-            type="error"
-            closable
-            onClose={this.onAlertClose}
-          />: null
-          }
+        {Heading}
+        <div>
+    <Tabs theme={tabTheme}>
+      <Tab label="Country">
+        <div id="common" className="text-center"> 
+            <div id="slider">
+            	<Popover
+                placement="left">
+                <Form.Item>
+            	{/* 
+            	  INTEGRATES BACKEND
+                  <Slider
+                        range={true}
+                        marks={marks}
+                        min={days-30>=-daysToFirstDate?days-30:-daysToFirstDate}
+                        max={days+50<=99?days+50:99}
+                        defaultValue={[days-30>=-daysToFirstDate?days-30:-daysToFirstDate,days+50<=99?days+50:99]}
+                        onAfterChange={this.onDaysToPredictChange}
+                        step = {null}
+                  />
+              	*/}
+                  <Slider
+                        min={0}
+                        defaultValue={[20,70]}
+                        max={100}
+                        range={true}
+                  />
+                </Form.Item>
+              </Popover>
+            </div>
+            <div id="statistics">
+              <Popover
+                content={CONTROL_INSTRUCTIONS.statistics}
+                placement="right"
+                visible={this.state.showControlInstructions}>
+                <Form.Item>
+                  Statistic:&nbsp;&nbsp;  
+                  <Radio.Group
+                    value={statistic}
+                    onChange={this.handleYScaleSelect}
+                  >
+                    <Radio value="cumulative">Cumulative Cases</Radio>
+                    <Radio value="delta">New Cases</Radio>
+                  </Radio.Group>
+                </Form.Item>
+              </Popover>
+            </div>
+          </div> 
+        <Row type="flex" justify="space-around" id="charts">
+            {noDataError?
+              <Alert
+              message= {`${errorDescription}`}
+              description= "Please wait for our updates."
+              type="error"
+              closable
+              onClose={this.onAlertClose}
+            />: null
+            }
           <Col span={10}>
             <Row>
-              <div className="form-wrapper">
+              <div className="form-wrapper gray" id="graph_options">
                 <Form
                   ref={this.formRef}
                   onValuesChange={this.onValuesChange}
@@ -664,31 +743,16 @@ class Covid19Predict extends PureComponent {
                     placement="right"
                     visible={this.state.showControlInstructions}>
                     <Form.Item>
-                      Data Type:&nbsp;&nbsp;  
+                      Data Types:&nbsp;&nbsp;  
                       <Checkbox.Group
-                        defaultValue={['confirmed']}
-                        onChange={this.handleDataTypeSelect}
-                      >
+                        value={dataType}
+                        onChange={this.handleDataTypeSelect}>
                         <Checkbox defaultChecked value="confirmed">Confirmed Cases</Checkbox>
                         <Checkbox value="death">Deaths</Checkbox>
                       </Checkbox.Group>
                     </Form.Item>
                   </Popover>
-                  <Popover
-                    content={CONTROL_INSTRUCTIONS.statistics}
-                    placement="right"
-                    visible={this.state.showControlInstructions}>
-                    <Form.Item>
-                      Statistic:&nbsp;&nbsp;  
-                      <Radio.Group
-                        value={statistic}
-                        onChange={this.handleStatisticSelect}
-                      >
-                        <Radio value="cumulative">Cumulative Cases</Radio>
-                        <Radio value="delta">New Cases</Radio>
-                      </Radio.Group>
-                    </Form.Item>
-                  </Popover>
+                  
                   <Popover
                     content={CONTROL_INSTRUCTIONS.scale}
                     placement="right"
@@ -696,8 +760,8 @@ class Covid19Predict extends PureComponent {
                     <Form.Item>
                       Scale:&nbsp;&nbsp;  
                       <Radio.Group value={yScale} onChange={this.handleYScaleSelect}>
-                        <Radio value="linear">linear</Radio>
-                        <Radio value="log">logarithmic</Radio>
+                        <Radio value="linear">Linear</Radio>
+                        <Radio value="log">Logarithmic</Radio>
                       </Radio.Group>
                     </Form.Item>
                   </Popover>
@@ -719,33 +783,65 @@ class Covid19Predict extends PureComponent {
             : null}
           </Col>
           <Col span={12}>
-            <Row>
-              <p className="overview">{overview}</p>
-            </Row>
-            <Row>
-              <span className="map-control">
-                <Popover
-                  content={MAP_INSTRUCTION.dynamicMap}
-                  placement="bottom"
-                  visible={this.state.showMapInstructions}>
-                  Dynamic Map:&nbsp;&nbsp;  
-                  <Switch defaultChecked onChange={this.switchDynamicMap} />
-                </Popover>
-              </span>
-              <span className="map-control">
-                <Popover
-                  content={MAP_INSTRUCTION.radioGroup}
-                  placement="bottom"
-                  visible={this.state.showMapInstructions}>
-                    <Radio.Group
-                      value={mapShown}
-                      onChange={this.handleMapShownSelect}>
-                      <Radio value="confirmed">Show Confirmed Cases</Radio>
-                      <Radio value="death">Show Deaths</Radio>
-                    </Radio.Group>
+            <div className="form-wrapper gray" id="graph_options">
+              <Row>
+      			Show:
+              </Row>
+              <Row>
+                <span className="map-control">
+                  <Popover>
+                  	<Switch defaultChecked onChange={this.switchDynamicMap} />
+                    &nbsp;&nbsp;States/Provinces&nbsp;&nbsp;  
                   </Popover>
-              </span>
-            </Row>
+                </span>
+                <span className="map-control">
+                  <Popover
+                    content={MAP_INSTRUCTION.dynamicMap}
+                    placement="bottom"
+                    visible={this.state.showMapInstructions}>
+                    <Switch onChange={this.switchDynamicMap} />
+                    &nbsp;&nbsp;Dynamic Map&nbsp;&nbsp;  
+                  </Popover>
+                </span>
+                <span className="map-control">
+                  <Popover>
+                    <Switch onChange={this.switchDynamicMap} />
+                    &nbsp;&nbsp;Visualize cases per million&nbsp;&nbsp;  
+                  </Popover>
+                </span>
+              </Row>
+
+              <Row>
+              	Show:
+              </Row>
+              <Row>
+                  <span className="map-control">
+                    <Popover
+                      content={MAP_INSTRUCTION.radioGroup}
+                      placement="bottom"
+                      visible={this.state.showMapInstructions}>
+                        <Radio.Group
+                          value={mapShown}
+                          onChange={this.handleMapShownSelect}>
+                          <Radio value="confirmed">Confirmed Cases</Radio>
+                        </Radio.Group>
+                      </Popover>
+                  </span>
+                  <span className="map-control">
+                      <Popover
+                      content={MAP_INSTRUCTION.radioGroup}
+                      placement="bottom"
+                      visible={this.state.showMapInstructions}>
+                        <Radio.Group
+                          value={mapShown}
+                          onChange={this.handleMapShownSelect}>
+                          <Radio value="death">Deaths</Radio>
+                        </Radio.Group>
+                      </Popover>
+                  </span>
+              </Row>
+
+            </div>
             <Row>
               <div className="map-wrapper">
                 <Covid19Map className="map"
@@ -774,7 +870,43 @@ class Covid19Predict extends PureComponent {
               </div>
             </Row>
           </Col>
-        </Row>
+          </Row>
+      </Tab>
+      <Tab label="State">
+        <div id="common" className="text-center"> 
+            <div id="slider">
+            </div>
+            <div id="statistics">
+              <Popover
+                content={CONTROL_INSTRUCTIONS.statistics}
+                placement="right"
+                visible={this.state.showControlInstructions}>
+                <Form.Item>
+                  Statistic:&nbsp;&nbsp;  
+                  <Radio.Group
+                    value={statistic}
+                    onChange={this.handleStatisticSelect}
+                  >
+                    <Radio value="cumulative">Cumulative Cases</Radio>
+                    <Radio value="delta">New Cases</Radio>
+                  </Radio.Group>
+                </Form.Item>
+              </Popover>
+            </div>
+          </div> 
+
+      </Tab>
+      <Tab label="County">Third Content</Tab>
+      <Tab label="Reproduction">Third Content</Tab>
+    </Tabs>
+  </div>
+
+
+        
+          
+          
+          
+        
       </div>
     );
   }

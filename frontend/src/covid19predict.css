@@ -33,7 +33,7 @@
 }
 
 .instruction.horizontal {
-    width: 700px;
+    width: 900px;
 }
 
 .instruction.vertical {
@@ -44,6 +44,10 @@
     margin: 10px auto;
 }
 
+.rel {
+    position: relative;
+}
+
 .overview {
     padding: 30px 40px;
     font-size: x-large;
@@ -52,4 +56,140 @@
     margin: 0 auto;
 }
 
+#header {
+    /*background-color: yellow;*/
+    margin-top: 20%;
+    top: 20%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+}
 
+#charts{
+    /*background-color: green;*/
+}
+.covid-19-predict{
+    position: relative;
+    /*background-color: blue;*/
+}
+
+#tabs{
+    position: relative;
+    padding-top: 20px;
+    /*background-color: purple;*/
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 80%;
+}
+
+#tabs .text {
+    margin-left: 3%;
+    margin-right: 3%;
+    display: inline-block;
+    /*line-height: 20px;*/
+    /*padding: 15px;*/
+    font-size: x-large;
+}
+
+#tabs .selected {
+    padding-bottom: 5px;
+    border-bottom: 5px solid #990000;
+}
+
+#tabs .deselected {
+    padding-bottom: 5px;
+    border-bottom: 5px solid #D3D3D3;
+}
+#overview {
+    /*background-color: #F2F2F2;*/
+    font-size: 20px;
+    border-style: outset;
+    padding: 30px 40px;
+}
+#common {
+  display:flex;
+  flex-direction:row;
+}
+#slider {
+    width: 50%;
+    display:block;
+    padding: 10px 30px;
+}
+#statistics {
+    display:block;
+    width: 50%;
+    position:relative;
+    padding: 10px 30px;
+}
+#graph_options {
+    background-color: #E1DFDF;
+    position: relative;
+    margin-bottom: 5%;
+    width: 100%;
+}
+
+.ant-radio-checked .ant-radio-inner{
+  border-color: red !important ;
+}
+
+.ant-radio-checked .ant-radio-inner:after{
+  background-color: red !important;
+}
+
+.ant-radio:hover .ant-radio-inner {
+  border-color: red !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: red !important;
+  border-color: red !important;
+}
+
+.ant-steps-item-process .ant-steps-item-icon { 
+    background: red !important; 
+}
+
+.ant-switch-checked { 
+    background:red!important;
+}
+
+.ant-slider-handle {
+    background-color:red!important;
+    border: solid 2px red!important;
+}
+.ant-slider-track {
+    background-color:red!important;
+}
+
+
+.tab-list {
+  border-bottom: 1px solid #ccc;
+  padding-left: 0;
+  background-color: red;
+  height: 20px;
+}
+
+.tab-list-item {
+  display: inline-block;
+  list-style: none;
+  margin-bottom: -1px;
+  padding: 0.5rem 0.75rem;
+  background-color: red;
+  height: 20px;
+}
+
+.tab-list-active {
+  background-color: white;
+  border: solid #ccc;
+  border-width: 1px 1px 0 1px;
+  background-color: red;
+  height: 20px;
+}
+
+/*.gray{
+    background-color: #808080;
+}
+*/

@@ -4,13 +4,19 @@ import ModelAPI from "./modelapi";
 import "leaflet/dist/leaflet.css";
 
 import globalLL from "./frontendData/global_lats_longs.txt"
+import population from './frontendData/global_population_data.txt'
 
 import Papa from "papaparse";
 
 var global_lat_long;
+var populationVect;
 
 function parse_lat_long_global(data) {
     global_lat_long = data;
+}
+
+function parse_population(data) {
+  populationVect = data;
 }
 
 function parseData(url, callBack) {
@@ -23,9 +29,20 @@ function parseData(url, callBack) {
     });
 }
 
-parseData(globalLL, parse_lat_long_global);
+function perMillionMath(numCases) {
+  numCases /= 1000000;
+  return numCases;
+}
 
-const Covid19Marker = ({ caseKey, deathKey, data, center, caseRadius, deathRadius, caseValue, deathValue, color, caseOpacity, deathOpacity, stroke, onClick }) => (
+function casesPerPersonCalculation(populationNum, numCases) {
+  numCases = populationNum/numCases;
+  return Math.round(numCases);
+}
+
+parseData(globalLL, parse_lat_long_global);
+parseData(population, parse_population);
+
+const Covid19Marker = ({ caseKey, deathKey, data, center, caseRadius, deathRadius, caseValue, deathValue, popNum, color, caseOpacity, deathOpacity, stroke, onClick }) => (
   <CircleMarker
     key={deathKey}
     data={data}
@@ -49,15 +66,21 @@ const Covid19Marker = ({ caseKey, deathKey, data, center, caseRadius, deathRadiu
       onClick={onClick}
     >
       <Tooltip direction="right" opacity={1} sticky={true}>
+
         <span>{data}</span><br></br>
         <span>{"Cases: " + caseValue}</span><br></br>
-        <span>{"Deaths: " + deathValue}</span>
+        <span>{"1 case : " + casesPerPersonCalculation(popNum, caseValue) + " people"}</span><br></br>
+        <span>{"Deaths: " + deathValue}</span><br></br>
+        <span>{"1 death : " + casesPerPersonCalculation(popNum, deathValue) + " people"}</span>
       </Tooltip>
     </CircleMarker>
     <Tooltip direction="right" opacity={1} sticky={true}>
       <span>{data}</span><br></br>
       <span>{"Cases: " + caseValue}</span><br></br>
-      <span>{"Deaths: " + deathValue}</span>
+      <span>{"1 case : " + casesPerPersonCalculation(popNum, caseValue) + " people"}</span><br></br>
+      <span>{"Deaths: " + deathValue}</span><br></br>
+      <span>{"1 death : " + casesPerPersonCalculation(popNum, deathValue) + " people"}</span>
+
     </Tooltip>
   </CircleMarker>
 );

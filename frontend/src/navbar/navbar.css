@@ -20,3 +20,14 @@
     border-bottom: 2px solid #FFCC00;
 }
 
+.navbar-header{
+    background-color: #990000;
+}
+
+.navbar-link{
+  color: white !important;
+}
+
+.navbar-toggler{
+    background-color: white !important;
+}
