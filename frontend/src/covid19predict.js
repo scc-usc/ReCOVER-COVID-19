@@ -593,10 +593,13 @@ class Covid19Predict extends PureComponent {
         <div id="common" className="text-center"> 
             <div id="slider">
             	<Popover
-                placement="left">
-                <Form.Item>
-            	{/* 
-            	  INTEGRATES BACKEND
+                placement="left"
+                content={CONTROL_INSTRUCTIONS.model}
+            	visible={this.state.showControlInstructions}>
+                <Form.Item
+                	label="Date to Predict"
+                    name="days"
+                >
                   <Slider
                         range={true}
                         marks={marks}
@@ -605,13 +608,6 @@ class Covid19Predict extends PureComponent {
                         defaultValue={[days-30>=-daysToFirstDate?days-30:-daysToFirstDate,days+50<=99?days+50:99]}
                         onAfterChange={this.onDaysToPredictChange}
                         step = {null}
-                  />
-              	*/}
-                  <Slider
-                        min={0}
-                        defaultValue={[20,70]}
-                        max={100}
-                        range={true}
                   />
                 </Form.Item>
               </Popover>
@@ -693,27 +689,6 @@ class Covid19Predict extends PureComponent {
                       >
                         {modelOptions}
                       </Select>
-                    </Form.Item>
-                  </Popover>
-                  <Popover
-                    content={CONTROL_INSTRUCTIONS.date}
-                    placement="right"
-                    visible={this.state.showControlInstructions}>
-                    <Form.Item
-                      label="Date to Predict"
-                      name="days"
-                      rules={[
-                        { required: true, message: "Please select number of days!" }
-                      ]}
-                    >
-                      <Slider
-                        marks={marks}
-                        min={days-30>=-daysToFirstDate?days-30:-daysToFirstDate}
-                        initialValue={days}
-                        max={days+50<=99?days+50:99}
-                        onAfterChange={this.onDaysToPredictChange}
-                        step = {null}
-                      />
                     </Form.Item>
                   </Popover>
                   <Popover 
