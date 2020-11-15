@@ -163,6 +163,18 @@ def add_to_dataframe(dataframe, forecast, observed):
                                 quantile="NA",
                                 value=max(forecast[target_end_date_str][region_id]-observed[last_week_date_str][region_id], 0)
                             ), ignore_index=True)
+                    # Special first week handling for FIP 11001.
+                    elif region_id == "11001":
+                        dataframe = dataframe.append(
+                            generate_new_row(
+                                forecast_date=forecast_date_str,
+                                target=target,
+                                target_end_date=target_end_date_str,
+                                location=region_id,
+                                type="point",
+                                quantile="NA",
+                                value=max(forecast[target_end_date_str][region_id]-observed[last_week_date_str]["00011"], 0)
+                            ), ignore_index=True)
                 
             elif last_week_date_str in forecast:
                 for region_id in forecast[target_end_date_str].keys():
