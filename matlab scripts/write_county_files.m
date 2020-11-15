@@ -21,6 +21,7 @@ dk = best_death_hyperparam(:, 1);
 djp = best_death_hyperparam(:, 2);
 dwin = best_death_hyperparam(:, 3);
 dalpha = 1;
+lags = best_death_hyperparam(:, 4);
 
 bad_idx = data_4(:, end) < 1 | popu < 1 | data_4(:, end) > popu ; % Only predict for counties with at least one case
 lowidx = data_4(:, 60) < 50; % Note the regions with unreliable data on reference day
@@ -75,7 +76,7 @@ for un_id = 1:length(un_array)
     %infec_data_released = [data_4_s(:, 1:T_full), infec_released_f_un];
     base_deaths = deaths(:, T_full);
     
-    [death_rates] = var_ind_deaths(data_4_s, deaths_s, dalpha, dk, djp, dwin, 0, compute_region);
+    [death_rates] = var_ind_deaths(data_4_s, deaths_s, dalpha, dk, djp, dwin, 0, compute_region, lags);
     disp('trained deaths');
     
     [pred_deaths] = var_simulate_deaths(infec_data, death_rates, dk, djp, dhorizon, base_deaths, T_full-1);

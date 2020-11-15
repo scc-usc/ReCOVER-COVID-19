@@ -57,7 +57,7 @@ infec_un = var_simulate_pred_un(data_4_s(:, 1:T_full), passengerFlow*0, beta_aft
 infec_un_re = infec_un - repmat(base_infec - data_4_s(:, T_full), [1, size(infec_un, 2)]);
 infec_data = [data_4_s(:, 1:T_full), infec_un_re];
 base_deaths = deaths(:, T_full);
-[death_rates] = var_ind_deaths(data_4_s, deaths_s, dalpha, dk, djp, dwin, 0, compute_region);
+[death_rates] = var_ind_deaths(data_4_s, deaths_s, dalpha, dk, djp, dwin, 0, compute_region, lags);
 [deaths_un_20] = var_simulate_deaths(infec_data, death_rates, dk, djp, dhorizon, base_deaths, T_full-1);
 infec_un_20 = infec_un;
 add_to_history;

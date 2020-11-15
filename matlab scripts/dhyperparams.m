@@ -11,3 +11,4 @@ T_full = size(data_4, 2);
 dk = best_death_hyperparam(:, 1);
 djp = best_death_hyperparam(:, 2);
 dwin = best_death_hyperparam(:, 3);
+lags = best_death_hyperparam(:, 4);

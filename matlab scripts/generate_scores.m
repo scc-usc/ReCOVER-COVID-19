@@ -12,7 +12,7 @@ MFR_scores = [];
 MFR_dev = [];
 skip_length = 7;
 horizon = 7; % Same as validation
-un = 20;
+un = 10;
 dalpha = 1;
 saved_days = (size(data_4, 2))-8; % Set it to higher number to avoid recomputing hypoerparameters from the beginning
 start_day = 52;
@@ -23,33 +23,34 @@ for daynum = start_day:skip_length:(size(data_4, 2))
     display(['Until ' num2str(daynum)]);
     fname = ['./hyper_params/' prefix '_hyperparam_ref_' num2str(daynum)];
     
-    T_tr = daynum; % Day until which we train
+    T_tr = daynum - horizon; % Day until which we train
     smooth_factor = 14;
     
     if daynum <= saved_days
         load(fname);
-        data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4(:, 1:T_tr+horizon)')', smooth_factor, 2), 2)];
-        deaths_s = [deaths(:, 1) cumsum(movmean(diff(deaths(:, 1:T_tr+horizon)')', smooth_factor, 2), 2)];
+        data_4_s = smooth_epidata(data_4(:, 1:daynum), smooth_factor);
+        deaths_s = smooth_epidata(deaths(:, 1:daynum), smooth_factor);
     elseif T_tr+horizon <= size(data_4, 2)
-        data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4(:, 1:T_tr+horizon)')', smooth_factor, 2), 2)];
-        deaths_s = [deaths(:, 1) cumsum(movmean(diff(deaths(:, 1:T_tr+horizon)')', smooth_factor, 2), 2)];
+        data_4_s = smooth_epidata(data_4(:, 1:daynum), smooth_factor);
+        deaths_s = smooth_epidata(deaths(:, 1:daynum), smooth_factor);
         [best_param_list_no, MAPEtable_notravel_fixed_s] = hyperparam_tuning(data_4(:, 1:T_tr+horizon), data_4_s(:, 1:T_tr+horizon), popu, 0, un, T_tr+horizon);
         [best_death_hyperparam, one_dhyperparam] = death_hyperparams(deaths, data_4_s, deaths_s, T_tr+horizon, horizon, popu, 0, best_param_list_no, un);
         save(fname, 'MAPEtable_notravel_fixed_s', 'best_param_list_no', 'best_death_hyperparam', 'one_dhyperparam');
     else
         horizon = 0;
-        data_4_s = [data_4(:, 1) cumsum(movmean(diff(data_4(:, 1:T_tr+horizon)')', smooth_factor, 2), 2)];
-        deaths_s = [deaths(:, 1) cumsum(movmean(diff(deaths(:, 1:T_tr+horizon)')', smooth_factor, 2), 2)];
-        
+        T_tr = daynum - horizon;
+        data_4_s = smooth_epidata(data_4(:, 1:daynum), smooth_factor);
+        deaths_s = smooth_epidata(deaths(:, 1:daynum), smooth_factor);
     end
     
     % Compute scores
     dk = best_death_hyperparam(:, 1);
     djp = best_death_hyperparam(:, 2);
     dwin = best_death_hyperparam(:, 3);
+    lags = best_death_hyperparam(:, 4);
     [beta_notravel, ~, ci] = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), 0, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), un, popu, best_param_list_no(:, 2), 1);
     %    [beta_notravel, ~, ~] = var_ind_beta_un(data_4_s(:, 1:T_tr+horizon), 0, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), un, popu, best_param_list_no(:, 2), 0);
-    [death_rates, death_ci] = var_ind_deaths(data_4_s(:, 1:T_tr+horizon), deaths_s(:, 1:T_tr+horizon), dalpha, dk, djp, dwin, 1);
+    [death_rates, death_ci] = var_ind_deaths(data_4_s(:, 1:T_tr+horizon), deaths_s(:, 1:T_tr+horizon), dalpha, dk, djp, dwin, 1, popu>-1, lags);
     
     
     [thisRt, Rtconf] = calc_Rt(beta_notravel, best_param_list_no(:, 1), best_param_list_no(:, 2), 1-un*data_4(:, T_tr)./popu, ci);
@@ -73,10 +74,10 @@ end
 disp('DONE!');
 %% Clean up and write files
 
-badidx = MFR_dev>0.25 | deaths(:, start_day:skip_length:floor(size(data_4, 2)-horizon)) < 50;
+badidx = MFR_dev>0.25 | deaths(:, start_day:skip_length:floor(size(data_4, 2))) < 50;
 MFR_scores(badidx) = NaN; MFR_dev(badidx) = NaN;
 
-datecols = datestr(datetime(2020, 1, 22)+caldays(start_day:skip_length:floor(size(data_4, 2))-horizon), 'yyyy-mm-dd');
+datecols = datestr(datetime(2020, 1, 22)+caldays(start_day:skip_length:floor(size(data_4, 2))), 'yyyy-mm-dd');
 datecols = cellstr(datecols);
 allcols = [{'id'; 'Region'}; datecols];
 vectorarray  = num2cell(all_scores,1);
