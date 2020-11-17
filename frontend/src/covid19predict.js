@@ -592,6 +592,16 @@ class Covid19Predict extends PureComponent {
       <Tab label="Country">
         <div id="common" className="text-center"> 
             <div id="slider">
+            <Form
+                  ref={this.formRef}
+                  onValuesChange={this.onValuesChange}
+                  initialValues={{
+                    areas: areas,
+                    models: models,
+                    days: 14,
+                    socialDistancing: ["current"]
+                  }}
+                >
             	<Popover
                 placement="left"
                 content={CONTROL_INSTRUCTIONS.model}
@@ -601,24 +611,24 @@ class Covid19Predict extends PureComponent {
                     name="days"
                 >
                   <Slider
-                        range={true}
                         marks={marks}
                         min={days-30>=-daysToFirstDate?days-30:-daysToFirstDate}
+                        initialValue={days}
                         max={days+50<=99?days+50:99}
-                        defaultValue={[days-30>=-daysToFirstDate?days-30:-daysToFirstDate,days+50<=99?days+50:99]}
                         onAfterChange={this.onDaysToPredictChange}
                         step = {null}
+                        tooltipVisible = {false}
                   />
                 </Form.Item>
               </Popover>
+             </Form>
             </div>
             <div id="statistics">
               <Popover
                 content={CONTROL_INSTRUCTIONS.statistics}
                 placement="right"
                 visible={this.state.showControlInstructions}>
-                <Form.Item>
-                  Statistic:&nbsp;&nbsp;  
+                <Form.Item label="Statistic:">
                   <Radio.Group
                     value={statistic}
                     onChange={this.handleYScaleSelect}
@@ -717,8 +727,7 @@ class Covid19Predict extends PureComponent {
                     content={CONTROL_INSTRUCTIONS.data_type}
                     placement="right"
                     visible={this.state.showControlInstructions}>
-                    <Form.Item>
-                      Data Types:&nbsp;&nbsp;  
+                    <Form.Item label="Data Types">
                       <Checkbox.Group
                         value={dataType}
                         onChange={this.handleDataTypeSelect}>
@@ -732,8 +741,7 @@ class Covid19Predict extends PureComponent {
                     content={CONTROL_INSTRUCTIONS.scale}
                     placement="right"
                     visible={this.state.showControlInstructions}>
-                    <Form.Item>
-                      Scale:&nbsp;&nbsp;  
+                    <Form.Item label="Scale">
                       <Radio.Group value={yScale} onChange={this.handleYScaleSelect}>
                         <Radio value="linear">Linear</Radio>
                         <Radio value="log">Logarithmic</Radio>
@@ -760,7 +768,7 @@ class Covid19Predict extends PureComponent {
           <Col span={12}>
             <div className="form-wrapper gray" id="graph_options">
               <Row>
-      			Show:
+      			<b>Show:</b>
               </Row>
               <Row>
                 <span className="map-control">
@@ -787,7 +795,7 @@ class Covid19Predict extends PureComponent {
               </Row>
 
               <Row>
-              	Show:
+              	<b>Show:</b>
               </Row>
               <Row>
                   <span className="map-control">
@@ -856,8 +864,7 @@ class Covid19Predict extends PureComponent {
                 content={CONTROL_INSTRUCTIONS.statistics}
                 placement="right"
                 visible={this.state.showControlInstructions}>
-                <Form.Item>
-                  Statistic:&nbsp;&nbsp;  
+                <Form.Item label="Statistic">
                   <Radio.Group
                     value={statistic}
                     onChange={this.handleStatisticSelect}
