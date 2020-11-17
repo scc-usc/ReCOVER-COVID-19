@@ -66,18 +66,14 @@ const Covid19Marker = ({ caseKey, deathKey, data, center, caseRadius, deathRadiu
     >
       <Tooltip direction="right" opacity={1} sticky={true}>
         <b><span>{data}</span></b><br></br>
-        <span>{"Cases: " + numberWithCommas(caseValue)}</span><br></br>
-        <span>{"1 case : " + numberWithCommas(casesPerPersonCalculation(population, caseValue)) + " people"}</span><br></br>
-        <span>{"Deaths: " + numberWithCommas(deathValue)}</span><br></br>
-        <span>{"1 death : " + numberWithCommas(casesPerPersonCalculation(population, deathValue)) + " people"}</span>
+        <span>{"Cases: " + numberWithCommas(caseValue) + " (1 in " + numberWithCommas(casesPerPersonCalculation(population, caseValue)) + ")"}</span><br></br>
+        <span>{"Deaths: " + numberWithCommas(deathValue) + " (1 in " + numberWithCommas(casesPerPersonCalculation(population, deathValue)) + ")"}</span><br></br>
       </Tooltip>
     </CircleMarker>
     <Tooltip direction="right" opacity={1} sticky={true}>
       <b><span>{data}</span></b><br></br>
-      <span>{"Cases: " + numberWithCommas(caseValue)}</span><br></br>
-      <span>{"1 case : " + numberWithCommas(casesPerPersonCalculation(population, caseValue)) + " people"}</span><br></br>
-      <span>{"Deaths: " + numberWithCommas(deathValue)}</span><br></br>
-      <span>{"1 death : " + numberWithCommas(casesPerPersonCalculation(population, deathValue)) + " people"}</span>
+      <span>{"Cases: " + numberWithCommas(caseValue) + " (1 in " + numberWithCommas(casesPerPersonCalculation(population, caseValue)) + ")"}</span><br></br>
+      <span>{"Deaths: " + numberWithCommas(deathValue) + " (1 in " + numberWithCommas(casesPerPersonCalculation(population, deathValue)) + ")"}</span><br></br>
 
     </Tooltip>
   </CircleMarker>
