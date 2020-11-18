@@ -98,7 +98,10 @@ class Covid19Map extends Component {
       worldDeaths: [],
       markers: [],
       stateMarkers: [],
+      countyMarkers: [],
+      renderStateCountyMarkers: [],
       us: [],
+      renderUS: [],
       callbackCounter: 0,
       mapInitialized: false
     };
@@ -155,6 +158,7 @@ class Covid19Map extends Component {
                   stroke: true,
                   onClick: (e) => this.handleMapClick(e)
                 });
+                this.state.renderUS.push(this.state.us[0]);
               } else {
                 this.state.markers.push({
                   key: caseArea.name,
@@ -359,6 +363,121 @@ class Covid19Map extends Component {
     });
   }
 
+  newCases() {
+    if (this.props.days > 0) {
+      // prediction
+      this.modelAPI.predict_all({
+        days: this.props.days,
+        model: this.props.confirmed_model
+      }, cumulativeInfections => {
+        if (this.props.days > 7) {
+          this.modelAPI.predict_all({
+            days: this.props.days - 7,
+            model: this.props.confirmed_model
+          }, previousCumulative => {
+            let caseData = cumulativeInfections.map((d, index) => {
+              return {
+                id: d.area.iso_2,
+                name: d.area.country,
+                state: d.area.state,
+                area: d.area,
+                caseValue: d.value - previousCumulative[index].value > 0 ? Math.log(d.value - previousCumulative[index].value): 0,
+                caseValueTrue: d.value - previousCumulative[index].value > 0 ? d.value - previousCumulative[index].value: 0
+              };
+            });
+            let callbackCounter = this.state.callbackCounter;
+            callbackCounter++;
+            this.setState({ caseData, callbackCounter }, this.setCaseDeathData);
+          });
+        } else {
+          this.modelAPI.history_cumulative({
+            days: this.props.days - 7
+          }, previousCumulative => {
+            let caseData = cumulativeInfections.map((d, index) => {
+              return {
+                id: d.area.iso_2,
+                name: d.area.country,
+                state: d.area.state,
+                area: d.area,
+                caseValue: d.value - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).value > 0 ? Math.log(d.value - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).value): 0,
+                caseValueTrue: d.value - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).value > 0 ? d.value - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).value: 0
+              };
+            });
+            let callbackCounter = this.state.callbackCounter;
+            callbackCounter++;
+            this.setState({ caseData, callbackCounter }, this.setCaseDeathData);
+          });
+        }
+      });
+      this.modelAPI.predict_all({
+        days: this.props.days,
+        model: this.props.death_model
+      }, cumulativeInfections => {
+        if (this.props.days > 7) {
+          this.modelAPI.predict_all({
+            days: this.props.days - 7,
+            model: this.props.death_model
+          }, previousCumulative => {
+            let deathData = cumulativeInfections.map((d, index) => {
+              return {
+                id: d.area.iso_2,
+                name: d.area.country,
+                state: d.area.state,
+                deathValue: d.value - previousCumulative[index].value > 0 ? Math.log(d.value - previousCumulative[index].value): 0,
+                deathValueTrue: d.value - previousCumulative[index].value > 0 ? d.value - previousCumulative[index].value: 0
+              };
+            });
+            let callbackCounter = this.state.callbackCounter;
+            callbackCounter++;
+            this.setState({ deathData, callbackCounter }, this.setCaseDeathData);
+          });
+        } else {
+          this.modelAPI.history_cumulative({
+            days: this.props.days - 7
+          }, previousCumulative => {
+            let deathData = cumulativeInfections.map((d, index) => {
+              return {
+                id: d.area.iso_2,
+                name: d.area.country,
+                state: d.area.state,
+                deathValue: d.deathValue - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).deathValue > 0 ? Math.log(d.deathValue - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).deathValue): 0,
+                deathValueTrue: d.deathValue - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).deathValue > 0 ? d.deathValue - previousCumulative.find(x => x.area.iso_2 === d.area.iso_2).deathValue: 0
+              };
+            });
+            let callbackCounter = this.state.callbackCounter;
+            callbackCounter++;
+            this.setState({ deathData, callbackCounter }, this.setCaseDeathData);
+          });
+        }
+      });
+    } else {
+      // history
+      this.modelAPI.history_cumulative({
+        days: this.props.days,
+      }, historyInfections => {
+        this.modelAPI.history_cumulative({
+          days: this.props.days - 7,
+        }, nextDayCumulative => {
+          let caseData = historyInfections.map((d, index) => {
+            return {
+              id: d.area.iso_2,
+              name: d.area.country,
+              state: d.area.state,
+              caseValue: d.value - nextDayCumulative[index].value > 0 ? Math.log(d.value - nextDayCumulative[index].value): 0,
+              caseValueTrue: d.value - nextDayCumulative[index].value > 0 ? d.value - nextDayCumulative[index].value: 0,
+              deathValue: d.deathValue - nextDayCumulative[index].deathValue > 0 ? Math.log(d.deathValue - nextDayCumulative[index].deathValue): 0,
+              deathValueTrue: d.deathValue - nextDayCumulative[index].deathValue > 0 ? d.deathValue - nextDayCumulative[index].deathValue: 0
+            };
+          });
+          let deathData = caseData;
+          let callbackCounter = this.state.callbackCounter;
+          callbackCounter += 2;
+          this.setState({ caseData, deathData, callbackCounter }, this.setCaseDeathData);
+        });
+      });
+    }
+  }
+
   fetchData(dynamicMapOn) {
     if (!dynamicMapOn || (this.props.confirmed_model === "" && this.props.death_model === "")) {
       // without dynamic map, show cumulative cases to date
@@ -374,6 +493,7 @@ class Covid19Map extends Component {
         }
       } else {
         // new cases
+        this.newCases();
       }
     }
   }
@@ -382,7 +502,13 @@ class Covid19Map extends Component {
     const { onMapClick, onNoData } = this.props;
     var area = e.target.options.data;
     if (area) {
-      // console.log("Clicked on " + area);
+      //console.log("Clicked on " + area);
+      if (area === "US") {
+        this.renderStatesCounties();
+      }
+      if (area.slice(0, 5) === "US / ") {
+        this.renderUS();
+      }
       onMapClick(area);
     } else {
       onNoData(area);
@@ -394,8 +520,8 @@ class Covid19Map extends Component {
       return value;
   	var radius = Math.log(value / 100);
 
-  	if (radius < 1)
-  		radius = 1;
+  	if (radius < 0.5)
+  		radius = 0.5;
 
   	return radius;
   }
@@ -404,20 +530,32 @@ class Covid19Map extends Component {
     d /= 10000;
    	return d > 100 ? '#800026' :
            d > 50  ? '#BD0026' :
-           d > 20  ? '#E31A1C' :
+           d > 25  ? '#E31A1C' :
            d > 10  ? '#FC4E2A' :
            d > 5   ? '#FD8D3C' :
            d > 2   ? '#FEB24C' :
-           d > 1   ? '#FED976' :
+           d > 0.5   ? '#FED976' :
                       '#FFEDA0';
   }
 
-  renderFirst() {
-    return <Covid19MarkerList markers={this.state.us} />;
+  // renderUS() {
+  //   return <Covid19MarkerList markers={this.state.us} />;
+  // }
+
+  // renderStates() {
+  //   return <Covid19MarkerList markers={this.state.stateMarkers} />;
+  // }
+
+  renderUS() {
+    let renderUS = this.state.us;
+    let renderStateCountyMarkers = [];
+    this.setState({ renderUS, renderStateCountyMarkers });
   }
 
-  renderSecond() {
-    return <Covid19MarkerList markers={this.state.stateMarkers} />;
+  renderStatesCounties() {
+    let renderStateCountyMarkers = this.state.stateMarkers;
+    let renderUS = [];
+    this.setState({ renderStateCountyMarkers, renderUS });
   }
 
   render() {
@@ -437,7 +575,9 @@ class Covid19Map extends Component {
         >
           <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
           <Covid19MarkerList markers={this.state.markers} />
-          <LayersControl position="topright">
+          <Covid19MarkerList markers={this.state.renderUS} />
+          <Covid19MarkerList markers={this.state.renderStateCountyMarkers} />
+          {/* <LayersControl position="topright">
             <LayersControl.BaseLayer checked name="Show US Country">
               <LayerGroup>
                 {this.renderFirst()}
@@ -448,7 +588,7 @@ class Covid19Map extends Component {
                 {this.renderSecond()}
               </LayerGroup>
             </LayersControl.BaseLayer>
-          </LayersControl>
+          </LayersControl> */}
         </Map>
       </div>
     )
