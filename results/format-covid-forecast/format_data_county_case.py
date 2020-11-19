@@ -5,8 +5,8 @@ import urllib.request
 import io
 
 FORECAST_DATE = datetime.datetime.today()
-FIRST_WEEK = datetime.datetime.today() + datetime.timedelta(5)
-INPUT_FILENAME = "county_forecasts_quarantine_20.csv"
+FIRST_WEEK = FORECAST_DATE + datetime.timedelta(5)
+INPUT_FILENAME = "county_forecasts_quarantine_0.csv"
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha.csv"
 COLUMNS = ["forecast_date", "target", "target_end_date", "location", "type", "quantile", "value"]
 ID_REGION_MAPPING = {}
@@ -53,7 +53,7 @@ def load_truth_cumulative_cases():
             value_col = i
 
     for row in reader:
-        region_id = row[location_col]
+        region_id = row[1].zfill(5)
         date = row[date_col]
         val = int(row[value_col])
         if date not in dataset:
@@ -94,7 +94,7 @@ def load_csv(input_filename):
             dataset[date_str] = {}
         
         for row in reader:
-            region_id = row[1]
+            region_id = row[1].strip().zfill(5)
             
             # Skip the region if it is not listed in reichlab's region list.
             if region_id not in ID_REGION_MAPPING:
@@ -158,10 +158,22 @@ def add_to_dataframe(dataframe, forecast, observed):
                                 forecast_date=forecast_date_str,
                                 target=target,
                                 target_end_date=target_end_date_str,
-                                location=str(region_id),
+                                location=region_id,
                                 type="point",
                                 quantile="NA",
                                 value=max(forecast[target_end_date_str][region_id]-observed[last_week_date_str][region_id], 0)
+                            ), ignore_index=True)
+                    # Special first week handling for FIP 11001.
+                    elif region_id == "11001":
+                        dataframe = dataframe.append(
+                            generate_new_row(
+                                forecast_date=forecast_date_str,
+                                target=target,
+                                target_end_date=target_end_date_str,
+                                location=region_id,
+                                type="point",
+                                quantile="NA",
+                                value=max(forecast[target_end_date_str][region_id]-observed[last_week_date_str]["00011"], 0)
                             ), ignore_index=True)
                 
             elif last_week_date_str in forecast:
@@ -171,7 +183,7 @@ def add_to_dataframe(dataframe, forecast, observed):
                             forecast_date=forecast_date_str,
                             target=target,
                             target_end_date=target_end_date_str,
-                            location=str(region_id),
+                            location=region_id,
                             type="point",
                             quantile="NA",
                             value=max(forecast[target_end_date_str][region_id]-forecast[last_week_date_str][region_id], 0)

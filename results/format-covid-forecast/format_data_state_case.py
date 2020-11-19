@@ -5,9 +5,9 @@ import urllib.request
 import io
 
 FORECAST_DATE = datetime.datetime.today()
-FIRST_WEEK = datetime.datetime.today() + datetime.timedelta(5)
-INPUT_FILENAME_STATE = "us_forecasts_current_20.csv"
-INPUT_FILENAME_GLOBAL = "global_forecasts_current_20.csv"
+FIRST_WEEK = FORECAST_DATE + datetime.timedelta(5)
+INPUT_FILENAME_STATE = "us_forecasts_current_0.csv"
+INPUT_FILENAME_GLOBAL = "global_forecasts_current_0.csv"
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha.csv"
 COLUMNS = ["forecast_date", "target", "target_end_date", "location", "type", "quantile", "value"]
 ID_STATE_MAPPING = {}
@@ -128,12 +128,14 @@ def load_csv(input_filename_state, input_filename_global):
                 date_str = header[i]
                 val = float(row[i])
                 dataset[date_str][state_id] = val
+                if "US" not in dataset[date_str]:
+                    dataset[date_str]["US"] = 0
+                dataset[date_str]["US"] += val / 2  # Average of country report and sum of state reports. 
 
     with open(input_filename_global) as f:
         reader = csv.reader(f)
         header = next(reader, None)
 
-        
         for row in reader:
             country = row[1]
             # Skip other countries.
@@ -143,8 +145,8 @@ def load_csv(input_filename_state, input_filename_global):
             for i in range(2, len(header)):
                 date_str = header[i]
                 val = float(row[i])
-                dataset[date_str]["US"] = val
-    
+                dataset[date_str]["US"] += val / 2   # Average of country report and sum of state reports.
+ 
     return dataset
 
 

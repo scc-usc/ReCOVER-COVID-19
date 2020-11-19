@@ -49,8 +49,8 @@ function [beta_all_cell, ci, fittedC] = var_ind_deaths(data_4, death_data, alpha
         alpha = alpha_l(j);
         jk = jp*k;
         beta_all_cell{j} = zeros(k, 1);
-        ci{j} = [zeros(k, 1) ones(k, 1)];
-        
+        ci{j} = [zeros(k, 1) zeros(k, 1)];
+        fittedC{j} = [0 0];
         if compute_region(j) < 1 % Do not compute for region that are not specified
             continue;
         end
@@ -98,8 +98,8 @@ function [beta_all_cell, ci, fittedC] = var_ind_deaths(data_4, death_data, alpha
        else
         mdl = fitnlm(X1, y1, @(w, X1)(X1*(1./(1+exp(-w)))), zeros(k1, 1));
         beta_vec = 1./(1+ exp(-mdl.Coefficients.Estimate));
-        beta_CI = 1./(1+ exp(-mdl.coefCI));
-        ci{j} = beta_CI./scalefactor;
+        beta_CI = 1./(1+ exp(-mdl.coefCI(0.01)));
+        ci{j}(1:k1, :) = beta_CI./scalefactor;
        end
         beta_all_cell{j}(1:k1) = beta_vec./scalefactor;
         fittedC{j} = [X1*beta_all_cell{j}(1:k1) y/scalefactor];

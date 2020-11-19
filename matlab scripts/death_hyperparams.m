@@ -1,7 +1,7 @@
 function [best_death_hyperparam, one_hyperparam] = death_hyperparams(deaths, data_4_s, deaths_s, T_full, T_val, popu, passengerFlow, best_param_list, un, param_list)
 dalpha = 1;
-dkrange = (2:4);
-lag_range = (1:4);
+dkrange = (2:5);
+lag_range = (2:4);
 djprange = [7];
 dwin = [25, 50, 100];
 
@@ -27,14 +27,19 @@ for ii = 1:size(param_list, 1)
     djp = param_list(ii, 2);
     dwin = param_list(ii, 3);
     lags = param_list(ii, 4);
-    [death_rates] = var_ind_deaths(data_4_s(:, 1:T_tr), deaths_s(:, 1:T_tr), dalpha, dk, djp, dwin, 0, popu>-1, lags);
-    [pred_deaths] = var_simulate_deaths(infec_data, death_rates, dk, djp, T_val+1, base_deaths, T_tr-1);
-    gtruth = diff(deaths(:, T_tr:T_tr+T_val)')';
-    predvals = diff([base_deaths pred_deaths(:, 1:T_val)]')';
+    [death_rates, ~, fC] = var_ind_deaths(data_4_s(:, 1:T_tr), deaths_s(:, 1:T_tr), dalpha, dk, djp, dwin, 0, popu>-1, lags);
     
-    [~, ~, thisrmse] = calc_errors(gtruth, predvals, 7);
-    %thisrmse = sum((gtruth - predvals).^2, 2);
-    
+    if T_val > 0
+        [pred_deaths] = var_simulate_deaths(infec_data, death_rates, dk, djp, T_val+1, base_deaths, T_tr-1);
+        gtruth = diff(deaths(:, T_tr:T_tr+T_val)')';
+        predvals = diff([base_deaths pred_deaths(:, 1:T_val)]')';
+        [~, ~, thisrmse] = calc_errors(gtruth, predvals, 7);
+    else
+        thisrmse = zeros(length(popu), 1);
+        for jj=1:length(popu)
+            thisrmse(jj) = sum((fC{jj}(:, 1) - fC{jj}(:, 2)).^2);
+        end
+    end
     RMSE_all(:, ii) = thisrmse;
     fprintf('.');
 end

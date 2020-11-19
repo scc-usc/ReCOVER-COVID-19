@@ -64,8 +64,8 @@ end
 
 county_to_state(county_to_state==0) = 1; % Default assignment (Diamond and Grand Princess), only for bug-free execution
 %% Create county hyper-parameters
-
-first_day = 52; last_day = size(data_4, 2); skipdays = 7;
+% 
+first_day = 52; last_day = size(data_4, 2)-7; skipdays = 7;
 
 for dd = first_day:skipdays:last_day
     eval(['load ./hyper_params/us_hyperparam_ref_' num2str(dd)]);
@@ -78,4 +78,8 @@ for dd = first_day:skipdays:last_day
     eval(['save ./hyper_params/county_hyperparam_ref_' num2str(dd) ' best_param_list_no MAPEtable_notravel_fixed_s']);
 end
 
+prefix = 'county';
+
+writetable(infec2table(data_4, cellstr(num2str(FIP_data.FIPS)), zeros(length(countries), 1), datetime(2020, 1, 23)), '../results/forecasts/county_data.csv');
+writetable(infec2table(deaths, cellstr(num2str(FIP_data.FIPS)), zeros(length(countries), 1), datetime(2020, 1, 23)), '../results/forecasts/county_deaths.csv');
 
