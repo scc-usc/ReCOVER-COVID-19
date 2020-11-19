@@ -18,7 +18,7 @@ for un_id = 1:length(un_array)
     
     un = un_array(un_id); % Select the ratio of true cases to reported cases. 1 for default.
     if un == 0
-        un = load(['../results/unreported/' prefix 'unreported.txt']); % Load from p[reviously learned values
+        un = un_from_file; % Load from previously learned values
     end
     % Current trend prediction
     beta_after = var_ind_beta_un(data_4_s(:, 1:T_full), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, compute_region);

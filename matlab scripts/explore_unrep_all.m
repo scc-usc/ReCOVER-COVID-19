@@ -6,8 +6,8 @@ smooth_factor = 14;
 data_4_s = smooth_epidata(data_4, smooth_factor);
 
 %% Fixed params
-meta_start = 150;
-meta_end = 220;
+meta_start = 50;
+meta_end = 110;
 min_period = 14;
 max_period = 28;
 skip_days = 7;
@@ -46,7 +46,7 @@ for cid = 1:length(popu)
         first_val = 5;
         checkvals = (first_val:(end_time-start_time-first_val));
         a_T = data_4_s(cid, end)./popu(cid);
-              
+        
         for ii=checkvals(1):3:checkvals(end)
             try
                 [~, ~, err, ~, ~, this_del] = learn_un_fix_beta(data_4_s(cid, start_time-k*jp:end_time), popu(cid), k, jp, alpha, a_T, ii, '1', 0);
@@ -70,8 +70,8 @@ for cid = 1:length(popu)
     % Auto-detect using FIR and NLR
     
     try
-        [beta_cell, un_prob_f, err, init_dat, ci_f, del, fittedC] = learn_un_fix_beta(data_4_s(cid, start_time-k*jp:end_time), popu(cid), k, jp, alpha, a_T, ii, 'l', 1);   
-        [beta_auto_un1, un_prob_i, init_dat, fittedC, ci_i] = learn_nonlin(data_4_s(cid, start_time-k*jp:end_time), popu(cid), k, jp, 1, [], 'i');    
+        [beta_cell, un_prob_f, err, init_dat, ci_f, del, fittedC] = learn_un_fix_beta(data_4_s(cid, start_time-k*jp:end_time), popu(cid), k, jp, alpha, a_T, ii, 'l', 1);
+        [beta_auto_un1, un_prob_i, init_dat, fittedC, ci_i] = learn_nonlin(data_4_s(cid, start_time-k*jp:end_time), popu(cid), k, jp, 1, [], 'i');
         [beta_auto_un2, un_prob_ll, init_dat, fittedC, ci_ll] = learn_nonlin(data_4_s(cid, start_time-k*jp:end_time), popu(cid), k, jp, 1, [], 'l');
         delta_list(cid) = del;
     catch
@@ -79,7 +79,7 @@ for cid = 1:length(popu)
         un_prob_ii = 0;
         delta_list(cid) = -1;
     end
-
+    
     % Generate table for unreported cases
     % We have assumed that the dynamics don't change in the time period under consideration.
     % We do not provide any tests to confirm this. For now, this has to be assessed
@@ -87,22 +87,34 @@ for cid = 1:length(popu)
     
     j = 1;
     
-    res_i{j} =  [num2str(1./(ci_i{j}(1, 2))),' - ' , num2str(1./(un_prob_i(j))),' - ',  num2str(1./(ci_i{j}(1, 1)))];
-    res_ll{j} = [num2str(1./(ci_ll{j}(1, 2))),' - ' , num2str(1./(un_prob_ll(j))),' - ', num2str(1./(ci_ll{j}(1, 1)))];
-    
-    if del(j)>1 || del(j) < 0
-        res_f{j} = 'FAILED';
-        st_mid_end(cid, 4) = Inf;
-    else
-        res_f{j} = [num2str(1./(ci_f{j}(1, 2))),' - ' , num2str(1./(un_prob_f(j))),' - ', num2str(1./((1-del(j))*ci_f{j}(1, 1)))];
-        un_fact_f(cid, :) = [ci_f{j}(1, 2), un_prob_f(j), (1-del(j))*ci_f{j}(1, 1)];
-        un_fact_i(cid, :) = [ci_i{j}(1, 2), un_prob_i(j), ci_i{j}(1, 1)];
-        un_fact_ll(cid, :) = [ci_ll{j}(1, 2), un_prob_ll(j), ci_ll{j}(1, 1)];
-        st_mid_end(cid, 4) = err;
+    try
+        res_i{j} =  [num2str(1./(ci_i{j}(1, 2))),' - ' , num2str(1./(un_prob_i(j))),' - ',  num2str(1./(ci_i{j}(1, 1)))];
+    catch
+        res_i{j} = 'FAILED';
     end
     
+    try
+        res_ll{j} = [num2str(1./(ci_ll{j}(1, 2))),' - ' , num2str(1./(un_prob_ll(j))),' - ', num2str(1./(ci_ll{j}(1, 1)))];
+    catch
+        res_ll{j} = 'FAILED';
+    end
+    
+    try
+        if del(j)>1 || del(j) < 0
+            res_f{j} = 'FAILED';
+            st_mid_end(cid, 4) = Inf;
+        else
+            res_f{j} = [num2str(1./(ci_f{j}(1, 2))),' - ' , num2str(1./(un_prob_f(j))),' - ', num2str(1./((1-del(j))*ci_f{j}(1, 1)))];
+            un_fact_f(cid, :) = [ci_f{j}(1, 2), un_prob_f(j), (1-del(j))*ci_f{j}(1, 1)];
+            un_fact_i(cid, :) = [ci_i{j}(1, 2), un_prob_i(j), ci_i{j}(1, 1)];
+            un_fact_ll(cid, :) = [ci_ll{j}(1, 2), un_prob_ll(j), ci_ll{j}(1, 1)];
+            st_mid_end(cid, 4) = err;
+        end
+    catch
+        res_f{j} = 'FAILED';
+    end
     disp([countries{cid}, delim, res_i{j}, delim, res_ll{j}, delim res_f{j}, 'Error = ', num2str(err) ,endline]);
 end
 
 %%
-good_cid = st_mid_end(:, 4)<0.1 & un_fact_f(:, 2) > 0;
+good_cid = st_mid_end(:, 4)<0.2 & un_fact_f(:, 2) > 0;
