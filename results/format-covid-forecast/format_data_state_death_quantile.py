@@ -12,7 +12,7 @@ for i in range(0, 8):
         break
     FIRST_WEEK += datetime.timedelta(1)
 INPUT_FILENAME_STATE = "./us_deaths_quants.csv" 
-OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha_RF.csv"
+OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha.csv"
 COLUMNS = ["forecast_date", "target", "target_end_date", "location", "type", "quantile", "value"]
 ID_STATE_MAPPING = {}
 STATE_ID_MAPPING = {}
@@ -167,12 +167,6 @@ def load_csv(input_filename_state):
             if state_id not in dataset[week_ahead]:
                 dataset[week_ahead][state_id] = {}
             dataset[week_ahead][state_id][quantile] = val
-            # Sum up total data of each state to be US data 
-            if "US" not in dataset[week_ahead]:
-                dataset[week_ahead]["US"] = {} 
-            if quantile not in dataset[week_ahead]["US"]:
-                dataset[week_ahead]["US"][quantile] = 0 
-            dataset[week_ahead]["US"][quantile] += val
     return dataset
 
 
