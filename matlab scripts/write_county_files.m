@@ -54,8 +54,9 @@ for un_id = 1:length(un_array)
         xx = load(['../results/unreported/' prefix '_all_unreported.csv']);
         un_from_file = xx(2:end, end);
         un = un_from_file;
+        no_un_idx = un.*data_4(:, end)./popu > 0.2;
+        un(no_un_idx) = 1;
     end
-    un(no_un_idx) = 1;
     %beta_notravel = var_ind_beta_un(data_4_s(:, 1:reference_day), passengerFlow, best_param_list_no(:, 3)*0.1, best_param_list_no(:, 1), un, popu, best_param_list_no(:, 2), 0, compute_region);
     beta_after = var_ind_beta_un(data_4_s(:, 1:T_full), passengerFlow, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, compute_region);
     disp('trained reported cases');
