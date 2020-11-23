@@ -32,10 +32,6 @@
     text-align: left;
 }
 
-.instruction.horizontal {
-    width: 900px;
-}
-
 .instruction.vertical {
     width: 300px;
 }
@@ -155,11 +151,11 @@
   border-color: red !important;
 }
 
-.ant-steps-item-process .ant-steps-item-icon { 
-    background: red !important; 
+.ant-steps-item-process .ant-steps-item-icon {
+    background: red !important;
 }
 
-.ant-switch-checked { 
+.ant-switch-checked {
     background:red!important;
 }
 

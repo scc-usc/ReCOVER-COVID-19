@@ -139,7 +139,7 @@ class Covid19Predict extends PureComponent {
         }
     ));
 
-    this.modelAPI.getCurrentDate(currentDate => 
+    this.modelAPI.getCurrentDate(currentDate =>
       this.setState({
         currentDate: currentDate[0].date,
         firstDate: currentDate[0].firstDate
@@ -209,7 +209,7 @@ class Covid19Predict extends PureComponent {
               state: areaObj.state,
               country: areaObj.country,
               days: this.state.days
-            }, 
+            },
             data =>{
               this.setState(prevState => ({
                 mainGraphData: {
@@ -226,7 +226,7 @@ class Covid19Predict extends PureComponent {
             areas: this.state.areas
           });
         }
-        
+
       }
     );
   }
@@ -280,14 +280,14 @@ class Covid19Predict extends PureComponent {
           this.reloadAll();
         }
       );
-    } 
+    }
     if ("models" in changedValues)
     {
           this.setState({
             models: changedValues.models,
           }, ()=>{
             this.reloadAll();
-          });      
+          });
     }
     else {
       // If we're here it means the user either added or deleted an area, so we
@@ -321,8 +321,8 @@ class Covid19Predict extends PureComponent {
   }
 
   // Set the reference to the map component as a child-component.
-  bindRef = ref => { 
-    this.map = ref 
+  bindRef = ref => {
+    this.map = ref
   }
 
 
@@ -464,6 +464,10 @@ class Covid19Predict extends PureComponent {
         );
       });
 
+    const instructionContentStyle = {
+      width: "60vh",
+    };
+
     // Instruction messages for each form items.
     const CONTROL_INSTRUCTIONS = {
       area: (
@@ -471,44 +475,44 @@ class Covid19Predict extends PureComponent {
           Select the areas by clicking on the map or searching in this input box.
         </p>
       ),
-      
+
       model: (
-        <div className="instruction horizontal">
-          <p className="instruction horizontal">
+        <div className="instruction">
+          <p className="instruction">
             Our model produces forecasts for multiple under-reported positive cases options.
-            For example, "SI-kJalpha - 20x " denotes the assumption that 
-            the under-reported positive cases are 20 times of the current reported cases.            
+            For example, "SI-kJalpha - 20x " denotes the assumption that
+            the under-reported positive cases are 20 times of the current reported cases.
             For modeling details, please see: <a href="https://arxiv.org/abs/2004.11372" target="blank">https://arxiv.org/abs/2004.11372</a>.
           </p>
         </div>
       ),
 
       date: (
-        <p className="instruction horizontal">
+        <p className="instruction">
           Predictions up to the date selected will be shown.
         </p>
       ),
 
       socialDistancing: (
-        <p className="instruction horizontal">
-          Please select one of the three social distancing scenarios.  
+        <p className="instruction">
+          Please select one of the three social distancing scenarios.
         </p>
       ),
 
       data_type: (
-        <p className="instruction horizontal">
+        <p className="instruction">
           Select the forecasts for cumulative infections or deaths.
         </p>
       ),
 
       statistics: (
-        <p className="instruction horizontal">
+        <p className="instruction">
           Switch between cumulative view or incident view.
         </p>
       ),
 
       scale: (
-        <p className="instruction horizontal">
+        <p className="instruction">
           Switch between linear view or logarithmic view.
         </p>
       )
@@ -518,14 +522,14 @@ class Covid19Predict extends PureComponent {
       dynamicMap: (
         <p className="instruction vertical">
         Enable the map to dynamically change to reflect the prediction.
-        Note that this functionality is not yet perfect and the reaction time 
+        Note that this functionality is not yet perfect and the reaction time
         may be slow depending on your machine.
         </p>
       ),
 
       radioGroup: (
         <p className="instruction vertical">
-          Switch between cumulative infection view or death view on the heatmap. 
+          Switch between cumulative infection view or death view on the heatmap.
         </p>
       )
     };
@@ -542,14 +546,14 @@ class Covid19Predict extends PureComponent {
     // Generate the global overview paragraph
     let overview = "";
 
-    // In case we cannot fetch data from the external API, 
+    // In case we cannot fetch data from the external API,
     // the overview will not show up.
     if (this.state.totalConfirmed != 0 && this.state.totalDeaths != 0) {
       const today = new Date();
       const dd = String(today.getDate()).padStart(2, '0');
       const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
       const yyyy = today.getFullYear();
-  
+
       //today = mm + '/' + dd + '/' + yyyy;
       const totalConfirmed = this.state.totalConfirmed.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       const totalDeaths = this.state.totalDeaths.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -565,7 +569,7 @@ class Covid19Predict extends PureComponent {
        {
           confirmed_model_map = models[i]
           if (death_model_map.length === 0)
-          { 
+          {
             death_model_map = models[i] + " (death prediction)"
           }
           break
@@ -576,14 +580,14 @@ class Covid19Predict extends PureComponent {
        }
     }
 
-    
 
 
-    const Heading = ( 
-       <div id="header" className="text-center"> 
-            <div id="overview"><b>{overview}</b></div> 
-       </div> 
-      ); 
+
+    const Heading = (
+       <div id="header" className="text-center">
+            <div id="overview"><b>{overview}</b></div>
+       </div>
+      );
     return (
       <div className="covid-19-predict">
         {Heading}
@@ -632,7 +636,13 @@ class Covid19Predict extends PureComponent {
                   <Popover
                     content={CONTROL_INSTRUCTIONS.model}
                     placement="right"
-                    visible={this.state.showControlInstructions}>
+                    visible={this.state.showControlInstructions}
+                    //content={<div style={instructionContentStyle} />}
+                    align={{
+                      overflow: { adjustX: false, adjustY: false },
+                    }}
+                    >
+
                     <Form.Item
                       label="Models:"
                       name="models"
@@ -668,8 +678,8 @@ class Covid19Predict extends PureComponent {
                       />
                     </Form.Item>
                   </Popover>
-                  <Popover 
-                    content={CONTROL_INSTRUCTIONS.socialDistancing} 
+                  <Popover
+                    content={CONTROL_INSTRUCTIONS.socialDistancing}
                     placement="right"
                     visible={this.state.showControlInstructions}>
                     <Form.Item label="Social Distancing" name="socialDistancing">
@@ -678,10 +688,10 @@ class Covid19Predict extends PureComponent {
                           <Checkbox defaultChecked value="current">
                             Current Trend
                           </Checkbox>
-                          <Checkbox value="worst_effort"> 
+                          <Checkbox value="worst_effort">
                             Worst Distancing Effort
                           </Checkbox>
-                          <Checkbox value="best_effort"> 
+                          <Checkbox value="best_effort">
                             Best Distancing Effort
                           </Checkbox>
                         </Row>
@@ -754,7 +764,7 @@ class Covid19Predict extends PureComponent {
                     placement="bottom"
                     visible={this.state.showMapInstructions}>
                     <Switch defaultChecked onChange={this.switchDynamicMap} />
-                    <b>&nbsp;&nbsp;Dynamic Map&nbsp;&nbsp;</b>  
+                    <b>&nbsp;&nbsp;Dynamic Map&nbsp;&nbsp;</b>
                   </Popover>
                 </span>
               </Row>
@@ -768,7 +778,7 @@ class Covid19Predict extends PureComponent {
                   days={days}
                   confirmed_model = {confirmed_model_map}
                   death_model = {death_model_map}
-                  onMapClick={this.onMapClick} 
+                  onMapClick={this.onMapClick}
                   onNoData = {this.onNoData}
                   statistic={statistic}
                   dataType = {mapShown}
@@ -792,11 +802,11 @@ class Covid19Predict extends PureComponent {
   </div>
 
 
-        
-          
-          
-          
-        
+
+
+
+
+
       </div>
     );
   }
