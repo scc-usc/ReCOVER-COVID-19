@@ -189,7 +189,7 @@ class Covid19Map extends Component {
                 deathRadius: 0.75 * this.getRadius(deathArea.deathValueTrue),
                 caseValue: caseArea.caseValueTrue,
                 deathValue: deathArea.deathValueTrue,
-                population: " ",
+                population: populationVect[i][0],
                 color: this.getColor(caseArea.caseValueTrue),
                 display: "none",
                 caseOpacity: caseOpacity,
