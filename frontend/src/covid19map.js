@@ -578,12 +578,12 @@ class Covid19Map extends Component {
           {/* <Covid19MarkerList markers={this.state.renderUS} />
           <Covid19MarkerList markers={this.state.renderStateCountyMarkers} /> */}
           <LayersControl position="topright">
-            <LayersControl.BaseLayer checked name="Show US Country">
+            <LayersControl.BaseLayer name="Show US Country">
               <LayerGroup>
                 {this.renderUS()}
               </LayerGroup>
             </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="Show US State">
+            <LayersControl.BaseLayer checked name="Show US State">
               <LayerGroup>
                 {this.renderStates()}
               </LayerGroup>
