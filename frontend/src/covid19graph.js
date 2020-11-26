@@ -5,7 +5,7 @@ import numeral from "numeral";
 import {
   red,
   volcano,
-  organge,
+  orange,
   yellow,
   gold,
   lime,
@@ -27,7 +27,7 @@ function getLineColor(index) {
     yellow,
     cyan,
     purple,
-    organge,
+    orange,
     lime,
     geekblue,
     magenta
