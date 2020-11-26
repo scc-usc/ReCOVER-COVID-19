@@ -25,16 +25,11 @@
 }
 
 .instruction-buttons-wrapper {
-    margin: 40px auto;
-    margin-top: 20px;
+    margin: 60px auto;
 }
 
 .instruction {
     text-align: left;
-}
-
-.instruction.horizontal {
-    width: 700px;
 }
 
 .instruction.vertical {
@@ -45,6 +40,10 @@
     margin: 10px auto;
 }
 
+.rel {
+    position: relative;
+}
+
 .overview {
     padding: 30px 40px;
     font-size: x-large;
@@ -52,156 +51,159 @@
     color: brown;
     margin: 0 auto;
 }
-.color-legend{
-    width: 100vw;
+
+#header {
+    /*background-color: yellow;*/
+    margin-top: 20%;
+    top: 20%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
 }
 
-.number {
-    float:left;
-    margin-right: 10px;
-    margin-left: 10px;
+#charts{
+    /*background-color: green;*/
+}
+.covid-19-predict{
+    position: relative;
+    /*background-color: blue;*/
 }
 
-.box_1 {
-    background-color: #FFEBEE ;
-    padding: 10px;
-    float: left;
+#tabs{
+    position: relative;
+    padding-top: 20px;
+    /*background-color: purple;*/
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 80%;
 }
 
-.box_2 {
-    background-color: #FFD6DE ;
-    padding: 10px;
-    float: left;
+#tabs .text {
+    margin-left: 3%;
+    margin-right: 3%;
+    display: inline-block;
+    /*line-height: 20px;*/
+    /*padding: 15px;*/
+    font-size: x-large;
 }
 
-.box_3 {
-    background-color: #FFC2CD ;
-    padding: 10px;
-    float: left;
+#tabs .selected {
+    padding-bottom: 5px;
+    border-bottom: 5px solid #990000;
 }
 
-.box_4 {
-    background-color: #FFADAD;
-    padding: 10px;
-    float: left;
+#tabs .deselected {
+    padding-bottom: 5px;
+    border-bottom: 5px solid #D3D3D3;
+}
+#overview {
+    /*background-color: #F2F2F2;*/
+    font-size: 20px;
+    border-style: outset;
+    padding: 30px 40px;
+    margin-top: 1%;
+}
+#common {
+  display:flex;
+  flex-direction:row;
+}
+#slider {
+    width: 50%;
+    display:block;
+    padding: 10px 30px;
+}
+#statistics {
+    display:block;
+    width: 50%;
+    position:relative;
+    padding: 10px 30px;
+}
+#graph_options {
+    background-color: #E1DFDF;
+    position: relative;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    width: 100%;
 }
 
-.box_5 {
-    background-color: #FF9999 ;
-    padding: 10px;
-    float: left;
+.ant-radio-checked .ant-radio-inner:after{
+  background-color: red !important;
 }
 
-.box_6 {
-    background-color: #FF8585 ;
-    padding: 10px;
-    float: left;
+.ant-radio-checked .ant-radio-inner,
+.ant-radio-wrapper:hover .ant-radio,
+.ant-radio:hover .ant-radio-inner,
+.ant-radio-input:focus + .ant-radio-inner {
+  border-color: red !important;
 }
 
-.box_7 {
-    background-color: #FF7070 ;
-    padding: 10px;
-    float: left;
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: red !important;
+  border-color: red !important;
 }
 
-.box_8 {
-    background-color: #FF5C5C ;
-    padding: 10px;
-    float: left;
+.ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.ant-checkbox:hover .ant-checkbox-inner,
+.ant-checkbox-input:focus + .ant-checkbox-inner {
+  border-color: red !important;
 }
 
-.box_9 {
-    background-color: #FF4747 ;
-    padding: 10px;
-    float: left;
+.ant-steps-item-process .ant-steps-item-icon {
+    background: red !important;
 }
 
-.box_10 {
-    background-color: #FF3333 ;
-    padding: 10px;
-    float: left;
+.ant-switch-checked {
+    background:red!important;
 }
 
-.box_11 {
-    background-color: #FF1F1F ;
-    padding: 10px;
-    float: left;
+.ant-slider-handle {
+    background-color:red!important;
+    border: solid 2px red!important;
 }
 
-.box_12 {
-    background-color: #FF0A0A ;
-    padding: 10px;
-    float: left;
+.ant-slider-track {
+    background-color:red!important;
 }
 
-.box_13 {
-    background-color: #F50000 ;
-    padding: 10px;
-    float: left;
+.ant-slider-dot-active {
+    background-color:red!important;
+    border: solid 2px red!important;
 }
 
-.box_14 {
-    background-color: #E00000 ;
-    padding: 10px;
-    float: left;
+.ant-form-item-label{
+  font-weight: bold !important;
+
 }
 
-.box_15 {
-    background-color: #CC0000 ;
-    padding: 10px;
-    float: left;
+
+.tab-list {
+  border-bottom: 1px solid #ccc;
+  padding-left: 0;
+  background-color: red;
+  height: 20px;
 }
 
-.box_16 {
-    background-color: #B80000 ;
-    padding: 10px;
-    float: left;
+.tab-list-item {
+  display: inline-block;
+  list-style: none;
+  margin-bottom: -1px;
+  padding: 0.5rem 0.75rem;
+  background-color: red;
+  height: 20px;
 }
 
-.box_17 {
-    background-color: #A30000 ;
-    padding: 10px;
-    float: left;
+.tab-list-active {
+  background-color: white;
+  border: solid #ccc;
+  border-width: 1px 1px 0 1px;
+  background-color: red;
+  height: 20px;
 }
 
-.box_18 {
-    background-color: #8F0000 ;
-    padding: 10px;
-    float: left;
+/*.gray{
+    background-color: #808080;
 }
-
-.box_19 {
-    background-color: #7A0000 ;
-    padding: 10px;
-    float: left;
-}
-
-.box_20 {
-    background-color: #660000 ;
-    padding: 10px;
-    float: left;
-}
-
-.box_21 {
-    background-color: #520000 ;
-    padding: 10px;
-    float: left;
-}
-
-.box_22 {
-    background-color: #3D0000 ;
-    padding: 10px;
-    float: left;
-}
-
-.box_23 {
-    background-color: #290000 ;
-    padding: 10px;
-    float: left;
-}
-
-.box_24 {
-    background-color: #140000 ;
-    padding: 10px;
-    float: left;
-}
+*/
