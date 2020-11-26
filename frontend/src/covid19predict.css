@@ -100,9 +100,8 @@
     border-bottom: 5px solid #D3D3D3;
 }
 #overview {
-    /*background-color: #F2F2F2;*/
+    /* background-color: #F2F2F2; */
     font-size: 20px;
-    border-style: outset;
     padding: 30px 40px;
     margin-top: 1%;
 }
