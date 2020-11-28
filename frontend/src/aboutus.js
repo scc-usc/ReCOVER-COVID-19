@@ -32,8 +32,10 @@ class AboutUs extends Component {
                         The matlab code for forecasting is also made available on <a className="article-anchor" href="https://www.mathworks.com/matlabcentral/fileexchange/75281-recover" target="_blank">File Exchange</a>. For the latest code, please see the Github repo.
                     </p>
 
-			<p className="article-paragraph"> The code of the prediction model and this web application is contributed by Ajitesh Srivastava, Jamin Chen, Frost Tianjian Xu,  and Bob Xiaochen Yang. </p>
+        			<p className="article-paragraph"> The code of the prediction model and this web application is contributed by Ajitesh Srivastava, Jamin Chen, Frost Tianjian Xu, and Bob Xiaochen Yang. </p>
                     
+        			<p className="article-paragraph"> The forecast visualization is further implemented by James Orme-Rogers, James Wolfe, Sung Bin Kim, and Vicky Yu. </p>
+
                     <h2>Related Papers</h2>
 
                     <ol className="article-paragraph">
