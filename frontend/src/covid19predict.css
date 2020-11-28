@@ -20,12 +20,13 @@
 }
 
 .instruction-button {
-    margin: 20px 40px;
-    padding: 4px;
+    margin: 10px 40px;
+    padding: 0px;
+    font-size: 30px;
 }
 
 .instruction-buttons-wrapper {
-    margin: 60px auto;
+    margin: 30px auto;
 }
 
 .instruction {
@@ -102,7 +103,7 @@
 #overview {
     /* background-color: #F2F2F2; */
     font-size: 20px;
-    padding: 30px 40px;
+    padding: 10px 40px;
     margin-top: 1%;
 }
 #common {
@@ -177,6 +178,13 @@
 
 }
 
+.ant-btn{
+	font-weight: bold !important;
+	background-color: yellow !important;
+	font-size: large !important;
+	color: black !important;
+	border-color: black !important;
+}
 
 .tab-list {
   border-bottom: 1px solid #ccc;

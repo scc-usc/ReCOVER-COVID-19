@@ -31,3 +31,7 @@
 .navbar-toggler{
     background-color: white !important;
 }
+
+.navbar{
+	padding: 0px 0px !important;
+}

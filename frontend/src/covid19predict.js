@@ -619,7 +619,7 @@ class Covid19Predict extends PureComponent {
                     content={CONTROL_INSTRUCTIONS.area}
                     placement="right"
                     visible={this.state.showControlInstructions}>
-                    <Form.Item
+                    <Form.Item style={{ marginBottom: "0px" }}
                       label="Areas"
                       name="areas"
                       rules={[{ required: true, message: "Please select areas!" }]}
@@ -643,7 +643,7 @@ class Covid19Predict extends PureComponent {
                     }}
                     >
 
-                    <Form.Item
+                    <Form.Item style={{ marginBottom: "0px" }}
                       label="Models:"
                       name="models"
                       rules={[
@@ -682,7 +682,7 @@ class Covid19Predict extends PureComponent {
                     content={CONTROL_INSTRUCTIONS.socialDistancing}
                     placement="right"
                     visible={this.state.showControlInstructions}>
-                    <Form.Item label="Social Distancing" name="socialDistancing">
+                    <Form.Item label="Social Distancing" name="socialDistancing" style={{ marginBottom: "0px" }}>
                       <Checkbox.Group style={{ width: '100%' }}>
                         <Row>
                           <Checkbox defaultChecked value="current">
@@ -704,7 +704,7 @@ class Covid19Predict extends PureComponent {
                     content={CONTROL_INSTRUCTIONS.data_type}
                     placement="right"
                     visible={this.state.showControlInstructions}>
-                    <Form.Item label="Data Types">
+                    <Form.Item label="Data Types" style={{ marginBottom: "0px" }}>
                       <Checkbox.Group
                         value={dataType}
                         onChange={this.handleDataTypeSelect}>
@@ -717,7 +717,7 @@ class Covid19Predict extends PureComponent {
                     content={CONTROL_INSTRUCTIONS.statistics}
                     placement="right"
                     visible={this.state.showControlInstructions}>
-                    <Form.Item label="Statistic">
+                    <Form.Item label="Statistic" style={{ marginBottom: "0px" }}>
                       <Radio.Group
                         value={statistic}
                         onChange={this.handleStatisticSelect}
@@ -731,7 +731,7 @@ class Covid19Predict extends PureComponent {
                     content={CONTROL_INSTRUCTIONS.scale}
                     placement="right"
                     visible={this.state.showControlInstructions}>
-                    <Form.Item label="Scale">
+                    <Form.Item label="Scale" style={{ marginBottom: "0px" }}>
                       <Radio.Group value={yScale} onChange={this.handleYScaleSelect}>
                         <Radio value="linear">Linear</Radio>
                         <Radio value="log">Logarithmic</Radio>

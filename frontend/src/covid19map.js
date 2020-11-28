@@ -564,7 +564,7 @@ class Covid19Map extends Component {
         <Map
           style={{ height: "65vh", width: "100%" }}
           zoom={4}
-          minZoom={3}
+          minZoom={2}
           center={[37.8, -96]}
           ref={(ref) => { this.map = ref; }}
           maxBounds={[
