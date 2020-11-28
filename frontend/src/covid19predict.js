@@ -92,7 +92,8 @@ class Covid19Predict extends PureComponent {
       showControlInstructions: false,
       showMapInstructions: false,
       totalConfirmed: 0,
-      totalDeaths: 0
+      totalDeaths: 0,
+      width: 0, height: 0 
     };
 
     this.addAreaByStr = this.addAreaByStr.bind(this);
@@ -109,8 +110,24 @@ class Covid19Predict extends PureComponent {
     this.handleYScaleSelect = this.handleYScaleSelect.bind(this);
     this.toggleControlInstructions = this.toggleControlInstructions.bind(this);
     this.toggleMapInstructions = this.toggleMapInstructions.bind(this);
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
+////////////////////////////////////
+componentDidMount() {
+  this.updateWindowDimensions();
+  window.addEventListener('resize', this.updateWindowDimensions);
+}
+
+componentWillUnmount() {
+  window.removeEventListener('resize', this.updateWindowDimensions);
+}
+
+updateWindowDimensions() {
+  this.setState({ width: window.innerWidth, height: window.innerHeight });
+}
+
+  ////////////////////////////////////
   componentWillMount = ()=>{
     this.addAreaByStr('US');
 
@@ -384,21 +401,38 @@ class Covid19Predict extends PureComponent {
     marks[days] = `${date.getMonth()+1}/${date.getDate()}`;
     // marks for future
     let i = days+7
+    let skip = 1;
+    const skip_factor = 1 + Math.floor(2000.0/this.state.width);
     while (i < days+50 && i<=99)
     {
        date.setDate(date.getDate() + 7);
-       marks[i] = `${date.getMonth()+1}/${date.getDate()}`;
-       i+=7;
+       if (!(skip % skip_factor))
+       {
+          marks[i] = `${date.getMonth()+1}/${date.getDate()}`;
+        }
+        else
+        {
+          marks[i] = ``;
+        }
+       i+=7; skip+=1;
     }
     // marks for history
     date = new Date(`${currentDate}T00:00`);
     date.setDate(date.getDate(Date) + days);
     date.setDate(date.getDate() - 7);
     i = days-7;
+    skip = 1;
     while (date >= beginDate && i > days-30){
-      marks[i] = `${date.getMonth()+1}/${date.getDate()}`;
+      if (!(skip % skip_factor))
+       {
+          marks[i] = `${date.getMonth()+1}/${date.getDate()}`;
+        }
+        else
+        {
+          marks[i] = ``;
+        }
       date.setDate(date.getDate() - 7);
-      i -= 7;
+      i -= 7; skip += 1;
     }
     return marks;
   }
@@ -479,10 +513,9 @@ class Covid19Predict extends PureComponent {
       model: (
         <div className="instruction">
           <p className="instruction">
-            Our model produces forecasts for multiple under-reported positive cases options.
-            For example, "SI-kJalpha - 20x " denotes the assumption that
-            the under-reported positive cases are 20 times of the current reported cases.
-            For modeling details, please see: <a href="https://arxiv.org/abs/2004.11372" target="blank">https://arxiv.org/abs/2004.11372</a>.
+            "SI-kJalpha - 20x " assumes that
+            the true positive cases are 20 times the current reported cases.
+            "SI-kJalpha-Default" is our best guess.
           </p>
         </div>
       ),
@@ -495,25 +528,25 @@ class Covid19Predict extends PureComponent {
 
       socialDistancing: (
         <p className="instruction">
-          Please select one of the three social distancing scenarios.
+          Compare different social distancing scenarios.
         </p>
       ),
 
       data_type: (
         <p className="instruction">
-          Select the forecasts for cumulative infections or deaths.
+          Select the forecasts for cumulative infections or/and deaths.
         </p>
       ),
 
       statistics: (
         <p className="instruction">
-          Switch between cumulative view or incident view.
+          Switch between cumulative view and incident view.
         </p>
       ),
 
       scale: (
         <p className="instruction">
-          Switch between linear view or logarithmic view.
+          Switch between linear view and logarithmic view.
         </p>
       )
     };
@@ -521,9 +554,8 @@ class Covid19Predict extends PureComponent {
     const MAP_INSTRUCTION = {
       dynamicMap: (
         <p className="instruction vertical">
-        Enable the map to dynamically change to reflect the prediction.
-        Note that this functionality is not yet perfect and the reaction time
-        may be slow depending on your machine.
+        Enable the map to dynamically change to reflect the data and predictions based on the selected options.
+        Turn off if the interface seems slow.
         </p>
       ),
 
@@ -558,7 +590,7 @@ class Covid19Predict extends PureComponent {
       const totalConfirmed = this.state.totalConfirmed.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       const totalDeaths = this.state.totalDeaths.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       overview = "By " + mm + '/' + dd + '/' + yyyy + ", " + totalConfirmed + " people around the world have been tested positive, and "
-      + totalDeaths + " people have died of Covid-19.";
+      + totalDeaths + " people have died of COVID-19.";
     }
 
     let confirmed_model_map = ""
@@ -617,7 +649,7 @@ class Covid19Predict extends PureComponent {
                 >
                   <Popover
                     content={CONTROL_INSTRUCTIONS.area}
-                    placement="right"
+                    placement="top"
                     visible={this.state.showControlInstructions}>
                     <Form.Item style={{ marginBottom: "0px" }}
                       label="Areas"
@@ -633,9 +665,9 @@ class Covid19Predict extends PureComponent {
                       </Select>
                     </Form.Item>
                   </Popover>
-                  <Popover
+                  <Popover 
                     content={CONTROL_INSTRUCTIONS.model}
-                    placement="right"
+                    placement="rightTop"
                     visible={this.state.showControlInstructions}
                     //content={<div style={instructionContentStyle} />}
                     align={{
@@ -660,7 +692,7 @@ class Covid19Predict extends PureComponent {
                     </Form.Item>
                   </Popover>
                   <Popover
-                    placement="left"
+                    placement="rightBottom"
                     content={CONTROL_INSTRUCTIONS.date}
                     visible={this.state.showControlInstructions}>
                     <Form.Item

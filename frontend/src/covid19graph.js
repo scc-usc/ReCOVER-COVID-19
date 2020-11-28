@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
+//import ReactDOM from "react-dom";
 import { ResponsiveLine } from "@nivo/line";
 import moment from "moment";
 import numeral from "numeral";
@@ -16,6 +17,7 @@ import {
   purple,
   magenta
 } from "@ant-design/colors";
+
 
 function getLineColor(index) {
   const colors = [
@@ -92,6 +94,28 @@ const theme = {
 };
 
 class Covid19Graph extends Component {
+  ////////////////////////////////////
+constructor(props) {
+  super(props);
+  this.state = { width: 0, height: 0 };
+  this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+}
+
+componentDidMount() {
+  this.updateWindowDimensions();
+  window.addEventListener('resize', this.updateWindowDimensions);
+}
+
+componentWillUnmount() {
+  window.removeEventListener('resize', this.updateWindowDimensions);
+}
+
+updateWindowDimensions() {
+  this.setState({ width: window.innerWidth, height: window.innerHeight });
+}
+
+  ////////////////////////////////////
+
   parseDate(dateStr) {
     let [year, month, day] = dateStr.split("-").map(Number);
     // Month in JS is 0-based.
@@ -357,12 +381,14 @@ class Covid19Graph extends Component {
 
       // Switch to 'every month' if the date range is over a certain threshold.
       const diffInDays = maxDate.diff(minDate, "days");
-      if (diffInDays > 150) {
+      if (diffInDays > 15) {
         tickValues = "every month";
       }
     }
-
+    
+    const num_ticks = this.state.width/250;
     return (
+
       <ResponsiveLine
         data={chartData}
         colors={colors}
@@ -376,7 +402,8 @@ class Covid19Graph extends Component {
         axisBottom={{
           // tickValues determines how often / with what values our 'format'
           // func is called.
-          tickValues: tickValues,
+          //tickValues: tickValues,
+          tickValues: num_ticks,
           // A custom 'format' func is required since all the x values are
           // javascript Date objects.
           format: date => {
