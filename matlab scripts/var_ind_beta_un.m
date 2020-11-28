@@ -11,7 +11,7 @@ function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, a
     end
     
     if nargin < 10
-        window_size = maxt*ones(size(data_4, 1), 1); % By default, use all death data to fit parameters
+        window_size = maxt*ones(size(data_4, 1), 1); % By default, use all data to fit parameters
     end
     
     F = passengerFlow;
@@ -51,6 +51,7 @@ function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, a
         
         beta_all_cell{j} = zeros(k+1, 1);
         ci{j} = zeros(k+1, 2);
+        fittedC{j} = [0 0];
         
         if data_4(j, end) < 1 || compute_region(j) < 1 % if there is no data or explictly told not to compute
             continue;

@@ -13,6 +13,7 @@ fullpath = [path dirname];
 
 xx = readtable([fullpath '/' prefix '_data.csv']); data_4 = table2array(xx(2:end, 3:end));
 xx = readtable([fullpath '/' prefix '_deaths.csv']); deaths = table2array(xx(2:end, 3:end));
+
 xx = readtable([fullpath '/' prefix '_forecasts_cases.csv']); pred_cases = table2array(xx(2:end, 3:end));
 xx = readtable([fullpath '/' prefix '_forecasts_deaths.csv']); pred_deaths = table2array(xx(2:end, 3:end));
 placenames = xx{2:end, 2};
@@ -112,7 +113,7 @@ end
 quant_preds_cases = (quant_preds_cases + abs(quant_preds_cases))/2;
 quant_preds_deaths = (quant_preds_deaths + abs(quant_preds_deaths))/2;
 %% Plot
-sel_idx = 1;
+sel_idx = 3;
 dt = deaths(cidx, :);
 thisquant = squeeze(quant_preds_deaths(sel_idx, :, :));
 gt_len = 4;
