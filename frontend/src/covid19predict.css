@@ -8,8 +8,7 @@
 }
 
 .form-wrapper {
-    padding: 20px;
-    padding-bottom: 0;
+    padding: 10px;
     width: 90%;
     font-size: large;
 }
@@ -17,6 +16,13 @@
 .graph-wrapper{
     height: 48vh;
     width: 100%;
+}
+
+@media (max-width: 480px) {
+    .graph-wrapper {
+        height: 64vh;
+        padding-right: 4vw;
+    }
 }
 
 .instruction-button {
@@ -27,6 +33,7 @@
 
 .instruction-buttons-wrapper {
     margin: 30px auto;
+    text-align: center;
 }
 
 .instruction {
@@ -179,11 +186,10 @@
 }
 
 .ant-btn{
-	font-weight: bold !important;
-	background-color: yellow !important;
-	font-size: large !important;
-	color: black !important;
-	border-color: black !important;
+    border-radius: 10px!important;
+    border-color: brown!important;
+    color: brown!important;
+    font-weight: bold!important;
 }
 
 .tab-list {
@@ -209,6 +215,31 @@
   background-color: red;
   height: 20px;
 }
+
+.form-column {
+    margin: 0 2vw;
+    width: 40vw;
+}
+
+@media (max-width: 480px) {
+    .form-column {
+        margin: 0 2vw;
+        width: 96vw;
+    }
+}
+
+.map-column {
+    margin: 0 2vw;
+    width: 50vw;
+}
+
+@media (max-width: 480px) {
+    .map-column {
+        margin: 0 2vw;
+        width: 96vw;
+    }
+}
+
 
 /*.gray{
     background-color: #808080;
