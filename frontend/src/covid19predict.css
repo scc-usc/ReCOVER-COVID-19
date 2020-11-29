@@ -190,6 +190,8 @@
     border-color: brown!important;
     color: brown!important;
     font-weight: bold!important;
+    font-size: small!important;
+    padding: 0 1em!important;
 }
 
 .tab-list {

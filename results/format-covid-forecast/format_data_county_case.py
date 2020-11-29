@@ -20,7 +20,7 @@ def load_id_region_mapping():
     with open(MAPPING_CSV) as f:
         reader = csv.reader(f)
         id_region_mapping = {}
-        
+
         # Skip the header
         next(reader)
 
@@ -28,38 +28,26 @@ def load_id_region_mapping():
             region_id = row[1]
             region_name = row[2]
             id_region_mapping[region_id] = region_name
-        
+
         return id_region_mapping
 
 
 def load_truth_cumulative_cases():
     dataset = {}
-    URL = "https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-truth/truth-Cumulative%20Cases.csv"
+    with open(INPUT_FILENAME) as f:
+        reader = csv.reader(f)
+        header = next(reader, None)
 
-    f = io.StringIO(urllib.request.urlopen(URL).read().decode('utf-8'))
-    reader = csv.reader(f)
-    header = next(reader, None)
+        for row in reader:
+            region_id = row[1].strip().zfill(5)
+            if region_id not in ID_REGION_MAPPING:
+                continue
+            date = header[2]
+            val = int(row[2])
+            if date not in dataset:
+                dataset[date] = {}
 
-    location_col = -1
-    date_col = -1
-    value_col = -1
-
-    for i in range(0, len(header)):
-        if (header[i] == "location"):
-            location_col = i
-        elif (header[i] == "date"):
-            date_col = i
-        elif (header[i] == "value"):
-            value_col = i
-
-    for row in reader:
-        region_id = row[1].zfill(5)
-        date = row[date_col]
-        val = int(row[value_col])
-        if date not in dataset:
-            dataset[date] = {}
-                
-        dataset[date][region_id] = val
+            dataset[date][region_id] = val
 
     return dataset
 
@@ -92,10 +80,10 @@ def load_csv(input_filename):
             date_str = header[i]
             # Initialize the dataset entry on each date.
             dataset[date_str] = {}
-        
+
         for row in reader:
             region_id = row[1].strip().zfill(5)
-            
+
             # Skip the region if it is not listed in reichlab's region list.
             if region_id not in ID_REGION_MAPPING:
                 continue
@@ -104,11 +92,11 @@ def load_csv(input_filename):
                 date_str = header[i]
                 val = float(row[i])
                 dataset[date_str][region_id] = val
-    
+
     return dataset
 
 
-def generate_new_row(forecast_date, target, target_end_date, 
+def generate_new_row(forecast_date, target, target_end_date,
                     location, type, quantile, value):
     """
     Return a new row to be added to the pandas dataframe.
@@ -127,10 +115,10 @@ def generate_new_row(forecast_date, target, target_end_date,
 
 def add_to_dataframe(dataframe, forecast, observed):
     """
-    Given a dataframe, forecast, and observed data, 
+    Given a dataframe, forecast, and observed data,
     add county level weekly incident cases predictions to the dataframe.
     """
-                
+
     # Write incident forecasts.
     cum_week = 0
     forecast_date_str = FORECAST_DATE.strftime("%Y-%m-%d")
@@ -163,19 +151,7 @@ def add_to_dataframe(dataframe, forecast, observed):
                                 quantile="NA",
                                 value=max(forecast[target_end_date_str][region_id]-observed[last_week_date_str][region_id], 0)
                             ), ignore_index=True)
-                    # Special first week handling for FIP 11001.
-                    elif region_id == "11001":
-                        dataframe = dataframe.append(
-                            generate_new_row(
-                                forecast_date=forecast_date_str,
-                                target=target,
-                                target_end_date=target_end_date_str,
-                                location=region_id,
-                                type="point",
-                                quantile="NA",
-                                value=max(forecast[target_end_date_str][region_id]-observed[last_week_date_str]["00011"], 0)
-                            ), ignore_index=True)
-                
+
             elif last_week_date_str in forecast:
                 for region_id in forecast[target_end_date_str].keys():
                     dataframe = dataframe.append(
