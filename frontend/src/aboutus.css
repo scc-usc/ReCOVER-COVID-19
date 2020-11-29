@@ -7,6 +7,18 @@
     margin-bottom: 20em;
     padding: 30px 50px;
   }
+
+@media (max-width: 480px) {
+  .article {
+    background: #ffffff;
+    border: solid 1px #dedede;
+    margin-top: 1.5em;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-bottom: 20em;
+    padding: 30px 50px;
+  }
+}
   
   .article-title {
     text-align: center;

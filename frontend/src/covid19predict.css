@@ -20,7 +20,7 @@
 
 @media (max-width: 480px) {
     .graph-wrapper {
-        height: 64vh;
+        height: 48vh;
         padding-right: 4vw;
     }
 }
