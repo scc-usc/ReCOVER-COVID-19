@@ -518,7 +518,7 @@ class Covid19Map extends Component {
   getRadius(value) {
     if (value === 0)
       return value;
-  	var radius = Math.log(value / 100);
+  	var radius = Math.log(value / 1000);
 
   	if (radius < 0.5)
   		radius = 0.5;
@@ -564,7 +564,7 @@ class Covid19Map extends Component {
         <Map
           style={{ height: "65vh", width: "100%" }}
           zoom={4}
-          minZoom={2}
+          minZoom={1}
           center={[37.8, -96]}
           ref={(ref) => { this.map = ref; }}
           maxBounds={[

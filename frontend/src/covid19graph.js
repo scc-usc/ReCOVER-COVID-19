@@ -77,18 +77,18 @@ const theme = {
   axis: {
     ticks: {
       text: {
-        fontSize: 18
+        fontSize: 16
       }
     },
     legend: {
       text: {
-        fontSize: 18
+        fontSize: 16
       }
     }
   },
   legends: {
     text: {
-      fontSize: 18
+      fontSize: 14
     }
   }
 };
@@ -386,7 +386,7 @@ updateWindowDimensions() {
       }
     }
     
-    const num_ticks = this.state.width/250;
+    const num_ticks = 1 + this.state.width/300;
     return (
 
       <ResponsiveLine

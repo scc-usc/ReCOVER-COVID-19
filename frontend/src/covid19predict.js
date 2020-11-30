@@ -546,6 +546,11 @@ class Covid19Predict extends PureComponent {
     };
 
     const MAP_INSTRUCTION = {
+      selectMap: (
+        <p className="instruction vertical">
+          Hover over the bubbles to see case and death data. Select to add to the plot. Button on the top right to toggle between US states and the country.
+        </p>
+      ),
       dynamicMap: (
         <p className="instruction vertical">
           Enable the map to dynamically change to reflect the data and
@@ -836,6 +841,11 @@ class Covid19Predict extends PureComponent {
               </div>
               <div>
                 <div className="map-wrapper">
+                <Popover
+                      content={MAP_INSTRUCTION.selectMap}
+                      placement="leftBottom"
+                      visible={this.state.showMapInstructions}
+                    >
                   <Covid19Map
                     className="map"
                     triggerRef={this.bindRef}
@@ -848,6 +858,7 @@ class Covid19Predict extends PureComponent {
                     statistic={statistic}
                     dataType={mapShown}
                   />
+                  </Popover>
                 </div>
               </div>
               <div>
