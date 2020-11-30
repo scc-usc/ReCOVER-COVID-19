@@ -21,7 +21,7 @@
 @media (max-width: 480px) {
     .graph-wrapper {
         height: 48vh;
-        padding-right: 4vw;
+        padding-right: 0vw;
     }
 }
 
@@ -164,6 +164,7 @@
 
 .ant-switch-checked {
     background:red!important;
+	
 }
 
 .ant-slider-handle {
@@ -219,14 +220,14 @@
 }
 
 .form-column {
-    margin: 0 2vw;
+    margin: 0 0vw;
     width: 40vw;
 }
 
 @media (max-width: 480px) {
     .form-column {
-        margin: 0 2vw;
-        width: 96vw;
+        margin: 0 1vw;
+        width: 100vw;
     }
 }
 
@@ -238,7 +239,7 @@
 @media (max-width: 480px) {
     .map-column {
         margin: 0 2vw;
-        width: 96vw;
+	width: 96vw;
     }
 }
 
