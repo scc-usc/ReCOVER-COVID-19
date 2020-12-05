@@ -6,8 +6,8 @@ import "./leaderboard.css";
 import { Button } from "antd";
 
 
-const GFH = "http://htmlpreview.github.io/?https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/frontend/src/leaderboard/GFH_compare.html";
-const USFH = "http://htmlpreview.github.io/?https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/frontend/src/leaderboard/USFH_compare.html";
+const GFH = "https://htmlpreview.github.io/?https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/frontend/src/leaderboard/GFH_compare.html";
+const USFH = "https://htmlpreview.github.io/?https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/frontend/src/leaderboard/USFH_compare.html";
 const blank_html_page = "<html></html>";
 
 class Leaderboard extends Component {
