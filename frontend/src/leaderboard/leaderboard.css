@@ -1,6 +1,13 @@
+.introduction {
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: left;
+    font-size: 18px;
+}
+
 .grid {
     align-content: center;
-    padding: 0px 20px;
+    padding: 10px 20px;
 }
 
 h1.title {

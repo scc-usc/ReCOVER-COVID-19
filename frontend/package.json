@@ -60,13 +60,13 @@
     "postcss-normalize": "8.0.1",
     "postcss-preset-env": "6.7.0",
     "postcss-safe-parser": "4.0.1",
-    "react": "^16.13.0",
     "react-app-polyfill": "^1.0.6",
     "react-bootstrap": "^1.3.0",
     "react-dev-utils": "^10.2.0",
     "react-dom": "^16.13.0",
     "react-leaflet": "^2.6.3",
     "react-pdf": "^4.1.0",
+    "react-render-html": "^0.6.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-sizeme": "^2.6.12",
@@ -162,5 +162,12 @@
       "jest-watch-typeahead/testname"
     ]
   },
-  "homepage": "https://scc-usc.github.io/ReCOVER-COVID-19/"
+  "homepage": "https://scc-usc.github.io/ReCOVER-COVID-19/",
+  "devDependencies": {
+    "html-loader": "^1.3.2",
+    "interweave": "^12.6.0",
+    "react": "^16.14.0",
+    "react-html-parser": "^2.0.2",
+    "react-iframe": "^1.8.0"
+  }
 }

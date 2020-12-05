@@ -1,134 +1,41 @@
 import React, { Component } from "react";
 import { List, Avatar, Row, Col } from 'antd';
+import Iframe from 'react-iframe';
 import "../covid19app.css";
 import "./leaderboard.css";
-import nyt_graph from "./img/nyt_graph.png"
-import jhu_graph from "./img/jhu_graph.png"
-import usf_graph from "./img/usf_graph.png"
-import all_graph from "./img/all_graph.png"
+import { Button } from "antd";
 
-const data = {
-    jhu: {
-runningAvgRankings: [
-    {
-     model: {
- name: "YYG_ParamSearch",
- description: "Based on the SEIR model to make daily projections regarding COVID-19 infections and deaths in 50 US states. The model's contributor is Youyang Gu.",
- link: "http://covid19-projections.com/about/"
-},
- RMSE: 34.35
-},  {
-     model: {
- name: "SIkJa_USC",
- description: "This is our SI-kJalpha model.",
- link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
-},
- RMSE: 35.41
-},  {
-     model: {
- name: "UCLA_SuEIR",
- description: "SEIR model by UCLA Statistical Machine Learning Lab.",
- link: "https://covid19.uclaml.org/"
-},
- RMSE: 52.53
-},  {
-     model: {
- name: "Covid19Sim_Simulator",
- description: "An interactive tool developed by researchers at Mass General Hospital, Harvard Medical School, Georgia Tech and Boston Medical Center.",
- link: "https://covid19sim.org/"
-},
- RMSE: 58.28
-},  {
-     model: {
- name: "CU_select",
- description: "A metapopulation county-level SEIR model by Columbia University.",
- link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
-},
- RMSE: 64.22
-},  {
-     model: {
- name: "JHU_IDD_CovidSP",
- description: "County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
- link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
-},
- RMSE: 72.68
-},  {
-     model: {
- name: "IowaStateLW_STEM",
- description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
- link: "https://covid19.stat.iastate.edu"
-},
- RMSE: 76.08
-},  {
-     model: {
- name: "CovidActNow_SEIR_CAN",
- description: "SEIR model by the CovidActNow research team.",
- link: "https://covidactnow.org/"
-},
- RMSE: 110.82
-},],
-recentRankings: [
-    {
-     model: {
- name: "YYG_ParamSearch",
- description: "Based on the SEIR model to make daily projections regarding COVID-19 infections and deaths in 50 US states. The model's contributor is Youyang Gu.",
- link: "http://covid19-projections.com/about/"
-},
- RMSE: 18.6
-},  {
-     model: {
- name: "SIkJa_USC",
- description: "This is our SI-kJalpha model.",
- link: "https://scc-usc.github.io/ReCOVER-COVID-19/"
-},
- RMSE: 20.03
-},  {
-     model: {
- name: "Covid19Sim_Simulator",
- description: "An interactive tool developed by researchers at Mass General Hospital, Harvard Medical School, Georgia Tech and Boston Medical Center.",
- link: "https://covid19sim.org/"
-},
- RMSE: 20.58
-},  {
-     model: {
- name: "JHU_IDD_CovidSP",
- description: "County-level metapopulation model by Johns Hopkins ID Dynamics COVID-19 Working Group.",
- link: "https://github.com/HopkinsIDD/COVIDScenarioPipeline"
-},
- RMSE: 24.22
-},  {
-     model: {
- name: "UCLA_SuEIR",
- description: "SEIR model by UCLA Statistical Machine Learning Lab.",
- link: "https://covid19.uclaml.org/"
-},
- RMSE: 24.6
-},  {
-     model: {
- name: "CU_select",
- description: "A metapopulation county-level SEIR model by Columbia University.",
- link: "https://blogs.cuit.columbia.edu/jls106/publications/covid-19-findings-simulations/"
-},
- RMSE: 40.24
-},  {
-     model: {
- name: "IowaStateLW_STEM",
- description: "A COVID19 forecast project led by Lily Wang in Iowa State University.",
- link: "https://covid19.stat.iastate.edu"
-},
- RMSE: 40.41
-},  {
-     model: {
- name: "CovidActNow_SEIR_CAN",
- description: "SEIR model by the CovidActNow research team.",
- link: "https://covidactnow.org/"
-},
- RMSE: NaN
-},]
-    }
-};
+
+const GFH = "http://htmlpreview.github.io/?https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/frontend/src/leaderboard/GFH_compare.html";
+const USFH = "http://htmlpreview.github.io/?https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/frontend/src/leaderboard/USFH_compare.html";
+const blank_html_page = "<html></html>";
 
 class Leaderboard extends Component {
+
+
+	constructor() {
+		super();
+		this.state = {
+			which_hub: USFH,
+			width: 0, 
+			height: 0,
+			};
+  			this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+	}
+
+	componentDidMount() {
+  		this.updateWindowDimensions();
+  		window.addEventListener('resize', this.updateWindowDimensions);
+	}
+
+	componentWillUnmount() {
+  		window.removeEventListener('resize', this.updateWindowDimensions);
+	}
+
+	updateWindowDimensions() {
+  		this.setState({ width: window.innerWidth, height: window.innerHeight });
+	}
+
     getAvatar(number) {
         let icon_src = "";
         switch (number) {
@@ -150,74 +57,41 @@ class Leaderboard extends Component {
 
     };
 
+
     render() {
+
         return (
             <div className="page-wrapper">
                 <div className="grid">
                     <Row>
-                        
-                        <Col span={12}>
-                            <h2 className="title">Running Average Performance</h2>
-                            <List className="leaderboard"
-                                itemLayout="horizontal"
-                                dataSource={data.jhu.runningAvgRankings}
-                                renderItem={item => (
-                                    <List.Item>
-                                        <List.Item.Meta
-                                            avatar={this.getAvatar(data.jhu.runningAvgRankings.indexOf(item) + 1)}
-                                            title={<a className="model-name" href={item.model.link}>{item.model.name}</a>}
-                                            description={item.model.description}
-                                        />
-                                        <div className="content">
-                                            <span>RMSE: <span className="score">{item.RMSE}</span></span>
-                                        </div>
-                                    </List.Item>
-                                )}
-                            />
-                        </Col>
-                        <Col span={12}>
-                            <h2 className="title">Recent Performance (from 2020-09-20)</h2>
-                            <List className="leaderboard"
-                                itemLayout="horizontal"
-                                dataSource={data.jhu.recentRankings}
-                                renderItem={item => (
-                                    <List.Item>
-                                        <List.Item.Meta
-                                            avatar={this.getAvatar(data.jhu.recentRankings.indexOf(item) + 1)}
-                                            title={<a className="model-name" href={item.model.link}>{item.model.name}</a>}
-                                            description={item.model.description}
-                                        />
-                                        <div className="content">
-                                            <span>RMSE: <span className="score">{item.RMSE}</span></span>
-                                        </div>
-                                    </List.Item>
-                                )}
-                            />
-                        </Col>
+	                     <div className = "introduction"><p>
+	                     We evaluate the submissions that are made publicly on various forecasting hubs and highlight where our submissions stand.
+	                     Note that the following only compares the submissions and not the forecasting methodologies.
+	                     The submissions may have used different methodologies over time and tuned manually. The evaluation 
+	                     of different methodologies is a part of our other upcoming project <a href="https://github.com/scc-usc/covid19-forecast-bench">here</a>.
+	                     </p>
+	                     <p>
+	                     We are currently contributing to the following hubs. Please select one to see the evaluations.
+	                     {"\n"}
+	                     </p>
+	                     </div>
+	                     
+	                     <div>
+                  		<Button onClick={()=>this.setState({which_hub : USFH})}>
+						US Forecast Hub                  
+                  		</Button>
+                  		<Button onClick={()=>this.setState({which_hub : GFH})}>
+						Germany/Poland Forecast Hub                  
+                  		</Button>
+                		</div>
                     </Row> 
-
                     <Row>
-                        <div className="main-graph-container">
-                            <img className="graph" src={all_graph} />
-                        </div>
-                        
+                    	<Iframe url={this.state.which_hub}
+                    	width="100%"
+        				height={(0.7*this.state.height).toString()}
+        				/>
                     </Row>
 
-		            <p className="clarification">
-                        <b>Evaluation method:</b> We have recently moved the evaluation to JHU dataset only as majority of the forecasting teams are now using it. <br />
-                        Our forecasts used here are taken from the our <a href='https://github.com/scc-usc/ReCOVER-COVID-19/tree/master/results/forecasts'> github repo </a>.
-                        The chosen evaluation metric is Root Mean Squared Error (RMSE) of weekly new deaths computed <br />
-                        over the next two weeks from the day of the forecasts. <br />
-                        Please contact us at <a className="article-anchor" href="mailto:ajiteshs@usc.edu">ajiteshs@usc.edu</a>  
-                        to add your model to the leaderboard.
-                    </p>
-                    <p className="disclaimer">
-                        <b>Disclaimer:</b> The above Covid-19 forecast reports may have copyright restrictions. 
-                        You may visit the website of their original work by clicking on their model names. <br />
-                        All credits for predictions go to the respective owners of the forecast reports.
-                        The ReCover-Covid-19 website does not hold responsibility or liability for prediction accuracy
-                        of prediction reports that are not generated by USC Data Science lab.
-                    </p> 
                 </div>
             </div>
         );
