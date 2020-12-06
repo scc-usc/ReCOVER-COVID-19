@@ -5,7 +5,7 @@ FIP_data = FIP_data(count_ids, :);
 fips_map = containers.Map(FIP_data.FIPS, (1:sum(count_ids)));
 countries = FIP_data.Combined_Key;
 popu = FIP_data.Population;
-popu(isnan(popu)) = 0.5; % pseudo assugnment to continue to the computations without nan errors 
+popu(isnan(popu)) = 0.5; % pseudo assugnment to continue to the computations without nan errors
 passengerFlow = sparse(length(countries), length(countries));
 passengerFlow = passengerFlow - diag(diag(passengerFlow));
 
@@ -60,22 +60,26 @@ for idx = 1:size(FIP_data, 1)
             county_to_state(fips_map(thisfips)) = state_map(FIP_data.Province_State{idx});
         end
     end
-end    
+end
 
 county_to_state(county_to_state==0) = 1; % Default assignment (Diamond and Grand Princess), only for bug-free execution
 %% Create county hyper-parameters
-% 
+%
 first_day = 52; last_day = size(data_4, 2); skipdays = 7;
 
 for dd = first_day:skipdays:last_day
-    eval(['load ./hyper_params/us_hyperparam_ref_' num2str(dd)]);
-    param_state = best_param_list_no;
-    best_param_list_no = zeros(length(countries), size(param_state, 2));
-    
-    for idx = 1:length(countries)
-        best_param_list_no(idx, :) = param_state(county_to_state(idx), :);
+    try
+        eval(['load ./hyper_params/us_hyperparam_ref_' num2str(dd)]);
+        param_state = best_param_list_no;
+        best_param_list_no = zeros(length(countries), size(param_state, 2));
+        
+        for idx = 1:length(countries)
+            best_param_list_no(idx, :) = param_state(county_to_state(idx), :);
+        end
+        eval(['save ./hyper_params/county_hyperparam_ref_' num2str(dd) ' best_param_list_no MAPEtable_notravel_fixed_s']);
+    catch
+        continue;
     end
-    eval(['save ./hyper_params/county_hyperparam_ref_' num2str(dd) ' best_param_list_no MAPEtable_notravel_fixed_s']);
 end
 
 prefix = 'county';
