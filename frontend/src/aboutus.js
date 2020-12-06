@@ -55,8 +55,11 @@ class AboutUs extends Component {
                     </ol>
 			<h2>Other Links</h2>
                     <ol className="article-paragraph">
+                    <li>
+                        <a className="article-anchor" href="https://www.youtube.com/watch?v=dBye3euqlKc" target="_blank"> Lightning talk </a> presenting the status (October).
+                    </li>
                         <li>
-                        <a className="article-anchor" href="https://www.youtube.com/watch?v=ll6k8wlxOFo" target="_blank">Webinar </a> describing our intial approach.
+                        <a className="article-anchor" href="https://www.youtube.com/watch?v=ll6k8wlxOFo" target="_blank">Webinar </a> describing our intial approach (April).
                     </li></ol>
 
 			
