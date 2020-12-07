@@ -86,9 +86,11 @@ const Covid19MarkerList = ({ markers }) => {
   return <Fragment>{items}</Fragment>;
 }
 
+const default_zoom = 4;
 class Covid19Map extends Component {
 
-  constructor() {
+  constructor() 
+  {
     super();
     this.modelAPI = new ModelAPI();
 
@@ -103,7 +105,11 @@ class Covid19Map extends Component {
       us: [],
       renderUS: [],
       callbackCounter: 0,
-      mapInitialized: false
+      mapInitialized: false,
+      zoomlevel: default_zoom,
+      prev_zoomlevel: default_zoom,
+      height: 0,
+      width: 0
     };
 
     this.modelAPI.areas(allAreas =>
@@ -111,11 +117,23 @@ class Covid19Map extends Component {
         areasList: allAreas
       })
     );
+    this.updateMarkerSizes = this.updateMarkerSizes.bind(this);
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
   componentDidMount() {
     this.props.triggerRef(this);
     this.fetchData(this.props.dynamicMapOn);
+    this.updateWindowDimensions();
+    window.addEventListener("resize", this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
   setCaseDeathData() {
@@ -518,12 +536,40 @@ class Covid19Map extends Component {
   getRadius(value) {
     if (value === 0)
       return value;
-  	var radius = Math.log(value / 1000);
+  	//var radius = Math.log(value / 1000);
+  	var radius = (this.state.zoomlevel)*Math.log(value / 1000)/3;
+  	if (radius < 1)
+  		radius = 1;
 
-  	if (radius < 0.5)
-  		radius = 0.5;
-
+  	//return (this.state.height/1000)*radius;
   	return radius;
+  }
+
+  updateMarkerSizes(){
+  	var change_factor = this.state.zoomlevel/this.state.prev_zoomlevel;
+  	var thesemarkers, i;
+  	thesemarkers = this.state.markers;
+  	for (i=0; i< thesemarkers.length; i++){
+  		thesemarkers[i].deathRadius = change_factor*thesemarkers[i].deathRadius;
+  		thesemarkers[i].caseRadius = change_factor*thesemarkers[i].caseRadius;
+  	}
+  	this.setState({markers: thesemarkers});
+
+  	thesemarkers = this.state.stateMarkers;
+  	for (i=0; i< thesemarkers.length; i++){
+  		thesemarkers[i].deathRadius = change_factor*thesemarkers[i].deathRadius;
+  		thesemarkers[i].caseRadius = change_factor*thesemarkers[i].caseRadius;
+  	}
+  	this.setState({stateMarkers: thesemarkers});
+
+  	thesemarkers = this.state.us;
+  	for (i=0; i< thesemarkers.length; i++){
+  		thesemarkers[i].deathRadius = change_factor*thesemarkers[i].deathRadius;
+  		thesemarkers[i].caseRadius = change_factor*thesemarkers[i].caseRadius;
+  	}
+  	this.setState({us: thesemarkers});
+
+  	//this.setState({ markers, stateMarkers, us });
   }
 
   getColor(d) {
@@ -563,10 +609,11 @@ class Covid19Map extends Component {
       <div>
         <Map
           style={{ height: "65vh", width: "100%" }}
-          zoom={4}
+          zoom={default_zoom}
           minZoom={1}
           center={[37.8, -96]}
           ref={(ref) => { this.map = ref; }}
+          onzoomend={() => {this.setState({prev_zoomlevel: this.state.zoomlevel}); this.setState({zoomlevel: this.map.leafletElement.getZoom()}); this.updateMarkerSizes()}}
           maxBounds={[
             [90, -Infinity],
             [-90, Infinity]
