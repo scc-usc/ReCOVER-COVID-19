@@ -165,12 +165,12 @@ class Covid19Map extends Component {
                   deathKey: caseArea.name + "-deaths",
                   data: caseArea.name,
                   center: [global_lat_long[i][1], global_lat_long[i][2]],
-                  caseRadius: 3 * this.getRadius(caseArea.caseValueTrue),
-                  deathRadius: 0.75 * this.getRadius(deathArea.deathValueTrue),
+                  caseRadius: 3 * this.getRadius(caseArea.caseValueTrue, populationVect[i][0]),
+                  deathRadius: 0.75 * this.getRadius(deathArea.deathValueTrue, populationVect[i][0]),
                   caseValue: caseArea.caseValueTrue,
                   deathValue: deathArea.deathValueTrue,
                   population: populationVect[i][0],
-                  color: this.getColor(caseArea.caseValueTrue),
+                  color: this.getColor(caseArea.caseValueTrue, populationVect[i][0]),
                   caseOpacity: caseOpacity,
                   deathOpacity: deathOpacity,
                   stroke: true,
@@ -184,12 +184,12 @@ class Covid19Map extends Component {
                   deathKey: caseArea.name + "-deaths",
                   data: caseArea.name,
                   center: [global_lat_long[i][1], global_lat_long[i][2]],
-                  caseRadius: 3 * this.getRadius(caseArea.caseValueTrue),
-                  deathRadius: 0.75 * this.getRadius(deathArea.deathValueTrue),
+                  caseRadius: 3 * this.getRadius(caseArea.caseValueTrue, populationVect[i][0]),
+                  deathRadius: 0.75 * this.getRadius(deathArea.deathValueTrue, populationVect[i][0]),
                   caseValue: caseArea.caseValueTrue,
                   deathValue: deathArea.deathValueTrue,
                   population: populationVect[i][0],
-                  color: this.getColor(caseArea.caseValueTrue),
+                  color: this.getColor(caseArea.caseValueTrue, populationVect[i][0]),
                   caseOpacity: caseOpacity,
                   deathOpacity: deathOpacity,
                   stroke: true,
@@ -204,11 +204,11 @@ class Covid19Map extends Component {
                 data: caseArea.name +  " / " + caseArea.state,
                 center: [global_lat_long[i][1], global_lat_long[i][2]],
                 caseRadius: 3 * this.getRadius(caseArea.caseValueTrue),
-                deathRadius: 0.75 * this.getRadius(deathArea.deathValueTrue),
+                deathRadius: 0.75 * this.getRadius(deathArea.deathValueTrue, populationVect[i][0]),
                 caseValue: caseArea.caseValueTrue,
                 deathValue: deathArea.deathValueTrue,
                 population: populationVect[i][0],
-                color: this.getColor(caseArea.caseValueTrue),
+                color: this.getColor(caseArea.caseValueTrue, populationVect[i][0]),
                 display: "none",
                 caseOpacity: caseOpacity,
                 deathOpacity: deathOpacity,
@@ -242,38 +242,38 @@ class Covid19Map extends Component {
           if (i < 184) {
             if (i === 155) {
               usFound = true;
-              us[0].caseRadius = 3 * this.getRadius(caseValue);
+              us[0].caseRadius = 3 * this.getRadius(caseValue, populationVect[i][0]);
               us[0].caseValue = caseValue;
-              us[0].color = this.getColor(caseValue);
+              us[0].color = this.getColor(caseValue, populationVect[i][0]);
               us[0].caseOpacity = caseOpacity;
-              us[0].deathRadius = 0.75 * this.getRadius(deathValue);
+              us[0].deathRadius = 0.75 * this.getRadius(deathValue, populationVect[i][0]);
               us[0].deathValue = deathValue;
               us[0].deathOpacity = deathOpacity;
             } else {
               if (usFound) {
-                markers[i-1].caseRadius = 3 * this.getRadius(caseValue);
+                markers[i-1].caseRadius = 3 * this.getRadius(caseValue, populationVect[i][0]);
                 markers[i-1].caseValue = caseValue;
-                markers[i-1].color = this.getColor(caseValue);
+                markers[i-1].color = this.getColor(caseValue, populationVect[i][0]);
                 markers[i-1].caseOpacity = caseOpacity;
-                markers[i-1].deathRadius = 0.75 * this.getRadius(deathValue);
+                markers[i-1].deathRadius = 0.75 * this.getRadius(deathValue, populationVect[i][0]);
                 markers[i-1].deathValue = deathValue;
                 markers[i-1].deathOpacity = deathOpacity;
               } else {
-                markers[i].caseRadius = 3 * this.getRadius(caseValue);
+                markers[i].caseRadius = 3 * this.getRadius(caseValue, populationVect[i][0]);
                 markers[i].caseValue = caseValue;
-                markers[i].color = this.getColor(caseValue);
+                markers[i].color = this.getColor(caseValue, populationVect[i][0]);
                 markers[i].caseOpacity = caseOpacity;
-                markers[i].deathRadius = 0.75 * this.getRadius(deathValue);
+                markers[i].deathRadius = 0.75 * this.getRadius(deathValue, populationVect[i][0]);
                 markers[i].deathValue = deathValue;
                 markers[i].deathOpacity = deathOpacity;
               }
             }
           } else {
-            stateMarkers[stateCount].caseRadius = 3 * this.getRadius(caseValue);
+            stateMarkers[stateCount].caseRadius = 3 * this.getRadius(caseValue, populationVect[i][0]);
             stateMarkers[stateCount].caseValue = caseValue;
-            stateMarkers[stateCount].color = this.getColor(caseValue);
+            stateMarkers[stateCount].color = this.getColor(caseValue, populationVect[i][0]);
             stateMarkers[stateCount].caseOpacity = caseOpacity;
-            stateMarkers[stateCount].deathRadius = 0.75 * this.getRadius(deathValue);
+            stateMarkers[stateCount].deathRadius = 0.75 * this.getRadius(deathValue, populationVect[i][0]);
             stateMarkers[stateCount].deathValue = deathValue;
             stateMarkers[stateCount].deathOpacity = deathOpacity;
             stateCount++;
@@ -533,7 +533,11 @@ class Covid19Map extends Component {
     }
   }
 
-  getRadius(value) {
+  getRadius(value, popu) {
+
+  	if(this.props.perMillion){
+  		value = 100000000*value/popu;
+  	}
     if (value === 0)
       return value;
   	//var radius = Math.log(value / 1000);
@@ -572,7 +576,12 @@ class Covid19Map extends Component {
   	//this.setState({ markers, stateMarkers, us });
   }
 
-  getColor(d) {
+  getColor(d, p) {
+
+  	if(this.props.perMillion){
+  		d = 10000000*d/p;
+  	}
+
     d /= 10000;
    	return d > 100 ? '#800026' :
            d > 50  ? '#BD0026' :

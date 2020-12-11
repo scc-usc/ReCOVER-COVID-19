@@ -30,6 +30,38 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import { value } from "numeral";
 import RadioGroup from "antd/lib/radio/group";
 
+
+///////////////// Load area names and population (should switch to backend in the future) //////////////////
+
+import globalLL from "./frontendData/global_lats_longs.txt"
+import population from './frontendData/global_population_data.txt'
+
+import Papa from "papaparse";
+
+var global_lat_long;
+var populationVect;
+var areanames;
+
+function parse_lat_long_global(data) {
+    global_lat_long = data;
+}
+
+function parse_population(data) {
+  populationVect = data;
+}
+
+function parseData(url, callBack) {
+    Papa.parse(url, {
+        download: true,
+        dynamicTyping: true,
+        complete: function(results) {
+            callBack(results.data);
+        }
+    });
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+
 const { Option } = Select;
 
 class Covid19Predict extends PureComponent {
@@ -75,6 +107,8 @@ class Covid19Predict extends PureComponent {
     this.state = {
       areas: this.props.areas || [],
       areasList: [],
+      plainareas: [],
+      all_populations: [],
       models: this.props.models || ["SI-kJalpha - Default"],
       modelsList: [],
       currentDate: "",
@@ -85,6 +119,7 @@ class Covid19Predict extends PureComponent {
       mainGraphData: {},
       days: 14,
       dynamicMapOn: true,
+      perMillion: false,
       dataType: ["confirmed"],
       statistic: "cumulative",
       mapShown: "confirmed",
@@ -100,11 +135,13 @@ class Covid19Predict extends PureComponent {
     };
 
     this.addAreaByStr = this.addAreaByStr.bind(this);
+    this.loadAreaNames = this.loadAreaNames.bind(this);
     this.removeAreaByStr = this.removeAreaByStr.bind(this);
     this.onValuesChange = this.onValuesChange.bind(this);
     this.onMapClick = this.onMapClick.bind(this);
     this.onDaysToPredictChange = this.onDaysToPredictChange.bind(this);
     this.switchDynamicMap = this.switchDynamicMap.bind(this);
+    this.switchPerMillion = this.switchPerMillion.bind(this);
     this.onAlertClose = this.onAlertClose.bind(this);
     this.onNoData = this.onNoData.bind(this);
     this.generateMarks = this.generateMarks.bind(this);
@@ -120,11 +157,11 @@ class Covid19Predict extends PureComponent {
   componentDidMount() {
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
+    if (this.state.plainareas.length < 1){
+            this.loadAreaNames();
+          }
   }
 
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.updateWindowDimensions);
-  }
 
   updateWindowDimensions() {
     this.setState({ width: window.innerWidth, height: window.innerHeight });
@@ -133,9 +170,13 @@ class Covid19Predict extends PureComponent {
   ////////////////////////////////////
   componentWillMount = () => {
     this.addAreaByStr("US");
+    if (this.state.plainareas.length < 1){
+            this.loadAreaNames();
+          }
+
+    window.removeEventListener("resize", this.updateWindowDimensions);
 
     this.formRef = React.createRef();
-
     this.modelAPI = new ModelAPI();
 
     this.modelAPI.areas(allAreas =>
@@ -176,6 +217,22 @@ class Covid19Predict extends PureComponent {
     });
   };
 
+
+    loadAreaNames(){
+    var i;
+    var theseareas = [];
+    parseData(globalLL, parse_lat_long_global);
+    parseData(population, parse_population);
+    if(typeof global_lat_long !== 'undefined'){
+      for(i=0; i< global_lat_long.length; i++)
+      {
+        theseareas[i] = global_lat_long[i][0];
+      }
+      this.setState({plainareas: theseareas}, ()=>{this.reloadAll();});
+      this.setState({all_populations: populationVect});
+    }
+  }
+
   onMapClick(area) {
     if (!this.areaIsSelected(area)) {
       // this.addAreaByStr(areaToStr(area));
@@ -197,7 +254,16 @@ class Covid19Predict extends PureComponent {
 
   addAreaByStr(areaStr) {
     const areaObj = strToArea(areaStr);
-
+    var idx = this.state.plainareas.indexOf(areaObj.state);
+    if (idx == -1){
+      idx = this.state.plainareas.indexOf(areaObj.country);
+    }
+    //console.log(this.state.plainareas.length);
+    //console.log(idx);
+    var normalizer = 1;
+    if ((idx > -1) && (this.state.perMillion)){
+      normalizer = (this.state.all_populations[idx])/1000000;
+  }
     this.setState(
       prevState => ({
         areas: [...prevState.areas, areaStr],
@@ -216,10 +282,12 @@ class Covid19Predict extends PureComponent {
               best_effort: this.state.best_effort,
             },
             data => {
+              var data1 = data;
+              data1['normalizer'] = normalizer;
               this.setState(prevState => ({
                 mainGraphData: {
                   ...prevState.mainGraphData,
-                  [areaStr]: data,
+                  [areaStr]: data1,
                 },
               }));
             }
@@ -232,10 +300,12 @@ class Covid19Predict extends PureComponent {
               days: this.state.days,
             },
             data => {
+              var data1 = data;
+              data1['normalizer'] = normalizer;
               this.setState(prevState => ({
                 mainGraphData: {
                   ...prevState.mainGraphData,
-                  [areaStr]: data,
+                  [areaStr]: data1,
                 },
               }));
             }
@@ -248,6 +318,7 @@ class Covid19Predict extends PureComponent {
         }
       }
     );
+    //console.log(this.state.mainGraphData);
   }
 
   removeAreaByStr(targetAreaStr) {
@@ -356,6 +427,10 @@ class Covid19Predict extends PureComponent {
         mainGraphData: {},
       },
       () => {
+          if (this.state.plainareas.length < 1){
+            this.loadAreaNames();
+            }
+          
         // Add all the areas back.
         prevAreas.forEach(this.addAreaByStr);
 
@@ -372,8 +447,17 @@ class Covid19Predict extends PureComponent {
     this.setState({
       dynamicMapOn: checked,
     });
+    //console.log(this.state.dynamicMapOn);
     this.map.fetchData(checked);
   }
+
+  switchPerMillion(checked) {
+    this.setState({
+      perMillion: checked,
+    }, ()=>{this.reloadAll();});
+    this.map.fetchData(this.state.dynamicMapOn);
+  }  
+
 
   //when closing the alert
   onAlertClose = () => {
@@ -461,6 +545,7 @@ class Covid19Predict extends PureComponent {
       days,
       mainGraphData,
       dynamicMapOn,
+      perMillion,
       dataType,
       statistic,
       mapShown,
@@ -478,7 +563,7 @@ class Covid19Predict extends PureComponent {
       .map(s => {
         return <Option key={s}> {s} </Option>;
       });
-
+      
     const modelOptions = modelsList
       .filter(model => !this.modelIsSelected(model))
       .map(model => {
@@ -546,6 +631,11 @@ class Covid19Predict extends PureComponent {
     };
 
     const MAP_INSTRUCTION = {
+      perMillionView: (
+        <p className="instruction vertical">
+          Turn on to see all the plot and the bubbles based on per million population of the region.
+        </p>
+      ),
       selectMap: (
         <p className="instruction vertical">
           Hover over the bubbles to see case and death data. Select to add to the plot. Button on the top right to toggle between US states and the country.
@@ -574,6 +664,7 @@ class Covid19Predict extends PureComponent {
         },
       },
     };
+
 
     // Generate the global overview paragraph
     let overview = "";
@@ -815,6 +906,7 @@ class Covid19Predict extends PureComponent {
                   <div className="graph-wrapper">
                     <Covid19Graph
                       data={mainGraphData}
+                      perMillion = {perMillion}
                       dataType={dataType}
                       onNoData={this.onNoData}
                       statistic={statistic}
@@ -836,6 +928,15 @@ class Covid19Predict extends PureComponent {
                       <Switch defaultChecked onChange={this.switchDynamicMap} />
                       <b>&nbsp;&nbsp;Dynamic Map&nbsp;&nbsp;</b>
                     </Popover>
+                    <Popover
+                      content={MAP_INSTRUCTION.perMillionView}
+                      placement="top"
+                      visible={this.state.showMapInstructions}
+                    >&nbsp;&nbsp;&nbsp;
+                      <Switch onChange={this.switchPerMillion} />
+                      <b>&nbsp;&nbsp;Data/Million Population &nbsp;&nbsp;</b>
+                    </Popover>
+
                   </span>
                 </div>
               </div>
@@ -850,6 +951,7 @@ class Covid19Predict extends PureComponent {
                     className="map"
                     triggerRef={this.bindRef}
                     dynamicMapOn={dynamicMapOn}
+                    perMillion = {perMillion}
                     days={days}
                     confirmed_model={confirmed_model_map}
                     death_model={death_model_map}

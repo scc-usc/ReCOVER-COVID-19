@@ -116,6 +116,7 @@ updateWindowDimensions() {
 
   ////////////////////////////////////
 
+
   parseDate(dateStr) {
     let [year, month, day] = dateStr.split("-").map(Number);
     // Month in JS is 0-based.
@@ -127,10 +128,10 @@ updateWindowDimensions() {
    * Given a time series returned by the predict endpoint, getCumulativeData
    * returns it in Nivo format.
    */
-  getCumulativeData(data) {
+  getCumulativeData(data, normalizer) {
     return data.map(d => ({
       x: this.parseDate(d.date),
-      y: d.value
+      y: d.value/normalizer
     }));
   }
 
@@ -140,18 +141,18 @@ updateWindowDimensions() {
    * @param initialVal - The initial value that is subtracted from the 1st
    *  element.
    */
-  getDeltaData(data, initialVal) {
+  getDeltaData(data, initialVal, normalizer) {
     return data.map((d, i) => {
       if (i === 0) {
         return {
           x: this.parseDate(d.date),
-          y: d.value - initialVal
+          y: (d.value - initialVal)/normalizer
         };
       }
 
       return {
         x: this.parseDate(d.date),
-        y: d.value - data[i - 1].value
+        y: (d.value - data[i - 1].value)/normalizer
       };
     });
   }
@@ -159,13 +160,13 @@ updateWindowDimensions() {
   // processData properly formats the given data, and performs special
   // operations based on parameter values.
   processData(data, params) {
-    const { statistic, yScale, initialVal } = params;
+    const { statistic, yScale, initialVal, normalizer } = params;
 
     // Determine whether we need to calculate deltas between points.
     let retData =
       statistic === "delta"
-        ? this.getDeltaData(data, initialVal)
-        : this.getCumulativeData(data);
+        ? this.getDeltaData(data, initialVal, normalizer)
+        : this.getCumulativeData(data, normalizer);
 
     // Remove all points with y = 0 if we're using log scale, otherwise it will
     // break.
@@ -256,6 +257,7 @@ updateWindowDimensions() {
   }
 
   render() {
+
     let { data } = this.props;
     const { statistic, yScale, dataType } = this.props;
     // chartData contains the data that we will pass into Nivo line chart.
@@ -269,8 +271,9 @@ updateWindowDimensions() {
       .sort()
       .forEach((area, idx) => {
         const lineColor = getLineColor(idx);
-        const observedConfirmed = data[area].observed
+        const observedConfirmed = data[area].observed;
         const observedDeath = data[area].observed_deaths;
+        const normalizer = data[area].normalizer;
         // Add the observed infection data if confirmed is selected
         if (dataType.includes("confirmed"))
         {
@@ -279,7 +282,8 @@ updateWindowDimensions() {
             data: this.processData(observedConfirmed, {
               statistic: statistic,
               yScale: yScale,
-              initialVal: 0
+              initialVal: 0,
+              normalizer: normalizer
             }),
             // 'predicted' is a custom prop that we add so later we can tell the
             // difference between observed/predicted data when drawing the lines.
@@ -296,7 +300,8 @@ updateWindowDimensions() {
             data: this.processData(observedDeath, {
               statistic: statistic,
               yScale: yScale,
-              initialVal: 0
+              initialVal: 0,
+              normalizer
             }),
             // 'predicted' is a custom prop that we add so later we can tell the
             // difference between observed/predicted data when drawing the lines.
@@ -336,7 +341,8 @@ updateWindowDimensions() {
               data: this.processData(augmented_timeSeries, {
                 statistic: statistic,
                 yScale: yScale,
-                initialVal: isDeathModel?observedDeath[observedDeath.length - 2].value:observedConfirmed[observedConfirmed.length - 2].value
+                initialVal: isDeathModel?observedDeath[observedDeath.length - 2].value:observedConfirmed[observedConfirmed.length - 2].value,
+                normalizer: normalizer
               }),
               // 'predicted' is a custom prop that we add so later we can tell the
               // difference between observed/predicted data when drawing the lines.
