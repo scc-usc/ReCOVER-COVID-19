@@ -920,6 +920,7 @@ class Covid19Predict extends PureComponent {
               <div className="form-wrapper gray" id="graph_options">
                 <div>
                   <span className="map-control">
+                  <table><tr><td>
                     <Popover
                       content={MAP_INSTRUCTION.dynamicMap}
                       placement="bottom"
@@ -927,15 +928,15 @@ class Covid19Predict extends PureComponent {
                     >
                       <Switch defaultChecked onChange={this.switchDynamicMap} />
                       <b>&nbsp;&nbsp;Dynamic Map&nbsp;&nbsp;</b>
-                    </Popover>
-                    <Popover
+                    </Popover></td>
+                    <td><Popover
                       content={MAP_INSTRUCTION.perMillionView}
                       placement="top"
                       visible={this.state.showMapInstructions}
                     >&nbsp;&nbsp;&nbsp;
                       <Switch onChange={this.switchPerMillion} />
                       <b>&nbsp;&nbsp;Data/Million Population &nbsp;&nbsp;</b>
-                    </Popover>
+                    </Popover></td></tr></table>
 
                   </span>
                 </div>
