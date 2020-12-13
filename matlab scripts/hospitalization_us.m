@@ -1,4 +1,6 @@
-sel_url = 'https://healthdata.gov/sites/default/files/reported_hospital_utilization_timeseries_20201122_2140.csv';
+% Get from 
+% https://healthdata.gov/dataset/covid-19-reported-patient-impact-and-hospital-capacity-state-timeseries
+sel_url = 'https://healthdata.gov/sites/default/files/reported_hospital_utilization_timeseries_20201206_2146.csv';
 urlwrite(sel_url, 'dummy.csv');
 hosp_tab = readtable('dummy.csv');
 %% Load case data
@@ -7,7 +9,7 @@ now_date = datetime((now),'ConvertFrom','datenum', 'TimeZone', 'America/Los_Ange
 path = '../results/historical_forecasts/';
 dirname = datestr(now_date, 'yyyy-mm-dd');
 fullpath = [path dirname];      
-daynum = days(date - datetime(2020, 1, 23))-1;
+daynum = days(date - datetime(2020, 1, 23));
 
 xx = readtable([fullpath '/' prefix '_data.csv']); data_4 = table2array(xx(2:end, 3:end));
 lcorrection = daynum - size(data_4, 2); data_4 = [zeros(size(data_4, 1), lcorrection) data_4];
@@ -120,7 +122,7 @@ end
 quant_preds_hosp = (quant_preds_hosp + abs(quant_preds_hosp))/2;
 
 %% Plot
-cid = 1;
+cid = 10;
 sel_idx = cid;
 % plot((1:size(data_4, 2)), hosp_dat(cid, :)); hold on;
 % plot((T_full+1:T_full+size(pred_new_hosps, 2)), pred_new_hosps(cid, :)); hold off;

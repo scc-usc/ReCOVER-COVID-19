@@ -42,4 +42,7 @@ clear;
 load_data_other;
 do_other_forecasts;
 add_to_history;
+disp('Writing quantile files for KIT hub');
+KIT_submit;
 disp('Finished other forecasts');
+
