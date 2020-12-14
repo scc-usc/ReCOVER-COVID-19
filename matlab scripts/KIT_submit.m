@@ -243,8 +243,8 @@ end
 all_heads = {'forecast_date', 'target', 'target_end_date', 'location', 'location_name', 'type', 'quantile', 'value'};
 
 idx = startsWith(case_vals(:, 4), 'GM');
-writecell([all_heads; case_vals(idx, :)], [fullpath '/' datestr(forecast_date, 'yyyy-mm-dd') '-Germany-USC-SIkJalpha-cases.csv']);
-writecell([all_heads; case_vals(~idx, :)], [fullpath '/' datestr(forecast_date, 'yyyy-mm-dd') '-Poland-USC-SIkJalpha-cases.csv']);
+writecell([all_heads; case_vals(idx, :)], [fullpath '/' datestr(forecast_date, 'yyyy-mm-dd') '-Germany-USC-SIkJalpha-case.csv']);
+writecell([all_heads; case_vals(~idx, :)], [fullpath '/' datestr(forecast_date, 'yyyy-mm-dd') '-Poland-USC-SIkJalpha-case.csv']);
 
 idx = startsWith(death_vals(:, 4), 'GM');
 writecell([all_heads; death_vals(idx, :)], [fullpath '/' datestr(forecast_date, 'yyyy-mm-dd') '-Germany-USC-SIkJalpha.csv']);
