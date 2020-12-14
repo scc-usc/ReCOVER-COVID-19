@@ -75,7 +75,7 @@ end
 All_Mdl = TreeBagger(100, AllXdata, (AllYdata-AllXdata(:, 1)), 'Method','regression', 'CategoricalPredictors', [size(AllXdata, 2)]);
 All_Mdl_d = TreeBagger(100, AllXdeaths, (AllYdeaths-AllXdeaths(:, 1)), 'Method','regression', 'CategoricalPredictors', [size(AllXdeaths, 2)]);
 
-%% Adjust predictions based on dates
+%% Identify predictions based on dates
 
 pl_row_idx = startsWith(placenames, 'PL');
 gr_row_idx = startsWith(placenames, 'GM');
@@ -84,11 +84,12 @@ gr_pred_idx = find(cellfun(@(x)(weekday(x)==7), pred_dates));
 pl_gt_idx = find(cellfun(@(x)(weekday(x)==6), gt_dates));
 gr_gt_idx = find(cellfun(@(x)(weekday(x)==7), gt_dates));
 
+%% Create data with desired days
 if pred_dates{gr_pred_idx(1)} == gt_dates{gr_gt_idx(end)}
-    gr_gt_idx(end) = [];
+    gr_pred_idx(1) = [];
 end
 if pred_dates{pl_pred_idx(1)} == gt_dates{pl_gt_idx(end)}
-    pl_gt_idx(end) = [];
+    pl_pred_idx(1) = [];
 end
 pl_pred_idx = pl_pred_idx(1:10); gr_gt_idx = gr_gt_idx(:, end-10:end);
 gr_pred_idx = gr_pred_idx(1:10); pl_gt_idx = pl_gt_idx(:, end-10:end);
@@ -129,8 +130,8 @@ for jj=1:num_ahead
     mean_preds_deaths(:, jj) = preds_d(:, jj);% + predict(Mdl_d{jj}, [preds_d(:, jj) extern_dat]);
 end
 
-quant_preds_cases = (quant_preds_cases + abs(quant_preds_cases))/2;
-quant_preds_deaths = (quant_preds_deaths + abs(quant_preds_deaths))/2;
+quant_preds_cases = round((quant_preds_cases + abs(quant_preds_cases))/2);
+quant_preds_deaths = round((quant_preds_deaths + abs(quant_preds_deaths))/2);
 %% Plot
 % sel_idx = 30;
 % thisquant = squeeze(quant_preds_deaths(sel_idx, :, :));
@@ -183,7 +184,7 @@ for ii = 1:length(cidx)
         death_vals(kk, :) = thisentry;
         
         death_vals(kk+1:kk+length(quant_deaths), 1) = mat2cell(repmat(forecast_date, [length(quant_deaths) 1]), ones(length(quant_deaths), 1));
-        death_vals(kk+1:kk+length(quant_deaths), 2) = mat2cell(repmat([num2str(jj) ' wk ahead cum deaths'], [length(quant_deaths) 1]), ones(length(quant_deaths), 1));
+        death_vals(kk+1:kk+length(quant_deaths), 2) = mat2cell(repmat([num2str(jj) ' wk ahead cum death'], [length(quant_deaths) 1]), ones(length(quant_deaths), 1));
         death_vals(kk+1:kk+length(quant_deaths), 3) = mat2cell(repmat(target_date, [length(quant_deaths) 1]), ones(length(quant_deaths), 1));
         death_vals(kk+1:kk+length(quant_deaths), 4) = mat2cell(repmat(placenames{cidx(ii)}, [length(quant_deaths) 1]), ones(length(quant_deaths), 1));
         death_vals(kk+1:kk+length(quant_deaths), 5) = mat2cell(repmat(placenames_full{cidx(ii)}, [length(quant_deaths) 1]), ones(length(quant_deaths), 1));
@@ -213,12 +214,12 @@ for ii = 1:length(cidx)
         
         kk = kk+length(quant_cases)+1;
         
-        cc = cum_pred_cases(cidx(ii), jj) - preds_d(cidx(ii), jj) + squeeze(quant_preds_cases(cidx(ii), jj, :));
+        cc = cum_pred_cases(cidx(ii), jj) - preds(cidx(ii), jj) + squeeze(quant_preds_cases(cidx(ii), jj, :));
         thisentry = [{forecast_date} {[num2str(jj) ' wk ahead cum case']} {target_date} placenames{cidx(ii)} placenames_full{cidx(ii)} {'point'} {'NA'} {cum_pred_cases(cidx(ii), jj)}];
         case_vals(kk, :) = thisentry;
         
         case_vals(kk+1:kk+length(quant_cases), 1) = mat2cell(repmat(forecast_date, [length(quant_cases) 1]), ones(length(quant_cases), 1));
-        case_vals(kk+1:kk+length(quant_cases), 2) = mat2cell(repmat([num2str(jj) ' wk ahead cum cases'], [length(quant_cases) 1]), ones(length(quant_cases), 1));
+        case_vals(kk+1:kk+length(quant_cases), 2) = mat2cell(repmat([num2str(jj) ' wk ahead cum case'], [length(quant_cases) 1]), ones(length(quant_cases), 1));
         case_vals(kk+1:kk+length(quant_cases), 3) = mat2cell(repmat(target_date, [length(quant_cases) 1]), ones(length(quant_cases), 1));
         case_vals(kk+1:kk+length(quant_cases), 4) = mat2cell(repmat(placenames{cidx(ii)}, [length(quant_cases) 1]), ones(length(quant_cases), 1));
         case_vals(kk+1:kk+length(quant_cases), 5) = mat2cell(repmat(placenames_full{cidx(ii)}, [length(quant_cases) 1]), ones(length(quant_cases), 1));

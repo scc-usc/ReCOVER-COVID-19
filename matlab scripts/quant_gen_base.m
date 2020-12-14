@@ -1,4 +1,4 @@
-prefix = 'us'; cidx = (1:56); num_ens_weeks = 5; week_len = 7;
+prefix = 'us'; cidx = (1:56); num_ens_weeks = 7; week_len = 1;
 %prefix = 'global'; cidx = 1:184; num_ens_weeks = 3;
 
 num_ahead = 4;
@@ -82,6 +82,16 @@ All_Mdl_d = TreeBagger(100, AllXdeaths, (AllYdeaths-AllXdeaths(:, 1)), 'Method',
 %     Mdl_d{jj} = thismdl;
 %     fprintf('.');
 % end
+%% Data correction (for delayed forecasting)
+T_corr = 0;
+
+if T_corr > 0
+pred_cases_orig = pred_cases; pred_deaths_orig = pred_deaths;
+data_orig = data_4; deaths_orig = deaths;
+deaths = deaths_orig(:, 1:end-T_corr); data_4 = data_orig(:, 1:end-T_corr);
+pred_cases = [data_4(:, end-T_corr+1: end) pred_cases_orig];
+pred_deaths = [deaths(:, end-T_corr+1: end) pred_deaths_orig];
+end
 %% Generate quantiles
 preds = diff(pred_cases(cidx, 1:7:end)')';
 preds_d = diff(pred_deaths(cidx, 1:7:end)')';
@@ -113,7 +123,7 @@ end
 quant_preds_cases = (quant_preds_cases + abs(quant_preds_cases))/2;
 quant_preds_deaths = (quant_preds_deaths + abs(quant_preds_deaths))/2;
 %% Plot
-sel_idx = 3;
+sel_idx = 1;
 dt = deaths(cidx, :);
 thisquant = squeeze(quant_preds_deaths(sel_idx, :, :));
 gt_len = 4;
