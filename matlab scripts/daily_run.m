@@ -46,3 +46,6 @@ disp('Writing quantile files for KIT hub');
 KIT_submit;
 disp('Finished other forecasts');
 
+%% For every location available in Google Data
+
+all_google_forecasts;

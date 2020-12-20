@@ -8,6 +8,7 @@ import 'semantic-ui-css/semantic.min.css';
 import "./covid19app.css";
 import Leaderboard from "./leaderboard/leaderboard";
 import Highlights from "./highlights/highlights";
+import RoW from "./RoW/RoW";
 
 //import pdf from "./highlights.pdf";
 
@@ -19,7 +20,8 @@ class Covid19App extends Component {
       redirectAbout: false,
       redirectScore: false,
       redirectLeaderboard: false,
-      redirectHighlights: false
+      redirectHighlights: false,
+      redirectRoW: false
     }
   }
 
@@ -29,7 +31,8 @@ class Covid19App extends Component {
       redirectAbout: false,
       redirectScore: false,
       redirectLeaderboard: false,
-      redirectHighlights: false
+      redirectHighlights: false,
+      redirectRoW: false
     });
   }
 
@@ -39,7 +42,8 @@ class Covid19App extends Component {
       redirectAbout:true,
       redirectScore: false,
       redirectLeaderboard: false,
-      redirectHighlights: false
+      redirectHighlights: false,
+      redirectRoW: false
     });
   }
 
@@ -49,7 +53,8 @@ class Covid19App extends Component {
       redirectAbout:false,
       redirectScore: true,
       redirectHighlights: false,
-      redirectLeaderboard: false
+      redirectLeaderboard: false,
+      redirectRoW: false
     });
   }
 
@@ -59,7 +64,8 @@ class Covid19App extends Component {
       redirectAbout: false,
       redirectScore: false,
       redirectLeaderboard: true,
-      redirectHighlights: false
+      redirectHighlights: false,
+      redirectRoW: false
     });
   }
 
@@ -69,12 +75,24 @@ class Covid19App extends Component {
       redirectAbout: false,
       redirectScore: false,
       redirectLeaderboard: false,
-      redirectHighlights: true
+      redirectHighlights: true,
+      redirectRoW: false
+    });
+  }
+
+  redirectRoW = ()=>{
+    this.setState({
+      redirectForecast: false,
+      redirectAbout: false,
+      redirectScore: false,
+      redirectLeaderboard: false,
+      redirectHighlights: false,
+      redirectRoW: true
     });
   }
 
   render() {
-    const {redirectForecast, redirectAbout, redirectScore, redirectLeaderboard, redirectHighlights} = this.state;
+    const {redirectForecast, redirectAbout, redirectScore, redirectLeaderboard, redirectHighlights, redirectRoW} = this.state;
     return (
       <HashRouter basename="/">
         {redirectForecast?<Redirect to="/"/>:null}
@@ -82,11 +100,13 @@ class Covid19App extends Component {
         {redirectScore?<Redirect to="/score"/>:null}
         {redirectAbout?<Redirect to="/about"/>:null}
         {redirectLeaderboard?<Redirect to="/leaderboard"/>:null}
+        {redirectLeaderboard?<Redirect to="/row"/>:null}
         <Navbar redirectForecast = {this.redirectForecast}
         		redirectHighlights = {this.redirectHighlights}
                 redirectScore = {this.redirectScore}
                 redirectAbout = {this.redirectAbout}
                 redirectLeaderboard = {this.redirectLeaderboard}
+                redirectRoW = {this.redirectRoW}
         />
         <Switch>
           <Route exact path='/' 
@@ -100,6 +120,8 @@ class Covid19App extends Component {
             render={(props) => <Leaderboard {...props} />}/>
           <Route exact path='/highlights'
             render={(props) => <Highlights {...props} />}/>
+          <Route exact path='/row'
+            render={(props) => <RoW {...props} />}/>
         </Switch>
       </HashRouter>
     );
