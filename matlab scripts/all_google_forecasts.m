@@ -6,6 +6,7 @@ index_dat = readtable('indexG.csv', 'Format','%s%s%s%s%s%s%s%s%s%s%s%s%s%s');
 sel_url = 'https://storage.googleapis.com/covid19-open-data/v2/epidemiology.csv';
 urlwrite(sel_url, 'dummy.csv');
 all_tab = readtable('dummy.csv');
+delete dummy.csv
 
 disp('Finished loading data');
 toc

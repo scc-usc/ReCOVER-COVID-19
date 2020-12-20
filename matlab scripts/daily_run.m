@@ -48,4 +48,5 @@ disp('Finished other forecasts');
 
 %% For every location available in Google Data
 
+clear;
 all_google_forecasts;
