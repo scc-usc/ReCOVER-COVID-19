@@ -23,6 +23,7 @@ const NavBar = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link className="navbar-link" href="#/">COVID-19 Forecast</Nav.Link>
+              <Nav.Link className="navbar-link" href="#row">All Locations!</Nav.Link>
               <Nav.Link className="navbar-link" href="#score">Reproduction Number</Nav.Link>
               <Nav.Link className="navbar-link" href="#highlights">Highlights</Nav.Link>
               <Nav.Link className="navbar-link" href="#leaderboard">Evaluation</Nav.Link>
