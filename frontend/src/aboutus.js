@@ -10,7 +10,7 @@ class AboutUs extends Component {
                     <h1 className="article-title">ReCOVER: Accurate Predictions and Resource Management for COVID-19 Epidemic Response</h1>
                     <p className="article-paragraph">
                         Accurate forecasts of COVID-19 is central to resource management and building strategies to deal with the epidemic. 
-                        This is an NSF-funded project on COVID-19 forecasting led by
+                        This is a part of an NSF-funded project on COVID-19 forecasting led by
                         by <a className="article-anchor" href="https://sites.usc.edu/prasanna/"> Viktor K. Prasanna </a> and <a className="article-anchor" href="http://www-scf.usc.edu/~ajiteshs/"> Ajitesh Srivastava </a> 
                         from the <a className="article-anchor" href="https://dslab.usc.edu/"> Data Science Lab </a> at the University of Southern California. 
                     </p>
@@ -21,7 +21,7 @@ class AboutUs extends Component {
                             DARPA Grand Challenge 2014
                         </a>.   
                         Our forecast appears on the official <a className="article-anchor" href="https://www.cdc.gov/coronavirus/2019-ncov/covid-data/forecasting-us.html"> CDC webpage</a>.
-			 Our model can consider the effect of many complexities of the epidemic process and yet be simplified to a few parameters that are learned using fast linear regressions. Therefore, our approach can learn and generate forecasts extremely quickly. On a 2 core desktop machine, our approach takes only 3.18s to tune hyper-parameters, learn parameters and generate 100 days of forecasts of reported cases and deaths for all the states in the US. The total execution time for 184 countries is 11.83s and for more than 3000 US counties is 101.03s. Despite being fast, the accuracy of our forecasts is on par with the state-of-the-art as demonstrated on the <a className="article-anchor" href="https://scc-usc.github.io/ReCOVER-COVID-19/#/leaderboard"> leaderboard page</a>. Details of modeling and comparisons can be found in <a className="article-anchor" href="https://arxiv.org/abs/2007.05180"> our paper</a>.
+			 Our model can consider the effect of many complexities of the epidemic process and yet be simplified to a few parameters that are learned using fast linear regressions. Therefore, our approach can learn and generate forecasts extremely quickly. On a 2 core desktop machine, our approach takes only 3.18s to tune hyper-parameters, learn parameters and generate 100 days of forecasts of reported cases and deaths for all the states in the US. The total execution time for 184 countries is 11.83s and for more than 3000 US counties is around 25s. Despite being fast, the accuracy of our forecasts is on par with the state-of-the-art as demonstrated on the <a className="article-anchor" href="https://scc-usc.github.io/ReCOVER-COVID-19/#/leaderboard"> leaderboard page</a>. Details of modeling and comparisons can be found in <a className="article-anchor" href="https://arxiv.org/abs/2007.05180"> our paper</a>.
                         This work is supported by National Science Foundation Award No. 2027007 (RAPID)
                     </p>
 
@@ -32,9 +32,9 @@ class AboutUs extends Component {
                         The matlab code for forecasting is also made available on <a className="article-anchor" href="https://www.mathworks.com/matlabcentral/fileexchange/75281-recover" target="_blank">File Exchange</a>. For the latest code, please see the Github repo.
                     </p>
 
-        			<p className="article-paragraph"> The code of the prediction model and this web application is contributed by Ajitesh Srivastava, Jamin Chen, Frost Tianjian Xu, and Bob Xiaochen Yang. </p>
+        			<p className="article-paragraph"> The code of the prediction model is written by Ajitesh Srivastava. </p>
                     
-        			<p className="article-paragraph"> The forecast visualization is further implemented by James Orme-Rogers, James Wolfe, Sung Bin Kim, and Vicky Yu. </p>
+        			<p className="article-paragraph"> The forecast visualization is created by Ajitesh Srivastava and Frost Tianjian Xu with the assistance from Jamin Chen, Bob Xiaochen Yang, James Orme-Rogers, James Wolfe, Sung Bin Kim, and Vicky Yu. </p>
 
                     <h2>Related Papers</h2>
 

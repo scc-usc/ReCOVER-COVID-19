@@ -79,7 +79,7 @@ class RoW extends Component {
   componentWillMount() {
 
     Papa.parse(g_cases, {
-      download: true,
+      download: true, worker: true,
       complete: function(results) {
         var i;
           //var globallist = [];
@@ -97,7 +97,7 @@ class RoW extends Component {
       });
 
     Papa.parse(g_deaths, {
-      download: true,
+      download: true, worker: true,
       complete: function(results) {
         var i;
         var thislist = [];
@@ -113,7 +113,7 @@ class RoW extends Component {
     });
 
     Papa.parse(g_case_preds, {
-      download: true,
+      download: true, worker: true,
       complete: function(results) {
         var i;
         var thislist = [];
@@ -131,7 +131,7 @@ class RoW extends Component {
     });
 
     Papa.parse(g_death_preds, {
-      download: true,
+      download: true, worker: true,
       complete: function(results) {
         var i;
         var thislist = [];
