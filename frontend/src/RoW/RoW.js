@@ -21,6 +21,7 @@ import {
   Alert,
   Row,
   Col,
+  Input
 } from "antd";
 
 var g_cases = "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_data.csv";
@@ -36,6 +37,8 @@ class RoW extends Component {
 	constructor() {
 		super();
 		this.state = {
+      cum_or_inc: "Cumulative",
+      data_loading: true,
       areas: [],
       width: 0, 
       height: 0,
@@ -61,6 +64,7 @@ class RoW extends Component {
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.plotData = this.plotData.bind(this);
     this.onValuesChange = this.onValuesChange.bind(this);
+    this.doneLoading = this.doneLoading.bind(this);
     
 
   }
@@ -169,24 +173,58 @@ class RoW extends Component {
       preds = this.state.death_preds_plot; 
     }
 
-    for(i=0; i<thisdata.length; i++)
-    {
-      if(thisdata[i] > 0){
-      dd.push({
-        x: this.state.data_date[i],
-        y: thisdata[i]
-      });
+    if(this.state.cum_or_inc === "Cumulative")
+    {  
+      for(i=0; i<thisdata.length; i++)
+      {
+        if(thisdata[i] > 0){
+          dd.push({
+            x: this.state.data_date[i],
+            y: thisdata[i]
+          });
+        }
+      }
+      var dd_p = [];
+      for(i=0; i<preds.length; i++)
+      {
+        dd_p.push({
+          x: this.state.pred_date[i],
+          y: preds[i]
+        });
       }
     }
-    var dd_p = [];
-    for(i=0; i<preds.length; i++)
+    else
     {
-      dd_p.push({
-        x: this.state.pred_date[i],
-        y: preds[i]
-      });
+      var base_dat = thisdata[0];
+      var diff_dat = 0;
+      for(i=1; i<thisdata.length; i++)
+      {
+        diff_dat = thisdata[i] -base_dat;
+        if(diff_dat >= 0 && base_dat> 0)
+        {
+          dd.push({
+            x: this.state.data_date[i],
+            y: diff_dat
+          });
+        }
+        base_dat = thisdata[i];
+      }
+      var dd_p = [];
+      base_dat = thisdata[thisdata.length-1];
+      //base_dat = base_dat>0?base_dat:-1;
+      for(i=0; i<preds.length; i++)
+      {
+        diff_dat = preds[i] -base_dat;
+        if(diff_dat >= 0 && base_dat> 0)
+        {
+          dd_p.push({
+            x: this.state.pred_date[i],
+            y: diff_dat
+          });
+        }
+        base_dat = preds[i];
+      }
     }
-
     var full_dd = [{id: "Data", data:dd}, {id: "Forecasts", data:dd_p},];
     this.setState({to_plot: full_dd});
     //console.log(full_dd);
@@ -225,13 +263,20 @@ class RoW extends Component {
       }
       this.setState({death_preds_plot: death_d});
     }
+    if("cum_or_inc" in changedValues)
+    {
+      this.setState({cum_or_inc: allValues.cum_or_inc}, ()=>this.plotData());  
+    }
     this.setState({CoD: allValues.CoD}, ()=>this.plotData());
   }
 
-
+  doneLoading()
+  {
+    this.setState({data_loading: false});
+  }
 
   render() {
-    const {areas,arealist,CoD, to_plot} = this.state;
+    const {areas,arealist,CoD, to_plot, data_loading, cum_or_inc} = this.state;
     //console.log(to_plot);
     const theme = {
       axis: {
@@ -259,6 +304,12 @@ class RoW extends Component {
         )
       }, this);
       const num_ticks = 1 + this.state.width/280;
+
+      
+      if(this.state.data_loading & this.state.case_preds.length>0 && this.state.death_preds.length>0)
+      {
+        this.doneLoading();
+      }
       
       return (
        <div className="page-wrapper">
@@ -270,24 +321,28 @@ class RoW extends Component {
        <Row>
        <div className = "introduction">
        <p>
-       Use this page to see forecasts not addressed on the main page. Forecasts are available for all locations (around 20,000) for which Google makes its data 
+       Use this page to see forecasts not addressed on the <a href="#/"> main page</a>. Forecasts are available for all locations (around 20,000) for which Google makes its data 
        <a href="https://github.com/scc-usc/covid19-forecast-bench"> public</a>. 
        </p>
        <p>
        [Note: The data is noisy for some regions with decreasing cumulative values and missing values. See below for our forecasts from alternative sources.]
        </p>
        </div>
-
        </Row> 
+       
        <Row>
        <div className="form-column-row">
+       
        <Form 
        ref={this.formRef}
        onValuesChange={this.onValuesChange}
        initialValues={{
         areas: areas,
         CoD: CoD,
+        cum_or_inc: cum_or_inc,
       }}>
+
+     
       <Popover
       content={"start typing a location name to plot its data."}
       placement="top"
@@ -302,6 +357,7 @@ class RoW extends Component {
         >
         <Select
         showSearch
+        loading = {this.state.data_loading}
         style={{ width: "100%" }}
         placeholder="Select Areas"
         >
@@ -309,13 +365,33 @@ class RoW extends Component {
         </Select>
         </Form.Item>
         </Popover>
+        
+        
+        <Row>
 
+        <Col>
+        <Popover
+        content={"Choose to plot cumulative or new weekly numbers"}
+        placement="bottomLeft">
+
+        <Form.Item label="Data Type" style={{marginBottom: "5px"}} name="cum_or_inc" value={cum_or_inc}>
+        <Radio.Group
+        initialValue = "Cumulative"
+        buttonStyle="solid"
+        >
+        <Radio.Button value="Cumulative">Cumulative</Radio.Button>
+        <Radio.Button value="New">Weekly New</Radio.Button>
+        </Radio.Group>
+        </Form.Item>
+        </Popover>
+        </Col>
+
+        <Col>
         <Popover
         content={"Choose cases or deaths to plot"}
-        placement="bottomLeft"
+        placement="bottomLeft">
 
-        >
-        <Form.Item label="Data Type" style={{marginBottom: "5px"}} name="CoD" value={CoD}>
+        <Form.Item label="" style={{marginBottom: "5px"}} name="CoD" value={CoD}>
         <Radio.Group
         initialValue = "case"
         buttonStyle="solid"
@@ -325,7 +401,9 @@ class RoW extends Component {
         </Radio.Group>
         </Form.Item>
         </Popover>
+        </Col>
 
+        </Row>
         </Form>
         </div>
         </Row>
@@ -354,7 +432,7 @@ class RoW extends Component {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: CoD.concat('s'),
+          legend: cum_or_inc.concat(' '.concat(CoD.concat('s'))),
           legendOffset: -55,
           legendPosition: "middle",
         }}
@@ -436,9 +514,9 @@ class RoW extends Component {
           <Row>
           <div className = "introduction">
           Follow  this <a href = "https://github.com/scc-usc/ReCOVER-COVID-19/tree/master/results/historical_forecasts">
-           link </a>
-           for dated forecasts for German states and Polish Voivodeships. These files are based on the data compiled by 
-          <a href = "https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data" target="_blank"> Germany and Poland Forecast Hub</a>
+          link </a>
+          for dated forecasts for German states and Polish Voivodeships. These files are based on the data compiled by 
+            <a href = "https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data" target="_blank"> Germany and Poland Forecast Hub</a>
           </div>
           </Row>
 
