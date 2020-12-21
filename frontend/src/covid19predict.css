@@ -221,13 +221,13 @@
 
 .form-column {
     margin: 0 0vw;
-    width: 40vw;
+    width: 40vw !important;
 }
 
 @media (max-width: 480px) {
     .form-column {
         margin: 0 1vw;
-        width: 100vw;
+        width: 90vw !important;
     }
 }
 

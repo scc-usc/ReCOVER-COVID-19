@@ -41,8 +41,8 @@ h2.title {
 }
 
 
-.form-column {
-    width: 90vw;
+.form-column-row {
+    width: 90vw!important;
     padding-top: 16px;
 }
 

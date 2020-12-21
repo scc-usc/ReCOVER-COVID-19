@@ -268,15 +268,19 @@ class RoW extends Component {
        </Row>
 
        <Row>
-       <div className = "introduction"><p>
-       Use this page to see forecasts not addressed on the main page. Forecasts are available for all locations (around 18,000) for which Google makes its data 
+       <div className = "introduction">
+       <p>
+       Use this page to see forecasts not addressed on the main page. Forecasts are available for all locations (around 20,000) for which Google makes its data 
        <a href="https://github.com/scc-usc/covid19-forecast-bench"> public</a>. 
+       </p>
+       <p>
+       [Note: The data is noisy for some regions with decreasing cumulative values and missing values. See below for our forecasts from alternative sources.]
        </p>
        </div>
 
        </Row> 
        <Row>
-       <div className="form-column">
+       <div className="form-column-row">
        <Form 
        ref={this.formRef}
        onValuesChange={this.onValuesChange}
@@ -400,15 +404,15 @@ class RoW extends Component {
           />
           <Row>
           <div className = "introduction">
-          Click on the following links to download CSV files to analyze yourself: {"\n"}
+          Use the following links to download CSV files to analyze yourself (Right-click -> Save As): {"\n"}
           <ul>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_data.csv" download>
+          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_data.csv" download target="_blank">
           All formatted case data from Google </a></li>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_deaths.csv" download>
+          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_deaths.csv" download target="_blank">
           All formatted death data from Google </a> </li>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_forecasts_current_0.csv" download>
+          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_forecasts_current_0.csv" download target="_blank">
           Case forecasts on Google data </a> </li>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_deaths_current_0.csv" download>
+          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_deaths_current_0.csv" download target="_blank">
           Death forecasts on Google data </a> </li>
           </ul>
           </div>
@@ -416,18 +420,25 @@ class RoW extends Component {
           <Row>
           <div className = "introduction">
           The following are the latest forecasts for Countries and the US states used on the main forecast page. These files are based on the 
-          <a href = "https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data">
-          JHU data</a>
+          <a href = "https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data"> JHU data</a>
           <ul>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/us_data.csv" download>
-          All formatted case data from Google </a></li>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/us_deaths.csv" download>
-          All formatted death data from Google </a></li>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/global_forecasts_current_0.csv" download>
-          Case forecasts on Google data </a></li>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/global_deaths_current_0.csv" download>
-          Death forecasts on Google data </a></li>
+          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/us_data.csv" download target="_blank">
+          All formatted case data for US states </a></li>
+          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/us_deaths.csv" download target="_blank">
+          All formatted death data for US states </a></li>
+          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/global_forecasts_current_0.csv" download target="_blank">
+          Case forecasts for all countries </a></li>
+          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/global_deaths_current_0.csv" download target="_blank">
+          Death forecasts for all countries </a></li>
           </ul>
+          </div>
+          </Row>
+          <Row>
+          <div className = "introduction">
+          Follow  this <a href = "https://github.com/scc-usc/ReCOVER-COVID-19/tree/master/results/historical_forecasts">
+           link </a>
+           for dated forecasts for German states and Polish Voivodeships. These files are based on the data compiled by 
+          <a href = "https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data" target="_blank"> Germany and Poland Forecast Hub</a>
           </div>
           </Row>
 
