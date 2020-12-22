@@ -37,6 +37,7 @@ class RoW extends Component {
 	constructor() {
 		super();
 		this.state = {
+      area_message: "Please wait for data to load",
       cum_or_inc: "Cumulative",
       data_loading: true,
       areas: [],
@@ -273,10 +274,12 @@ class RoW extends Component {
   doneLoading()
   {
     this.setState({data_loading: false});
+    this.setState({area_message: "Start typing a location name to see its data and forecasts"})
+
   }
 
   render() {
-    const {areas,arealist,CoD, to_plot, data_loading, cum_or_inc} = this.state;
+    const {areas,arealist,CoD, to_plot, data_loading, cum_or_inc, area_message} = this.state;
     //console.log(to_plot);
     const theme = {
       axis: {
@@ -314,215 +317,229 @@ class RoW extends Component {
       return (
        <div className="page-wrapper">
        <div className="grid">
-       <Row>
-       <h1>Forecasts for "Almost" Everywhere</h1>
-       </Row>
+         <Row>
+         <h1>Forecasts for "Almost" Everywhere</h1>
+         </Row>
 
-       <Row>
-       <div className = "introduction">
-       <p>
-       Use this page to see forecasts not addressed on the <a href="#/"> main page</a>. Forecasts are available for all locations (around 20,000) for which Google makes its data 
-       <a href="https://github.com/scc-usc/covid19-forecast-bench"> public</a>. 
-       </p>
-       <p>
-       [Note: The data is noisy for some regions with decreasing cumulative values and missing values. See below for our forecasts from alternative sources.]
-       </p>
-       </div>
-       </Row> 
+         <Row>
+         <div className = "introduction">
+         <p>
+         Use this page to see forecasts not addressed on the <a href="#/"> main page</a>. Forecasts are available for all locations (around 20,000) for which Google makes its data 
+         <a href="https://github.com/scc-usc/covid19-forecast-bench"> public</a>. 
+         </p>
+         </div>
+         </Row> 
        
-       <Row>
-       <div className="form-column-row">
+         <Row>
+         <div className="form-column-row">
+         
+         <Form 
+         ref={this.formRef}
+         onValuesChange={this.onValuesChange}
+         initialValues={{
+          areas: areas,
+          CoD: CoD,
+          cum_or_inc: cum_or_inc,
+        }}>
+
        
-       <Form 
-       ref={this.formRef}
-       onValuesChange={this.onValuesChange}
-       initialValues={{
-        areas: areas,
-        CoD: CoD,
-        cum_or_inc: cum_or_inc,
-      }}>
-
-     
-      <Popover
-      content={"start typing a location name to plot its data."}
-      placement="top"
-      >
-      <Form.Item
-      style={{ marginBottom: "0px" }}
-      label="Location"
-      name="areas"
-      rules={[
-        { required: true, message: "Please select areas!" },
-        ]}
-        >
-        <Select
-        showSearch
-        loading = {this.state.data_loading}
-        style={{ width: "100%" }}
-        placeholder="Select Areas"
-        >
-        {optionlist}
-        </Select>
-        </Form.Item>
-        </Popover>
-        
-        
-        <Row>
-
-        <Col>
         <Popover
-        content={"Choose to plot cumulative or new weekly numbers"}
-        placement="bottomLeft">
-
-        <Form.Item label="Data Type" style={{marginBottom: "5px"}} name="cum_or_inc" value={cum_or_inc}>
-        <Radio.Group
-        initialValue = "Cumulative"
-        buttonStyle="solid"
+        content={area_message}
+        placement="top"
         >
-        <Radio.Button value="Cumulative">Cumulative</Radio.Button>
-        <Radio.Button value="New">Weekly New</Radio.Button>
-        </Radio.Group>
-        </Form.Item>
-        </Popover>
-        </Col>
-
-        <Col>
-        <Popover
-        content={"Choose cases or deaths to plot"}
-        placement="bottomLeft">
-
-        <Form.Item label="" style={{marginBottom: "5px"}} name="CoD" value={CoD}>
-        <Radio.Group
-        initialValue = "case"
-        buttonStyle="solid"
-        >
-        <Radio.Button value="case">Cases</Radio.Button>
-        <Radio.Button value="death">Deaths</Radio.Button>
-        </Radio.Group>
-        </Form.Item>
-        </Popover>
-        </Col>
-
-        </Row>
-        </Form>
-        </div>
-        </Row>
-
-        <div className="graph">
-        <ResponsiveLine
-        data = {to_plot}
-        margin={{ top: 50, right: 10, bottom: 100, left: 60 }}
-        xScale={{
-          type: "time",
-          format: "%Y-%m-%d",
-        }}
-        xFormat="time:%Y-%m-%d"
-        yScale={{
-          type: "linear",
-          min: "auto",
-          max: "auto",
-          stacked: false,
-          reverse: false
-        }}
-        axisTop={null}
-        axisRight={null}
-        axisLeft={{
-          format: y => numeral(y).format("0.[0]a"),
-          orient: "left",
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: cum_or_inc.concat(' '.concat(CoD.concat('s'))),
-          legendOffset: -55,
-          legendPosition: "middle",
-        }}
-        axisBottom={{
-          format: "%b %d",
-          tickValues: num_ticks,
-          legend: "date",
-          legendOffset: 36,
-          legendPosition: "middle"
-        }}
-        colors={{ scheme: "nivo" }}
-        pointSize={10}
-        pointColor={{ theme: "background" }}
-        pointBorderWidth={2}
-        pointBorderColor={{ from: "serieColor" }}
-        pointLabel="y"
-        pointLabelYOffset={-12}
-        useMesh={true}
-        legends={[
-          {
-            text: {fontSize: 14},
-            anchor: "top-left",
-            direction: "column",
-            justify: false,
-            translateX: 30,
-            translateY: 0,
-            itemsSpacing: 0,
-            itemDirection: "left-to-right",
-            itemWidth: 80,
-            itemHeight: 20,
-            itemOpacity: 0.75,
-            symbolSize: 12,
-            symbolShape: "circle",
-            symbolBorderColor: "rgba(0, 0, 0, .5)",
-            effects: [
-            {
-              on: "hover",
-              style: {
-                itemBackground: "rgba(0, 0, 0, .03)",
-                itemOpacity: 1
-              }
-            }
-            ]
-          }
+        <Form.Item
+        style={{ marginBottom: "0px" }}
+        label="Location"
+        name="areas"
+        rules={[
+          { required: true, message: "Please select areas!" },
           ]}
-          theme = {theme}
-          />
-          <Row>
-          <div className = "introduction">
-          Use the following links to download CSV files to analyze yourself (Right-click -> Save As): {"\n"}
-          <ul>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_data.csv" download target="_blank">
-          All formatted case data from Google </a></li>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_deaths.csv" download target="_blank">
-          All formatted death data from Google </a> </li>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_forecasts_current_0.csv" download target="_blank">
-          Case forecasts on Google data </a> </li>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_deaths_current_0.csv" download target="_blank">
-          Death forecasts on Google data </a> </li>
-          </ul>
+          >
+          <Select
+          showSearch
+          loading = {this.state.data_loading}
+          style={{ width: "100%" }}
+          placeholder="Select Areas"
+          >
+          {optionlist}
+          </Select>
+          </Form.Item>
+          </Popover>
+          
+          
+            <Row>
+
+            <Col>
+            <Popover
+            content={"Choose to plot cumulative or new weekly numbers"}
+            placement="bottomLeft">
+
+            <Form.Item label="Data Type" style={{marginBottom: "5px"}} name="cum_or_inc" value={cum_or_inc}>
+            <Radio.Group
+            initialValue = "Cumulative"
+            buttonStyle="solid"
+            >
+            <Radio.Button value="Cumulative">Cumulative</Radio.Button>
+            <Radio.Button value="New">Weekly New</Radio.Button>
+            </Radio.Group>
+            </Form.Item>
+            </Popover>
+            </Col>
+
+            <Col>
+            <Popover
+            content={"Choose cases or deaths to plot"}
+            placement="bottomLeft">
+
+            <Form.Item label="" style={{marginBottom: "5px"}} name="CoD" value={CoD}>
+            <Radio.Group
+            initialValue = "case"
+            buttonStyle="solid"
+            >
+            <Radio.Button value="case">Cases</Radio.Button>
+            <Radio.Button value="death">Deaths</Radio.Button>
+            </Radio.Group>
+            </Form.Item>
+            </Popover>
+            </Col>
+
+            </Row>
+          </Form>
           </div>
           </Row>
-          <Row>
+
+          <div className="graph">
+            <ResponsiveLine
+            data = {to_plot}
+            margin={{ top: 50, right: 10, bottom: 100, left: 60 }}
+            xScale={{
+              type: "time",
+              format: "%Y-%m-%d",
+            }}
+            xFormat="time:%Y-%m-%d"
+            yScale={{
+              type: "linear",
+              min: "auto",
+              max: "auto",
+              stacked: false,
+              reverse: false
+            }}
+            axisTop={null}
+            axisRight={null}
+            axisLeft={{
+              format: y => numeral(y).format("0.[0]a"),
+              orient: "left",
+              tickSize: 5,
+              tickPadding: 5,
+              tickRotation: 0,
+              legend: cum_or_inc.concat(' '.concat(CoD.concat('s'))),
+              legendOffset: -55,
+              legendPosition: "middle",
+            }}
+            axisBottom={{
+              format: "%b %d",
+              tickValues: num_ticks,
+              legend: "date",
+              legendOffset: 36,
+              legendPosition: "middle"
+            }}
+            colors={{ scheme: "nivo" }}
+            pointSize={10}
+            pointColor={{ theme: "background" }}
+            pointBorderWidth={2}
+            pointBorderColor={{ from: "serieColor" }}
+            pointLabel="y"
+            pointLabelYOffset={-12}
+            useMesh={true}
+            legends={[
+              {
+                text: {fontSize: 14},
+                anchor: "top-left",
+                direction: "column",
+                justify: false,
+                translateX: 30,
+                translateY: 0,
+                itemsSpacing: 0,
+                itemDirection: "left-to-right",
+                itemWidth: 80,
+                itemHeight: 20,
+                itemOpacity: 0.75,
+                symbolSize: 12,
+                symbolShape: "circle",
+                symbolBorderColor: "rgba(0, 0, 0, .5)",
+                effects: [
+                {
+                  on: "hover",
+                  style: {
+                    itemBackground: "rgba(0, 0, 0, .03)",
+                    itemOpacity: 1
+                  }
+                }
+                ]
+              }
+              ]}
+              theme = {theme}
+              />
+            </div>
+          
           <div className = "introduction">
-          The following are the latest forecasts for Countries and the US states used on the main forecast page. These files are based on the 
-          <a href = "https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data"> JHU data</a>
-          <ul>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/us_data.csv" download target="_blank">
-          All formatted case data for US states </a></li>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/us_deaths.csv" download target="_blank">
-          All formatted death data for US states </a></li>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/global_forecasts_current_0.csv" download target="_blank">
-          Case forecasts for all countries </a></li>
-          <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/global_deaths_current_0.csv" download target="_blank">
-          Death forecasts for all countries </a></li>
-          </ul>
-          </div>
-          </Row>
-          <Row>
-          <div className = "introduction">
-          Follow  this <a href = "https://github.com/scc-usc/ReCOVER-COVID-19/tree/master/results/historical_forecasts">
-          link </a>
-          for dated forecasts for German states and Polish Voivodeships. These files are based on the data compiled by 
+            <Row>
+            <div style ={{background: "#fae3a2"}}>
+            <p>
+            [<b>Note</b>: The data is noisy for some regions with decreasing cumulative values and missing values. 
+             In some cases, the forecast for a region may be lower than one of its sub-region which could be a result of less availabiltiy and more noise at the sub-region level.
+             In that case, the sub-region data and forecast are less reliable, yet not impossible, and may point toward possible new outbreaks.
+             See below for our forecasts from alternative sources that are less noisy 
+             and should be preferred for country-level and state-level for US, Germnany, and Poland.]
+            </p>
+            </div>
+            </Row>
+            <Row>
+            <p>Use the following links to download CSV files to analyze yourself (Right-click -> Save As): </p>
+            <ul>
+            <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_data.csv" download target="_blank">
+            All formatted case data from Google </a></li>
+            <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_deaths.csv" download target="_blank">
+            All formatted death data from Google </a> </li>
+            <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_forecasts_current_0.csv" download target="_blank">
+            Case forecasts on Google data </a> </li>
+            <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_deaths_current_0.csv" download target="_blank">
+            Death forecasts on Google data </a> </li>
+            </ul>
+
+            </Row>
+            
+            <Row>
+            <h3>Forecasts from Alternative Sources</h3>
+            <p>The following are the latest forecasts for Countries and the US states used on the main forecast page. These files are based on 
+            the <a href = "https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data"> JHU data </a>
+            </p>
+            
+            <ul>
+            <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/us_data.csv" download target="_blank">
+            All formatted case data for US states </a></li>
+            <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/us_deaths.csv" download target="_blank">
+            All formatted death data for US states </a></li>
+            <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/global_forecasts_current_0.csv" download target="_blank">
+            Case forecasts for all countries </a></li>
+            <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/global_deaths_current_0.csv" download target="_blank">
+            Death forecasts for all countries </a></li>
+            </ul>
+            </Row>
+          
+            <Row>
+            <p>Follow  this <a href = "https://github.com/scc-usc/ReCOVER-COVID-19/tree/master/results/historical_forecasts"> link </a> for
+            dated forecasts for German states and Polish Voivodeships. These files are based on the data compiled by 
             <a href = "https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data" target="_blank"> Germany and Poland Forecast Hub</a>
+            </p>
+            </Row>
+
+            <Row>
+            &nbsp;
+            </Row>
           </div>
-          </Row>
 
           </div>
-          </div>
-
           </div>
           );
         }

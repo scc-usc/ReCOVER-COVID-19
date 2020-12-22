@@ -618,6 +618,7 @@ class Covid19Map extends Component {
       <div>
         <Map
           style={{ height: "65vh", width: "100%" }}
+          preferCanvas = {true}
           zoom={default_zoom}
           minZoom={1}
           center={[37.8, -96]}
