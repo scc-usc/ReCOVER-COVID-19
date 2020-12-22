@@ -6,8 +6,7 @@ index_dat = readtable('indexG.csv', 'Format','%s%s%s%s%s%s%s%s%s%s%s%s%s%s');
 sel_url = 'https://storage.googleapis.com/covid19-open-data/v2/epidemiology.csv';
 urlwrite(sel_url, 'dummy.csv');
 all_tab = readtable('dummy.csv');
-delete dummy.csv
-
+delete dummy.csv;
 disp('Finished loading data');
 toc
 %% Extract valid indices, and create name and population arrays
@@ -38,8 +37,8 @@ date_list = days(all_tab.date - datetime(2020, 1, 23));
 maxt = max(date_list);
 good_dates =  date_list> 0 & date_list < maxt; % Only consider the dates after this
 
-data_4 = zeros(length(all_keys), maxt-1);
-deaths = zeros(length(all_keys), maxt-1);
+data_4 = nan(length(all_keys), maxt-1);
+deaths = nan(length(all_keys), maxt-1);
 ridx = zeros(length(all_tab.key), 1);
 for j= 1:length(all_keys)
      if fo(j) == 0
@@ -52,13 +51,17 @@ val_idx = (ridx>0) & good_dates;
 data_4(sub2ind(size(data_4), ridx(val_idx), date_list(val_idx))) = all_tab.total_confirmed(val_idx);
 deaths(sub2ind(size(data_4), ridx(val_idx), date_list(val_idx))) = all_tab.total_deceased(val_idx);
 
-data_4(isnan(data_4)) = 0;
-deaths(isnan(deaths)) = 0;
-
 disp('Finished pre-processing data ');
 toc
 %%
 tic;
+
+data_4 = fillmissing(data_4, 'previous', 2);
+deaths = fillmissing(deaths, 'previous', 2);
+
+data_4(isnan(data_4)) = 0;
+deaths(isnan(deaths)) = 0;
+
 smooth_factor = 14;
 data_4_s = smooth_epidata(data_4, smooth_factor);
 deaths_s = smooth_epidata(deaths, smooth_factor);
