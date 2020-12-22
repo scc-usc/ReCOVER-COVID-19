@@ -306,7 +306,7 @@ class RoW extends Component {
       const num_ticks = 1 + this.state.width/280;
 
       
-      if(this.state.data_loading & this.state.case_preds.length>0 && this.state.death_preds.length>0)
+      if(this.state.data_loading & this.state.case_preds.length>0 && this.state.death_preds.length>0 && this.state.death_data.length > 0 && this.state.case_data.length > 0)
       {
         this.doneLoading();
       }
