@@ -1,16 +1,19 @@
-import React, { Component } from "react";
-import Covid19Predict from "./covid19predict";
+import React, { Component, Suspense } from "react";
+//import Covid19Predict from "./covid19predict";
 import AboutUS from "./aboutus";
-import ScorePage from './scorePage/scorePage';
+//import ScorePage from './scorePage/scorePage';
 import {HashRouter, Route, Redirect, Switch} from 'react-router-dom'; 
 import Navbar from "./navbar/navbar";
 import 'semantic-ui-css/semantic.min.css';
 import "./covid19app.css";
-import Leaderboard from "./leaderboard/leaderboard";
-import Highlights from "./highlights/highlights";
-import RoW from "./RoW/RoW";
-
-//import pdf from "./highlights.pdf";
+//import Leaderboard from "./leaderboard/leaderboard";
+//import Highlights from "./highlights/highlights";
+//import RoW from "./RoW/RoW";
+const Covid19Predict = React.lazy(() =>import("./covid19predict"));
+const RoW = React.lazy(()=>import("./RoW/RoW"));
+const Leaderboard = React.lazy(()=>import("./leaderboard/leaderboard"));
+const Highlights = React.lazy(()=>import("./highlights/highlights"));
+const ScorePage = React.lazy(()=>import("./scorePage/scorePage"));
 
 class Covid19App extends Component {
   constructor(props){
@@ -94,6 +97,7 @@ class Covid19App extends Component {
   render() {
     const {redirectForecast, redirectAbout, redirectScore, redirectLeaderboard, redirectHighlights, redirectRoW} = this.state;
     return (
+      <Suspense fallback = {<div>Loading...</div>}>
       <HashRouter basename="/">
         {redirectForecast?<Redirect to="/"/>:null}
         {redirectHighlights?<Redirect to="/highlights"/>:null}
@@ -124,6 +128,7 @@ class Covid19App extends Component {
             render={(props) => <RoW {...props} />}/>
         </Switch>
       </HashRouter>
+      </Suspense>
     );
   }
 }

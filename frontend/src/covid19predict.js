@@ -3,12 +3,12 @@ import Covid19Graph from "./covid19graph";
 import Covid19Map from "./covid19map";
 import ModelAPI from "./modelapi";
 import { areaToStr, strToArea, modelToStr } from "./covid19util";
-import { test_data } from "./test_data";
+//import { test_data } from "./test_data";
 import "./covid19predict.css";
-// import Tabs from 'react-bootstrap/Tabs';
+//// import Tabs from 'react-bootstrap/Tabs';
 import { Tab, Tabs } from "react-tabify";
-// import Tab from 'react-bootstrap/Tab';
-// import Tabs from "./tabs/Tabs";
+//// import Tab from 'react-bootstrap/Tab';
+//// import Tabs from "./tabs/Tabs";
 
 import {
   Form,
@@ -37,6 +37,10 @@ import globalLL from "./frontendData/global_lats_longs.txt"
 import population from './frontendData/global_population_data.txt'
 
 import Papa from "papaparse";
+
+
+//const Covid19Graph = React.lazy(() =>import("./covid19graph"));
+//const Covid19Map = React.lazy(() =>import("./covid19map"));
 
 var global_lat_long;
 var populationVect;

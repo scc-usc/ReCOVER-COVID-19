@@ -8,6 +8,9 @@ import population from './frontendData/global_population_data.txt'
 
 import Papa from "papaparse";
 
+//const{ Map, TileLayer, CircleMarker, Tooltip, LayersControl, LayerGroup } = React.lazy(() =>import("react-leaflet"));
+//React.lazy(import("leaflet/dist/leaflet.css"));
+
 var global_lat_long;
 var populationVect;
 
@@ -618,7 +621,6 @@ class Covid19Map extends Component {
       <div>
         <Map
           style={{ height: "65vh", width: "100%" }}
-          preferCanvas = {true}
           zoom={default_zoom}
           minZoom={1}
           center={[37.8, -96]}

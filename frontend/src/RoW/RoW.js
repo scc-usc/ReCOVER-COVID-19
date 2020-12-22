@@ -3,7 +3,7 @@ import Papa from "papaparse";
 import 'antd/dist/antd.css';
 import "./RoW.css";
 import { ResponsiveLine } from "@nivo/line";
-import moment from "moment";
+//import moment from "moment";
 import numeral from "numeral";
 
 import {
@@ -315,21 +315,22 @@ class RoW extends Component {
       }
       
       return (
-       <div className="page-wrapper">
+       <div style={{color: "#1f1c1c"}}>
        <div className="grid">
+         <div className = "introduction">
          <Row>
          <h1>Forecasts for "Almost" Everywhere</h1>
          </Row>
 
          <Row>
-         <div className = "introduction">
          <p>
          Use this page to see forecasts not addressed on the <a href="#/"> main page</a>. Forecasts are available for all locations (around 20,000) for which Google makes its data 
          <a href="https://github.com/scc-usc/covid19-forecast-bench"> public</a>. 
          </p>
-         </div>
+         
          </Row> 
-       
+         </div>
+
          <Row>
          <div className="form-column-row">
          
@@ -407,8 +408,8 @@ class RoW extends Component {
           </Form>
           </div>
           </Row>
-
-          <div className="graph">
+          <Row>
+          <div className="graph-row">
             <ResponsiveLine
             data = {to_plot}
             margin={{ top: 50, right: 10, bottom: 100, left: 60 }}
@@ -481,7 +482,7 @@ class RoW extends Component {
               theme = {theme}
               />
             </div>
-          
+          </Row>
           <div className = "introduction">
             <Row>
             <div style ={{background: "#fae3a2"}}>
@@ -496,6 +497,7 @@ class RoW extends Component {
             </Row>
             <Row>
             <p>Use the following links to download CSV files to analyze yourself (Right-click -> Save As): </p>
+            
             <ul>
             <li><a href =  "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_data.csv" download target="_blank">
             All formatted case data from Google </a></li>
