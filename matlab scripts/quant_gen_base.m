@@ -25,6 +25,7 @@ Mdl = cell(num_ahead, 1); Mdl_d = cell(num_ahead, 1);
 for tt = 1:(num_ens_weeks + num_ahead*(7/week_len))
     forecast_date = now_date - week_len*tt;
     dirname = datestr(forecast_date, 'yyyy-mm-dd');
+    fullpath = [path dirname];
     xx = readtable([fullpath '/' prefix '_forecasts_cases.csv']); 
     xxd = readtable([fullpath '/' prefix '_forecasts_deaths.csv']); 
     

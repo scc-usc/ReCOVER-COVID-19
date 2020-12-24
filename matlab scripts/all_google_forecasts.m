@@ -18,7 +18,7 @@ temp_tab = sortrows(temp_tab, 'all_keys');
 all_keys = temp_tab.all_keys;
 popu = temp_tab.popu;
 [~, idx] = ismember(all_keys, index_dat.key);
-delim = repmat('-', [length(all_keys) 1]);
+delim = repmat('|', [length(all_keys) 1]);
 countries = strcat(index_dat.country_name(idx), delim, index_dat.subregion1_name(idx), delim, index_dat.subregion2_name(idx), delim, index_dat.locality_name(idx));
 countries_hier = [index_dat.country_name(idx),index_dat.subregion1_name(idx), index_dat.subregion2_name(idx), index_dat.locality_name(idx)];
 
@@ -33,8 +33,9 @@ end
 [~, lo] = ismember(all_keys, flip(all_tab.key));
 lo = length(all_tab.key)+1 - lo;
 
+%%
 date_list = days(all_tab.date - datetime(2020, 1, 23));
-maxt = max(date_list);
+maxt = days(datetime(floor(now),'ConvertFrom','datenum') - datetime(2020, 1, 23));
 good_dates =  date_list> 0 & date_list < maxt; % Only consider the dates after this
 
 data_4 = nan(length(all_keys), maxt-1);
@@ -106,6 +107,7 @@ toc
 
 %% Write files
 tic;
+gt_offset = T_full - 200; % Only need to show last 200/7 weeks
 
 prefix = 'google'; file_prefix =  ['../results/forecasts/' prefix];
 bad_idx = ~compute_region;
@@ -114,8 +116,8 @@ bad_idx_d = ~compute_region_d;
 startdate = datetime(2020, 1, 23) + caldays(T_full);
 file_suffix = '0'; 
 
-writetable(infec2table(data_4, countries, zeros(length(countries), 1), datetime(2020, 1, 23)), '../results/forecasts/google_data.csv');
-writetable(infec2table(deaths, countries, zeros(length(countries), 1), datetime(2020, 1, 23)), '../results/forecasts/google_deaths.csv');
+writetable(infec2table(data_4(:, gt_offset:end), countries, zeros(length(countries), 1), datetime(2020, 1, 23)+gt_offset-1), '../results/forecasts/google_data.csv');
+writetable(infec2table(deaths(:, gt_offset:end), countries, zeros(length(countries), 1), datetime(2020, 1, 23)+gt_offset-1), '../results/forecasts/google_deaths.csv');
 
 writetable(infec2table(infec_un, countries, bad_idx, startdate), [file_prefix '_forecasts_current_' file_suffix '.csv']);
 writetable(infec2table(pred_deaths, countries, bad_idx_d, startdate), [file_prefix '_deaths_current_' file_suffix '.csv']);

@@ -9,7 +9,7 @@ quant_cases = quant_deaths;
 now_date = datetime((now),'ConvertFrom','datenum', 'TimeZone', 'America/Los_Angeles');
 path = '../results/historical_forecasts/';
 dirname = datestr(now_date, 'yyyy-mm-dd');
-fullpath = [path dirname];      
+fullpath = [path dirname];
 
 xx = readcell([fullpath '/' prefix '_data.csv']); data_4 = cell2mat(xx(2:end, 3:end));
 xx = readcell([fullpath '/' prefix '_deaths.csv']); deaths = cell2mat(xx(2:end, 3:end));
@@ -29,9 +29,14 @@ Mdl = cell(num_ahead, 1); Mdl_d = cell(num_ahead, 1);
 for tt = 1:(num_ens_weeks + num_ahead*(7/week_len))
     forecast_date = now_date - week_len*tt;
     dirname = datestr(forecast_date, 'yyyy-mm-dd');
-    xx = readcell([fullpath '/' prefix '_forecasts_cases.csv']); 
-    xxd = readcell([fullpath '/' prefix '_forecasts_deaths.csv']); 
+    fullpath = [path dirname];
     
+    try
+        xx = readcell([fullpath '/' prefix '_forecasts_cases.csv']);
+        xxd = readcell([fullpath '/' prefix '_forecasts_deaths.csv']);
+    catch
+        continue;
+    end
     preds = cell2mat(xx(2:end, 3:end));
     preds = diff(preds(cidx, 1:7:end)')';
     
@@ -79,8 +84,8 @@ All_Mdl_d = TreeBagger(100, AllXdeaths, (AllYdeaths-AllXdeaths(:, 1)), 'Method',
 
 pl_row_idx = startsWith(placenames, 'PL');
 gr_row_idx = startsWith(placenames, 'GM');
-pl_pred_idx = find(cellfun(@(x)(weekday(x)==6), pred_dates)); 
-gr_pred_idx = find(cellfun(@(x)(weekday(x)==7), pred_dates)); 
+pl_pred_idx = find(cellfun(@(x)(weekday(x)==6), pred_dates));
+gr_pred_idx = find(cellfun(@(x)(weekday(x)==7), pred_dates));
 pl_gt_idx = find(cellfun(@(x)(weekday(x)==6), gt_dates));
 gr_gt_idx = find(cellfun(@(x)(weekday(x)==7), gt_dates));
 
@@ -132,6 +137,7 @@ end
 
 quant_preds_cases = round((quant_preds_cases + abs(quant_preds_cases))/2);
 quant_preds_deaths = round((quant_preds_deaths + abs(quant_preds_deaths))/2);
+
 %% Plot
 % sel_idx = 30;
 % thisquant = squeeze(quant_preds_deaths(sel_idx, :, :));
