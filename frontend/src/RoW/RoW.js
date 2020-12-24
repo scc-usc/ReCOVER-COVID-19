@@ -178,7 +178,7 @@ class RoW extends Component {
     {  
       for(i=0; i<thisdata.length; i++)
       {
-        if(thisdata[i] > 0){
+        if(thisdata[i] > 0 && this.state.data_date[i]){
           dd.push({
             x: this.state.data_date[i],
             y: thisdata[i]
@@ -188,10 +188,13 @@ class RoW extends Component {
       var dd_p = [];
       for(i=0; i<preds.length; i++)
       {
+        if (this.state.pred_date[i])
+        {
         dd_p.push({
           x: this.state.pred_date[i],
           y: preds[i]
         });
+      }
       }
     }
     else
@@ -201,7 +204,7 @@ class RoW extends Component {
       for(i=1; i<thisdata.length; i++)
       {
         diff_dat = thisdata[i] -base_dat;
-        if(diff_dat >= 0 && base_dat> 0)
+        if(diff_dat >= 0 && base_dat> 0 && this.state.data_date[i])
         {
           dd.push({
             x: this.state.data_date[i],
@@ -216,7 +219,7 @@ class RoW extends Component {
       for(i=0; i<preds.length; i++)
       {
         diff_dat = preds[i] -base_dat;
-        if(diff_dat >= 0 && base_dat> 0)
+        if(diff_dat >= 0 && base_dat> 0 && this.state.pred_date[i])
         {
           dd_p.push({
             x: this.state.pred_date[i],
