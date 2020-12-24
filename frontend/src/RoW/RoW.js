@@ -325,7 +325,7 @@ class RoW extends Component {
          <Row>
          <p>
          Use this page to see forecasts not addressed on the <a href="#/"> main page</a>. Forecasts are available for all locations (around 20,000) for which Google makes its data 
-         <a href="https://github.com/scc-usc/covid19-forecast-bench"> public</a>. 
+         <a href="https://github.com/GoogleCloudPlatform/covid-19-open-data"> public</a>. 
          </p>
          
          </Row> 
