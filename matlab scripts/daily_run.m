@@ -36,7 +36,7 @@ disp('Finished updating Global forecasts');
 clear;
 write_county_files;
 
-%% For Others (Currently only Germany, Poland)
+%% For "Others": Specifically for Germany, Poland states
 
 clear;
 load_data_other;
@@ -47,6 +47,8 @@ KIT_submit;
 disp('Finished other forecasts');
 
 %% For every location available in Google Data
-
 clear;
 all_google_forecasts;
+
+%% Add global forecasts lower and upper bounds
+quant_gen_sampled;
