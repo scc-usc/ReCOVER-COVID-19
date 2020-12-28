@@ -84,9 +84,13 @@ compute_region = data_4_s(:, end)> 1;
 
 dalpha=1; dk = 4; lags = 2; djp = 7; dwin = 50*ones(size(data_4, 1), 1); % Change to learn in the future
 lowinc = data_4(439, end-lags*dk) - data_4(439, end-2*dwin) < 20; dwin(lowinc) = 100;
-best_param_list = [2 7 8 ]; % Change to learn in the future
 
-beta_after = var_ind_beta_un(data_4_s(:, 1:T_full), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, compute_region);
+best_param_list = [2 7 8 ]; % Change to learn in the future
+%beta_after = var_ind_beta_un(data_4_s(:, 1:T_full), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, compute_region);
+
+best_param_list = [3 7 10]; % For holidays!
+beta_after  = var_ind_beta_un(data_4_s(:, 1:T_full), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, compute_region, 50);
+
 infec_un = var_simulate_pred_un(data_4_s(:, 1:T_full), passengerFlow*0, beta_after, popu, best_param_list(:, 1), horizon, best_param_list(:, 2), un, base_infec);
 infec_un_re = infec_un - repmat(base_infec - data_4_s(:, T_full), [1, size(infec_un, 2)]);
 infec_data = [data_4_s(:, 1:T_full), infec_un_re];
@@ -113,7 +117,7 @@ prefix = 'google'; file_prefix =  ['../results/forecasts/' prefix];
 bad_idx = ~compute_region;
 bad_idx_d = ~compute_region_d;
 
-startdate = datetime(2020, 1, 23) + caldays(T_full);
+startdate = datetime(2020, 1, 23) + caldays(T_full+1);
 file_suffix = '0'; 
 
 writetable(infec2table(data_4(:, gt_offset:end), countries, zeros(length(countries), 1), datetime(2020, 1, 23)+gt_offset), '../results/forecasts/google_data.csv');

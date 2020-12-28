@@ -3,14 +3,16 @@ addpath('./hyper_params');
 
 %% For US
 load_data_us;
-
+lowidx = popu < 1;
 smooth_factor = 14;
 data_4_s = smooth_epidata(data_4, smooth_factor);
 deaths_s = smooth_epidata(deaths, smooth_factor);
 
 xx = load(['../results/unreported/' prefix '_all_unreported.csv']);
 un_from_file = xx(2:end, end);
-[best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, un_from_file, size(data_4, 2));
+%[best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, un_from_file, size(data_4, 2));
+[best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, un_from_file, size(data_4, 2), 0, [3], [7], [10], 50);
+
 dhyperparams;
 write_unreported;
 save us_hyperparam_latest.mat best_param_list MAPEtable_s best_death_hyperparam one_hyperparam;
@@ -25,7 +27,9 @@ deaths_s = smooth_epidata(deaths, smooth_factor);
 
 xx = load(['../results/unreported/' prefix '_all_unreported.csv']);
 un_from_file = xx(2:end, end);
-[best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, un_from_file, size(data_4, 2));
+%[best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, un_from_file, size(data_4, 2));
+[best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, un_from_file, size(data_4, 2), 0, [3], [7], [10], 50);
+
 dhyperparams;
 write_unreported;
 save global_hyperparam_latest.mat best_param_list MAPEtable_s best_death_hyperparam one_hyperparam;
@@ -51,4 +55,7 @@ clear;
 all_google_forecasts;
 
 %% Add global forecasts lower and upper bounds
+clear;
 quant_gen_sampled;
+
+

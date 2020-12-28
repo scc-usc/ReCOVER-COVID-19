@@ -1,7 +1,6 @@
 path = '../results/historical_forecasts/';
 
-thisday = size(data_4, 2);
-forecast_date = datetime(2020, 1, 23)+caldays(thisday);
+forecast_date = datetime((now),'ConvertFrom','datenum', 'TimeZone', 'America/Los_Angeles');
 dirname = datestr(forecast_date, 'yyyy-mm-dd');
 
 fullpath = [path dirname];

@@ -139,7 +139,7 @@ quant_preds_cases = round((quant_preds_cases + abs(quant_preds_cases))/2);
 quant_preds_deaths = round((quant_preds_deaths + abs(quant_preds_deaths))/2);
 
 %% Plot
-% sel_idx = 30;
+% sel_idx = 17;
 % thisquant = squeeze(quant_preds_deaths(sel_idx, :, :));
 % gt_len = 6;
 % point_forecast = num2cell([(gt_len+1:gt_len+4)' mean_preds_deaths(sel_idx, :)']);
