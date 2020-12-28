@@ -82,24 +82,24 @@ case_ub_preds = cumsum([pred_cases(:, 1) squeeze(quant_preds_cases(:, :, end))],
 death_lb_preds = cumsum([pred_deaths(:, 1) squeeze(quant_preds_deaths(:, :, 1))], 2);
 death_ub_preds = cumsum([pred_deaths(:, 1) squeeze(quant_preds_deaths(:, :, end))], 2);
 %% Plot
-sel_idx = 156;
-dt = diff(deaths(sel_idx, :));
-thisquant = diff([death_lb_preds(sel_idx, :)' death_ub_preds(sel_idx, :)']);
-gt_len = length(dt);
-figure;
-plot(datetime(2020, 1, 22)+(1:gt_len), dt'); hold on;
-plot(datetime(2020, 1, 22)+(gt_len+1:gt_len+num_ahead), mean_preds_deaths(sel_idx, 1:num_ahead)'); hold on;
-plot(datetime(2020, 1, 22)+(gt_len+1:gt_len+num_ahead), thisquant(1:num_ahead, :)); hold off;
-title([placenames{sel_idx} 'Deaths']);
-
-figure;
-dt = diff(data_4(sel_idx, :));
-thisquant = diff([case_lb_preds(sel_idx, :)' case_ub_preds(sel_idx, :)']);
-gt_len = length(dt);
-plot(datetime(2020, 1, 22)+(1:gt_len), dt'); hold on;
-plot(datetime(2020, 1, 22)+(gt_len+1:gt_len+num_ahead), mean_preds_cases(sel_idx, 1:num_ahead)'); hold on;
-plot(datetime(2020, 1, 22)+(gt_len+1:gt_len+num_ahead), thisquant(1:num_ahead, :)); hold off;
-title([placenames{sel_idx} 'Cases']);
+% sel_idx = 156;
+% dt = diff(deaths(sel_idx, :));
+% thisquant = diff([death_lb_preds(sel_idx, :)' death_ub_preds(sel_idx, :)']);
+% gt_len = length(dt);
+% figure;
+% plot(datetime(2020, 1, 22)+(1:gt_len), dt'); hold on;
+% plot(datetime(2020, 1, 22)+(gt_len+1:gt_len+num_ahead), mean_preds_deaths(sel_idx, 1:num_ahead)'); hold on;
+% plot(datetime(2020, 1, 22)+(gt_len+1:gt_len+num_ahead), thisquant(1:num_ahead, :)); hold off;
+% title([placenames{sel_idx} 'Deaths']);
+% 
+% figure;
+% dt = diff(data_4(sel_idx, :));
+% thisquant = diff([case_lb_preds(sel_idx, :)' case_ub_preds(sel_idx, :)']);
+% gt_len = length(dt);
+% plot(datetime(2020, 1, 22)+(1:gt_len), dt'); hold on;
+% plot(datetime(2020, 1, 22)+(gt_len+1:gt_len+num_ahead), mean_preds_cases(sel_idx, 1:num_ahead)'); hold on;
+% plot(datetime(2020, 1, 22)+(gt_len+1:gt_len+num_ahead), thisquant(1:num_ahead, :)); hold off;
+% title([placenames{sel_idx} 'Cases']);
 %% Write to file
 % countries = placenames;
 % case_vals = cell((length(quant_cases))*(length(cidx))*num_ahead, 7);

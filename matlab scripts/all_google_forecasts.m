@@ -116,8 +116,8 @@ bad_idx_d = ~compute_region_d;
 startdate = datetime(2020, 1, 23) + caldays(T_full);
 file_suffix = '0'; 
 
-writetable(infec2table(data_4(:, gt_offset:end), countries, zeros(length(countries), 1), datetime(2020, 1, 23)+gt_offset-1), '../results/forecasts/google_data.csv');
-writetable(infec2table(deaths(:, gt_offset:end), countries, zeros(length(countries), 1), datetime(2020, 1, 23)+gt_offset-1), '../results/forecasts/google_deaths.csv');
+writetable(infec2table(data_4(:, gt_offset:end), countries, zeros(length(countries), 1), datetime(2020, 1, 23)+gt_offset), '../results/forecasts/google_data.csv');
+writetable(infec2table(deaths(:, gt_offset:end), countries, zeros(length(countries), 1), datetime(2020, 1, 23)+gt_offset), '../results/forecasts/google_deaths.csv');
 
 writetable(infec2table(infec_un, countries, bad_idx, startdate), [file_prefix '_forecasts_current_' file_suffix '.csv']);
 writetable(infec2table(pred_deaths, countries, bad_idx_d, startdate), [file_prefix '_deaths_current_' file_suffix '.csv']);
