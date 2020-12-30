@@ -34,7 +34,11 @@ else
 end
 param_list = [X(:), Y(:), Z(:), A(:) B(:)];
 
-idx = param_list(:, 1).*param_list(:, 2) <=14;
+idx = param_list(:, 1).*param_list(:, 2) <=21; % filter out long horizons
+if length(idx)<1
+    idx = param_list(:, 1)>0; % Use all parameters without filtering
+end
+
 param_list = param_list(idx, :);
 
 RMSE_all = zeros(size(data_4, 1), size(param_list, 1));
