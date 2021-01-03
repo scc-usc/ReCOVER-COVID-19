@@ -72,8 +72,8 @@ for cid = 1:nn
     med_idx = find(abs(quant_deaths-0.5)< 1e-5);
     quant_preds_deaths(cid, :, :) = squeeze(quant_preds_deaths(cid, :, :)) - quant_preds_deaths(cid, :, med_idx)' + mean_preds_deaths(cid, :)';
 end
-% quant_preds_cases = (quant_preds_cases + abs(quant_preds_cases))/2;
-% quant_preds_deaths = (quant_preds_deaths + abs(quant_preds_deaths))/2;
+quant_preds_cases = (quant_preds_cases + abs(quant_preds_cases))/2;
+quant_preds_deaths = (quant_preds_deaths + abs(quant_preds_deaths))/2;
 %% Extract lower and upper bounds
 
 case_lb_preds = cumsum([pred_cases(:, 1) squeeze(quant_preds_cases(:, :, 1))], 2);
@@ -81,8 +81,9 @@ case_ub_preds = cumsum([pred_cases(:, 1) squeeze(quant_preds_cases(:, :, end))],
 
 death_lb_preds = cumsum([pred_deaths(:, 1) squeeze(quant_preds_deaths(:, :, 1))], 2);
 death_ub_preds = cumsum([pred_deaths(:, 1) squeeze(quant_preds_deaths(:, :, end))], 2);
+
 %% Plot
-% sel_idx = 156;
+% sel_idx = 143;
 % dt = diff(deaths(sel_idx, :));
 % thisquant = diff([death_lb_preds(sel_idx, :)' death_ub_preds(sel_idx, :)']);
 % gt_len = length(dt);

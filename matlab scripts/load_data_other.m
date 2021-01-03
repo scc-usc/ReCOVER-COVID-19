@@ -33,6 +33,9 @@ nn = length(popu);
 data_4 = zeros(nn, maxt); data_4(:, end-7:end) = -1; %-1 indicates data not available
 for ll = 1:length(germanycasetable.date)
     tt = days(germanycasetable.date(ll) - datetime(2020, 1, 23));
+    if tt < 0
+        tt = tt+365;
+    end
     cc = find(strcmpi(countries, germanycasetable.location(ll)));
     if length(cc)==1
         data_4(cc, tt) = germanycasetable.value(ll);
@@ -46,6 +49,9 @@ nn = length(popu);
 deaths = zeros(nn, maxt); deaths(:, end-7:end) = -1; %-1 indicates data not available
 for ll = 1:length(germanydeathtable.date)
     tt = days(germanydeathtable.date(ll) - datetime(2020, 1, 23));
+    if tt < 0
+        tt = tt+365;
+    end
     cc = find(strcmpi(countries, germanydeathtable.location(ll)));
     if length(cc)==1
         deaths(cc, tt) = germanydeathtable.value(ll);
