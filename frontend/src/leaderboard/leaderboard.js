@@ -4,7 +4,7 @@ import Iframe from 'react-iframe';
 import "../covid19app.css";
 import "./leaderboard.css";
 import { Button } from "antd";
-
+import ReactGA from "react-ga";
 
 const GFH = "https://htmlpreview.github.io/?https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/frontend/src/leaderboard/GFH_compare.html";
 const USFH = "https://htmlpreview.github.io/?https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/frontend/src/leaderboard/USFH_compare.html";
@@ -26,6 +26,8 @@ class Leaderboard extends Component {
 	componentDidMount() {
   		this.updateWindowDimensions();
   		window.addEventListener('resize', this.updateWindowDimensions);
+      ReactGA.initialize('UA-186385643-1');
+      ReactGA.pageview('/ReCOVER/evaluation');
 	}
 
 	componentWillUnmount() {
@@ -59,6 +61,10 @@ class Leaderboard extends Component {
 
 
     render() {
+        const openInNewTab = (url) => {
+  const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+  if (newWindow) newWindow.opener = null
+}
 
         return (
             <div className="page-wrapper">
@@ -83,6 +89,9 @@ class Leaderboard extends Component {
                   		<Button onClick={()=>this.setState({which_hub : GFH})}>
 						Germany/Poland Forecast Hub                  
                   		</Button>
+                      <Button onClick = {()=> openInNewTab('https://covidcompare.io/model_performance')}>
+                      Country-level Evaulation by "covidcompare.io"
+                    </Button>
                 		</div>
                     </Row> 
                     <Row>

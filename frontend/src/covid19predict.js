@@ -38,7 +38,7 @@ import population from './frontendData/global_population_data.txt'
 
 import Papa from "papaparse";
 
-
+import ReactGA from "react-ga";
 //const Covid19Graph = React.lazy(() =>import("./covid19graph"));
 //const Covid19Map = React.lazy(() =>import("./covid19map"));
 
@@ -159,6 +159,8 @@ class Covid19Predict extends PureComponent {
 
   ////////////////////////////////////
   componentDidMount() {
+    ReactGA.initialize('UA-186385643-1');
+    ReactGA.pageview('/ReCOVER/main');
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
     if (this.state.plainareas.length < 1){
