@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import "./aboutus.css";
 import "./covid19app.css";
+import ReactGA from "react-ga";
 
 class AboutUs extends Component {
+
+    componentDidMount(){
+        ReactGA.initialize('UA-186385643-1');
+        ReactGA.pageview('/ReCOVER/about');
+    }
+
     render() {
         return (
             <div className="page-wrapper">

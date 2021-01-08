@@ -15,6 +15,7 @@ const Leaderboard = React.lazy(()=>import("./leaderboard/leaderboard"));
 const Highlights = React.lazy(()=>import("./highlights/highlights"));
 const ScorePage = React.lazy(()=>import("./scorePage/scorePage"));
 
+
 class Covid19App extends Component {
   constructor(props){
     super(props);

@@ -5,6 +5,7 @@ import "./RoW.css";
 import { ResponsiveLine } from "@nivo/line";
 //import moment from "moment";
 import numeral from "numeral";
+import ReactGA from "react-ga";
 
 import {
   List,
@@ -73,7 +74,8 @@ class RoW extends Component {
   componentDidMount() {
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
-
+    ReactGA.initialize('UA-186385643-1');
+    ReactGA.pageview('/ReCOVER/RoW');
     this.setState({arealist: globallist});
   }
 
@@ -328,7 +330,7 @@ class RoW extends Component {
          <Row>
          <p>
          Use this page to see forecasts not addressed on the <a href="#/"> main page</a>. Forecasts are available for all locations (around 20,000) for which Google makes its data 
-         <a href="https://github.com/GoogleCloudPlatform/covid-19-open-data"> public</a>. 
+         <a href="https://github.com/GoogleCloudPlatform/covid-19-open-data" target="_blank"> public</a>. 
          </p>
          
          </Row> 

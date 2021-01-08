@@ -68,7 +68,7 @@ data_4_s = smooth_epidata(data_4, smooth_factor);
 deaths_s = smooth_epidata(deaths, smooth_factor);
 
 %%
-un = 2*ones(size(data_4, 1), 1); % Select the ratio of true cases to reported cases. 1 for default.
+un = 1.5*ones(size(data_4, 1), 1); % Select the ratio of true cases to reported cases. 1 for default.
 no_un_idx = un.*data_4(:, end)./popu > 0.2;
 un(no_un_idx) = 1; % These places have enough prevelance that un =1 is sufficient
 
