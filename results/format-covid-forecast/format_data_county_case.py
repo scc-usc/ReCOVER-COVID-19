@@ -5,7 +5,12 @@ import urllib.request
 import io
 
 FORECAST_DATE = datetime.datetime.today()
-FIRST_WEEK = FORECAST_DATE + datetime.timedelta(5)
+# FIRST_WEEK is the first Saturday after forecast date.
+FIRST_WEEK = FORECAST_DATE
+for i in range(0, 8):
+    if FIRST_WEEK.weekday() == 5:
+        break
+    FIRST_WEEK += datetime.timedelta(1)
 INPUT_FILENAME = "county_forecasts_quarantine_0.csv"
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha.csv"
 COLUMNS = ["forecast_date", "target", "target_end_date", "location", "type", "quantile", "value"]
@@ -34,7 +39,7 @@ def load_id_region_mapping():
 
 def load_truth_cumulative_cases():
     dataset = {}
-    with open(INPUT_FILENAME) as f:
+    with open("county_data.csv") as f:
         reader = csv.reader(f)
         header = next(reader, None)
 
@@ -42,8 +47,8 @@ def load_truth_cumulative_cases():
             region_id = row[1].strip().zfill(5)
             if region_id not in ID_REGION_MAPPING:
                 continue
-            date = header[2]
-            val = int(row[2])
+            date = header[-1]
+            val = int(row[-1])
             if date not in dataset:
                 dataset[date] = {}
 
