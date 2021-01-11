@@ -137,7 +137,8 @@ def add_to_dataframe(dataframe, forecast, observed):
         if target_end_date <= FORECAST_DATE:
             continue
 
-        if target_end_date >= FIRST_WEEK and target_end_date.weekday() == 5:
+        if (target_end_date_str == FIRST_WEEK.strftime("%Y-%m-%d")) or \
+        (target_end_date > FIRST_WEEK and target_end_date.weekday() == 5):
             cum_week += 1
             target = str(cum_week) + " wk ahead inc case"
             last_week_date = target_end_date - datetime.timedelta(7)
