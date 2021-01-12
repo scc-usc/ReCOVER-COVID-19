@@ -121,6 +121,7 @@ class Covid19Predict extends PureComponent {
       worst_effort: false,
       best_effort: false,
       mainGraphData: {},
+      mainGraphDataShown: {},
       days: 14,
       dynamicMapOn: true,
       perMillion: false,
@@ -282,7 +283,7 @@ class Covid19Predict extends PureComponent {
               state: areaObj.state,
               country: areaObj.country,
               models: this.state.models,
-              days: this.state.days,
+              days: 98,
               current: this.state.current,
               worst_effort: this.state.worst_effort,
               best_effort: this.state.best_effort,
@@ -296,6 +297,7 @@ class Covid19Predict extends PureComponent {
                   [areaStr]: data1,
                 },
               }));
+              this.onDaysToPredictChange(this.state.days);
             }
           );
         } else {
@@ -341,6 +343,14 @@ class Covid19Predict extends PureComponent {
               [areaStr]: prevState.mainGraphData[areaStr],
             };
           }, {}),
+        mainGraphDataShown: Object.keys(prevState.mainGraphDataShown)
+          .filter(areaStr => areaStr !== targetAreaStr)
+          .reduce((newMainGraphDataShown, areaStr) => {
+            return {
+              ...newMainGraphDataShown,
+              [areaStr]: prevState.mainGraphDataShown[areaStr],
+            };
+          }, {})
       };
     });
   }
@@ -411,8 +421,26 @@ class Covid19Predict extends PureComponent {
    */
   onDaysToPredictChange(days) {
     const prevAreas = this.state.areas;
-    this.setState({ days }, () => {
-      this.reloadAll();
+    let mainGraphDataShown = JSON.parse(JSON.stringify(this.state.mainGraphData));
+    if (days >= 0) {
+      for (const [areaStr, areaSeries] of Object.entries(mainGraphDataShown)) {
+        for (var i = 0; i < mainGraphDataShown[areaStr]['predictions'].length; i++) {
+          const timeSeries = areaSeries['predictions'][i]['time_series'];
+          mainGraphDataShown[areaStr]['predictions'][i]['time_series'] = timeSeries.slice(0, days == 98? timeSeries.length : -(98 - days) / 7);
+        }
+      }
+    } else {
+      for (const [areaStr, areaSeries] of Object.entries(mainGraphDataShown)) {
+        mainGraphDataShown[areaStr]['predictions'][0]['time_series'] = [];
+        mainGraphDataShown[areaStr]['predictions'][1]['time_series'] = [];
+        mainGraphDataShown[areaStr]['observed'] = areaSeries['observed'].slice(0, days/7);
+        mainGraphDataShown[areaStr]['observed_deaths'] = areaSeries['observed_deaths'].slice(0, days/7);
+      }
+    }
+    console.log(mainGraphDataShown);
+    this.setState({
+      days: days,
+      mainGraphDataShown: mainGraphDataShown
     });
   }
 
@@ -431,6 +459,7 @@ class Covid19Predict extends PureComponent {
       {
         areas: [],
         mainGraphData: {},
+        mainGraphDataShown: {}
       },
       () => {
           if (this.state.plainareas.length < 1){
@@ -550,6 +579,7 @@ class Covid19Predict extends PureComponent {
       modelsList,
       days,
       mainGraphData,
+      mainGraphDataShown,
       dynamicMapOn,
       perMillion,
       dataType,
@@ -911,7 +941,7 @@ class Covid19Predict extends PureComponent {
                 <div>
                   <div className="graph-wrapper">
                     <Covid19Graph
-                      data={mainGraphData}
+                      data={mainGraphDataShown}
                       perMillion = {perMillion}
                       dataType={dataType}
                       onNoData={this.onNoData}
