@@ -26,6 +26,7 @@ const NavBar = () => {
               <Nav.Link className="navbar-link" href="#row">All Locations!</Nav.Link>
               <Nav.Link className="navbar-link" href="#score">Reproduction Number</Nav.Link>
               <Nav.Link className="navbar-link" href="#highlights">Highlights</Nav.Link>
+              <Nav.Link className="navbar-link" href="#scenarios">Vaccine Scenarios</Nav.Link>
               <Nav.Link className="navbar-link" href="#leaderboard">Evaluation</Nav.Link>
               <Nav.Link className="navbar-link" href="#about">About Us</Nav.Link>
             </Nav>
