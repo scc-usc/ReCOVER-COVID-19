@@ -14,12 +14,13 @@ const RoW = React.lazy(()=>import("./RoW/RoW"));
 const Leaderboard = React.lazy(()=>import("./leaderboard/leaderboard"));
 const Highlights = React.lazy(()=>import("./highlights/highlights"));
 const ScorePage = React.lazy(()=>import("./scorePage/scorePage"));
-
+const Scenarios = React.lazy(()=>import("./scenarios/scenarios"));
 
 class Covid19App extends Component {
   constructor(props){
     super(props);
     this.state = {
+      redirectScenarios: false,
       redirectForecast: false,
       redirectAbout: false,
       redirectScore: false,
@@ -31,6 +32,7 @@ class Covid19App extends Component {
 
   redirectForecast = ()=>{
     this.setState({
+      redirectScenarios: false,
       redirectForecast:true,
       redirectAbout: false,
       redirectScore: false,
@@ -42,6 +44,7 @@ class Covid19App extends Component {
 
   redirectAbout = ()=>{
     this.setState({
+      redirectScenarios: false,
       redirectForecast: false,
       redirectAbout:true,
       redirectScore: false,
@@ -53,6 +56,7 @@ class Covid19App extends Component {
 
   redirectScore = ()=>{
     this.setState({
+      redirectScenarios: false,
       redirectForecast: false,
       redirectAbout:false,
       redirectScore: true,
@@ -64,6 +68,7 @@ class Covid19App extends Component {
 
   redirectLeaderboard = ()=>{
     this.setState({
+      redirectScenarios: false,
       redirectForecast: false,
       redirectAbout: false,
       redirectScore: false,
@@ -75,6 +80,7 @@ class Covid19App extends Component {
 
   redirectHighlights = ()=>{
     this.setState({
+      redirectScenarios: false,
       redirectForecast: false,
       redirectAbout: false,
       redirectScore: false,
@@ -86,6 +92,18 @@ class Covid19App extends Component {
 
   redirectRoW = ()=>{
     this.setState({
+      redirectScenarios: false,
+      redirectForecast: false,
+      redirectAbout: false,
+      redirectScore: false,
+      redirectLeaderboard: false,
+      redirectHighlights: false,
+      redirectRoW: true
+    });
+  }
+    redirectScenarios = ()=>{
+    this.setState({
+      redirectScenarios: true,
       redirectForecast: false,
       redirectAbout: false,
       redirectScore: false,
@@ -96,7 +114,7 @@ class Covid19App extends Component {
   }
 
   render() {
-    const {redirectForecast, redirectAbout, redirectScore, redirectLeaderboard, redirectHighlights, redirectRoW} = this.state;
+    const {redirectForecast, redirectAbout, redirectScore, redirectLeaderboard, redirectHighlights, redirectRoW, redirectScenarios} = this.state;
     return (
       <Suspense fallback = {<div>Loading...</div>}>
       <HashRouter basename="/">
@@ -127,6 +145,8 @@ class Covid19App extends Component {
             render={(props) => <Highlights {...props} />}/>
           <Route exact path='/row'
             render={(props) => <RoW {...props} />}/>
+            <Route exact path='/scenarios'
+            render={(props) => <Scenarios {...props} />}/>
         </Switch>
       </HashRouter>
       </Suspense>
