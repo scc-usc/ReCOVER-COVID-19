@@ -437,11 +437,14 @@ class Covid19Predict extends PureComponent {
         mainGraphDataShown[areaStr]['observed_deaths'] = areaSeries['observed_deaths'].slice(0, days/7);
       }
     }
-    console.log(mainGraphDataShown);
     this.setState({
       days: days,
       mainGraphDataShown: mainGraphDataShown
     });
+
+    if (this.state.dynamicMapOn && this.state.models.length !== 0) {
+      this.map.fetchData(this.state.dynamicMapOn);
+    }
   }
 
   // Set the reference to the map component as a child-component.
@@ -465,7 +468,7 @@ class Covid19Predict extends PureComponent {
           if (this.state.plainareas.length < 1){
             this.loadAreaNames();
             }
-          
+
         // Add all the areas back.
         prevAreas.forEach(this.addAreaByStr);
 
@@ -491,7 +494,7 @@ class Covid19Predict extends PureComponent {
       perMillion: checked,
     }, ()=>{this.reloadAll();});
     this.map.fetchData(this.state.dynamicMapOn);
-  }  
+  }
 
 
   //when closing the alert
@@ -599,7 +602,7 @@ class Covid19Predict extends PureComponent {
       .map(s => {
         return <Option key={s}> {s} </Option>;
       });
-      
+
     const modelOptions = modelsList
       .filter(model => !this.modelIsSelected(model))
       .map(model => {
