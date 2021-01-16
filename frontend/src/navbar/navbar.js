@@ -12,6 +12,7 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 
 // class NavBar extends Component {
 const NavBar = () => {
+
     return (
         <Navbar collapseOnSelect expand="lg" className="navbar-header navbar-light">
           <Navbar.Brand href="#/"><img
@@ -22,11 +23,11 @@ const NavBar = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link className="navbar-link" href="#/">COVID-19 Forecast</Nav.Link>
-              <Nav.Link className="navbar-link" href="#row">All Locations!</Nav.Link>
-              <Nav.Link className="navbar-link" href="#score">Reproduction Number</Nav.Link>
-              <Nav.Link className="navbar-link" href="#highlights">Highlights</Nav.Link>
-              <Nav.Link className="navbar-link" href="#scenarios">Vaccine Scenarios</Nav.Link>
+              <Nav.Link className="navbar-link" href="#/" >COVID-19 Forecast</Nav.Link>
+              <Nav.Link className="navbar-link-new" href="#row" >All Locations!</Nav.Link>
+              <Nav.Link className="navbar-link" href="#score" >Reproduction Number</Nav.Link>
+              <Nav.Link className="navbar-link" href="#highlights" >Highlights</Nav.Link>
+              <Nav.Link className="navbar-link-new" href="#scenarios" >Vaccine Analytics</Nav.Link>
               <Nav.Link className="navbar-link" href="#leaderboard">Evaluation</Nav.Link>
               <Nav.Link className="navbar-link" href="#about">About Us</Nav.Link>
             </Nav>

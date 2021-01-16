@@ -25,7 +25,19 @@
 }
 
 .navbar-link{
-  color: white !important;
+  color: white !important; 
+	font-weight: 600 !important;
+}
+.navbar-link-new{
+  color: black !important; 
+	font-weight: 800 !important;
+	background: white !important;
+}
+
+.navbar-link-active{
+  color: black !important; 
+	font-weight: 600 !important;
+	background: white !important;
 }
 
 .navbar-toggler{
