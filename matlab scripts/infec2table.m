@@ -20,9 +20,9 @@ function tt = infec2table(infec, countries, lowidx, start_date, skip_days, first
     datecols = datestr(start_date + caldays(first_day-1:skip_days:last_day), 'yyyy-mm-dd');
     datecols = cellstr(datecols);
     allcols = [{'id'; 'Country'}; datecols];
-    badidx = any(infec<0 | isnan(infec), 2);
-    goodidx = ~(badidx | lowidx);
-    
+    %badidx = any(infec<0 | isnan(infec), 2);
+    %goodidx = ~(badidx | lowidx);
+    goodidx = ~(lowidx);
     vectorarray  = num2cell(infec(goodidx, :),1);
     cidx = (0:length(countries)-1)';
     

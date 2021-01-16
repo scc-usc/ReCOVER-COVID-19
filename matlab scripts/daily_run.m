@@ -90,4 +90,12 @@ catch thisErr
     fprintf('%s\n', thisErr.message);
 end
 
+%% Update vaccination data
+clear;
+try
+    get_vacc_data;
+catch thiErr
+    fprintf('Error in creating vaccine data\n');
+    fprintf('%s\n', thisErr.message);
+end
 
