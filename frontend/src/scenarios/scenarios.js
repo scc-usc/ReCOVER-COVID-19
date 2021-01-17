@@ -149,7 +149,7 @@ class Scenarios extends Component {
       			arealist[i] =this.state.vacc_one[i][1];
       		}
       	}
-      	this.setState({vacc_one_arealist: arealist}, ()=>{this.setState({arealist: this.state.vacc_one_arealist})});
+      	this.setState({vacc_one_arealist: arealist}, ()=>{this.setState({arealist: this.state.vacc_one_arealist.sort()})});
 
       	arealist = [];
       	for(i=1; i<this.state.vacc_full.length; i++)
@@ -162,6 +162,7 @@ class Scenarios extends Component {
       	this.setState({done_loading: true});
       	this.setState({data_loading: false});
       	this.setState({area_message: "Start typing a location name to see its data on vaccination and immunity"});
+      	this.setState({areas: "US"});
       }
   	}
 
@@ -176,7 +177,7 @@ class Scenarios extends Component {
 
   		const num_dates = this.state.vacc_one[0].length - 3; // subtract 3 columns 
   		const all_dates = this.state.vacc_one[0].slice(2, 2+num_dates);
-
+  		console.log(all_dates);
   		const norm_fact = allValues.perc==="1"? this.state.vacc_one[vacc_one_idx].slice(-1)/100 : 1;
   		this.setState({norm_fact: norm_fact});
   		var all_dat = zeros_init([3, num_dates]);
@@ -204,7 +205,7 @@ class Scenarios extends Component {
   		this.setState({data_date: all_dates});
   		this.setState({all_data: all_dat});
   		this.setState({thispopu: this.state.vacc_one[vacc_one_idx].slice(-1)});
-  		console.log(this.state.vacc_one[vacc_one_idx].slice(-1));
+  		//console.log(this.state.vacc_one[vacc_one_idx].slice(-1));
   		}
 
   		else
@@ -430,6 +431,8 @@ class Scenarios extends Component {
               format: "%Y-%m-%d",
             }}
             xFormat="time:%Y-%m-%d"
+            yFormat=".2f"
+            
             yScale={{
               type: "linear",
               min: "auto",
@@ -463,7 +466,8 @@ class Scenarios extends Component {
             pointBorderColor={{ from: "serieColor" }}
             pointLabel="y"
             pointLabelYOffset={-12}
-            useMesh={true}
+            //useMesh={true}
+            enableSlices = "x"
             legends={[
               {
                 text: {fontSize: 14},
