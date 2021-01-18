@@ -30,7 +30,7 @@ var g_deaths = "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/maste
 var g_case_preds = "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_forecasts_current_0.csv";
 var g_death_preds = "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/google_deaths_current_0.csv";
 var globallist = [];
-
+const init_areas = "India|West Bengal|Kolkata|";
 const { Option } = Select;
 
 class RoW extends Component {
@@ -41,7 +41,7 @@ class RoW extends Component {
       area_message: "Please wait for data to load",
       cum_or_inc: "Cumulative",
       data_loading: true,
-      areas: [],
+      areas: init_areas,
       width: 0, 
       height: 0,
       arealist: [],
@@ -67,7 +67,7 @@ class RoW extends Component {
     this.plotData = this.plotData.bind(this);
     this.onValuesChange = this.onValuesChange.bind(this);
     this.doneLoading = this.doneLoading.bind(this);
-    
+    this.addNewArea = this.addNewArea.bind(this);
 
   }
 
@@ -92,9 +92,9 @@ class RoW extends Component {
               globallist[i-1] = results.data[i][1];
             }
           }
-          this.setState({data_date: results.data[0].slice(2)});
+          this.setState({data_date: results.data[0].slice(2).map(y=>y.concat('T23:00:00Z'))});
           this.setState({arealist: globallist});
-          this.setState({case_data: results.data});
+          this.setState({case_data: results.data}, ()=>{this.doneLoading()});
           //console.log(this.state.data_date);
         }.bind(this)
       });
@@ -111,7 +111,7 @@ class RoW extends Component {
           }
         }
         this.setState({death_list: thislist});
-        this.setState({death_data: results.data});
+        this.setState({death_data: results.data}, ()=>{this.doneLoading()});
       }.bind(this)
     });
 
@@ -126,9 +126,9 @@ class RoW extends Component {
             thislist[i-1] = results.data[i][1];
           }
         }
-        this.setState({pred_date: results.data[0].slice(2)});
+        this.setState({pred_date: results.data[0].slice(2).map(y=>y.concat('T23:00:00Z'))});
         this.setState({case_pred_list: thislist});
-        this.setState({case_preds: results.data});
+        this.setState({case_preds: results.data}, ()=>{this.doneLoading()});
         //console.log(this.state.pred_date);
       }.bind(this)
     });
@@ -145,7 +145,7 @@ class RoW extends Component {
           }
         }
         this.setState({death_pred_list: thislist});
-        this.setState({death_preds: results.data});
+        this.setState({death_preds: results.data}, ()=>{this.doneLoading()});
         //console.log(this.state.death_preds.length);
       }.bind(this)
     });
@@ -236,11 +236,9 @@ class RoW extends Component {
     //console.log(full_dd);
   }
 
-  onValuesChange(changedValues, allValues){
-
-    if ("areas" in changedValues)
-    {
-      var idx = this.state.arealist.indexOf(allValues.areas);
+  addNewArea(areas)
+  {
+      var idx = this.state.arealist.indexOf(areas);
       var case_d = [];
       //console.log(idx);
       if (idx>-1){
@@ -249,25 +247,32 @@ class RoW extends Component {
       this.setState({case_data_plot : case_d});
 
       case_d = [];
-      idx = this.state.case_pred_list.indexOf(allValues.areas);
+      idx = this.state.case_pred_list.indexOf(areas);
       if (idx>-1){
         case_d = this.state.case_preds[idx+1].slice(2);
       }
       this.setState({case_preds_plot : case_d});
       
       var death_d = [];
-      idx = this.state.death_list.indexOf(allValues.areas);
+      idx = this.state.death_list.indexOf(areas);
       if (idx>-1){
         death_d = this.state.death_data[idx+1].slice(2);
       }
       this.setState({death_data_plot : death_d});
       
       death_d =[];
-      idx = this.state.death_pred_list.indexOf(allValues.areas);
+      idx = this.state.death_pred_list.indexOf(areas);
       if (idx>-1){
         death_d = this.state.death_preds[idx+1].slice(2);
       }
-      this.setState({death_preds_plot: death_d});
+      this.setState({death_preds_plot: death_d}, ()=>{this.plotData()});
+  }
+
+  onValuesChange(changedValues, allValues){
+
+    if ("areas" in changedValues)
+    {
+      this.addNewArea(allValues.areas);
     }
     if("cum_or_inc" in changedValues)
     {
@@ -278,9 +283,12 @@ class RoW extends Component {
 
   doneLoading()
   {
-    this.setState({data_loading: false});
-    this.setState({area_message: "Start typing a location name to see its data and forecasts"})
-
+      if(this.state.data_loading & this.state.case_preds.length>0 && this.state.death_preds.length>0 && this.state.death_data.length > 0 && this.state.case_data.length > 0)
+      {
+        this.setState({data_loading: false});
+        this.setState({area_message: "Start typing a location name to see its data and forecasts"});
+        this.setState({areas: init_areas}, ()=>{this.addNewArea(this.state.areas)});
+      }
   }
 
   render() {
@@ -314,11 +322,7 @@ class RoW extends Component {
       const num_ticks = 1 + this.state.width/280;
 
       
-      if(this.state.data_loading & this.state.case_preds.length>0 && this.state.death_preds.length>0 && this.state.death_data.length > 0 && this.state.case_data.length > 0)
-      {
-        this.doneLoading();
-      }
-      
+
       return (
        <div style={{color: "#1f1c1c"}}>
        <div className="grid">
@@ -420,7 +424,7 @@ class RoW extends Component {
             margin={{ top: 50, right: 10, bottom: 100, left: 60 }}
             xScale={{
               type: "time",
-              format: "%Y-%m-%d",
+              format: "%Y-%m-%dT%H:%M:%SZ",
             }}
             xFormat="time:%Y-%m-%d"
             yScale={{
