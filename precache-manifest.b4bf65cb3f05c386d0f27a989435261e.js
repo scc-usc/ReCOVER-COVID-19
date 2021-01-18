@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a7eae32aba170caff261755493c65081",
+    "revision": "4c45d25892afede4fa9037b38aab3a00",
     "url": "/ReCOVER-COVID-19/index.html"
   },
   {
@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/css/10.3bb70c9e.chunk.css"
   },
   {
-    "revision": "7cbdf7497193e529cf93",
+    "revision": "0e78458ff0504f05e7d3",
     "url": "/ReCOVER-COVID-19/static/css/11.d9c17682.chunk.css"
   },
   {
@@ -28,7 +28,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/css/15.519f56c7.chunk.css"
   },
   {
-    "revision": "ea68b8d9d54c7d3f867f",
+    "revision": "9ba392c870943310e78b",
     "url": "/ReCOVER-COVID-19/static/css/17.ce1079e9.chunk.css"
   },
   {
@@ -72,12 +72,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/js/10.6e127eb0.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "7cbdf7497193e529cf93",
-    "url": "/ReCOVER-COVID-19/static/js/11.b0079e33.chunk.js"
+    "revision": "0e78458ff0504f05e7d3",
+    "url": "/ReCOVER-COVID-19/static/js/11.7440569c.chunk.js"
   },
   {
     "revision": "a7bc1e9e36533aa65cbcb69fc2a5c1d8",
-    "url": "/ReCOVER-COVID-19/static/js/11.b0079e33.chunk.js.LICENSE.txt"
+    "url": "/ReCOVER-COVID-19/static/js/11.7440569c.chunk.js.LICENSE.txt"
   },
   {
     "revision": "177e8b92b8ce990e4175",
@@ -112,8 +112,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/js/16.8f9496fa.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ea68b8d9d54c7d3f867f",
-    "url": "/ReCOVER-COVID-19/static/js/17.2f82245e.chunk.js"
+    "revision": "9ba392c870943310e78b",
+    "url": "/ReCOVER-COVID-19/static/js/17.94ac757a.chunk.js"
   },
   {
     "revision": "dbc3640f53694cad2dfa",
@@ -156,8 +156,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ReCOVER-COVID-19/static/js/main.209709a6.chunk.js"
   },
   {
-    "revision": "514a195085fd8c3da9b2",
-    "url": "/ReCOVER-COVID-19/static/js/runtime-main.f991c968.js"
+    "revision": "15e693ac366eaf72d5af",
+    "url": "/ReCOVER-COVID-19/static/js/runtime-main.f887f89d.js"
   },
   {
     "revision": "b43d52c8f678002100ca",
