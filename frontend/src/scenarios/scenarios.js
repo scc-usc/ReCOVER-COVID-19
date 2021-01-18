@@ -65,7 +65,7 @@ class Scenarios extends Component {
 	      eff_vacc_full: 0.95,
 	      eff_vacc_one: 0.50,
 	      data_loading: true,
-	      areas: [],
+	      areas: "US",
 	      width: 0, 
 	      height: 0,
 	      arealist: [],
@@ -83,13 +83,14 @@ class Scenarios extends Component {
   			this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   			this.doneLoading = this.doneLoading.bind(this);
   			this.onValuesChange = this.onValuesChange.bind(this);
+  			this.addNewArea = this.addNewArea.bind(this);
 	}
 
 	componentDidMount() {
   		this.updateWindowDimensions();
   		window.addEventListener('resize', this.updateWindowDimensions);
-      ReactGA.initialize('UA-186385643-1');
-      ReactGA.pageview('/ReCOVER/scenarios');
+    	ReactGA.initialize('UA-186385643-1');
+   	    ReactGA.pageview('/ReCOVER/scenarios');
 
  	Papa.parse(cases_url, {
       download: true, worker: true,
@@ -130,6 +131,12 @@ class Scenarios extends Component {
   		this.setState({ width: window.innerWidth, height: window.innerHeight });
 	}
 
+	clean_area_list(arealist)
+	{
+		arealist = arealist.sort();
+		arealist = arealist.filter(function(el){return (el!=null && el!="");});
+		this.setState({arealist:arealist});
+	}
 	doneLoading()
     {
      if(this.state.recent_data.length > 0 && this.state.vacc_one.length > 0 && this.state.vacc_full.length > 0 && !this.state.done_loading)
@@ -143,42 +150,44 @@ class Scenarios extends Component {
       	this.setState({case_area_list: arealist});
 
 		arealist = [];
+		var raw_arealist = [];
       	for(i=1; i<this.state.vacc_one.length; i++)
       	{
       		if(this.state.vacc_one[i][1]){
       			arealist[i] =this.state.vacc_one[i][1];
+      			raw_arealist[i] =this.state.vacc_one[i][1];
       		}
       	}
-      	this.setState({vacc_one_arealist: arealist}, ()=>{this.setState({arealist: this.state.vacc_one_arealist.sort()})});
+      	
+      	this.setState({vacc_one_arealist: arealist}, this.clean_area_list(raw_arealist));
+
 
       	arealist = [];
       	for(i=1; i<this.state.vacc_full.length; i++)
       	{
-      		arealist[i] = this.state.vacc_one[i][1];
+      		arealist[i] = this.state.vacc_full[i][1];
       	}
       	this.setState({vacc_full_arealist: arealist});
       	
       	//console.log(merged_data);
       	this.setState({done_loading: true});
       	this.setState({data_loading: false});
-      	this.setState({area_message: "Start typing a location name to see its data on vaccination and immunity"});
-      	this.setState({areas: "US"});
+      	this.setState({area_message: "Start typing a location name to see its data on vaccination and immunity"}, ()=>{this.addNewArea(this.state.areas)});
+      	
       }
   	}
 
-  	onValuesChange(changedValues, allValues)
+  	addNewArea(areas)
   	{
   		var dd_one = [], dd_full = [], dd_cases = [], dd_imm = [];
-  		if ("areas" in changedValues)
-  		{
-  		var vacc_one_idx = this.state.vacc_one_arealist.indexOf(allValues.areas);
-  		var vacc_full_idx = this.state.vacc_full_arealist.indexOf(allValues.areas);
-  		var case_idx = this.state.case_area_list.indexOf(allValues.areas);
+  		var vacc_one_idx = this.state.vacc_one_arealist.indexOf(areas);
+  		var vacc_full_idx = this.state.vacc_full_arealist.indexOf(areas);
+  		var case_idx = this.state.case_area_list.indexOf(areas);
 
   		const num_dates = this.state.vacc_one[0].length - 3; // subtract 3 columns 
-  		const all_dates = this.state.vacc_one[0].slice(2, 2+num_dates);
-  		console.log(all_dates);
-  		const norm_fact = allValues.perc==="1"? this.state.vacc_one[vacc_one_idx].slice(-1)/100 : 1;
+  		const all_dates = this.state.vacc_one[0].slice(2, 2+num_dates).map(y=>y.concat('T23:00:00Z'));
+  		//console.log(all_dates);
+  		const norm_fact = this.state.perc==="1"? this.state.vacc_one[vacc_one_idx].slice(-1)/100 : 1;
   		this.setState({norm_fact: norm_fact});
   		var all_dat = zeros_init([3, num_dates]);
   		if(vacc_one_idx>-1)
@@ -199,13 +208,22 @@ class Scenarios extends Component {
   			dd_one.push({x:all_dates[i], y:all_dat[0][i]/norm_fact});
   			dd_full.push({x:all_dates[i], y:all_dat[1][i]/norm_fact});
   			dd_cases.push({x:all_dates[i], y:all_dat[2][i]/norm_fact});
-  			var yy = allValues.eff_vacc_one*all_dat[0][i] + (allValues.eff_vacc_full - allValues.eff_vacc_one)*all_dat[1][i] + allValues.underrep*all_dat[2][i];
+  			var yy = this.state.eff_vacc_one*all_dat[0][i] + (this.state.eff_vacc_full - this.state.eff_vacc_one)*all_dat[1][i] + this.state.underrep*all_dat[2][i];
   			dd_imm.push({x:all_dates[i], y: yy/norm_fact});
   		}	
   		this.setState({data_date: all_dates});
   		this.setState({all_data: all_dat});
   		this.setState({thispopu: this.state.vacc_one[vacc_one_idx].slice(-1)});
-  		//console.log(this.state.vacc_one[vacc_one_idx].slice(-1));
+  		var full_dd = [{id: "Cases", data:dd_cases}, {id: "Vaccines Administered", data:dd_one}, {id:"Full Doses", data:dd_full},{id:"Immunity", data: dd_imm}];
+  		this.setState({to_plot: full_dd});
+  	}
+
+  	onValuesChange(changedValues, allValues)
+  	{
+  		var dd_one = [], dd_full = [], dd_cases = [], dd_imm = [];
+  		if ("areas" in changedValues)
+  		{
+  			this.addNewArea(allValues.areas);
   		}
 
   		else
@@ -229,9 +247,9 @@ class Scenarios extends Component {
   		this.setState({perc: allValues.perc});
   		this.setState({underrep: allValues.underrep});
   		this.setState({norm_fact:norm_fact});
-  		}
   		var full_dd = [{id: "Cases", data:dd_cases}, {id: "Vaccines Administered", data:dd_one}, {id:"Full Doses", data:dd_full},{id:"Immunity", data: dd_imm}];
   		this.setState({to_plot: full_dd});
+  		}
   	}
 
     render() {
@@ -428,7 +446,7 @@ class Scenarios extends Component {
             margin={{ top: 50, right: 10, bottom: 100, left: 70 }}
             xScale={{
               type: "time",
-              format: "%Y-%m-%d",
+              format: "%Y-%m-%dT%H:%M:%SZ",
             }}
             xFormat="time:%Y-%m-%d"
             yFormat=".2f"
