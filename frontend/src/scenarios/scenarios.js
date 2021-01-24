@@ -208,7 +208,7 @@ class Scenarios extends Component {
   			dd_one.push({x:all_dates[i], y:all_dat[0][i]/norm_fact});
   			dd_full.push({x:all_dates[i], y:all_dat[1][i]/norm_fact});
   			dd_cases.push({x:all_dates[i], y:all_dat[2][i]/norm_fact});
-  			var yy = this.state.eff_vacc_one*all_dat[0][i] + (this.state.eff_vacc_full - this.state.eff_vacc_one)*all_dat[1][i] + this.state.underrep*all_dat[2][i];
+  			var yy = this.state.eff_vacc_one*(all_dat[0][i] - all_dat[1][i]) + (this.state.eff_vacc_full)*all_dat[1][i] + this.state.underrep*all_dat[2][i];
   			dd_imm.push({x:all_dates[i], y: yy/norm_fact});
   		}	
   		this.setState({data_date: all_dates});
@@ -238,7 +238,7 @@ class Scenarios extends Component {
   			dd_one.push({x:all_dates[i], y:all_dat[0][i]/norm_fact});
   			dd_full.push({x:all_dates[i], y:all_dat[1][i]/norm_fact});
   			dd_cases.push({x:all_dates[i], y:all_dat[2][i]/norm_fact});
-  			var yy = allValues.eff_vacc_one*all_dat[0][i] + (allValues.eff_vacc_full - allValues.eff_vacc_one)*all_dat[1][i] + allValues.underrep*all_dat[2][i];
+  			var yy = (allValues.eff_vacc_one)*(all_dat[0][i] - all_dat[1][i]) + (allValues.eff_vacc_full)*all_dat[1][i] + allValues.underrep*all_dat[2][i];
   			dd_imm.push({x:all_dates[i], y: yy/norm_fact});
   		}	
   		this.setState({data_date: all_dates});
