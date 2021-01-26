@@ -13,6 +13,7 @@ d_idx = days(g_vacc_tab.date - datetime(2020, 1, 23));
 cidx(cidx==0) = cidx_ihme;
 g_vacc = nan(length(g_countries), max(d_idx));
 g_vacc_full = nan(length(g_countries), max(d_idx));
+g_vacc_shipped = nan(length(g_countries), max(d_idx));
 for ii = 1:size(g_vacc_tab, 1)
     if cidx(ii)>0
         g_vacc(cidx(ii), d_idx(ii)) = g_vacc_tab.total_vaccinations(ii);
@@ -32,10 +33,12 @@ d_idx = days(u_vacc_tab.date - datetime(2020, 1, 23));
 [~, cidx] = ismember(u_vacc_tab.stabbr, u_ab);
 u_vacc = nan(length(u_countries), max(d_idx));
 u_vacc_full = nan(length(u_countries), max(d_idx));
+u_vacc_shipped = nan(length(u_countries), max(d_idx));
 for ii = 1:size(u_vacc_tab, 1)
     if cidx(ii)>0
         u_vacc(cidx(ii), d_idx(ii)) = u_vacc_tab.doses_admin_total(ii);
         u_vacc_full(cidx(ii), d_idx(ii)) = u_vacc_tab.people_total_2nd_dose(ii);
+        u_vacc_shipped(cidx(ii), d_idx(ii)) = u_vacc_tab.doses_shipped_total(ii);
     end
 end
 %% Write data
@@ -45,12 +48,15 @@ T_full = min([size(u_vacc, 2) size(g_vacc, 2)]);
 
 gu_vacc = [u_vacc(:, gt_offset:T_full); g_vacc(:, gt_offset:T_full)];
 gu_vacc_full = [u_vacc_full(:, gt_offset:T_full); g_vacc_full(:, gt_offset:T_full)];
+gu_vacc_shipped = [u_vacc_shipped(:, gt_offset:T_full); g_vacc_shipped(:, gt_offset:T_full)];
 
 gu_vacc = fillmissing(gu_vacc, "previous",2);
 gu_vacc_full = fillmissing(gu_vacc_full, "previous",2);
+gu_vacc_shipped = fillmissing(gu_vacc_shipped, "previous",2);
 
 bad_idx = all(isnan(gu_vacc), 2);
 bad_idx_full = all(isnan(gu_vacc_full), 2);
+bad_idx_shipped = all(isnan(gu_vacc_shipped), 2);
 popu = [u_popu; g_popu];
 countries = [strcat({'US | '}, u_countries); g_countries];
 
@@ -62,6 +68,8 @@ T2r.population = popu(~bad_idx);
 T2r_full = infec2table(gu_vacc_full, countries, bad_idx_full, datetime(2020, 1, 23)+gt_offset,1 , 1);
 T2r_full.population = popu(~bad_idx_full);
 
+T2r_shipped = infec2table(gu_vacc_shipped, countries, bad_idx_shipped, datetime(2020, 1, 23)+gt_offset, 1, 1);
+T2r_shipped.population = popu(~bad_idx_shipped);
 
 %% Write recent cases file to be used for immunity analysis
 got_data = 0;
@@ -91,3 +99,4 @@ all_cases = [zeros(size(all_cases, 1), lcorrection) all_cases];
 writetable(infec2table(all_cases(:, gt_offset:T_full), countries, zeros(length(countries), 1), datetime(2020, 1, 23)+gt_offset,1 , 1), '../results/forecasts/recent_cases.csv');
 writetable(T2r, '../results/forecasts/vacc_num.csv');
 writetable(T2r_full, '../results/forecasts/vacc_full.csv');
+writetable(T2r_shipped, '../results/forecasts/vacc_shipped.csv');
