@@ -440,11 +440,12 @@ class Covid19Predict extends PureComponent {
     this.setState({
       days: days,
       mainGraphDataShown: mainGraphDataShown
+    }, ()=>{
+      if (this.state.dynamicMapOn && this.state.models.length !== 0) {
+        this.map.fetchData(this.state.dynamicMapOn, days);
+      }
     });
 
-    if (this.state.dynamicMapOn && this.state.models.length !== 0) {
-      this.map.fetchData(this.state.dynamicMapOn);
-    }
   }
 
   // Set the reference to the map component as a child-component.
