@@ -7,8 +7,8 @@ un_from_file = un; % Change this when calculating un for "other" forecasts
 no_un_idx = un.*data_4(:, end)./popu > 0.2;
 un(no_un_idx) = 1;
 
-%[best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, un, size(data_4, 2));
-[best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, un_from_file, size(data_4, 2), 0, [3], [7], [10], 50);
+[best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, un, size(data_4, 2));
+%[best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, un_from_file, size(data_4, 2), 0, [3], [7], [10], 50);
 
 dhyperparams;
 
