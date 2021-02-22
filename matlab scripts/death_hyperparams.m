@@ -20,7 +20,7 @@ beta_after = var_ind_beta_un(data_4_s(:, 1:T_tr), passengerFlow*0, best_param_li
 infec_un = var_simulate_pred_un(data_4_s(:, 1:T_tr), passengerFlow*0, beta_after, popu, best_param_list(:, 1), 2*T_val, best_param_list(:, 2), un, base_infec);
 
 infec_data = [data_4_s(:,1:T_tr) infec_un];
-base_deaths = deaths(:, T_tr);
+base_deaths = deaths_s(:, T_tr);
 
 for ii = 1:size(param_list, 1)
     dk = param_list(ii, 1);
@@ -31,7 +31,7 @@ for ii = 1:size(param_list, 1)
     
     if T_val > 0
         [pred_deaths] = var_simulate_deaths(infec_data, death_rates, dk, djp, T_val+1, base_deaths, T_tr-1);
-        gtruth = diff(deaths(:, T_tr:T_tr+T_val)')';
+        gtruth = diff(deaths_s(:, T_tr:T_tr+T_val)')';
         predvals = diff([base_deaths pred_deaths(:, 1:T_val)]')';
         [~, ~, thisrmse] = calc_errors(gtruth, predvals, 7);
     else
