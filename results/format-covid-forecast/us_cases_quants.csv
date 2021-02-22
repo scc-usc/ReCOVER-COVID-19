@@ -1,3193 +1,3193 @@
 place,week_ahead,quantile,value
-Washington,1,point,6591
-Washington,1,0.025,6061.486582
-Washington,1,0.1,6075.048673
-Washington,1,0.25,6213.288931
-Washington,1,0.5,6591
-Washington,1,0.75,7025.026995
-Washington,1,0.9,7051.078955
-Washington,1,0.975,7065.314345
-Washington,2,point,5943
-Washington,2,0.025,5365.040859
-Washington,2,0.1,5380.099556
-Washington,2,0.25,5529.198657
-Washington,2,0.5,5943
-Washington,2,0.75,6427.731767
-Washington,2,0.9,6456.583391
-Washington,2,0.975,6473.430209
-Washington,3,point,5335
-Washington,3,0.025,4722.022706
-Washington,3,0.1,4738.205522
-Washington,3,0.25,4894.556803
-Washington,3,0.5,5335
-Washington,3,0.75,5860.712488
-Washington,3,0.9,5891.766514
-Washington,3,0.975,5911.020808
-Washington,4,point,4794
-Washington,4,0.025,4108.38968
-Washington,4,0.1,4126.86039
-Washington,4,0.25,4298.65185
-Washington,4,0.5,4794
-Washington,4,0.75,5402.253402
-Washington,4,0.9,5437.77433
-Washington,4,0.975,5461.747843
-Washington,5,point,4303
-Washington,5,0.025,3576.739093
-Washington,5,0.1,3596.587624
-Washington,5,0.25,3775.289781
-Washington,5,0.5,4303
-Washington,5,0.75,4970.468812
-Washington,5,0.9,5009.043584
-Washington,5,0.975,5037.219575
-Washington,6,point,3861
-Washington,6,0.025,3117.787479
-Washington,6,0.1,3138.250902
-Washington,6,0.25,3319.417087
-Washington,6,0.5,3861
-Washington,6,0.75,4556.002859
-Washington,6,0.9,4595.963892
-Washington,6,0.975,4626.232072
-Washington,7,point,3462
-Washington,7,0.025,2712.148742
-Washington,7,0.1,2732.917134
-Washington,7,0.25,2913.913505
-Washington,7,0.5,3462
-Washington,7,0.75,4176.38845
-Washington,7,0.9,4217.252956
-Washington,7,0.975,4249.383495
-Illinois,1,point,11551
-Illinois,1,0.025,11333.31878
-Illinois,1,0.1,11369.16612
-Illinois,1,0.25,11400.16223
-Illinois,1,0.5,11551
-Illinois,1,0.75,11925.66861
-Illinois,1,0.9,12563.84806
-Illinois,1,0.975,12582.72355
-Illinois,2,point,9579
-Illinois,2,0.025,9344.872405
-Illinois,2,0.1,9383.514629
-Illinois,2,0.25,9417.773382
-Illinois,2,0.5,9579
-Illinois,2,0.75,9984.884259
-Illinois,2,0.9,10685.13697
-Illinois,2,0.975,10708.05539
-Illinois,3,point,7924
-Illinois,3,0.025,7681.58028
-Illinois,3,0.1,7721.649104
-Illinois,3,0.25,7757.907831
-Illinois,3,0.5,7924
-Illinois,3,0.75,8347.300242
-Illinois,3,0.9,9086.776077
-Illinois,3,0.975,9113.105804
-Illinois,4,point,6546
-Illinois,4,0.025,6281.946305
-Illinois,4,0.1,6325.689134
-Illinois,4,0.25,6366.497883
-Illinois,4,0.5,6546
-Illinois,4,0.75,7012.143796
-Illinois,4,0.9,7841.787787
-Illinois,4,0.975,7874.832139
-Illinois,5,point,5398
-Illinois,5,0.025,5133.948014
-Illinois,5,0.1,5177.750061
-Illinois,5,0.25,5219.816972
-Illinois,5,0.5,5398
-Illinois,5,0.75,5870.221319
-Illinois,5,0.9,6728.821703
-Illinois,5,0.975,6766.862173
-Illinois,6,point,4447
-Illinois,6,0.025,4185.070448
-Illinois,6,0.1,4228.551149
-Illinois,6,0.25,4270.978784
-Illinois,6,0.5,4447
-Illinois,6,0.75,4918.866235
-Illinois,6,0.9,5786.870215
-Illinois,6,0.975,5827.40775
-Illinois,7,point,3660
-Illinois,7,0.025,3405.2495
-Illinois,7,0.1,3447.548149
-Illinois,7,0.25,3489.436097
-Illinois,7,0.5,3660
-Illinois,7,0.75,4122.644578
-Illinois,7,0.9,4984.492393
-Illinois,7,0.975,5026.860039
-California,1,point,42523
-California,1,0.025,40580.85833
-California,1,0.1,40641.91891
-California,1,0.25,41573.95974
-California,1,0.5,42523
-California,1,0.75,44493.31363
-California,1,0.9,47022.76392
-California,1,0.975,47044.25359
-California,2,point,32535
-California,2,0.025,30461.1424
-California,2,0.1,30525.31397
-California,2,0.25,31518.39643
-California,2,0.5,32535
-California,2,0.75,34479.94612
-California,2,0.9,37062.62064
-California,2,0.975,37081.94266
-California,3,point,24847
-California,3,0.025,22726.18567
-California,3,0.1,22790.71046
-California,3,0.25,23786.2918
-California,3,0.5,24847
-California,3,0.75,26710.2807
-California,3,0.9,29283.64093
-California,3,0.975,29300.08375
-California,4,point,18990
-California,4,0.025,16696.86901
-California,4,0.1,16764.24282
-California,4,0.25,17873.99518
-California,4,0.5,18990
-California,4,0.75,20701.53437
-California,4,0.9,23344.29213
-California,4,0.975,23358.45715
-California,5,point,14494
-California,5,0.025,12317.33002
-California,5,0.1,12380.60348
-California,5,0.25,13371.39484
-California,5,0.5,14494
-California,5,0.75,16058.68038
-California,5,0.9,18520.707
-California,5,0.975,18530.13976
-California,6,point,11054
-California,6,0.025,8962.998732
-California,6,0.1,9023.286387
-California,6,0.25,9939.576284
-California,6,0.5,11054
-California,6,0.75,12513.25102
-California,6,0.9,14875.74667
-California,6,0.975,14881.75227
-California,7,point,8426
-California,7,0.025,6461.000105
-California,7,0.1,6516.882126
-California,7,0.25,7346.532872
-California,7,0.5,8426
-California,7,0.75,9748.720156
-California,7,0.9,11984.59863
-California,7,0.975,11988.33307
-Arizona,1,point,9458
-Arizona,1,0.025,7988.841495
-Arizona,1,0.1,8004.33151
-Arizona,1,0.25,8442.902362
-Arizona,1,0.5,9458
-Arizona,1,0.75,9808.498232
-Arizona,1,0.9,10406.17788
-Arizona,1,0.975,10519.69491
-Arizona,2,point,7125
-Arizona,2,0.025,5649.638094
-Arizona,2,0.1,5665.299978
-Arizona,2,0.25,6094.959969
-Arizona,2,0.5,7125
-Arizona,2,0.75,7492.076679
-Arizona,2,0.9,8127.164802
-Arizona,2,0.975,8251.808632
-Arizona,3,point,5358
-Arizona,3,0.025,3922.490774
-Arizona,3,0.1,3937.710572
-Arizona,3,0.25,4346.630728
-Arizona,3,0.5,5358
-Arizona,3,0.75,5728.853083
-Arizona,3,0.9,6379.468068
-Arizona,3,0.975,6510.908534
-Arizona,4,point,4025
-Arizona,4,0.025,2614.329379
-Arizona,4,0.1,2629.352684
-Arizona,4,0.25,3014.868416
-Arizona,4,0.5,4025
-Arizona,4,0.75,4413.623946
-Arizona,4,0.9,5110.644704
-Arizona,4,0.975,5257.773775
-Arizona,5,point,3021
-Arizona,5,0.025,1762.496824
-Arizona,5,0.1,1775.725666
-Arizona,5,0.25,2103.631523
-Arizona,5,0.5,3021
-Arizona,5,0.75,3393.330971
-Arizona,5,0.9,4078.491739
-Arizona,5,0.975,4229.864934
-Arizona,6,point,2265
-Arizona,6,0.025,1101.725748
-Arizona,6,0.1,1113.792276
-Arizona,6,0.25,1407.047245
-Arizona,6,0.5,2265
-Arizona,6,0.75,2625.158932
-Arizona,6,0.9,3298.176519
-Arizona,6,0.975,3450.71799
-Arizona,7,point,1697
-Arizona,7,0.025,643.9583671
-Arizona,7,0.1,654.6545739
-Arizona,7,0.25,911.3520627
-Arizona,7,0.5,1697
-Arizona,7,0.75,2038.274569
-Arizona,7,0.9,2686.526834
-Arizona,7,0.975,2837.240725
-Massachusetts,1,point,11383
-Massachusetts,1,0.025,11157.34913
-Massachusetts,1,0.1,11196.78035
-Massachusetts,1,0.25,11295.48152
-Massachusetts,1,0.5,11383
-Massachusetts,1,0.75,11519.56333
-Massachusetts,1,0.9,13219.52707
-Massachusetts,1,0.975,13234.53261
-Massachusetts,2,point,9880
-Massachusetts,2,0.025,9660.822904
-Massachusetts,2,0.1,9707.659422
-Massachusetts,2,0.25,9800.585643
-Massachusetts,2,0.5,9880
-Massachusetts,2,0.75,10046.00714
-Massachusetts,2,0.9,11893.18224
-Massachusetts,2,0.975,11914.2861
-Massachusetts,3,point,8531
-Massachusetts,3,0.025,8304.299578
-Massachusetts,3,0.1,8355.025092
-Massachusetts,3,0.25,8444.646359
-Massachusetts,3,0.5,8531
-Massachusetts,3,0.75,8707.968154
-Massachusetts,3,0.9,10648.28229
-Massachusetts,3,0.975,10675.34763
-Massachusetts,4,point,7339
-Massachusetts,4,0.025,7138.295046
-Massachusetts,4,0.1,7199.656269
-Massachusetts,4,0.25,7258.498297
-Massachusetts,4,0.5,7339
-Massachusetts,4,0.75,7548.073555
-Massachusetts,4,0.9,9705.269816
-Massachusetts,4,0.975,9743.599251
-Massachusetts,5,point,6297
-Massachusetts,5,0.025,6071.566429
-Massachusetts,5,0.1,6135.131273
-Massachusetts,5,0.25,6203.947669
-Massachusetts,5,0.5,6297
-Massachusetts,5,0.75,6515.005869
-Massachusetts,5,0.9,8743.186123
-Massachusetts,5,0.975,8792.236302
-Massachusetts,6,point,5387
-Massachusetts,6,0.025,5145.685479
-Massachusetts,6,0.1,5208.339183
-Massachusetts,6,0.25,5281.634835
-Massachusetts,6,0.5,5387
-Massachusetts,6,0.75,5607.298274
-Massachusetts,6,0.9,7854.520484
-Massachusetts,6,0.975,7909.161285
-Massachusetts,7,point,4600
-Massachusetts,7,0.025,4344.832558
-Massachusetts,7,0.1,4405.353368
-Massachusetts,7,0.25,4477.88044
-Massachusetts,7,0.5,4600
-Massachusetts,7,0.75,4808.951519
-Massachusetts,7,0.9,7042.311394
-Massachusetts,7,0.975,7102.032862
-Wisconsin,1,point,4598
-Wisconsin,1,0.025,4189.664689
-Wisconsin,1,0.1,4199.247884
-Wisconsin,1,0.25,4489.295931
-Wisconsin,1,0.5,4598
-Wisconsin,1,0.75,4720.192647
-Wisconsin,1,0.9,4783.744862
-Wisconsin,1,0.975,4790.045976
-Wisconsin,2,point,3831
-Wisconsin,2,0.025,3400.147796
-Wisconsin,2,0.1,3410.454712
-Wisconsin,2,0.25,3714.482819
-Wisconsin,2,0.5,3831
-Wisconsin,2,0.75,3980.094499
-Wisconsin,2,0.9,4053.686785
-Wisconsin,2,0.975,4059.933136
-Wisconsin,3,point,3081
-Wisconsin,3,0.025,2642.602947
-Wisconsin,3,0.1,2653.222589
-Wisconsin,3,0.25,2960.77123
-Wisconsin,3,0.5,3081
-Wisconsin,3,0.75,3247.659551
-Wisconsin,3,0.9,3331.104153
-Wisconsin,3,0.975,3337.402636
-Wisconsin,4,point,2503
-Wisconsin,4,0.025,2038.124125
-Wisconsin,4,0.1,2049.616962
-Wisconsin,4,0.25,2372.561228
-Wisconsin,4,0.5,2503
-Wisconsin,4,0.75,2713.059875
-Wisconsin,4,0.9,2818.428581
-Wisconsin,4,0.975,2824.141947
-Wisconsin,5,point,2041
-Wisconsin,5,0.025,1589.727535
-Wisconsin,5,0.1,1601.039767
-Wisconsin,5,0.25,1911.415648
-Wisconsin,5,0.5,2041
-Wisconsin,5,0.75,2264.310796
-Wisconsin,5,0.9,2375.691877
-Wisconsin,5,0.975,2381.909179
+Washington,1,point,5910
+Washington,1,0.025,5743.59544801493
+Washington,1,0.1,5782.8020873627
+Washington,1,0.25,5837.79682598703
+Washington,1,0.5,5910
+Washington,1,0.75,5993.93763232561
+Washington,1,0.9,6061.43478237008
+Washington,1,0.975,6121.63378447769
+Washington,2,point,5701
+Washington,2,0.025,5499.61803687977
+Washington,2,0.1,5547.41508697818
+Washington,2,0.25,5613.81990360217
+Washington,2,0.5,5701
+Washington,2,0.75,5804.81205181427
+Washington,2,0.9,5888.0562162914
+Washington,2,0.975,5962.48711634138
+Washington,3,point,5497
+Washington,3,0.025,5263.19063226472
+Washington,3,0.1,5319.06785210726
+Washington,3,0.25,5396.00080469731
+Washington,3,0.5,5497
+Washington,3,0.75,5620.11060131923
+Washington,3,0.9,5718.60164890958
+Washington,3,0.975,5806.89329810032
+Washington,4,point,5294
+Washington,4,0.025,4994.86308092105
+Washington,4,0.1,5066.85176203924
+Washington,4,0.25,5164.84992026105
+Washington,4,0.5,5294
+Washington,4,0.75,5455.00841790764
+Washington,4,0.9,5583.88171784731
+Washington,4,0.975,5699.79167521388
+Washington,5,point,5093
+Washington,5,0.025,4734.59924958551
+Washington,5,0.1,4821.18537142589
+Washington,5,0.25,4937.68965403105
+Washington,5,0.5,5093
+Washington,5,0.75,5288.73145870584
+Washington,5,0.9,5446.46088081771
+Washington,5,0.975,5588.84450717004
+Washington,6,point,4894
+Washington,6,0.025,4506.34813983469
+Washington,6,0.1,4600.24358074186
+Washington,6,0.25,4725.97960313263
+Washington,6,0.5,4894
+Washington,6,0.75,5107.50860203349
+Washington,6,0.9,5279.70321550357
+Washington,6,0.975,5435.35952537198
+Washington,7,point,4696
+Washington,7,0.025,4281.23558528816
+Washington,7,0.1,4381.90674571427
+Washington,7,0.25,4516.00975869431
+Washington,7,0.5,4696
+Washington,7,0.75,4926.19969928457
+Washington,7,0.9,5112.29744798631
+Washington,7,0.975,5280.79699651848
+Illinois,1,point,11555
+Illinois,1,0.025,11372.4228809197
+Illinois,1,0.1,11409.7118693381
+Illinois,1,0.25,11441.5928436203
+Illinois,1,0.5,11555
+Illinois,1,0.75,11630.0492400737
+Illinois,1,0.9,12606.4080645085
+Illinois,1,0.975,12624.1444809866
+Illinois,2,point,9586
+Illinois,2,0.025,9390.45604893273
+Illinois,2,0.1,9430.63900760541
+Illinois,2,0.25,9465.84968958792
+Illinois,2,0.5,9586
+Illinois,2,0.75,9669.05067210618
+Illinois,2,0.9,10734.6648067593
+Illinois,2,0.975,10756.3244668053
+Illinois,3,point,7934
+Illinois,3,0.025,7732.26725155588
+Illinois,3,0.1,7773.92271925206
+Illinois,3,0.25,7811.16819153652
+Illinois,3,0.5,7934
+Illinois,3,0.75,8022.08151089302
+Illinois,3,0.9,9141.77857054384
+Illinois,3,0.975,9166.77098938429
+Illinois,4,point,6555
+Illinois,4,0.025,6336.4929225077
+Illinois,4,0.1,6381.94953697759
+Illinois,4,0.25,6423.83482648702
+Illinois,4,0.5,6555
+Illinois,4,0.75,6654.42653418537
+Illinois,4,0.9,7901.42390445063
+Illinois,4,0.975,7932.95479543162
+Illinois,5,point,5409
+Illinois,5,0.025,5191.73580992025
+Illinois,5,0.1,5237.23721968748
+Illinois,5,0.25,5280.38429694036
+Illinois,5,0.5,5409
+Illinois,5,0.75,5511.974246667
+Illinois,5,0.9,6792.15620813489
+Illinois,5,0.975,6828.61709334444
+Illinois,6,point,4458
+Illinois,6,0.025,4243.17598741804
+Illinois,6,0.1,4288.33435450619
+Illinois,6,0.25,4331.83564527272
+Illinois,6,0.5,4458
+Illinois,6,0.75,4562.1309048025
+Illinois,6,0.9,5850.73466853166
+Illinois,6,0.975,5889.66809189598
+Illinois,7,point,3669
+Illinois,7,0.025,3460.71613223342
+Illinois,7,0.1,3504.63899853919
+Illinois,7,0.25,3547.57411786665
+Illinois,7,0.5,3669
+Illinois,7,0.75,3772.15621700215
+Illinois,7,0.9,5045.83454687164
+Illinois,7,0.975,5086.60264777419
+California,1,point,42414
+California,1,0.025,40678.55461743
+California,1,0.1,40762.5545686987
+California,1,0.25,41131.0918773013
+California,1,0.5,42414
+California,1,0.75,44179.0619406909
+California,1,0.9,47140.4650694171
+California,1,0.975,47146.7647967691
+California,2,point,32380
+California,2,0.025,30459.6608937344
+California,2,0.1,30546.6255027755
+California,2,0.25,30922.2870290652
+California,2,0.5,32380
+California,2,0.75,34066.6136262681
+California,2,0.9,37077.2652845447
+California,2,0.975,37086.7098022162
+California,3,point,24678
+California,3,0.025,22686.543000612
+California,3,0.1,22773.022171245
+California,3,0.25,23140.3938856982
+California,3,0.5,24678
+California,3,0.75,26266.1777298639
+California,3,0.9,29255.1644531512
+California,3,0.975,29267.5785296618
+California,4,point,18820
+California,4,0.025,16545.4831836007
+California,4,0.1,16634.0434651169
+California,4,0.25,17010.3767895636
+California,4,0.5,18820
+California,4,0.75,20155.9888220265
+California,4,0.9,23196.9793541008
+California,4,0.975,23213.1832875161
+California,5,point,14334
+California,5,0.025,12172.4940735483
+California,5,0.1,12254.2510893967
+California,5,0.25,12585.5344039248
+California,5,0.5,14334
+California,5,0.75,15549.103570537
+California,5,0.9,18369.930260429
+California,5,0.975,18391.5189851803
+California,6,point,10908
+California,6,0.025,8830.75217456222
+California,6,0.1,8907.86195841862
+California,6,0.25,9211.38563943352
+California,6,0.5,10908
+California,6,0.75,12030.6708031717
+California,6,0.9,14731.4307528955
+California,6,0.975,14756.0787137827
+California,7,point,8298
+California,7,0.025,6353.3429918671
+California,7,0.1,6424.2031762229
+California,7,0.25,6696.55669112573
+California,7,0.5,8298
+California,7,0.75,9311.13817656234
+California,7,0.9,11859.3523605515
+California,7,0.975,11885.9233455244
+Arizona,1,point,9410
+Arizona,1,0.025,7950.62938973297
+Arizona,1,0.1,7979.04807750202
+Arizona,1,0.25,8401.30482216787
+Arizona,1,0.5,9410
+Arizona,1,0.75,9765.92119061479
+Arizona,1,0.9,10351.61974412
+Arizona,1,0.975,10483.5806001959
+Arizona,2,point,7050
+Arizona,2,0.025,5589.84799678272
+Arizona,2,0.1,5617.93034584342
+Arizona,2,0.25,6030.20517293125
+Arizona,2,0.5,7050
+Arizona,2,0.75,7421.427887684
+Arizona,2,0.9,8041.69700494318
+Arizona,2,0.975,8185.72937814418
+Arizona,3,point,5273
+Arizona,3,0.025,3856.94113343477
+Arizona,3,0.1,3883.77824961868
+Arizona,3,0.25,4274.99086028807
+Arizona,3,0.5,5273
+Arizona,3,0.75,5647.01941928976
+Arizona,3,0.9,6280.46826045664
+Arizona,3,0.975,6431.54287734313
+Arizona,4,point,3938
+Arizona,4,0.025,2554.71187972412
+Arizona,4,0.1,2580.31564806146
+Arizona,4,0.25,2946.99503957151
+Arizona,4,0.5,3938
+Arizona,4,0.75,4327.85791396642
+Arizona,4,0.9,5003.15447983351
+Arizona,4,0.975,5170.93280543737
+Arizona,5,point,2938
+Arizona,5,0.025,1712.22747824577
+Arizona,5,0.1,1734.0945545821
+Arizona,5,0.25,2043.90841523625
+Arizona,5,0.5,2938
+Arizona,5,0.75,3309.28755244291
+Arizona,5,0.9,3969.45105738323
+Arizona,5,0.975,4140.64300441801
+Arizona,6,point,2191
+Arizona,6,0.025,1063.1080073259
+Arizona,6,0.1,1082.66969285061
+Arizona,6,0.25,1358.43012522059
+Arizona,6,0.5,2191
+Arizona,6,0.75,2548.84201619474
+Arizona,6,0.9,3195.22012980485
+Arizona,6,0.975,3366.95297773672
+Arizona,7,point,1632
+Arizona,7,0.025,615.642737123873
+Arizona,7,0.1,632.700540178281
+Arizona,7,0.25,872.938091886987
+Arizona,7,0.5,1632
+Arizona,7,0.75,1969.80669529579
+Arizona,7,0.9,2590.31724393554
+Arizona,7,0.975,2759.21206631932
+Massachusetts,1,point,11425
+Massachusetts,1,0.025,11203.9732859278
+Massachusetts,1,0.1,11234.6128739868
+Massachusetts,1,0.25,11305.1327288006
+Massachusetts,1,0.5,11425
+Massachusetts,1,0.75,11569.0287587935
+Massachusetts,1,0.9,13281.4394069237
+Massachusetts,1,0.975,13286.4576051612
+Massachusetts,2,point,9956
+Massachusetts,2,0.025,9749.07390629873
+Massachusetts,2,0.1,9790.06587889849
+Massachusetts,2,0.25,9857.98537197207
+Massachusetts,2,0.5,9956
+Massachusetts,2,0.75,10134.4770238005
+Massachusetts,2,0.9,12000.309573184
+Massachusetts,2,0.975,12009.2540005213
+Massachusetts,3,point,8632
+Massachusetts,3,0.025,8422.04893773817
+Massachusetts,3,0.1,8468.72426380365
+Massachusetts,3,0.25,8535.43117353527
+Massachusetts,3,0.5,8632
+Massachusetts,3,0.75,8830.50666891611
+Massachusetts,3,0.9,10789.0961630527
+Massachusetts,3,0.975,10802.4842005904
+Massachusetts,4,point,7457
+Massachusetts,4,0.025,7283.12053098462
+Massachusetts,4,0.1,7341.82052727977
+Massachusetts,4,0.25,7384.0080601402
+Massachusetts,4,0.5,7457
+Massachusetts,4,0.75,7699.45593451158
+Massachusetts,4,0.9,9879.72294493099
+Massachusetts,4,0.975,9900.52274042538
+Massachusetts,5,point,6423
+Massachusetts,5,0.025,6228.54804101881
+Massachusetts,5,0.1,6294.6970205519
+Massachusetts,5,0.25,6345.73717817996
+Massachusetts,5,0.5,6423
+Massachusetts,5,0.75,6682.39557940633
+Massachusetts,5,0.9,8938.2608969716
+Massachusetts,5,0.975,8968.44110297247
+Massachusetts,6,point,5517
+Massachusetts,6,0.025,5310.08570887469
+Massachusetts,6,0.1,5375.79086314798
+Massachusetts,6,0.25,5435.45849454081
+Massachusetts,6,0.5,5517
+Massachusetts,6,0.75,5784.65154475598
+Massachusetts,6,0.9,8061.92516501514
+Massachusetts,6,0.975,8097.09386643936
+Massachusetts,7,point,4728
+Massachusetts,7,0.025,4506.9890226957
+Massachusetts,7,0.1,4570.57951965284
+Massachusetts,7,0.25,4630.09689222563
+Massachusetts,7,0.5,4728
+Massachusetts,7,0.75,4990.92812006754
+Massachusetts,7,0.9,7251.92686269853
+Massachusetts,7,0.975,7291.9107597186
+Wisconsin,1,point,4599
+Wisconsin,1,0.025,4190.23816465634
+Wisconsin,1,0.1,4199.6970854005
+Wisconsin,1,0.25,4262.00942058184
+Wisconsin,1,0.5,4599
+Wisconsin,1,0.75,4781.33119947263
+Wisconsin,1,0.9,4833.6424630236
+Wisconsin,1,0.975,4848.01641640178
+Wisconsin,2,point,3830
+Wisconsin,2,0.025,3398.81812616646
+Wisconsin,2,0.1,3408.99720467813
+Wisconsin,2,0.25,3477.53020449892
+Wisconsin,2,0.5,3830
+Wisconsin,2,0.75,4047.95823676519
+Wisconsin,2,0.9,4089.92903555889
+Wisconsin,2,0.975,4101.56282281323
+Wisconsin,3,point,3082
+Wisconsin,3,0.025,2643.32115247023
+Wisconsin,3,0.1,2653.81375734815
+Wisconsin,3,0.25,2725.02917049779
+Wisconsin,3,0.5,3082
+Wisconsin,3,0.75,3320.66411564779
+Wisconsin,3,0.9,3361.81685111292
+Wisconsin,3,0.975,3372.40809207304
+Wisconsin,4,point,2504
+Wisconsin,4,0.025,2039.08923697168
+Wisconsin,4,0.1,2050.45252103083
+Wisconsin,4,0.25,2129.90558284583
+Wisconsin,4,0.5,2504
+Wisconsin,4,0.75,2800.41522910624
+Wisconsin,4,0.9,2822.07227622034
+Wisconsin,4,0.975,2831.46327418803
+Wisconsin,5,point,2042
+Wisconsin,5,0.025,1590.64832753139
+Wisconsin,5,0.1,1601.84020813798
+Wisconsin,5,0.25,1679.97443881481
+Wisconsin,5,0.5,2042
+Wisconsin,5,0.75,2348.33643772005
+Wisconsin,5,0.9,2377.41809510608
+Wisconsin,5,0.975,2383.73235673942
 Wisconsin,6,point,1650
-Wisconsin,6,0.025,1209.994777
-Wisconsin,6,0.1,1221.104159
-Wisconsin,6,0.25,1521.934271
+Wisconsin,6,0.025,1209.89125745935
+Wisconsin,6,0.1,1220.88643534509
+Wisconsin,6,0.25,1297.26543638643
 Wisconsin,6,0.5,1650
-Wisconsin,6,0.75,1878.909236
-Wisconsin,6,0.9,1992.011752
-Wisconsin,6,0.975,1998.470192
+Wisconsin,6,0.75,1958.1881572862
+Wisconsin,6,0.9,1992.31100811492
+Wisconsin,6,0.975,1998.04080837214
 Wisconsin,7,point,1342
-Wisconsin,7,0.025,921.4606629
-Wisconsin,7,0.1,932.1138134
-Wisconsin,7,0.25,1217.897868
+Wisconsin,7,0.025,921.335673046851
+Wisconsin,7,0.1,931.882726289778
+Wisconsin,7,0.25,1004.65639643185
 Wisconsin,7,0.5,1342
-Wisconsin,7,0.75,1570.612295
-Wisconsin,7,0.9,1686.844817
-Wisconsin,7,0.975,1693.428717
-Texas,1,point,26425
-Texas,1,0.025,11644.73935
-Texas,1,0.1,11679.83442
-Texas,1,0.25,14108.15659
-Texas,1,0.5,26425
-Texas,1,0.75,28340.43066
-Texas,1,0.9,42840.19892
-Texas,1,0.975,43073.86262
-Texas,2,point,16153
-Texas,2,0.025,1375.966478
-Texas,2,0.1,1408.296284
-Texas,2,0.25,3708.462584
-Texas,2,0.5,16153
-Texas,2,0.75,18267.32064
-Texas,2,0.9,33560.53061
-Texas,2,0.975,33838.6318
-Texas,3,point,9493
+Wisconsin,7,0.75,1644.63776016732
+Wisconsin,7,0.9,1686.48509309831
+Wisconsin,7,0.975,1692.98706381366
+Texas,1,point,27719
+Texas,1,0.025,16395.7734048544
+Texas,1,0.1,16459.0221449214
+Texas,1,0.25,17289.6913364221
+Texas,1,0.5,27719
+Texas,1,0.75,30754.3039197468
+Texas,1,0.9,38323.3075900471
+Texas,1,0.975,38510.6524997607
+Texas,2,point,16550
+Texas,2,0.025,5147.08555350808
+Texas,2,0.1,5207.26329775201
+Texas,2,0.25,5994.97565360297
+Texas,2,0.5,16550
+Texas,2,0.75,19874.4154271255
+Texas,2,0.9,27482.3312803478
+Texas,2,0.975,27706.9135024056
+Texas,3,point,9879
 Texas,3,0.025,0
 Texas,3,0.1,0
 Texas,3,0.25,0
-Texas,3,0.5,9493
-Texas,3,0.75,11738.25194
-Texas,3,0.9,27417.48987
-Texas,3,0.975,27734.12776
-Texas,4,point,5639
+Texas,3,0.5,9879
+Texas,3,0.75,13383.6565819748
+Texas,3,0.9,20982.5978020946
+Texas,3,0.975,21240.5040989618
+Texas,4,point,5898
 Texas,4,0.025,0
 Texas,4,0.1,0
 Texas,4,0.25,0
-Texas,4,0.5,5639
-Texas,4,0.75,8177.736808
-Texas,4,0.9,24687.31861
-Texas,4,0.975,25081.78911
-Texas,5,point,3370
+Texas,4,0.5,5898
+Texas,4,0.75,9818.71779499673
+Texas,4,0.9,17290.5649526919
+Texas,4,0.975,17615.5291535703
+Texas,5,point,3519
 Texas,5,0.025,0
 Texas,5,0.1,0
 Texas,5,0.25,0
-Texas,5,0.5,3370
-Texas,5,0.75,6020.344875
-Texas,5,0.9,23103.052
-Texas,5,0.975,23569.32743
-Texas,6,point,1991
+Texas,5,0.5,3519
+Texas,5,0.75,7565.06210710914
+Texas,5,0.9,15021.8866780024
+Texas,5,0.975,15396.2478908991
+Texas,6,point,2100
 Texas,6,0.025,0
 Texas,6,0.1,0
 Texas,6,0.25,0
-Texas,6,0.5,1991
-Texas,6,0.75,4683.032052
-Texas,6,0.9,22259.27394
-Texas,6,0.975,22764.88428
-Texas,7,point,1189
+Texas,6,0.5,2100
+Texas,6,0.75,6184.46271922108
+Texas,6,0.9,13578.8773069335
+Texas,6,0.975,13976.4326243224
+Texas,7,point,1253
 Texas,7,0.025,0
 Texas,7,0.1,0
 Texas,7,0.25,0
-Texas,7,0.5,1189
-Texas,7,0.75,3874.712545
-Texas,7,0.9,21418.52337
-Texas,7,0.975,21955.53259
-Nebraska,1,point,2720
-Nebraska,1,0.025,2513.434497
-Nebraska,1,0.1,2517.284375
-Nebraska,1,0.25,2574.984224
-Nebraska,1,0.5,2720
-Nebraska,1,0.75,2839.854918
-Nebraska,1,0.9,3662.814738
-Nebraska,1,0.975,3665.356502
-Nebraska,2,point,2667
-Nebraska,2,0.025,2477.823757
-Nebraska,2,0.1,2483.600781
-Nebraska,2,0.25,2532.280931
-Nebraska,2,0.5,2667
-Nebraska,2,0.75,2804.574839
-Nebraska,2,0.9,3745.551036
-Nebraska,2,0.975,3749.259729
-Nebraska,3,point,2553
-Nebraska,3,0.025,2376.10239
-Nebraska,3,0.1,2382.92249
-Nebraska,3,0.25,2430.960756
-Nebraska,3,0.5,2553
-Nebraska,3,0.75,2722.711012
-Nebraska,3,0.9,3741.288834
-Nebraska,3,0.975,3746.328615
-Nebraska,4,point,2474
-Nebraska,4,0.025,2332.784467
-Nebraska,4,0.1,2340.810393
-Nebraska,4,0.25,2378.560692
-Nebraska,4,0.5,2474
-Nebraska,4,0.75,2681.2021
-Nebraska,4,0.9,3887.726309
-Nebraska,4,0.975,3895.375945
-Nebraska,5,point,2382
-Nebraska,5,0.025,2257.197225
-Nebraska,5,0.1,2266.1969
-Nebraska,5,0.25,2303.478345
-Nebraska,5,0.5,2382
-Nebraska,5,0.75,2627.407879
-Nebraska,5,0.9,3951.30614
-Nebraska,5,0.975,3961.984509
-Nebraska,6,point,2293
-Nebraska,6,0.025,2173.464948
-Nebraska,6,0.1,2183.761685
-Nebraska,6,0.25,2228.232121
-Nebraska,6,0.5,2293
-Nebraska,6,0.75,2548.136831
-Nebraska,6,0.9,3938.070752
-Nebraska,6,0.975,3950.290896
-Nebraska,7,point,2207
-Nebraska,7,0.025,2093.289417
-Nebraska,7,0.1,2103.165579
-Nebraska,7,0.25,2155.252478
-Nebraska,7,0.5,2207
-Nebraska,7,0.75,2483.604242
-Nebraska,7,0.9,3905.17436
-Nebraska,7,0.975,3919.064724
-Utah,1,point,4979
-Utah,1,0.025,4816.42502
-Utah,1,0.1,4840.729761
-Utah,1,0.25,4879.274495
-Utah,1,0.5,4979
-Utah,1,0.75,5045.226659
-Utah,1,0.9,5417.769303
-Utah,1,0.975,5427.510296
-Utah,2,point,4197
-Utah,2,0.025,4026.514114
-Utah,2,0.1,4052.402419
-Utah,2,0.25,4092.157973
-Utah,2,0.5,4197
-Utah,2,0.75,4267.18083
-Utah,2,0.9,4664.267796
-Utah,2,0.975,4675.71308
-Utah,3,point,3477
-Utah,3,0.025,3303.063042
-Utah,3,0.1,3329.802116
-Utah,3,0.25,3369.78392
-Utah,3,0.5,3477
-Utah,3,0.75,3549.300981
-Utah,3,0.9,3960.975211
-Utah,3,0.975,3973.8482
-Utah,4,point,2891
-Utah,4,0.025,2708.290537
-Utah,4,0.1,2736.990246
-Utah,4,0.25,2777.945182
-Utah,4,0.5,2891
-Utah,4,0.75,2968.250204
-Utah,4,0.9,3412.335621
-Utah,4,0.975,3428.009391
-Utah,5,point,2397
-Utah,5,0.025,2216.022738
-Utah,5,0.1,2244.944319
-Utah,5,0.25,2284.611982
-Utah,5,0.5,2397
-Utah,5,0.75,2474.980518
-Utah,5,0.9,2928.08967
-Utah,5,0.975,2945.85069
-Utah,6,point,1986
-Utah,6,0.025,1807.347393
-Utah,6,0.1,1836.168162
-Utah,6,0.25,1874.816392
-Utah,6,0.5,1986
-Utah,6,0.75,2063.759523
-Utah,6,0.9,2518.404572
-Utah,6,0.975,2537.192161
-Utah,7,point,1645
-Utah,7,0.025,1471.536059
-Utah,7,0.1,1499.750752
-Utah,7,0.25,1536.819055
-Utah,7,0.5,1645
-Utah,7,0.75,1721.331584
-Utah,7,0.9,2170.618338
-Utah,7,0.975,2190.149071
-Oregon,1,point,2593
-Oregon,1,0.025,2100.595776
-Oregon,1,0.1,2106.622073
-Oregon,1,0.25,2201.828621
-Oregon,1,0.5,2593
-Oregon,1,0.75,2660.25029
-Oregon,1,0.9,2673.950557
-Oregon,1,0.975,2680.707113
-Oregon,2,point,2266
-Oregon,2,0.025,1727.681569
-Oregon,2,0.1,1734.143913
-Oregon,2,0.25,1834.948011
-Oregon,2,0.5,2266
-Oregon,2,0.75,2342.840305
-Oregon,2,0.9,2358.327777
-Oregon,2,0.975,2366.406801
-Oregon,3,point,1978
-Oregon,3,0.025,1411.231234
-Oregon,3,0.1,1417.891808
-Oregon,3,0.25,1520.824766
-Oregon,3,0.5,1978
-Oregon,3,0.75,2062.352728
-Oregon,3,0.9,2079.191264
-Oregon,3,0.975,2088.428415
-Oregon,4,point,1726
-Oregon,4,0.025,1092.80432
-Oregon,4,0.1,1100.010518
-Oregon,4,0.25,1209.730203
-Oregon,4,0.5,1726
-Oregon,4,0.75,1826.015109
-Oregon,4,0.9,1845.718666
-Oregon,4,0.975,1857.26894
-Oregon,5,point,1504
-Oregon,5,0.025,851.2193244
-Oregon,5,0.1,858.3481588
-Oregon,5,0.25,965.5935463
-Oregon,5,0.5,1504
-Oregon,5,0.75,1613.992285
-Oregon,5,0.9,1635.37391
-Oregon,5,0.975,1648.771028
-Oregon,6,point,1311
-Oregon,6,0.025,652.4704046
-Oregon,6,0.1,659.4964282
-Oregon,6,0.25,764.4955371
-Oregon,6,0.5,1311
-Oregon,6,0.75,1425.675448
-Oregon,6,0.9,1447.821713
-Oregon,6,0.975,1462.137889
-Oregon,7,point,1141
-Oregon,7,0.025,488.3142225
-Oregon,7,0.1,495.0920924
-Oregon,7,0.25,595.8919889
-Oregon,7,0.5,1141
-Oregon,7,0.75,1258.697148
-Oregon,7,0.9,1281.275804
-Oregon,7,0.975,1296.348564
-Florida,1,point,39826
-Florida,1,0.025,37155.68094
-Florida,1,0.1,37448.52435
-Florida,1,0.25,37666.67702
-Florida,1,0.5,39826
-Florida,1,0.75,40712.31
-Florida,1,0.9,41073.1333
-Florida,1,0.975,41119.0541
-Florida,2,point,33765
-Florida,2,0.025,30571.08728
-Florida,2,0.1,30930.74736
-Florida,2,0.25,31203.25164
-Florida,2,0.5,33765
-Florida,2,0.75,34664.00476
-Florida,2,0.9,35065.31589
-Florida,2,0.975,35120.03974
-Florida,3,point,29647
-Florida,3,0.025,26066.43447
-Florida,3,0.1,26469.96229
-Florida,3,0.25,26793.30005
-Florida,3,0.5,29647
-Florida,3,0.75,30550.41178
-Florida,3,0.9,30966.57781
-Florida,3,0.975,31030.36656
-Florida,4,point,25643
-Florida,4,0.025,21211.25878
-Florida,4,0.1,21710.08671
-Florida,4,0.25,22123.19128
-Florida,4,0.5,25643
-Florida,4,0.75,26523.27697
-Florida,4,0.9,26960.2107
-Florida,4,0.975,27045.1377
-Florida,5,point,22030
-Florida,5,0.025,17162.57589
-Florida,5,0.1,17713.76659
-Florida,5,0.25,18203.07524
-Florida,5,0.5,22030
-Florida,5,0.75,22932.5708
-Florida,5,0.9,23474.22395
-Florida,5,0.975,23572.22748
-Florida,6,point,19117
-Florida,6,0.025,14051.54566
-Florida,6,0.1,14614.72069
-Florida,6,0.25,15144.48952
-Florida,6,0.5,19117
-Florida,6,0.75,20015.35725
-Florida,6,0.9,20558.96067
-Florida,6,0.975,20665.50706
-Florida,7,point,16486
-Florida,7,0.025,11320.29212
-Florida,7,0.1,11884.48878
-Florida,7,0.25,12445.66085
-Florida,7,0.5,16486
-Florida,7,0.75,17371.44667
-Florida,7,0.9,17921.99301
-Florida,7,0.975,18037.01052
-New York,1,point,56473
-New York,1,0.025,52397.05225
-New York,1,0.1,52663.20136
-New York,1,0.25,55599.94743
-New York,1,0.5,56473
-New York,1,0.75,63209.98891
-New York,1,0.9,65439.60784
-New York,1,0.975,65631.64159
-New York,2,point,53487
-New York,2,0.025,49030.90181
-New York,2,0.1,49331.39685
-New York,2,0.25,52515.21554
-New York,2,0.5,53487
-New York,2,0.75,61070.56647
-New York,2,0.9,63614.27356
-New York,2,0.975,63867.30084
-New York,3,point,49858
-New York,3,0.025,45129.73481
-New York,3,0.1,45456.89689
-New York,3,0.25,48809.547
-New York,3,0.5,49858
-New York,3,0.75,58137.82638
-New York,3,0.9,60951.71009
-New York,3,0.975,61268.53083
-New York,4,point,46455
-New York,4,0.025,41161.37895
-New York,4,0.1,41542.09845
-New York,4,0.25,45251.27851
-New York,4,0.5,46455
-New York,4,0.75,56129.76027
-New York,4,0.9,59479.93213
-New York,4,0.975,59920.58323
-New York,5,point,43078
-New York,5,0.025,37479.07106
-New York,5,0.1,37894.15748
-New York,5,0.25,41772.93118
-New York,5,0.5,43078
-New York,5,0.75,53781.4432
-New York,5,0.9,57560.94567
-New York,5,0.975,58131.93774
-New York,6,point,39820
-New York,6,0.025,34094.45088
-New York,6,0.1,34525.54158
-New York,6,0.25,38468.68488
-New York,6,0.5,39820
-New York,6,0.75,51009.19237
-New York,6,0.9,54996.02709
-New York,6,0.975,55633.55127
-New York,7,point,36694
-New York,7,0.025,30925.45101
-New York,7,0.1,31365.72767
-New York,7,0.25,35314.90655
-New York,7,0.5,36694
-New York,7,0.75,48238.49011
-New York,7,0.9,52392.2792
-New York,7,0.975,53096.9755
-Rhode Island,1,point,1857
-Rhode Island,1,0.025,1746.924277
-Rhode Island,1,0.1,1753.483274
-Rhode Island,1,0.25,1824.897535
-Rhode Island,1,0.5,1857
-Rhode Island,1,0.75,1875.585669
-Rhode Island,1,0.9,1912.967835
-Rhode Island,1,0.975,1923.602609
-Rhode Island,2,point,1459
-Rhode Island,2,0.025,1344.404812
-Rhode Island,2,0.1,1351.439615
-Rhode Island,2,0.25,1425.393774
-Rhode Island,2,0.5,1459
-Rhode Island,2,0.75,1478.990589
-Rhode Island,2,0.9,1518.25085
-Rhode Island,2,0.975,1529.890458
-Rhode Island,3,point,1148
-Rhode Island,3,0.025,1031.810834
-Rhode Island,3,0.1,1039.10954
-Rhode Island,3,0.25,1113.745942
-Rhode Island,3,0.5,1148
-Rhode Island,3,0.75,1168.856568
-Rhode Island,3,0.9,1209.018222
-Rhode Island,3,0.975,1221.353665
-Rhode Island,4,point,898
-Rhode Island,4,0.025,777.3366217
-Rhode Island,4,0.1,785.2289475
-Rhode Island,4,0.25,862.1056476
-Rhode Island,4,0.5,898
-Rhode Island,4,0.75,920.7277513
-Rhode Island,4,0.9,963.0620453
-Rhode Island,4,0.975,976.8395559
-Rhode Island,5,point,705
-Rhode Island,5,0.025,586.5042055
-Rhode Island,5,0.1,594.4922474
-Rhode Island,5,0.25,669.4145422
-Rhode Island,5,0.5,705
-Rhode Island,5,0.75,728.3360357
-Rhode Island,5,0.9,770.621209
-Rhode Island,5,0.975,785.1057482
-Rhode Island,6,point,552
-Rhode Island,6,0.025,435.6666088
-Rhode Island,6,0.1,443.6415651
-Rhode Island,6,0.25,516.8727064
-Rhode Island,6,0.5,552
-Rhode Island,6,0.75,575.4875913
-Rhode Island,6,0.9,617.406353
-Rhode Island,6,0.975,632.1692514
-Rhode Island,7,point,431
-Rhode Island,7,0.025,318.6066717
-Rhode Island,7,0.1,326.4192079
-Rhode Island,7,0.25,396.869445
-Rhode Island,7,0.5,431
-Rhode Island,7,0.75,454.2483393
-Rhode Island,7,0.9,495.1751713
-Rhode Island,7,0.975,509.9743338
-Georgia,1,point,20241
-Georgia,1,0.025,18261.59734
-Georgia,1,0.1,18362.44423
-Georgia,1,0.25,18973.15646
-Georgia,1,0.5,20241
-Georgia,1,0.75,21614.48774
-Georgia,1,0.9,23336.79609
-Georgia,1,0.975,23381.87484
-Georgia,2,point,17525
-Georgia,2,0.025,15468.56345
-Georgia,2,0.1,15576.9295
-Georgia,2,0.25,16335.17047
-Georgia,2,0.5,17525
-Georgia,2,0.75,19027.04493
-Georgia,2,0.9,20933.32689
-Georgia,2,0.975,20990.46675
-Georgia,3,point,15163
-Georgia,3,0.025,13089.08534
-Georgia,3,0.1,13200.22063
-Georgia,3,0.25,14054.7942
-Georgia,3,0.5,15163
-Georgia,3,0.75,16742.61524
-Georgia,3,0.9,18780.48051
-Georgia,3,0.975,18848.97575
-Georgia,4,point,13109
-Georgia,4,0.025,10977.57918
-Georgia,4,0.1,11098.49166
-Georgia,4,0.25,12145.81537
-Georgia,4,0.5,13109
-Georgia,4,0.75,14869.19623
-Georgia,4,0.9,17183.95416
-Georgia,4,0.975,17273.85187
-Georgia,5,point,11302
-Georgia,5,0.025,9237.83236
-Georgia,5,0.1,9354.827989
-Georgia,5,0.25,10549.84895
-Georgia,5,0.5,11302
-Georgia,5,0.75,13109.06018
-Georgia,5,0.9,15568.25013
-Georgia,5,0.975,15677.99155
-Georgia,6,point,9728
-Georgia,6,0.025,7718.478386
-Georgia,6,0.1,7832.228161
-Georgia,6,0.25,9021.551942
-Georgia,6,0.5,9728
-Georgia,6,0.75,11546.67202
-Georgia,6,0.9,14069.36417
-Georgia,6,0.975,14189.36113
-Georgia,7,point,8359
-Georgia,7,0.025,6442.150585
-Georgia,7,0.1,6550.175777
-Georgia,7,0.25,7735.665097
-Georgia,7,0.5,8359
-Georgia,7,0.75,10154.6572
-Georgia,7,0.9,12698.8458
-Georgia,7,0.975,12827.73402
-New Hampshire,1,point,2389
-New Hampshire,1,0.025,2305.507421
-New Hampshire,1,0.1,2318.474099
-New Hampshire,1,0.25,2349.413419
-New Hampshire,1,0.5,2389
-New Hampshire,1,0.75,2418.563378
-New Hampshire,1,0.9,2466.528787
-New Hampshire,1,0.975,2514.08688
-New Hampshire,2,point,2252
-New Hampshire,2,0.025,2149.686057
-New Hampshire,2,0.1,2165.419077
-New Hampshire,2,0.25,2202.149092
-New Hampshire,2,0.5,2252
-New Hampshire,2,0.75,2288.037677
-New Hampshire,2,0.9,2346.143387
-New Hampshire,2,0.975,2404.874283
-New Hampshire,3,point,2110
-New Hampshire,3,0.025,1990.278578
-New Hampshire,3,0.1,2008.552485
-New Hampshire,3,0.25,2050.321218
-New Hampshire,3,0.5,2110
-New Hampshire,3,0.75,2151.249337
-New Hampshire,3,0.9,2219.852413
-New Hampshire,3,0.975,2289.345665
-New Hampshire,4,point,1968
-New Hampshire,4,0.025,1813.998889
-New Hampshire,4,0.1,1837.324906
-New Hampshire,4,0.25,1889.643315
-New Hampshire,4,0.5,1968
-New Hampshire,4,0.75,2019.91597
-New Hampshire,4,0.9,2109.410997
-New Hampshire,4,0.975,2200.279101
-New Hampshire,5,point,1828
-New Hampshire,5,0.025,1643.96411
-New Hampshire,5,0.1,1671.673203
-New Hampshire,5,0.25,1733.091361
-New Hampshire,5,0.5,1828
-New Hampshire,5,0.75,1890.145199
-New Hampshire,5,0.9,1998.232462
-New Hampshire,5,0.975,2109.172324
-New Hampshire,6,point,1692
-New Hampshire,6,0.025,1492.738677
-New Hampshire,6,0.1,1522.646692
-New Hampshire,6,0.25,1588.398179
-New Hampshire,6,0.5,1692
-New Hampshire,6,0.75,1758.760109
-New Hampshire,6,0.9,1876.556677
-New Hampshire,6,0.975,1997.590923
-New Hampshire,7,point,1560
-New Hampshire,7,0.025,1347.244248
-New Hampshire,7,0.1,1379.110919
-New Hampshire,7,0.25,1448.745535
-New Hampshire,7,0.5,1560
-New Hampshire,7,0.75,1630.52662
-New Hampshire,7,0.9,1758.07984
-New Hampshire,7,0.975,1888.709066
-North Carolina,1,point,18592
-North Carolina,1,0.025,15118.77683
-North Carolina,1,0.1,15172.39086
-North Carolina,1,0.25,17327.11375
-North Carolina,1,0.5,18592
-North Carolina,1,0.75,19614.92239
-North Carolina,1,0.9,21936.04502
-North Carolina,1,0.975,22157.50134
-North Carolina,2,point,15352
-North Carolina,2,0.025,11640.85735
-North Carolina,2,0.1,11699.25742
-North Carolina,2,0.25,14080.61751
-North Carolina,2,0.5,15352
-North Carolina,2,0.75,16503.47527
-North Carolina,2,0.9,19152.50942
-North Carolina,2,0.975,19423.79567
-North Carolina,3,point,12111
-North Carolina,3,0.025,8290.507539
-North Carolina,3,0.1,8351.163225
-North Carolina,3,0.25,10856.4347
-North Carolina,3,0.5,12111
-North Carolina,3,0.75,13355.70602
-North Carolina,3,0.9,16258.39312
-North Carolina,3,0.975,16575.68006
-North Carolina,4,point,9781
-North Carolina,4,0.025,5655.356693
-North Carolina,4,0.1,5721.86583
-North Carolina,4,0.25,8572.344479
-North Carolina,4,0.5,9781
-North Carolina,4,0.75,11223.80444
-North Carolina,4,0.9,14657.34472
-North Carolina,4,0.975,15065.47047
-North Carolina,5,point,7833
-North Carolina,5,0.025,3744.098221
-North Carolina,5,0.1,3810.114102
-North Carolina,5,0.25,6651.751101
-North Carolina,5,0.5,7833
-North Carolina,5,0.75,9379.967967
-North Carolina,5,0.9,13140.70638
-North Carolina,5,0.975,13628.13034
-North Carolina,6,point,6254
-North Carolina,6,0.025,2218.905694
-North Carolina,6,0.1,2284.008901
-North Carolina,6,0.25,5112.431002
-North Carolina,6,0.5,6254
-North Carolina,6,0.75,7846.978813
-North Carolina,6,0.9,11760.36001
-North Carolina,6,0.975,12287.79827
-North Carolina,7,point,5017
-North Carolina,7,0.025,1111.841294
-North Carolina,7,0.1,1174.392837
-North Carolina,7,0.25,3925.198413
-North Carolina,7,0.5,5017
-North Carolina,7,0.75,6628.593773
-North Carolina,7,0.9,10635.51247
-North Carolina,7,0.975,11198.50481
-New Jersey,1,point,25473
-New Jersey,1,0.025,22827.30665
-New Jersey,1,0.1,22956.87073
-New Jersey,1,0.25,24364.17578
-New Jersey,1,0.5,25473
-New Jersey,1,0.75,26897.69823
-New Jersey,1,0.9,28124.44066
-New Jersey,1,0.975,28216.8573
-New Jersey,2,point,24845
-New Jersey,2,0.025,21865.18751
-New Jersey,2,0.1,22016.29781
-New Jersey,2,0.25,23581.22428
-New Jersey,2,0.5,24845
-New Jersey,2,0.75,26493.1585
-New Jersey,2,0.9,27916.42264
-New Jersey,2,0.975,28040.836
-New Jersey,3,point,23970
-New Jersey,3,0.025,20715.68629
-New Jersey,3,0.1,20885.45937
-New Jersey,3,0.25,22574.00194
-New Jersey,3,0.5,23970
-New Jersey,3,0.75,25817.7282
-New Jersey,3,0.9,27418.05418
-New Jersey,3,0.975,27577.31167
-New Jersey,4,point,23112
-New Jersey,4,0.025,19307.95071
-New Jersey,4,0.1,19514.38483
-New Jersey,4,0.25,21453.26508
-New Jersey,4,0.5,23112
-New Jersey,4,0.75,25353.95392
-New Jersey,4,0.9,27303.49225
-New Jersey,4,0.975,27530.85473
-New Jersey,5,point,22213
-New Jersey,5,0.025,18005.02494
-New Jersey,5,0.1,18240.65836
-New Jersey,5,0.25,20347.46978
-New Jersey,5,0.5,22213
-New Jersey,5,0.75,24790.53114
-New Jersey,5,0.9,27041.77376
-New Jersey,5,0.975,27344.73404
-New Jersey,6,point,21298
-New Jersey,6,0.025,16899.18884
-New Jersey,6,0.1,17149.22493
-New Jersey,6,0.25,19332.76084
-New Jersey,6,0.5,21298
-New Jersey,6,0.75,24039.98679
-New Jersey,6,0.9,26439.45092
-New Jersey,6,0.975,26780.81981
-New Jersey,7,point,20371
-New Jersey,7,0.025,15833.30843
-New Jersey,7,0.1,16094.77356
-New Jersey,7,0.25,18326.89121
-New Jersey,7,0.5,20371
-New Jersey,7,0.75,23254.13595
-New Jersey,7,0.9,25782.47836
-New Jersey,7,0.975,26164.16904
-Colorado,1,point,8254
-Colorado,1,0.025,8074.345006
-Colorado,1,0.1,8084.57859
-Colorado,1,0.25,8138.737465
-Colorado,1,0.5,8254
-Colorado,1,0.75,8326.317015
-Colorado,1,0.9,8380.960419
-Colorado,1,0.975,8436.397351
-Colorado,2,point,7871
-Colorado,2,0.025,7657.997157
-Colorado,2,0.1,7669.909554
-Colorado,2,0.25,7733.716955
-Colorado,2,0.5,7871
-Colorado,2,0.75,7955.856517
-Colorado,2,0.9,8021.77365
-Colorado,2,0.975,8087.68357
-Colorado,3,point,7433
-Colorado,3,0.025,7188.274328
-Colorado,3,0.1,7201.720686
-Colorado,3,0.25,7274.762489
-Colorado,3,0.5,7433
-Colorado,3,0.75,7529.566031
-Colorado,3,0.9,7606.584955
-Colorado,3,0.975,7682.567695
-Colorado,4,point,7024
-Colorado,4,0.025,6716.811267
-Colorado,4,0.1,6733.286166
-Colorado,4,0.25,6824.420988
-Colorado,4,0.5,7024
-Colorado,4,0.75,7143.666218
-Colorado,4,0.9,7242.535344
-Colorado,4,0.975,7338.373662
-Colorado,5,point,6620
-Colorado,5,0.025,6254.088686
-Colorado,5,0.1,6273.244844
-Colorado,5,0.25,6381.454712
-Colorado,5,0.5,6620
-Colorado,5,0.75,6760.835476
-Colorado,5,0.9,6881.290534
-Colorado,5,0.975,6996.138902
-Colorado,6,point,6230
-Colorado,6,0.025,5834.909628
-Colorado,6,0.1,5855.385632
-Colorado,6,0.25,5972.175315
-Colorado,6,0.5,6230
-Colorado,6,0.75,6381.29822
-Colorado,6,0.9,6512.529341
-Colorado,6,0.975,6636.820571
-Colorado,7,point,5852
-Colorado,7,0.025,5429.561634
-Colorado,7,0.1,5451.213361
-Colorado,7,0.25,5576.015279
-Colorado,7,0.5,5852
-Colorado,7,0.75,6012.905952
-Colorado,7,0.9,6154.634673
-Colorado,7,0.975,6287.913352
-Maryland,1,point,5317
-Maryland,1,0.025,5088.131626
-Maryland,1,0.1,5091.725672
-Maryland,1,0.25,5201.542901
-Maryland,1,0.5,5317
-Maryland,1,0.75,5463.622686
-Maryland,1,0.9,5704.813845
-Maryland,1,0.975,5709.616232
-Maryland,2,point,4392
-Maryland,2,0.025,4170.115967
-Maryland,2,0.1,4174.043441
-Maryland,2,0.25,4267.844021
-Maryland,2,0.5,4392
-Maryland,2,0.75,4551.184549
-Maryland,2,0.9,4815.559419
-Maryland,2,0.975,4821.663112
-Maryland,3,point,3617
-Maryland,3,0.025,3405.65281
-Maryland,3,0.1,3409.789601
-Maryland,3,0.25,3488.434108
-Maryland,3,0.5,3617
-Maryland,3,0.75,3783.350302
-Maryland,3,0.9,4062.252633
-Maryland,3,0.975,4069.492647
-Maryland,4,point,2975
-Maryland,4,0.025,2786.710704
-Maryland,4,0.1,2791.289233
-Maryland,4,0.25,2834.934974
-Maryland,4,0.5,2975
-Maryland,4,0.75,3158.75165
-Maryland,4,0.9,3471.210263
-Maryland,4,0.975,3480.639591
-Maryland,5,point,2443
-Maryland,5,0.025,2270.467522
-Maryland,5,0.1,2274.97963
-Maryland,5,0.25,2303.475537
-Maryland,5,0.5,2443
-Maryland,5,0.75,2629.768209
-Maryland,5,0.9,2952.59643
-Maryland,5,0.975,2963.767618
-Maryland,6,point,2004
-Maryland,6,0.025,1840.592181
-Maryland,6,0.1,1845.106264
-Maryland,6,0.25,1865.705394
-Maryland,6,0.5,2004
-Maryland,6,0.75,2190.970362
-Maryland,6,0.9,2517.041455
-Maryland,6,0.975,2529.100129
-Maryland,7,point,1642
-Maryland,7,0.025,1491.099911
-Maryland,7,0.1,1495.476103
-Maryland,7,0.25,1507.691398
-Maryland,7,0.5,1642
-Maryland,7,0.75,1825.670436
-Maryland,7,0.9,2149.123226
-Maryland,7,0.975,2161.865588
-Nevada,1,point,2854
-Nevada,1,0.025,2683.103435
-Nevada,1,0.1,2688.62033
-Nevada,1,0.25,2835.920782
-Nevada,1,0.5,2854
-Nevada,1,0.75,3025.208362
-Nevada,1,0.9,3196.722517
-Nevada,1,0.975,3201.878789
-Nevada,2,point,2333
-Nevada,2,0.025,2155.362322
-Nevada,2,0.1,2161.228488
-Nevada,2,0.25,2313.537089
-Nevada,2,0.5,2333
-Nevada,2,0.75,2515.104382
-Nevada,2,0.9,2701.579188
-Nevada,2,0.975,2707.722838
-Nevada,3,point,1902
-Nevada,3,0.025,1723.75941
-Nevada,3,0.1,1729.738093
-Nevada,3,0.25,1881.886057
-Nevada,3,0.5,1902
-Nevada,3,0.75,2088.718035
-Nevada,3,0.9,2283.918331
-Nevada,3,0.975,2290.860003
-Nevada,4,point,1547
-Nevada,4,0.025,1362.26284
-Nevada,4,0.1,1368.627776
-Nevada,4,0.25,1525.134954
-Nevada,4,0.5,1547
-Nevada,4,0.75,1747.319412
-Nevada,4,0.9,1963.493573
-Nevada,4,0.975,1972.026384
-Nevada,5,point,1257
-Nevada,5,0.025,1082.172483
-Nevada,5,0.1,1088.317968
-Nevada,5,0.25,1235.281592
-Nevada,5,0.5,1257
-Nevada,5,0.75,1454.165994
-Nevada,5,0.9,1674.654878
-Nevada,5,0.975,1684.272648
-Nevada,6,point,1019
-Nevada,6,0.025,851.1611219
-Nevada,6,0.1,857.1259018
-Nevada,6,0.25,997.550905
-Nevada,6,0.5,1019
-Nevada,6,0.75,1212.818923
-Nevada,6,0.9,1433.970937
-Nevada,6,0.975,1444.120587
-Nevada,7,point,827
-Nevada,7,0.025,669.1685025
-Nevada,7,0.1,674.8168816
-Nevada,7,0.25,806.2725368
-Nevada,7,0.5,827
-Nevada,7,0.75,1013.82775
-Nevada,7,0.9,1231.578183
-Nevada,7,0.975,1242.075788
-Tennessee,1,point,7324
-Tennessee,1,0.025,7230.301661
-Tennessee,1,0.1,7235.866843
-Tennessee,1,0.25,7256.129516
-Tennessee,1,0.5,7324
-Tennessee,1,0.75,8197.147595
-Tennessee,1,0.9,9240.767115
-Tennessee,1,0.975,9268.78641
-Tennessee,2,point,5330
-Tennessee,2,0.025,5231.456766
-Tennessee,2,0.1,5238.027203
-Tennessee,2,0.25,5257.968997
-Tennessee,2,0.5,5330
-Tennessee,2,0.75,6256.865086
-Tennessee,2,0.9,7345.310612
-Tennessee,2,0.975,7376.660992
-Tennessee,3,point,3871
-Tennessee,3,0.025,3771.06267
-Tennessee,3,0.1,3778.285833
-Tennessee,3,0.25,3797.401684
-Tennessee,3,0.5,3871
-Tennessee,3,0.75,4819.697273
-Tennessee,3,0.9,5933.023463
-Tennessee,3,0.975,5967.152775
-Tennessee,4,point,2811
-Tennessee,4,0.025,2705.569488
-Tennessee,4,0.1,2714.157308
-Tennessee,4,0.25,2732.346099
-Tennessee,4,0.5,2811
-Tennessee,4,0.75,3825.868327
-Tennessee,4,0.9,4990.366082
-Tennessee,4,0.975,5029.753331
-Tennessee,5,point,2038
-Tennessee,5,0.025,1936.597635
-Tennessee,5,0.1,1945.716501
-Tennessee,5,0.25,1961.533063
-Tennessee,5,0.5,2038
-Tennessee,5,0.75,3034.509412
-Tennessee,5,0.9,4210.261403
-Tennessee,5,0.975,4253.871505
-Tennessee,6,point,1478
-Tennessee,6,0.025,1379.459838
-Tennessee,6,0.1,1388.780674
-Tennessee,6,0.25,1403.174328
-Tennessee,6,0.5,1478
-Tennessee,6,0.75,2456.00933
-Tennessee,6,0.9,3629.851014
-Tennessee,6,0.975,3675.436123
-Tennessee,7,point,1071
-Tennessee,7,0.025,977.3057571
-Tennessee,7,0.1,986.5381375
-Tennessee,7,0.25,999.4032907
-Tennessee,7,0.5,1071
-Tennessee,7,0.75,2012.33992
-Tennessee,7,0.9,3169.820985
-Tennessee,7,0.975,3216.819917
+Texas,7,0.5,1253
+Texas,7,0.75,5301.70030920758
+Texas,7,0.9,12586.0356254947
+Texas,7,0.975,13004.0113289831
+Nebraska,1,point,1804
+Nebraska,1,0.025,1403.16643008876
+Nebraska,1,0.1,1411.69221401988
+Nebraska,1,0.25,1533.82110417162
+Nebraska,1,0.5,1804
+Nebraska,1,0.75,1903.26212296207
+Nebraska,1,0.9,1979.00598741777
+Nebraska,1,0.975,1990.94229033434
+Nebraska,2,point,1544
+Nebraska,2,0.025,1119.96762464794
+Nebraska,2,0.1,1128.66348066222
+Nebraska,2,0.25,1253.70347055355
+Nebraska,2,0.5,1544
+Nebraska,2,0.75,1655.22364525505
+Nebraska,2,0.9,1741.17225678968
+Nebraska,2,0.975,1755.29950990743
+Nebraska,3,point,1320
+Nebraska,3,0.025,887.088013146023
+Nebraska,3,0.1,895.651675311648
+Nebraska,3,0.25,1019.4372875401
+Nebraska,3,0.5,1320
+Nebraska,3,0.75,1439.79812832652
+Nebraska,3,0.9,1533.52851963262
+Nebraska,3,0.975,1549.53670128692
+Nebraska,4,point,1128
+Nebraska,4,0.025,666.609037885997
+Nebraska,4,0.1,675.215090546
+Nebraska,4,0.25,800.616367119091
+Nebraska,4,0.5,1128
+Nebraska,4,0.75,1266.29812735815
+Nebraska,4,0.9,1376.41723576259
+Nebraska,4,0.975,1396.207025965
+Nebraska,5,point,962
+Nebraska,5,0.025,510.501842934129
+Nebraska,5,0.1,518.341773152305
+Nebraska,5,0.25,634.083425214645
+Nebraska,5,0.5,962
+Nebraska,5,0.75,1109.65304739602
+Nebraska,5,0.9,1229.56267525278
+Nebraska,5,0.975,1252.2625239577
+Nebraska,6,point,820
+Nebraska,6,0.025,377.673097637673
+Nebraska,6,0.1,385.015225461797
+Nebraska,6,0.25,494.40828165138
+Nebraska,6,0.5,820
+Nebraska,6,0.75,971.712323627191
+Nebraska,6,0.9,1096.12964479203
+Nebraska,6,0.975,1120.26681731074
+Nebraska,7,point,699
+Nebraska,7,0.025,273.773727408414
+Nebraska,7,0.1,280.494540419308
+Nebraska,7,0.25,381.760852302061
+Nebraska,7,0.5,699
+Nebraska,7,0.75,852.24702745825
+Nebraska,7,0.9,979.282504754238
+Nebraska,7,0.975,1004.56536687209
+Utah,1,point,4990
+Utah,1,0.025,4886.5785789486
+Utah,1,0.1,4919.97363298501
+Utah,1,0.25,4959.57737177368
+Utah,1,0.5,4990
+Utah,1,0.75,5038.26547380038
+Utah,1,0.9,5400.94104569735
+Utah,1,0.975,5411.2337607153
+Utah,2,point,4212
+Utah,2,0.025,4103.05943495662
+Utah,2,0.1,4138.70396329053
+Utah,2,0.25,4179.82250759184
+Utah,2,0.5,4212
+Utah,2,0.75,4263.6970632446
+Utah,2,0.9,4650.73645320641
+Utah,2,0.975,4662.79912688577
+Utah,3,point,3495
+Utah,3,0.025,3383.27720567831
+Utah,3,0.1,3420.19368550573
+Utah,3,0.25,3462.14575022539
+Utah,3,0.5,3495
+Utah,3,0.75,3548.64726295851
+Utah,3,0.9,3950.37000368398
+Utah,3,0.975,3963.9145939381
+Utah,4,point,2911
+Utah,4,0.025,2792.50451497197
+Utah,4,0.1,2832.29011855304
+Utah,4,0.25,2876.35185287069
+Utah,4,0.5,2911
+Utah,4,0.75,2968.89672869109
+Utah,4,0.9,3403.06260773814
+Utah,4,0.975,3419.51651593681
+Utah,5,point,2418
+Utah,5,0.025,2299.31311600556
+Utah,5,0.1,2339.64928487044
+Utah,5,0.25,2383.65952125651
+Utah,5,0.5,2418
+Utah,5,0.75,2476.81148349316
+Utah,5,0.9,2920.66893787468
+Utah,5,0.975,2939.29060150449
+Utah,6,point,2007
+Utah,6,0.025,1889.13360311662
+Utah,6,0.1,1929.46575880892
+Utah,6,0.25,1973.11339236971
+Utah,6,0.5,2007
+Utah,6,0.75,2065.88549972455
+Utah,6,0.9,2511.72012992595
+Utah,6,0.975,2531.40637900698
+Utah,7,point,1664
+Utah,7,0.025,1548.6774698286
+Utah,7,0.1,1588.3226936762
+Utah,7,0.25,1631.2985514775
+Utah,7,0.5,1664
+Utah,7,0.75,1721.85005577366
+Utah,7,0.9,2162.9192813234
+Utah,7,0.975,2183.37676354358
+Oregon,1,point,2430
+Oregon,1,0.025,2057.087861358
+Oregon,1,0.1,2057.97102054932
+Oregon,1,0.25,2145.64494708297
+Oregon,1,0.5,2430
+Oregon,1,0.75,2686.1248223738
+Oregon,1,0.9,2770.48057576972
+Oregon,1,0.975,2773.14656632207
+Oregon,2,point,2045
+Oregon,2,0.025,1651.61864309704
+Oregon,2,0.1,1652.60066705774
+Oregon,2,0.25,1743.2695118835
+Oregon,2,0.5,2045
+Oregon,2,0.75,2326.08711184505
+Oregon,2,0.9,2420.31631549025
+Oregon,2,0.975,2423.53251118917
+Oregon,3,point,1696
+Oregon,3,0.025,1292.070026545
+Oregon,3,0.1,1293.11571197355
+Oregon,3,0.25,1384.47115611746
+Oregon,3,0.5,1696
+Oregon,3,0.75,1995.77652490586
+Oregon,3,0.9,2098.0214818313
+Oregon,3,0.975,2101.75407685831
+Oregon,4,point,1415
+Oregon,4,0.025,986.065254306661
+Oregon,4,0.1,987.246359651856
+Oregon,4,0.25,1081.17323553276
+Oregon,4,0.5,1415
+Oregon,4,0.75,1753.17583601205
+Oregon,4,0.9,1871.55992402459
+Oregon,4,0.975,1876.29975275773
+Oregon,5,point,1177
+Oregon,5,0.025,746.282047841474
+Oregon,5,0.1,747.512629780735
+Oregon,5,0.25,838.664142597729
+Oregon,5,0.5,1177
+Oregon,5,0.75,1538.61775220863
+Oregon,5,0.9,1668.69766616003
+Oregon,5,0.975,1674.35532409116
+Oregon,6,point,981
+Oregon,6,0.025,552.543642663146
+Oregon,6,0.1,553.791745533472
+Oregon,6,0.25,642.714956250697
+Oregon,6,0.5,981
+Oregon,6,0.75,1352.83745177564
+Oregon,6,0.9,1488.37258504948
+Oregon,6,0.975,1494.49157409271
+Oregon,7,point,816
+Oregon,7,0.025,396.321194112805
+Oregon,7,0.1,397.55912518363
+Oregon,7,0.25,482.905539572574
+Oregon,7,0.5,816
+Oregon,7,0.75,1193.12527561458
+Oregon,7,0.9,1332.55560184869
+Oregon,7,0.975,1339.09198352679
+Florida,1,point,41412
+Florida,1,0.025,39201.8021065266
+Florida,1,0.1,39569.7260920216
+Florida,1,0.25,40998.8575818317
+Florida,1,0.5,41412
+Florida,1,0.75,41818.2007778351
+Florida,1,0.9,46485.0867464714
+Florida,1,0.975,46595.1549745177
+Florida,2,point,37415
+Florida,2,0.025,34982.5858161451
+Florida,2,0.1,35394.3826482135
+Florida,2,0.25,36957.1117279271
+Florida,2,0.5,37415
+Florida,2,0.75,37885.237530408
+Florida,2,0.9,43191.7132180018
+Florida,2,0.975,43340.3534620488
+Florida,3,point,33678
+Florida,3,0.025,31104.7474502548
+Florida,3,0.1,31546.2726017148
+Florida,3,0.25,33190.3148339397
+Florida,3,0.5,33678
+Florida,3,0.75,34199.5056442304
+Florida,3,0.9,39992.4108472635
+Florida,3,0.975,40179.7538748995
+Florida,4,point,30220
+Florida,4,0.025,27325.5186866963
+Florida,4,0.1,27831.7025855987
+Florida,4,0.25,29666.0259588439
+Florida,4,0.5,30220
+Florida,4,0.75,30847.1994632391
+Florida,4,0.9,37660.6787474138
+Florida,4,0.975,37922.2824575589
+Florida,5,point,27038
+Florida,5,0.025,24039.0976374978
+Florida,5,0.1,24572.5399631033
+Florida,5,0.25,26457.7004315792
+Florida,5,0.5,27038
+Florida,5,0.75,27734.6021614095
+Florida,5,0.9,35154.0895915035
+Florida,5,0.975,35488.9709908783
+Florida,6,point,24128
+Florida,6,0.025,21094.5178187282
+Florida,6,0.1,21638.9885872919
+Florida,6,0.25,23537.5722114725
+Florida,6,0.5,24128
+Florida,6,0.75,24857.6457387382
+Florida,6,0.9,32556.805684167
+Florida,6,0.975,32929.5652826221
+Florida,7,point,21480
+Florida,7,0.025,18468.3781099707
+Florida,7,0.1,19013.2006774595
+Florida,7,0.25,20890.1382265589
+Florida,7,0.5,21480
+Florida,7,0.75,22232.078388942
+Florida,7,0.9,30089.2100346917
+Florida,7,0.975,30498.1040686154
+New York,1,point,52919
+New York,1,0.025,47843.0453491821
+New York,1,0.1,48306.0951337148
+New York,1,0.25,48785.6587895307
+New York,1,0.5,52919
+New York,1,0.75,56510.6510411304
+New York,1,0.9,60170.6551657063
+New York,1,0.975,60393.3100160237
+New York,2,point,49337
+New York,2,0.025,43699.0764301648
+New York,2,0.1,44220.327224522
+New York,2,0.25,44743.1114013352
+New York,2,0.5,49337
+New York,2,0.75,53461.1372605985
+New York,2,0.9,57719.9977126163
+New York,2,0.975,58026.6765299359
+New York,3,point,45644
+New York,3,0.025,39630.3195743682
+New York,3,0.1,40187.0222239995
+New York,3,0.25,40738.3806328916
+New York,3,0.5,45644
+New York,3,0.75,50185.2732706656
+New York,3,0.9,54935.9724245209
+New York,3,0.975,55330.5678165954
+New York,4,point,41936
+New York,4,0.025,35090.4233296845
+New York,4,0.1,35725.0623421292
+New York,4,0.25,36345.6733496428
+New York,4,0.5,41936
+New York,4,0.75,47340.4504247872
+New York,4,0.9,53093.5564676024
+New York,4,0.975,53657.4928261558
+New York,5,point,38287
+New York,5,0.025,31106.0523541437
+New York,5,0.1,31767.8525093177
+New York,5,0.25,32406.7203817589
+New York,5,0.5,38287
+New York,5,0.75,44239.8022885841
+New York,5,0.9,50698.9392829761
+New York,5,0.975,51439.4907106673
+New York,6,point,34755
+New York,6,0.025,27443.4884718626
+New York,6,0.1,28115.0073104845
+New York,6,0.25,28759.1828822681
+New York,6,0.5,34755
+New York,6,0.75,40966.8844123178
+New York,6,0.9,47768.3694850326
+New York,6,0.975,48600.0827798601
+New York,7,point,31384
+New York,7,0.025,24076.5947381125
+New York,7,0.1,24740.0019149981
+New York,7,0.25,25381.4207641079
+New York,7,0.5,31384
+New York,7,0.75,37759.3139100895
+New York,7,0.9,44809.4841955947
+New York,7,0.975,45732.1850159226
+Rhode Island,1,point,1779
+Rhode Island,1,0.025,1646.24187990631
+Rhode Island,1,0.1,1659.65648457924
+Rhode Island,1,0.25,1692.32541663377
+Rhode Island,1,0.5,1779
+Rhode Island,1,0.75,1882.54168008123
+Rhode Island,1,0.9,2221.76476431339
+Rhode Island,1,0.975,2261.83808683398
+Rhode Island,2,point,1340
+Rhode Island,2,0.025,1197.95210840225
+Rhode Island,2,0.1,1211.91851650474
+Rhode Island,2,0.25,1246.75224218507
+Rhode Island,2,0.5,1340
+Rhode Island,2,0.75,1449.7922041442
+Rhode Island,2,0.9,1813.83467357115
+Rhode Island,2,0.975,1859.07876433929
+Rhode Island,3,point,1007
+Rhode Island,3,0.025,860.533838128409
+Rhode Island,3,0.1,874.73467861243
+Rhode Island,3,0.25,910.278528684162
+Rhode Island,3,0.5,1007
+Rhode Island,3,0.75,1120.36450894398
+Rhode Island,3,0.9,1502.40660710819
+Rhode Island,3,0.975,1552.04181675803
+Rhode Island,4,point,756
+Rhode Island,4,0.025,597.263741962583
+Rhode Island,4,0.1,611.990319755182
+Rhode Island,4,0.25,650.076973284401
+Rhode Island,4,0.5,756
+Rhode Island,4,0.75,878.437986608614
+Rhode Island,4,0.9,1299.28358101285
+Rhode Island,4,0.975,1357.89386474718
+Rhode Island,5,point,565
+Rhode Island,5,0.025,407.432559359945
+Rhode Island,5,0.1,421.872732034999
+Rhode Island,5,0.25,458.941275327446
+Rhode Island,5,0.5,565
+Rhode Island,5,0.75,687.806555851066
+Rhode Island,5,0.9,1124.08016084396
+Rhode Island,5,0.975,1189.03349719301
+Rhode Island,6,point,423
+Rhode Island,6,0.025,267.336116471667
+Rhode Island,6,0.1,281.643655373875
+Rhode Island,6,0.25,317.604811104273
+Rhode Island,6,0.5,423
+Rhode Island,6,0.75,545.755290211811
+Rhode Island,6,0.9,991.00138398789
+Rhode Island,6,0.975,1059.21101976945
+Rhode Island,7,point,316
+Rhode Island,7,0.025,165.087223998866
+Rhode Island,7,0.1,178.956669738087
+Rhode Island,7,0.25,213.128841859369
+Rhode Island,7,0.5,316
+Rhode Island,7,0.75,436.825794838051
+Rhode Island,7,0.9,884.32037820238
+Rhode Island,7,0.975,955.014427407537
+Georgia,1,point,20222
+Georgia,1,0.025,18255.6421659134
+Georgia,1,0.1,18360.8966782378
+Georgia,1,0.25,18967.9686137594
+Georgia,1,0.5,20222
+Georgia,1,0.75,21798.5737259399
+Georgia,1,0.9,23310.3226018451
+Georgia,1,0.975,23361.8854157094
+Georgia,2,point,17492
+Georgia,2,0.025,15445.6710032995
+Georgia,2,0.1,15558.5435263128
+Georgia,2,0.25,16320.5521880134
+Georgia,2,0.5,17492
+Georgia,2,0.75,19214.8216566468
+Georgia,2,0.9,20891.041434296
+Georgia,2,0.975,20955.3511343436
+Georgia,3,point,15123
+Georgia,3,0.025,13057.8876774598
+Georgia,3,0.1,13173.4559344832
+Georgia,3,0.25,14034.0427882281
+Georgia,3,0.5,15123
+Georgia,3,0.75,16933.8180551586
+Georgia,3,0.9,18729.3479675714
+Georgia,3,0.975,18805.499354332
+Georgia,4,point,13062
+Georgia,4,0.025,10931.6865109073
+Georgia,4,0.1,11057.1014467047
+Georgia,4,0.25,12122.2094889147
+Georgia,4,0.5,13062
+Georgia,4,0.75,15079.6759545469
+Georgia,4,0.9,17122.3183814849
+Georgia,4,0.975,17220.935895817
+Georgia,5,point,11254
+Georgia,5,0.025,9192.90744044111
+Georgia,5,0.1,9313.95733439223
+Georgia,5,0.25,10523.6272067985
+Georgia,5,0.5,11254
+Georgia,5,0.75,13323.4271534659
+Georgia,5,0.9,15502.306303258
+Georgia,5,0.975,15621.2564385078
+Georgia,6,point,9677
+Georgia,6,0.025,7671.63763687595
+Georgia,6,0.1,7789.15585324363
+Georgia,6,0.25,8993.66720569397
+Georgia,6,0.5,9677
+Georgia,6,0.75,11758.8714581793
+Georgia,6,0.9,13998.6191126419
+Georgia,6,0.975,14128.0408572982
+Georgia,7,point,8310
+Georgia,7,0.025,6398.2643440153
+Georgia,7,0.1,6509.71311414558
+Georgia,7,0.25,7706.78863733353
+Georgia,7,0.5,8310
+Georgia,7,0.75,10365.30679465
+Georgia,7,0.9,12628.4261729729
+Georgia,7,0.975,12766.8050463156
+New Hampshire,1,point,2387
+New Hampshire,1,0.025,2301.48598877912
+New Hampshire,1,0.1,2314.86680788563
+New Hampshire,1,0.25,2346.63418961262
+New Hampshire,1,0.5,2387
+New Hampshire,1,0.75,2417.45843189244
+New Hampshire,1,0.9,2466.8127404681
+New Hampshire,1,0.975,2515.71121745432
+New Hampshire,2,point,2246
+New Hampshire,2,0.025,2141.28631422742
+New Hampshire,2,0.1,2157.49857461999
+New Hampshire,2,0.25,2195.22023925215
+New Hampshire,2,0.5,2246
+New Hampshire,2,0.75,2283.29246574511
+New Hampshire,2,0.9,2342.82273263332
+New Hampshire,2,0.975,2403.18781375193
+New Hampshire,3,point,2102
+New Hampshire,3,0.025,1979.55994666256
+New Hampshire,3,0.1,1998.36462528039
+New Hampshire,3,0.25,2041.25814909469
+New Hampshire,3,0.5,2102
+New Hampshire,3,0.75,2144.77808936349
+New Hampshire,3,0.9,2214.87321095934
+New Hampshire,3,0.975,2286.27588060955
+New Hampshire,4,point,1958
+New Hampshire,4,0.025,1800.54201495181
+New Hampshire,4,0.1,1824.50393767909
+New Hampshire,4,0.25,1878.08130225146
+New Hampshire,4,0.5,1958
+New Hampshire,4,0.75,2011.54009721791
+New Hampshire,4,0.9,2103.02324198423
+New Hampshire,4,0.975,2196.34868104058
+New Hampshire,5,point,1816
+New Hampshire,5,0.025,1627.93024171057
+New Hampshire,5,0.1,1656.34281162379
+New Hampshire,5,0.25,1719.03088183586
+New Hampshire,5,0.5,1816
+New Hampshire,5,0.75,1879.55689493093
+New Hampshire,5,0.9,1990.27691154648
+New Hampshire,5,0.975,2104.16630334504
+New Hampshire,6,point,1679
+New Hampshire,6,0.025,1475.39726348097
+New Hampshire,6,0.1,1506.04128363156
+New Hampshire,6,0.25,1573.07077745018
+New Hampshire,6,0.5,1679
+New Hampshire,6,0.75,1747.20364735361
+New Hampshire,6,0.9,1867.79149450741
+New Hampshire,6,0.975,1992.02211428432
+New Hampshire,7,point,1546
+New Hampshire,7,0.025,1328.63392111719
+New Hampshire,7,0.1,1361.25708656772
+New Hampshire,7,0.25,1432.10157387666
+New Hampshire,7,0.5,1546
+New Hampshire,7,0.75,1617.67334070377
+New Hampshire,7,0.9,1748.43775630023
+New Hampshire,7,0.975,1882.49028483084
+North Carolina,1,point,20706
+North Carolina,1,0.025,19814.9508569795
+North Carolina,1,0.1,19952.837134839
+North Carolina,1,0.25,20467.1274910318
+North Carolina,1,0.5,20706
+North Carolina,1,0.75,22327.8124255858
+North Carolina,1,0.9,23639.7577264532
+North Carolina,1,0.975,23685.0875703284
+North Carolina,2,point,18027
+North Carolina,2,0.025,17011.8357755017
+North Carolina,2,0.1,17168.7943160004
+North Carolina,2,0.25,17800.9549827308
+North Carolina,2,0.5,18027
+North Carolina,2,0.75,19719.146692468
+North Carolina,2,0.9,21219.2529211157
+North Carolina,2,0.975,21277.220409002
+North Carolina,3,point,15631
+North Carolina,3,0.025,14511.8698870048
+North Carolina,3,0.1,14679.5804636835
+North Carolina,3,0.25,15388.8028728217
+North Carolina,3,0.5,15631
+North Carolina,3,0.75,17332.9742772946
+North Carolina,3,0.9,18974.1278141221
+North Carolina,3,0.975,19043.8776905455
+North Carolina,4,point,13518
+North Carolina,4,0.025,12221.7460053288
+North Carolina,4,0.1,12420.0617963351
+North Carolina,4,0.25,13275.5320381779
+North Carolina,4,0.5,13518
+North Carolina,4,0.75,15291.5444389638
+North Carolina,4,0.9,17232.2097829095
+North Carolina,4,0.975,17324.8371739836
+North Carolina,5,point,11661
+North Carolina,5,0.025,10253.3578129252
+North Carolina,5,0.1,10454.0426238025
+North Carolina,5,0.25,11410.5175636198
+North Carolina,5,0.5,11661
+North Carolina,5,0.75,13388.5149371013
+North Carolina,5,0.9,15498.6100352101
+North Carolina,5,0.975,15611.3732713044
+North Carolina,6,point,10038
+North Carolina,6,0.025,8588.02707721254
+North Carolina,6,0.1,8788.37398024376
+North Carolina,6,0.25,9774.29068734919
+North Carolina,6,0.5,10038
+North Carolina,6,0.75,11734.6249289406
+North Carolina,6,0.9,13922.5453387178
+North Carolina,6,0.975,14045.6781065325
+North Carolina,7,point,8626
+North Carolina,7,0.025,7155.2059259273
+North Carolina,7,0.1,7350.94335383008
+North Carolina,7,0.25,8336.90843052297
+North Carolina,7,0.5,8626
+North Carolina,7,0.75,10253.7834075493
+North Carolina,7,0.9,12482.814283256
+North Carolina,7,0.975,12615.0311670356
+New Jersey,1,point,21649
+New Jersey,1,0.025,20265.6822739852
+New Jersey,1,0.1,20366.574480731
+New Jersey,1,0.25,21109.0247530834
+New Jersey,1,0.5,21649
+New Jersey,1,0.75,22923.7337480188
+New Jersey,1,0.9,23446.1978890835
+New Jersey,1,0.975,23652.8188486035
+New Jersey,2,point,19886
+New Jersey,2,0.025,18349.3932735335
+New Jersey,2,0.1,18465.8877907345
+New Jersey,2,0.25,19280.4376300815
+New Jersey,2,0.5,19886
+New Jersey,2,0.75,21328.2962139687
+New Jersey,2,0.9,21918.1625621924
+New Jersey,2,0.975,22164.5606852159
+New Jersey,3,point,18145
+New Jersey,3,0.025,16488.8694530966
+New Jersey,3,0.1,16618.5105697172
+New Jersey,3,0.25,17486.4138530117
+New Jersey,3,0.5,18145
+New Jersey,3,0.75,19727.8580729642
+New Jersey,3,0.9,20374.0861482848
+New Jersey,3,0.975,20658.0591350301
+New Jersey,4,point,16537
+New Jersey,4,0.025,14638.8703576715
+New Jersey,4,0.1,14794.4335803395
+New Jersey,4,0.25,15772.0284373575
+New Jersey,4,0.5,16537
+New Jersey,4,0.75,18400.1086664523
+New Jersey,4,0.9,19158.7879066909
+New Jersey,4,0.975,19516.3504122293
+New Jersey,5,point,15044
+New Jersey,5,0.025,12985.342659783
+New Jersey,5,0.1,13160.5881725559
+New Jersey,5,0.25,14203.1603774668
+New Jersey,5,0.5,15044
+New Jersey,5,0.75,17121.8703851142
+New Jersey,5,0.9,17966.4546005378
+New Jersey,5,0.975,18392.0803364037
+New Jersey,6,point,13662
+New Jersey,6,0.025,11530.3714479707
+New Jersey,6,0.1,11715.2052661613
+New Jersey,6,0.25,12785.6896419095
+New Jersey,6,0.5,13662
+New Jersey,6,0.75,15842.2348482857
+New Jersey,6,0.9,16727.6209230982
+New Jersey,6,0.975,17187.2336089654
+New Jersey,7,point,12390
+New Jersey,7,0.025,10213.3198399014
+New Jersey,7,0.1,10405.3311146335
+New Jersey,7,0.25,11489.0274355207
+New Jersey,7,0.5,12390
+New Jersey,7,0.75,14648.6519271082
+New Jersey,7,0.9,15565.1423702913
+New Jersey,7,0.975,16056.0494136027
+Colorado,1,point,6746
+Colorado,1,0.025,6534.64776039454
+Colorado,1,0.1,6540.97291444407
+Colorado,1,0.25,6619.05666206286
+Colorado,1,0.5,6746
+Colorado,1,0.75,6860.18480527036
+Colorado,1,0.9,6936.7776014072
+Colorado,1,0.975,6964.08901185153
+Colorado,2,point,6129
+Colorado,2,0.025,5878.21135153472
+Colorado,2,0.1,5885.600366258
+Colorado,2,0.25,5977.99432799969
+Colorado,2,0.5,6129
+Colorado,2,0.75,6265.88390869658
+Colorado,2,0.9,6358.21707870645
+Colorado,2,0.975,6390.85490397164
+Colorado,3,point,5544
+Colorado,3,0.025,5258.66818410601
+Colorado,3,0.1,5266.95007999289
+Colorado,3,0.25,5371.76661635616
+Colorado,3,0.5,5544
+Colorado,3,0.75,5701.33254621696
+Colorado,3,0.9,5808.06178432553
+Colorado,3,0.975,5845.48384590897
+Colorado,4,point,5003
+Colorado,4,0.025,4648.16109171287
+Colorado,4,0.1,4658.2596677396
+Colorado,4,0.25,4788.10621074923
+Colorado,4,0.5,5003
+Colorado,4,0.75,5201.28892040306
+Colorado,4,0.9,5336.80195847358
+Colorado,4,0.975,5383.83161130706
+Colorado,5,point,4503
+Colorado,5,0.025,4092.53089632987
+Colorado,5,0.1,4103.97001616081
+Colorado,5,0.25,4253.51269645466
+Colorado,5,0.5,4503
+Colorado,5,0.75,4735.76794588565
+Colorado,5,0.9,4896.16171278242
+Colorado,5,0.975,4951.24861579497
+Colorado,6,point,4044
+Colorado,6,0.025,3606.00728689914
+Colorado,6,0.1,3618.09980968475
+Colorado,6,0.25,3777.36753732526
+Colorado,6,0.5,4044
+Colorado,6,0.75,4293.93276119902
+Colorado,6,0.9,4466.74198745285
+Colorado,6,0.975,4525.829828783
+Colorado,7,point,3625
+Colorado,7,0.025,3164.04234088044
+Colorado,7,0.1,3176.63883901307
+Colorado,7,0.25,3343.8876078303
+Colorado,7,0.5,3625
+Colorado,7,0.75,3889.91660860694
+Colorado,7,0.9,4073.81081306906
+Colorado,7,0.975,4136.38891160001
+Maryland,1,point,5305
+Maryland,1,0.025,5083.38594546556
+Maryland,1,0.1,5088.33744408693
+Maryland,1,0.25,5188.13868472551
+Maryland,1,0.5,5305
+Maryland,1,0.75,5452.99276056041
+Maryland,1,0.9,5690.71653881092
+Maryland,1,0.975,5698.87402617274
+Maryland,2,point,4370
+Maryland,2,0.025,4156.28764663746
+Maryland,2,0.1,4161.61335185265
+Maryland,2,0.25,4244.49659411418
+Maryland,2,0.5,4370
+Maryland,2,0.75,4530.48771239045
+Maryland,2,0.9,4790.76591676526
+Maryland,2,0.975,4800.5670825046
+Maryland,3,point,3590
+Maryland,3,0.025,3387.37644450623
+Maryland,3,0.1,3392.37625830306
+Maryland,3,0.25,3460.62934000766
+Maryland,3,0.5,3590
+Maryland,3,0.75,3757.53079469875
+Maryland,3,0.9,4031.81523163456
+Maryland,3,0.975,4042.9733968072
+Maryland,4,point,2944
+Maryland,4,0.025,2765.30262765665
+Maryland,4,0.1,2770.76776262764
+Maryland,4,0.25,2804.69248095008
+Maryland,4,0.5,2944
+Maryland,4,0.75,3128.75512613843
+Maryland,4,0.9,3435.55068407498
+Maryland,4,0.975,3449.39803489013
+Maryland,5,point,2412
+Maryland,5,0.025,2247.58728051356
+Maryland,5,0.1,2254.13328040032
+Maryland,5,0.25,2275.47723261642
+Maryland,5,0.5,2412
+Maryland,5,0.75,2599.44929570793
+Maryland,5,0.9,2915.86642970883
+Maryland,5,0.975,2931.63021692903
+Maryland,6,point,1973
+Maryland,6,0.025,1817.17997604125
+Maryland,6,0.1,1823.86058969807
+Maryland,6,0.25,1838.82656166822
+Maryland,6,0.5,1973
+Maryland,6,0.75,2160.46474177217
+Maryland,6,0.9,2479.75686945542
+Maryland,6,0.975,2496.4694773975
+Maryland,7,point,1613
+Maryland,7,0.025,1468.57571800394
+Maryland,7,0.1,1475.33376121414
+Maryland,7,0.25,1484.57864146424
+Maryland,7,0.5,1613
+Maryland,7,0.75,1796.96213306937
+Maryland,7,0.9,2113.3711423978
+Maryland,7,0.975,2130.74388602993
+Nevada,1,point,2861
+Nevada,1,0.025,2698.77672463928
+Nevada,1,0.1,2702.88862697858
+Nevada,1,0.25,2765.78523774067
+Nevada,1,0.5,2861
+Nevada,1,0.75,3038.78652316813
+Nevada,1,0.9,3213.62822342427
+Nevada,1,0.975,3216.90722561139
+Nevada,2,point,2345
+Nevada,2,0.025,2176.43775758502
+Nevada,2,0.1,2180.87324429667
+Nevada,2,0.25,2245.53256048005
+Nevada,2,0.5,2345
+Nevada,2,0.75,2534.36395605581
+Nevada,2,0.9,2724.65868106122
+Nevada,2,0.975,2728.74365219701
+Nevada,3,point,1916
+Nevada,3,0.025,1746.91092141576
+Nevada,3,0.1,1751.48099708211
+Nevada,3,0.25,1815.73313880899
+Nevada,3,0.5,1916
+Nevada,3,0.75,2110.39001630467
+Nevada,3,0.9,2309.78934953157
+Nevada,3,0.975,2314.55983601692
+Nevada,4,point,1564
+Nevada,4,0.025,1388.83852087576
+Nevada,4,0.1,1393.78944327121
+Nevada,4,0.25,1459.29848100677
+Nevada,4,0.5,1564
+Nevada,4,0.75,1772.94756930437
+Nevada,4,0.9,1994.10454857337
+Nevada,4,0.975,2000.20625485004
+Nevada,5,point,1273
+Nevada,5,0.025,1107.31926664306
+Nevada,5,0.1,1112.17463498953
+Nevada,5,0.25,1173.08070635369
+Nevada,5,0.5,1273
+Nevada,5,0.75,1479.05968529013
+Nevada,5,0.9,1705.00862735112
+Nevada,5,0.975,1712.11909899802
+Nevada,6,point,1036
+Nevada,6,0.025,876.987032149776
+Nevada,6,0.1,881.741770848064
+Nevada,6,0.25,939.576348085364
+Nevada,6,0.5,1036
+Nevada,6,0.75,1238.78434461085
+Nevada,6,0.9,1465.62060413927
+Nevada,6,0.975,1473.24019435775
+Nevada,7,point,842
+Nevada,7,0.025,692.509090725628
+Nevada,7,0.1,697.046662380434
+Nevada,7,0.25,750.843621214415
+Nevada,7,0.5,842
+Nevada,7,0.75,1037.68037457484
+Nevada,7,0.9,1261.24412086167
+Nevada,7,0.975,1269.23594849237
+Tennessee,1,point,7285
+Tennessee,1,0.025,7028.82049271415
+Tennessee,1,0.1,7043.92654638204
+Tennessee,1,0.25,7068.4000681293
+Tennessee,1,0.5,7285
+Tennessee,1,0.75,8003.23626223335
+Tennessee,1,0.9,9050.69453506748
+Tennessee,1,0.975,9094.08019323535
+Tennessee,2,point,5270
+Tennessee,2,0.025,5005.39336087977
+Tennessee,2,0.1,5020.74288998623
+Tennessee,2,0.25,5046.24493711254
+Tennessee,2,0.5,5270
+Tennessee,2,0.75,6034.09495632407
+Tennessee,2,0.9,7126.11402414287
+Tennessee,2,0.975,7174.09234146009
+Tennessee,3,point,3806
+Tennessee,3,0.025,3541.44157538651
+Tennessee,3,0.1,3556.58983595375
+Tennessee,3,0.25,3582.17086266342
+Tennessee,3,0.5,3806
+Tennessee,3,0.75,4589.08369431652
+Tennessee,3,0.9,5704.86347053839
+Tennessee,3,0.975,5756.45191451341
+Tennessee,4,point,2746
+Tennessee,4,0.025,2474.44057150088
+Tennessee,4,0.1,2489.59236240418
+Tennessee,4,0.25,2516.40098409742
+Tennessee,4,0.5,2746
+Tennessee,4,0.75,3586.21707166057
+Tennessee,4,0.9,4752.04389625486
+Tennessee,4,0.975,4810.68452060146
+Tennessee,5,point,1980
+Tennessee,5,0.025,1723.91145134966
+Tennessee,5,0.1,1737.89664038529
+Tennessee,5,0.25,1763.29360171742
+Tennessee,5,0.5,1980
+Tennessee,5,0.75,2805.68261041929
+Tennessee,5,0.9,3979.01736307542
+Tennessee,5,0.975,4042.61344649328
+Tennessee,6,point,1427
+Tennessee,6,0.025,1181.44058620596
+Tennessee,6,0.1,1194.68442692154
+Tennessee,6,0.25,1219.05063571977
+Tennessee,6,0.5,1427
+Tennessee,6,0.75,2237.72873101292
+Tennessee,6,0.9,3407.05629926092
+Tennessee,6,0.975,3472.88520747912
+Tennessee,7,point,1029
+Tennessee,7,0.025,798.21679314906
+Tennessee,7,0.1,810.515262295783
+Tennessee,7,0.25,833.474332938941
+Tennessee,7,0.5,1029
+Tennessee,7,0.75,1809.41462848514
+Tennessee,7,0.9,2959.95090189155
+Tennessee,7,0.975,3027.13734792739
 Hawaii,1,point,277
-Hawaii,1,0.025,225.4819594
-Hawaii,1,0.1,225.5485632
-Hawaii,1,0.25,260.6903478
+Hawaii,1,0.025,222.524525337265
+Hawaii,1,0.1,222.632327506879
+Hawaii,1,0.25,257.677646203192
 Hawaii,1,0.5,277
-Hawaii,1,0.75,280.0536321
-Hawaii,1,0.9,324.3843451
-Hawaii,1,0.975,324.685039
+Hawaii,1,0.75,286.103741991454
+Hawaii,1,0.9,321.438749302271
+Hawaii,1,0.975,321.813321865132
 Hawaii,2,point,226
-Hawaii,2,0.025,171.55471
-Hawaii,2,0.1,171.6255217
-Hawaii,2,0.25,208.3087852
+Hawaii,2,0.025,168.327076304859
+Hawaii,2,0.1,168.439655464568
+Hawaii,2,0.25,205.006908834026
 Hawaii,2,0.5,226
-Hawaii,2,0.75,229.3615969
-Hawaii,2,0.9,279.6113842
-Hawaii,2,0.975,279.9755105
-Hawaii,3,point,185
-Hawaii,3,0.025,129.466016
-Hawaii,3,0.1,129.5380619
-Hawaii,3,0.25,166.5174468
-Hawaii,3,0.5,185
-Hawaii,3,0.75,188.5612282
-Hawaii,3,0.9,243.3402556
-Hawaii,3,0.975,243.7622494
+Hawaii,2,0.75,236.089770979364
+Hawaii,2,0.9,276.357854170351
+Hawaii,2,0.975,276.80792000138
+Hawaii,3,point,184
+Hawaii,3,0.025,125.072460811376
+Hawaii,3,0.1,125.185485383653
+Hawaii,3,0.25,162.033601989112
+Hawaii,3,0.5,184
+Hawaii,3,0.75,194.759391058789
+Hawaii,3,0.9,238.880909505072
+Hawaii,3,0.975,239.398945365296
 Hawaii,4,point,150
-Hawaii,4,0.025,90.90385774
-Hawaii,4,0.1,90.98041847
-Hawaii,4,0.25,129.5922489
+Hawaii,4,0.025,87.1205394870931
+Hawaii,4,0.1,87.2379722859157
+Hawaii,4,0.25,125.688326219386
 Hawaii,4,0.5,150
-Hawaii,4,0.75,154.0143071
-Hawaii,4,0.9,218.3564053
-Hawaii,4,0.975,218.8935877
+Hawaii,4,0.75,162.245212184469
+Hawaii,4,0.9,214.435376879962
+Hawaii,4,0.975,215.089263616526
 Hawaii,5,point,122
-Hawaii,5,0.025,64.27416467
-Hawaii,5,0.1,64.34770406
-Hawaii,5,0.25,101.2465869
+Hawaii,5,0.025,60.3815471418164
+Hawaii,5,0.1,60.4921433795826
+Hawaii,5,0.25,97.2103631398451
 Hawaii,5,0.5,122
-Hawaii,5,0.75,126.1764097
-Hawaii,5,0.9,196.2904731
-Hawaii,5,0.975,196.9266378
-Hawaii,6,point,100
-Hawaii,6,0.025,43.50300375
-Hawaii,6,0.1,43.57411803
-Hawaii,6,0.25,79.21741304
-Hawaii,6,0.5,100
-Hawaii,6,0.75,104.2341085
-Hawaii,6,0.9,177.0033708
-Hawaii,6,0.975,177.6890937
+Hawaii,5,0.75,134.878428463115
+Hawaii,5,0.9,192.182671121633
+Hawaii,5,0.975,192.950762258879
+Hawaii,6,point,99
+Hawaii,6,0.025,38.5800369213853
+Hawaii,6,0.1,38.6857729686626
+Hawaii,6,0.25,74.139076724271
+Hawaii,6,0.5,99
+Hawaii,6,0.75,112.130653584426
+Hawaii,6,0.9,171.82386466463
+Hawaii,6,0.975,172.648897285814
 Hawaii,7,point,82
-Hawaii,7,0.025,27.74635115
-Hawaii,7,0.1,27.81335832
-Hawaii,7,0.25,61.56851829
+Hawaii,7,0.025,23.8618061592991
+Hawaii,7,0.1,23.9604841790054
+Hawaii,7,0.25,57.5205367235182
 Hawaii,7,0.5,82
-Hawaii,7,0.75,86.21698093
-Hawaii,7,0.9,160.5736605
-Hawaii,7,0.975,161.3031499
-Indiana,1,point,6466
-Indiana,1,0.025,6307.148011
-Indiana,1,0.1,6341.835549
-Indiana,1,0.25,6386.169394
-Indiana,1,0.5,6466
-Indiana,1,0.75,6772.045971
-Indiana,1,0.9,7149.89789
-Indiana,1,0.975,7156.093338
-Indiana,2,point,5241
-Indiana,2,0.025,5074.300249
-Indiana,2,0.1,5111.045311
-Indiana,2,0.25,5156.888204
-Indiana,2,0.5,5241
-Indiana,2,0.75,5566.265364
-Indiana,2,0.9,5975.007353
-Indiana,2,0.975,5982.847467
-Indiana,3,point,4235
-Indiana,3,0.025,4066.297916
-Indiana,3,0.1,4103.74719
-Indiana,3,0.25,4149.572526
-Indiana,3,0.5,4235
-Indiana,3,0.75,4568.196787
-Indiana,3,0.9,4994.030838
-Indiana,3,0.975,5003.263721
-Indiana,4,point,3416
-Indiana,4,0.025,3238.703638
-Indiana,4,0.1,3278.520652
-Indiana,4,0.25,3325.701883
-Indiana,4,0.5,3416
-Indiana,4,0.75,3772.96779
-Indiana,4,0.9,4241.179327
-Indiana,4,0.975,4253.09929
-Indiana,5,point,2750
-Indiana,5,0.025,2579.656976
-Indiana,5,0.1,2618.293433
-Indiana,5,0.25,2662.804612
-Indiana,5,0.5,2750
-Indiana,5,0.75,3100.693636
-Indiana,5,0.9,3574.453794
-Indiana,5,0.975,3588.399039
-Indiana,6,point,2213
-Indiana,6,0.025,2047.94874
-Indiana,6,0.1,2085.596117
-Indiana,6,0.25,2128.226922
-Indiana,6,0.5,2213
-Indiana,6,0.75,2557.353544
-Indiana,6,0.9,3030.451147
-Indiana,6,0.975,3045.421183
-Indiana,7,point,1779
-Indiana,7,0.025,1622.345999
-Indiana,7,0.1,1658.236624
-Indiana,7,0.25,1698.287685
-Indiana,7,0.5,1779
-Indiana,7,0.75,2110.496878
-Indiana,7,0.9,2574.156282
-Indiana,7,0.975,2589.858293
-Kentucky,1,point,7331
-Kentucky,1,0.025,6312.754798
-Kentucky,1,0.1,6325.748411
-Kentucky,1,0.25,6767.566067
-Kentucky,1,0.5,7331
-Kentucky,1,0.75,7784.809031
-Kentucky,1,0.9,7925.499973
-Kentucky,1,0.975,7969.008313
-Kentucky,2,point,5816
-Kentucky,2,0.025,4747.914891
-Kentucky,2,0.1,4762.09285
-Kentucky,2,0.25,5219.24989
-Kentucky,2,0.5,5816
-Kentucky,2,0.75,6306.710054
-Kentucky,2,0.9,6459.008874
-Kentucky,2,0.975,6508.47678
-Kentucky,3,point,4569
-Kentucky,3,0.025,3478.317241
-Kentucky,3,0.1,3493.200837
-Kentucky,3,0.25,3954.108471
-Kentucky,3,0.5,4569
-Kentucky,3,0.75,5084.735575
-Kentucky,3,0.9,5245.064682
-Kentucky,3,0.975,5299.444177
-Kentucky,4,point,3600
-Kentucky,4,0.025,2452.996123
-Kentucky,4,0.1,2469.424434
-Kentucky,4,0.25,2943.559831
-Kentucky,4,0.5,3600
-Kentucky,4,0.75,4168.459947
-Kentucky,4,0.9,4345.620654
-Kentucky,4,0.975,4409.748485
-Kentucky,5,point,2831
-Kentucky,5,0.025,1690.386884
-Kentucky,5,0.1,1707.213929
-Kentucky,5,0.25,2168.146498
-Kentucky,5,0.5,2831
-Kentucky,5,0.75,3424.348207
-Kentucky,5,0.9,3609.999981
-Kentucky,5,0.975,3681.297108
-Kentucky,6,point,2225
-Kentucky,6,0.025,1096.759418
-Kentucky,6,0.1,1113.669272
-Kentucky,6,0.25,1563.697101
-Kentucky,6,0.5,2225
-Kentucky,6,0.75,2827.591766
-Kentucky,6,0.9,3016.514741
-Kentucky,6,0.975,3091.240501
-Kentucky,7,point,1749
-Kentucky,7,0.025,650.5475001
-Kentucky,7,0.1,667.1836396
-Kentucky,7,0.25,1099.495682
-Kentucky,7,0.5,1749
-Kentucky,7,0.75,2351.984646
-Kentucky,7,0.9,2541.507796
-Kentucky,7,0.975,2618.693274
-Minnesota,1,point,5633
-Minnesota,1,0.025,5215.021594
-Minnesota,1,0.1,5237.370425
-Minnesota,1,0.25,5507.974448
-Minnesota,1,0.5,5633
-Minnesota,1,0.75,6025.027075
-Minnesota,1,0.9,7042.547705
-Minnesota,1,0.975,7054.316338
-Minnesota,2,point,5640
-Minnesota,2,0.025,5171.188159
-Minnesota,2,0.1,5196.547199
-Minnesota,2,0.25,5497.849958
-Minnesota,2,0.5,5640
-Minnesota,2,0.75,6092.967952
-Minnesota,2,0.9,7320.967098
-Minnesota,2,0.975,7337.912049
-Minnesota,3,point,5627
-Minnesota,3,0.025,5121.660746
-Minnesota,3,0.1,5149.220863
-Minnesota,3,0.25,5471.792537
-Minnesota,3,0.5,5627
-Minnesota,3,0.75,6129.54222
-Minnesota,3,0.9,7551.682894
-Minnesota,3,0.975,7574.657664
-Minnesota,4,point,5596
-Minnesota,4,0.025,5011.898325
-Minnesota,4,0.1,5044.104146
-Minnesota,4,0.25,5413.35342
-Minnesota,4,0.5,5596
-Minnesota,4,0.75,6200.583615
-Minnesota,4,0.9,8011.542265
-Minnesota,4,0.975,8046.505287
-Minnesota,5,point,5550
-Minnesota,5,0.025,4925.774355
-Minnesota,5,0.1,4960.45831
-Minnesota,5,0.25,5350.984092
-Minnesota,5,0.5,5550
-Minnesota,5,0.75,6225.278207
-Minnesota,5,0.9,8377.802818
-Minnesota,5,0.975,8427.212957
-Minnesota,6,point,5488
-Minnesota,6,0.025,4846.322602
-Minnesota,6,0.1,4882.119134
-Minnesota,6,0.25,5281.432415
-Minnesota,6,0.5,5488
-Minnesota,6,0.75,6197.185098
-Minnesota,6,0.9,8519.95293
-Minnesota,6,0.975,8576.627792
-Minnesota,7,point,5409
-Minnesota,7,0.025,4760.534185
-Minnesota,7,0.1,4796.799671
-Minnesota,7,0.25,5198.08439
-Minnesota,7,0.5,5409
-Minnesota,7,0.75,6142.649936
-Minnesota,7,0.9,8619.862148
-Minnesota,7,0.975,8684.603996
-Oklahoma,1,point,5336
-Oklahoma,1,0.025,4153.304558
-Oklahoma,1,0.1,4168.698036
-Oklahoma,1,0.25,4499.754616
-Oklahoma,1,0.5,5336
-Oklahoma,1,0.75,5524.574552
-Oklahoma,1,0.9,6864.227446
-Oklahoma,1,0.975,6940.466648
-Oklahoma,2,point,3760
-Oklahoma,2,0.025,2553.845804
-Oklahoma,2,0.1,2569.564169
-Oklahoma,2,0.25,2907.115912
-Oklahoma,2,0.5,3760
-Oklahoma,2,0.75,3977.680278
-Oklahoma,2,0.9,5488.390152
-Oklahoma,2,0.975,5581.093157
-Oklahoma,3,point,2629
-Oklahoma,3,0.025,1435.688581
-Oklahoma,3,0.1,1451.12588
-Oklahoma,3,0.25,1782.218614
-Oklahoma,3,0.5,2629
-Oklahoma,3,0.75,2864.255078
-Oklahoma,3,0.9,4501.802974
-Oklahoma,3,0.975,4609.59706
-Oklahoma,4,point,1851
-Oklahoma,4,0.025,649.5922427
-Oklahoma,4,0.1,665.07829
-Oklahoma,4,0.25,999.8014308
-Oklahoma,4,0.5,1851
-Oklahoma,4,0.75,2129.846691
-Oklahoma,4,0.9,4037.436598
-Oklahoma,4,0.975,4175.154947
-Oklahoma,5,point,1296
-Oklahoma,5,0.025,182.2192163
-Oklahoma,5,0.1,196.1782159
-Oklahoma,5,0.25,495.0987943
-Oklahoma,5,0.5,1296
-Oklahoma,5,0.75,1585.393699
-Oklahoma,5,0.9,3643.247953
-Oklahoma,5,0.975,3806.820506
-Oklahoma,6,point,910
+Hawaii,7,0.75,95.1582521315365
+Hawaii,7,0.9,156.393429961311
+Hawaii,7,0.975,157.267958244377
+Indiana,1,point,6460
+Indiana,1,0.025,6300.14879397985
+Indiana,1,0.1,6336.11869277188
+Indiana,1,0.25,6379.44307469561
+Indiana,1,0.5,6460
+Indiana,1,0.75,6766.45269418155
+Indiana,1,0.9,7142.49431154506
+Indiana,1,0.975,7150.33870826395
+Indiana,2,point,5231
+Indiana,2,0.025,5063.33950229143
+Indiana,2,0.1,5101.39842947242
+Indiana,2,0.25,5146.16878333116
+Indiana,2,0.5,5231
+Indiana,2,0.75,5556.55818173462
+Indiana,2,0.9,5963.16287523731
+Indiana,2,0.975,5972.80130277744
+Indiana,3,point,4222
+Indiana,3,0.025,4052.40715446385
+Indiana,3,0.1,4091.15681694014
+Indiana,3,0.25,4136.00776122599
+Indiana,3,0.5,4222
+Indiana,3,0.75,4555.36363818473
+Indiana,3,0.9,4978.79523988127
+Indiana,3,0.975,4989.91481162348
+Indiana,4,point,3401
+Indiana,4,0.025,3222.90545390982
+Indiana,4,0.1,3264.03964113015
+Indiana,4,0.25,3310.5308246154
+Indiana,4,0.5,3401
+Indiana,4,0.75,3757.92321488309
+Indiana,4,0.9,4223.20087090319
+Indiana,4,0.975,4237.21707371679
+Indiana,5,point,2737
+Indiana,5,0.025,2566.03787265414
+Indiana,5,0.1,2605.88750703328
+Indiana,5,0.25,2650.12528065668
+Indiana,5,0.5,2737
+Indiana,5,0.75,3087.4045129476
+Indiana,5,0.9,3557.86686582977
+Indiana,5,0.975,3573.95556892608
+Indiana,6,point,2199
+Indiana,6,0.025,2033.43547337081
+Indiana,6,0.1,2072.22766962719
+Indiana,6,0.25,2114.82704906157
+Indiana,6,0.5,2199
+Indiana,6,0.75,2542.92896257807
+Indiana,6,0.9,3012.55066691813
+Indiana,6,0.975,3029.67354756805
+Indiana,7,point,1765
+Indiana,7,0.025,1607.94342208569
+Indiana,7,0.1,1644.89101297824
+Indiana,7,0.25,1685.32076233616
+Indiana,7,0.5,1765
+Indiana,7,0.75,2095.94706863947
+Indiana,7,0.9,2556.0113671195
+Indiana,7,0.975,2573.83503465144
+Kentucky,1,point,7311
+Kentucky,1,0.025,6080.05845582503
+Kentucky,1,0.1,6097.87617034503
+Kentucky,1,0.25,6533.44067373986
+Kentucky,1,0.5,7311
+Kentucky,1,0.75,7552.7419621562
+Kentucky,1,0.9,7690.70597606054
+Kentucky,1,0.975,7740.48345527714
+Kentucky,2,point,5791
+Kentucky,2,0.025,4496.0182992323
+Kentucky,2,0.1,4515.11231021443
+Kentucky,2,0.25,4965.28227657522
+Kentucky,2,0.5,5791
+Kentucky,2,0.75,6053.67942133358
+Kentucky,2,0.9,6202.85816764007
+Kentucky,2,0.975,6259.11160459429
+Kentucky,3,point,4540
+Kentucky,3,0.025,3213.83110625238
+Kentucky,3,0.1,3233.59864314501
+Kentucky,3,0.25,3686.97431843107
+Kentucky,3,0.5,4540
+Kentucky,3,0.75,4817.32673372367
+Kentucky,3,0.9,4974.20286642549
+Kentucky,3,0.975,5035.71666344351
+Kentucky,4,point,3571
+Kentucky,4,0.025,2169.61329928999
+Kentucky,4,0.1,2190.93656897807
+Kentucky,4,0.25,2656.44684422762
+Kentucky,4,0.5,3571
+Kentucky,4,0.75,3878.86123479998
+Kentucky,4,0.9,4051.91282104975
+Kentucky,4,0.975,4123.90768008818
+Kentucky,5,point,2801
+Kentucky,5,0.025,1400.14325329608
+Kentucky,5,0.1,1421.59606915092
+Kentucky,5,0.25,1873.25858838845
+Kentucky,5,0.5,2801
+Kentucky,5,0.75,3124.59479049902
+Kentucky,5,0.9,3305.62672698895
+Kentucky,5,0.975,3385.13068147877
+Kentucky,6,point,2198
+Kentucky,6,0.025,808.269270779849
+Kentucky,6,0.1,829.618967807844
+Kentucky,6,0.25,1270.08965810236
+Kentucky,6,0.5,2198
+Kentucky,6,0.75,2527.83522184927
+Kentucky,6,0.9,2711.89149899863
+Kentucky,6,0.975,2794.94985273934
+Kentucky,7,point,1724
+Kentucky,7,0.025,366.726417888436
+Kentucky,7,0.1,387.55171380292
+Kentucky,7,0.25,810.183849109385
+Kentucky,7,0.5,1724
+Kentucky,7,0.75,2055.28302951046
+Kentucky,7,0.9,2239.75041787195
+Kentucky,7,0.975,2325.26778613721
+Minnesota,1,point,5672
+Minnesota,1,0.025,4980.50727025026
+Minnesota,1,0.1,4992.85421925439
+Minnesota,1,0.25,5548.36838574067
+Minnesota,1,0.5,5672
+Minnesota,1,0.75,6062.80909573799
+Minnesota,1,0.9,7103.86200878857
+Minnesota,1,0.975,7106.43610135582
+Minnesota,2,point,5723
+Minnesota,2,0.025,4953.14702003066
+Minnesota,2,0.1,4967.10367615877
+Minnesota,2,0.25,5581.88246666885
+Minnesota,2,0.5,5723
+Minnesota,2,0.75,6176.08235386147
+Minnesota,2,0.9,7437.25401111957
+Minnesota,2,0.975,7440.31027885976
+Minnesota,3,point,5754
+Minnesota,3,0.025,4929.8567074929
+Minnesota,3,0.1,4944.9309145009
+Minnesota,3,0.25,5599.33586340193
+Minnesota,3,0.5,5754
+Minnesota,3,0.75,6258.35173615287
+Minnesota,3,0.9,7724.33078970501
+Minnesota,3,0.975,7729.33340744771
+Minnesota,4,point,5768
+Minnesota,4,0.025,4824.63227272513
+Minnesota,4,0.1,4842.09337834141
+Minnesota,4,0.25,5585.03755910366
+Minnesota,4,0.5,5768
+Minnesota,4,0.75,6377.45299605022
+Minnesota,4,0.9,8253.18824574042
+Minnesota,4,0.975,8262.32111841952
+Minnesota,5,point,5762
+Minnesota,5,0.025,4764.22375908617
+Minnesota,5,0.1,4782.77872770476
+Minnesota,5,0.25,5561.49126138348
+Minnesota,5,0.5,5762
+Minnesota,5,0.75,6446.17402744363
+Minnesota,5,0.9,8687.04276923897
+Minnesota,5,0.975,8703.00911812867
+Minnesota,6,point,5741
+Minnesota,6,0.025,4720.77207017759
+Minnesota,6,0.1,4739.79083111833
+Minnesota,6,0.25,5532.30139261884
+Minnesota,6,0.5,5741
+Minnesota,6,0.75,6461.21402493185
+Minnesota,6,0.9,8884.32291753261
+Minnesota,6,0.975,8904.05031479327
+Minnesota,7,point,5701
+Minnesota,7,0.025,4675.6740037795
+Minnesota,7,0.1,4694.77042586713
+Minnesota,7,0.25,5487.26028700732
+Minnesota,7,0.5,5701
+Minnesota,7,0.75,6447.98465716517
+Minnesota,7,0.9,9038.28721733929
+Minnesota,7,0.975,9063.0894826005
+Oklahoma,1,point,5348
+Oklahoma,1,0.025,4095.77540297198
+Oklahoma,1,0.1,4106.41887321129
+Oklahoma,1,0.25,4431.71443089726
+Oklahoma,1,0.5,5348
+Oklahoma,1,0.75,5472.64930472081
+Oklahoma,1,0.9,6827.69304754672
+Oklahoma,1,0.975,6894.82322218357
+Oklahoma,2,point,3771
+Oklahoma,2,0.025,2488.68041235118
+Oklahoma,2,0.1,2499.74400026236
+Oklahoma,2,0.25,2831.52934593947
+Oklahoma,2,0.5,3771
+Oklahoma,2,0.75,3920.51821975545
+Oklahoma,2,0.9,5452.94245863922
+Oklahoma,2,0.975,5535.21385576494
+Oklahoma,3,point,2642
+Oklahoma,3,0.025,1368.64200384971
+Oklahoma,3,0.1,1379.65066164711
+Oklahoma,3,0.25,1705.28224746729
+Oklahoma,3,0.5,2642
+Oklahoma,3,0.75,2807.53886407745
+Oklahoma,3,0.9,4472.69835172544
+Oklahoma,3,0.975,4569.05201382587
+Oklahoma,4,point,1862
+Oklahoma,4,0.025,570.677256254733
+Oklahoma,4,0.1,581.988104941364
+Oklahoma,4,0.25,911.234846580704
+Oklahoma,4,0.5,1862
+Oklahoma,4,0.75,2064.64280725827
+Oklahoma,4,0.9,4011.98246411002
+Oklahoma,4,0.975,4136.1778318157
+Oklahoma,5,point,1307
+Oklahoma,5,0.025,101.823906166415
+Oklahoma,5,0.1,112.237413265393
+Oklahoma,5,0.25,406.834261568502
+Oklahoma,5,0.5,1307
+Oklahoma,5,0.75,1522.90115313761
+Oklahoma,5,0.9,3630.4733283487
+Oklahoma,5,0.975,3779.30003028329
+Oklahoma,6,point,918
 Oklahoma,6,0.025,0
 Oklahoma,6,0.1,0
-Oklahoma,6,0.25,144.9041432
-Oklahoma,6,0.5,910
-Oklahoma,6,0.75,1202.104439
-Oklahoma,6,0.9,3327.487486
-Oklahoma,6,0.975,3504.055878
-Oklahoma,7,point,638
+Oklahoma,6,0.25,54.512607569879
+Oklahoma,6,0.5,918
+Oklahoma,6,0.75,1138.60668431544
+Oklahoma,6,0.9,3318.8483846317
+Oklahoma,6,0.975,3480.09556183055
+Oklahoma,7,point,644
 Oklahoma,7,0.025,0
 Oklahoma,7,0.1,0
 Oklahoma,7,0.25,0
-Oklahoma,7,0.5,638
-Oklahoma,7,0.75,925.8067665
-Oklahoma,7,0.9,3085.02389
-Oklahoma,7,0.975,3273.083609
-Pennsylvania,1,point,23362
-Pennsylvania,1,0.025,22457.92479
-Pennsylvania,1,0.1,22546.45822
-Pennsylvania,1,0.25,22663.03672
-Pennsylvania,1,0.5,23362
-Pennsylvania,1,0.75,24040.56843
-Pennsylvania,1,0.9,28692.86779
-Pennsylvania,1,0.975,28739.97598
-Pennsylvania,2,point,22201
-Pennsylvania,2,0.025,21174.54589
-Pennsylvania,2,0.1,21274.78931
-Pennsylvania,2,0.25,21413.21261
-Pennsylvania,2,0.5,22201
-Pennsylvania,2,0.75,22967.52464
-Pennsylvania,2,0.9,28215.78732
-Pennsylvania,2,0.975,28285.69568
-Pennsylvania,3,point,20989
-Pennsylvania,3,0.025,19825.52262
-Pennsylvania,3,0.1,19934.67625
-Pennsylvania,3,0.25,20108.88674
-Pennsylvania,3,0.5,20989
-Pennsylvania,3,0.75,21783.90918
-Pennsylvania,3,0.9,27523.70287
-Pennsylvania,3,0.975,27619.03748
-Pennsylvania,4,point,19749
-Pennsylvania,4,0.025,18398.56472
-Pennsylvania,4,0.1,18520.45652
-Pennsylvania,4,0.25,18743.75946
-Pennsylvania,4,0.5,19749
-Pennsylvania,4,0.75,20668.90784
-Pennsylvania,4,0.9,27397.70243
-Pennsylvania,4,0.975,27542.21238
-Pennsylvania,5,point,18498
-Pennsylvania,5,0.025,16935.22541
-Pennsylvania,5,0.1,17064.74572
-Pennsylvania,5,0.25,17352.73368
-Pennsylvania,5,0.5,18498
-Pennsylvania,5,0.75,19415.65017
-Pennsylvania,5,0.9,26871.62318
-Pennsylvania,5,0.975,27071.79118
-Pennsylvania,6,point,17255
-Pennsylvania,6,0.025,15596.93085
-Pennsylvania,6,0.1,15739.38933
-Pennsylvania,6,0.25,16070.60836
-Pennsylvania,6,0.5,17255
-Pennsylvania,6,0.75,18189.85544
-Pennsylvania,6,0.9,25990.07274
-Pennsylvania,6,0.975,26218.85584
-Pennsylvania,7,point,16032
-Pennsylvania,7,0.025,14285.77141
-Pennsylvania,7,0.1,14430.59159
-Pennsylvania,7,0.25,14804.23105
-Pennsylvania,7,0.5,16032
-Pennsylvania,7,0.75,16935.00949
-Pennsylvania,7,0.9,24989.91502
-Pennsylvania,7,0.975,25248.85619
-South Carolina,1,point,17736
-South Carolina,1,0.025,16684.35954
-South Carolina,1,0.1,16819.11804
-South Carolina,1,0.25,17475.75761
-South Carolina,1,0.5,17736
-South Carolina,1,0.75,19287.7357
-South Carolina,1,0.9,19739.56861
-South Carolina,1,0.975,19792.35877
-South Carolina,2,point,16322
-South Carolina,2,0.025,15169.04949
-South Carolina,2,0.1,15320.76931
-South Carolina,2,0.25,16031.4786
-South Carolina,2,0.5,16322
-South Carolina,2,0.75,18059.11658
-South Carolina,2,0.9,18564.64614
-South Carolina,2,0.975,18635.46448
-South Carolina,3,point,14867
-South Carolina,3,0.025,13640.68648
-South Carolina,3,0.1,13805.59514
-South Carolina,3,0.25,14552.83003
-South Carolina,3,0.5,14867
-South Carolina,3,0.75,16752.98614
-South Carolina,3,0.9,17301.69827
-South Carolina,3,0.975,17391.01565
-South Carolina,4,point,13521
-South Carolina,4,0.025,12143.19406
-South Carolina,4,0.1,12334.59061
-South Carolina,4,0.25,13159.11965
-South Carolina,4,0.5,13521
-South Carolina,4,0.75,15706.26347
-South Carolina,4,0.9,16341.69568
-South Carolina,4,0.975,16466.63814
-South Carolina,5,point,12233
-South Carolina,5,0.025,10770.13839
-South Carolina,5,0.1,10978.66384
-South Carolina,5,0.25,11838.86688
-South Carolina,5,0.5,12233
-South Carolina,5,0.75,14628.21415
-South Carolina,5,0.9,15325.05335
-South Carolina,5,0.975,15486.36752
-South Carolina,6,point,11033
-South Carolina,6,0.025,9534.201073
-South Carolina,6,0.1,9750.698411
-South Carolina,6,0.25,10624.16386
-South Carolina,6,0.5,11033
-South Carolina,6,0.75,13526.38247
-South Carolina,6,0.9,14251.863
-South Carolina,6,0.975,14431.89137
-South Carolina,7,point,9915
-South Carolina,7,0.025,8402.228311
-South Carolina,7,0.1,8623.356845
-South Carolina,7,0.25,9497.004618
-South Carolina,7,0.5,9915
-South Carolina,7,0.75,12475.09022
-South Carolina,7,0.9,13220.19109
-South Carolina,7,0.975,13418.59463
-District of Columbia,1,point,691
-District of Columbia,1,0.025,642.5057987
-District of Columbia,1,0.1,643.2232414
-District of Columbia,1,0.25,682.7475621
-District of Columbia,1,0.5,691
-District of Columbia,1,0.75,700.523925
-District of Columbia,1,0.9,747.6395006
-District of Columbia,1,0.975,750.3958489
-District of Columbia,2,point,576
-District of Columbia,2,0.025,523.9171544
-District of Columbia,2,0.1,524.7351906
-District of Columbia,2,0.25,567.0212976
-District of Columbia,2,0.5,576
-District of Columbia,2,0.75,586.397822
-District of Columbia,2,0.9,638.1438785
-District of Columbia,2,0.975,641.301639
-District of Columbia,3,point,481
-District of Columbia,3,0.025,426.6115801
-District of Columbia,3,0.1,427.5068327
-District of Columbia,3,0.25,471.5097453
-District of Columbia,3,0.5,481
-District of Columbia,3,0.75,492.0279358
-District of Columbia,3,0.9,547.2540148
-District of Columbia,3,0.975,550.7557828
-District of Columbia,4,point,400
-District of Columbia,4,0.025,340.6513685
-District of Columbia,4,0.1,341.7012315
-District of Columbia,4,0.25,389.4440803
-District of Columbia,4,0.5,400
-District of Columbia,4,0.75,412.3316904
-District of Columbia,4,0.9,474.6834448
-District of Columbia,4,0.975,478.8658995
-District of Columbia,5,point,334
-District of Columbia,5,0.025,272.6921906
-District of Columbia,5,0.1,273.8386561
-District of Columbia,5,0.25,322.8852698
-District of Columbia,5,0.5,334
-District of Columbia,5,0.75,347.0592113
-District of Columbia,5,0.9,413.8222623
-District of Columbia,5,0.975,418.544626
-District of Columbia,6,point,277
-District of Columbia,6,0.025,215.0726642
-District of Columbia,6,0.1,216.264182
-District of Columbia,6,0.25,265.660066
-District of Columbia,6,0.5,277
-District of Columbia,6,0.75,290.3628559
-District of Columbia,6,0.9,359.0549605
-District of Columbia,6,0.975,364.039327
-District of Columbia,7,point,231
-District of Columbia,7,0.025,169.3798118
-District of Columbia,7,0.1,170.5952301
-District of Columbia,7,0.25,219.5992533
-District of Columbia,7,0.5,231
-District of Columbia,7,0.75,244.4773035
-District of Columbia,7,0.9,314.18761
-District of Columbia,7,0.975,319.3794329
-Kansas,1,point,4397
-Kansas,1,0.025,4246.292516
-Kansas,1,0.1,4278.915452
-Kansas,1,0.25,4329.516352
-Kansas,1,0.5,4397
-Kansas,1,0.75,4458.562137
-Kansas,1,0.9,4515.804165
-Kansas,1,0.975,4587.766738
-Kansas,2,point,4079
-Kansas,2,0.025,3902.580541
-Kansas,2,0.1,3940.584487
-Kansas,2,0.25,4000.149108
-Kansas,2,0.5,4079
-Kansas,2,0.75,4150.677515
-Kansas,2,0.9,4219.101666
-Kansas,2,0.975,4304.428697
-Kansas,3,point,3824
-Kansas,3,0.025,3623.745832
-Kansas,3,0.1,3666.675291
-Kansas,3,0.25,3734.635168
-Kansas,3,0.5,3824
-Kansas,3,0.75,3905.906595
-Kansas,3,0.9,3984.239582
-Kansas,3,0.975,4082.374165
-Kansas,4,point,3565
-Kansas,4,0.025,3317.789676
-Kansas,4,0.1,3370.428798
-Kansas,4,0.25,3454.908232
-Kansas,4,0.5,3565
-Kansas,4,0.75,3667.299056
-Kansas,4,0.9,3764.903439
-Kansas,4,0.975,3888.263381
-Kansas,5,point,3321
-Kansas,5,0.025,3031.247051
-Kansas,5,0.1,3092.510707
-Kansas,5,0.25,3192.174853
-Kansas,5,0.5,3321
-Kansas,5,0.75,3443.067214
-Kansas,5,0.9,3557.969431
-Kansas,5,0.975,3705.385077
-Kansas,6,point,3089
-Kansas,6,0.025,2778.237338
-Kansas,6,0.1,2843.748728
-Kansas,6,0.25,2950.936113
-Kansas,6,0.5,3089
-Kansas,6,0.75,3220.752884
-Kansas,6,0.9,3344.32867
-Kansas,6,0.975,3503.679993
-Kansas,7,point,2868
-Kansas,7,0.025,2538.168246
-Kansas,7,0.1,2607.467774
-Kansas,7,0.25,2721.565692
-Kansas,7,0.5,2868
-Kansas,7,0.75,3009.662629
-Kansas,7,0.9,3140.44017
-Kansas,7,0.975,3311.101799
-Missouri,1,point,3625
-Missouri,1,0.025,2994.630759
-Missouri,1,0.1,2997.968529
-Missouri,1,0.25,3294.403341
-Missouri,1,0.5,3625
-Missouri,1,0.75,3684.071585
-Missouri,1,0.9,3717.373584
-Missouri,1,0.975,3724.866654
-Missouri,2,point,2701
-Missouri,2,0.025,2050.581598
-Missouri,2,0.1,2054.149253
-Missouri,2,0.25,2372.166195
-Missouri,2,0.5,2701
-Missouri,2,0.75,2766.849197
-Missouri,2,0.9,2802.03378
-Missouri,2,0.975,2809.959875
-Missouri,3,point,2109
-Missouri,3,0.025,1458.193066
-Missouri,3,0.1,1461.836653
-Missouri,3,0.25,1790.215672
-Missouri,3,0.5,2109
-Missouri,3,0.75,2178.886814
-Missouri,3,0.9,2212.461344
-Missouri,3,0.975,2220.650881
-Missouri,4,point,1568
-Missouri,4,0.025,902.9720848
-Missouri,4,0.1,906.8682436
-Missouri,4,0.25,1266.038756
-Missouri,4,0.5,1568
-Missouri,4,0.75,1642.638038
-Missouri,4,0.9,1671.583493
-Missouri,4,0.975,1680.302798
-Missouri,5,point,1197
-Missouri,5,0.025,540.9603017
-Missouri,5,0.1,544.7219758
-Missouri,5,0.25,899.4518934
-Missouri,5,0.5,1197
-Missouri,5,0.75,1256.235756
-Missouri,5,0.9,1287.91288
-Missouri,5,0.975,1296.677643
-Missouri,6,point,910
-Missouri,6,0.025,285.8085728
-Missouri,6,0.1,289.4566333
-Missouri,6,0.25,628.9515736
-Missouri,6,0.5,910
-Missouri,6,0.75,981.2064362
-Missouri,6,0.9,1012.673794
-Missouri,6,0.975,1021.549332
-Missouri,7,point,686
-Missouri,7,0.025,90.60005882
-Missouri,7,0.1,94.04503616
-Missouri,7,0.25,419.1171794
-Missouri,7,0.5,686
-Missouri,7,0.75,752.2145706
-Missouri,7,0.9,780.5602692
-Missouri,7,0.975,789.3192622
-Vermont,1,point,787
-Vermont,1,0.025,769.4297576
-Vermont,1,0.1,771.6881739
-Vermont,1,0.25,782.5943861
-Vermont,1,0.5,787
-Vermont,1,0.75,813.8433436
-Vermont,1,0.9,833.2129081
-Vermont,1,0.975,834.1509746
-Vermont,2,point,764
-Vermont,2,0.025,743.5686472
-Vermont,2,0.1,746.3090875
-Vermont,2,0.25,758.8011179
-Vermont,2,0.5,764
-Vermont,2,0.75,795.366843
-Vermont,2,0.9,817.9971733
-Vermont,2,0.975,819.2831504
-Vermont,3,point,732
-Vermont,3,0.025,708.964595
-Vermont,3,0.1,712.1736385
-Vermont,3,0.25,726.0567519
-Vermont,3,0.5,732
-Vermont,3,0.75,767.5459156
-Vermont,3,0.9,793.1922826
-Vermont,3,0.975,794.8628157
-Vermont,4,point,704
-Vermont,4,0.025,675.8159571
-Vermont,4,0.1,679.9428819
-Vermont,4,0.25,696.5898399
-Vermont,4,0.5,704
-Vermont,4,0.75,747.8039115
-Vermont,4,0.9,779.4095696
-Vermont,4,0.975,781.8344434
-Vermont,5,point,675
-Vermont,5,0.025,642.28662
-Vermont,5,0.1,647.2980201
-Vermont,5,0.25,666.2395516
-Vermont,5,0.5,675
-Vermont,5,0.75,726.2495482
-Vermont,5,0.9,763.242471
-Vermont,5,0.975,766.5220934
-Vermont,6,point,646
-Vermont,6,0.025,611.0564926
-Vermont,6,0.1,616.5124108
-Vermont,6,0.25,636.5690369
-Vermont,6,0.5,646
-Vermont,6,0.75,700.9243883
-Vermont,6,0.9,740.5753174
-Vermont,6,0.975,744.2882942
-Vermont,7,point,617
-Vermont,7,0.025,580.080218
-Vermont,7,0.1,585.9592717
-Vermont,7,0.25,606.9516115
-Vermont,7,0.5,617
-Vermont,7,0.75,675.2534039
-Vermont,7,0.9,717.3171004
-Vermont,7,0.975,721.4911664
-Virginia,1,point,13324
-Virginia,1,0.025,11490.88607
-Virginia,1,0.1,11712.96274
-Virginia,1,0.25,12310.08985
-Virginia,1,0.5,13324
-Virginia,1,0.75,14352.93778
-Virginia,1,0.9,15095.38292
-Virginia,1,0.975,15129.19994
-Virginia,2,point,10083
-Virginia,2,0.025,8321.969859
-Virginia,2,0.1,8527.782187
-Virginia,2,0.25,9093.528969
-Virginia,2,0.5,10083
-Virginia,2,0.75,11121.07636
-Virginia,2,0.9,11892.54379
-Virginia,2,0.975,11927.69972
-Virginia,3,point,7520
-Virginia,3,0.025,5875.037892
-Virginia,3,0.1,6061.727942
-Virginia,3,0.25,6583.781556
-Virginia,3,0.5,7520
-Virginia,3,0.75,8530.906153
-Virginia,3,0.9,9302.239034
-Virginia,3,0.975,9337.44037
-Virginia,4,point,5554
-Virginia,4,0.025,4055.599764
-Virginia,4,0.1,4214.629958
-Virginia,4,0.25,4678.295227
-Virginia,4,0.5,5554
-Virginia,4,0.75,6551.556601
-Virginia,4,0.9,7347.354148
-Virginia,4,0.975,7383.743335
-Virginia,5,point,4073
-Virginia,5,0.025,2855.310648
-Virginia,5,0.1,2975.072541
-Virginia,5,0.25,3340.290951
-Virginia,5,0.5,4073
-Virginia,5,0.75,4960.253712
-Virginia,5,0.9,5704.745111
-Virginia,5,0.975,5738.935383
-Virginia,6,point,2970
-Virginia,6,0.025,1918.85756
-Virginia,6,0.1,2016.328548
-Virginia,6,0.25,2323.924652
-Virginia,6,0.5,2970
-Virginia,6,0.75,3786.931268
-Virginia,6,0.9,4495.746981
-Virginia,6,0.975,4528.398753
-Virginia,7,point,2159
-Virginia,7,0.025,1272.40301
-Virginia,7,0.1,1350.024558
-Virginia,7,0.25,1602.950758
-Virginia,7,0.5,2159
-Virginia,7,0.75,2893.077658
-Virginia,7,0.9,3551.987172
-Virginia,7,0.975,3582.465306
-Connecticut,1,point,4102
-Connecticut,1,0.025,3677.831909
-Connecticut,1,0.1,3678.680563
-Connecticut,1,0.25,4062.366841
-Connecticut,1,0.5,4102
-Connecticut,1,0.75,4225.952564
-Connecticut,1,0.9,4289.141605
-Connecticut,1,0.975,4319.668724
-Connecticut,2,point,2928
-Connecticut,2,0.025,2484.537728
-Connecticut,2,0.1,2485.426797
-Connecticut,2,0.25,2885.383991
-Connecticut,2,0.5,2928
-Connecticut,2,0.75,3061.294194
-Connecticut,2,0.9,3128.991314
-Connecticut,2,0.975,3162.933546
-Connecticut,3,point,2091
-Connecticut,3,0.025,1643.359229
-Connecticut,3,0.1,1644.379078
-Connecticut,3,0.25,2046.912883
-Connecticut,3,0.5,2091
-Connecticut,3,0.75,2229.029108
-Connecticut,3,0.9,2298.950624
-Connecticut,3,0.975,2335.142778
-Connecticut,4,point,1489
-Connecticut,4,0.025,1020.831137
-Connecticut,4,0.1,1021.902646
-Connecticut,4,0.25,1441.046335
-Connecticut,4,0.5,1489
-Connecticut,4,0.75,1639.348158
-Connecticut,4,0.9,1715.209079
-Connecticut,4,0.975,1756.373362
-Connecticut,5,point,1060
-Connecticut,5,0.025,611.7733938
-Connecticut,5,0.1,613.0225256
-Connecticut,5,0.25,1012.166405
-Connecticut,5,0.5,1060
-Connecticut,5,0.75,1210.443023
-Connecticut,5,0.9,1286.147229
-Connecticut,5,0.975,1329.204235
-Connecticut,6,point,755
-Connecticut,6,0.025,321.386791
-Connecticut,6,0.1,322.9139025
-Connecticut,6,0.25,707.6213929
-Connecticut,6,0.5,755
-Connecticut,6,0.75,904.2922719
-Connecticut,6,0.9,979.3071387
-Connecticut,6,0.975,1023.08214
-Connecticut,7,point,536
-Connecticut,7,0.025,124.9639932
-Connecticut,7,0.1,126.6633701
-Connecticut,7,0.25,490.0167093
-Connecticut,7,0.5,536
-Connecticut,7,0.75,681.2833347
-Connecticut,7,0.9,754.229371
-Connecticut,7,0.975,797.8668487
-Iowa,1,point,4071
-Iowa,1,0.025,3875.821551
-Iowa,1,0.1,3915.466182
-Iowa,1,0.25,3966.024521
-Iowa,1,0.5,4071
-Iowa,1,0.75,4177.135487
-Iowa,1,0.9,4646.04399
-Iowa,1,0.975,4686.585066
-Iowa,2,point,3650
-Iowa,2,0.025,3436.26687
-Iowa,2,0.1,3480.042366
-Iowa,2,0.25,3534.641204
-Iowa,2,0.5,3650
-Iowa,2,0.75,3769.040444
-Iowa,2,0.9,4303.063159
-Iowa,2,0.975,4351.835384
-Iowa,3,point,3263
-Iowa,3,0.025,3037.888703
-Iowa,3,0.1,3084.290688
-Iowa,3,0.25,3141.094959
-Iowa,3,0.5,3263
-Iowa,3,0.75,3391.22793
-Iowa,3,0.9,3975.494002
-Iowa,3,0.975,4031.648073
-Iowa,4,point,2909
-Iowa,4,0.025,2657.368993
-Iowa,4,0.1,2709.707953
-Iowa,4,0.25,2772.039895
-Iowa,4,0.5,2909
-Iowa,4,0.75,3056.96626
-Iowa,4,0.9,3746.475354
-Iowa,4,0.975,3817.345263
-Iowa,5,point,2586
-Iowa,5,0.025,2327.0359
-Iowa,5,0.1,2381.326162
-Iowa,5,0.25,2444.451136
-Iowa,5,0.5,2586
-Iowa,5,0.75,2743.761464
-Iowa,5,0.9,3497.971947
-Iowa,5,0.975,3581.103124
-Iowa,6,point,2294
-Iowa,6,0.025,2032.99146
-Iowa,6,0.1,2087.941658
-Iowa,6,0.25,2150.956456
-Iowa,6,0.5,2294
-Iowa,6,0.75,2455.993971
-Iowa,6,0.9,3240.279712
-Iowa,6,0.975,3329.537239
-Iowa,7,point,2031
-Iowa,7,0.025,1772.787671
-Iowa,7,0.1,1827.331905
-Iowa,7,0.25,1889.111525
-Iowa,7,0.5,2031
-Iowa,7,0.75,2194.406856
-Iowa,7,0.9,2996.999394
-Iowa,7,0.975,3091.520872
-Louisiana,1,point,2613
-Louisiana,1,0.025,1738.701126
-Louisiana,1,0.1,1738.861777
-Louisiana,1,0.25,1894.512356
-Louisiana,1,0.5,2613
-Louisiana,1,0.75,3278.101956
-Louisiana,1,0.9,3851.874301
-Louisiana,1,0.975,3873.430224
-Louisiana,2,point,1370
-Louisiana,2,0.025,531.3120121
-Louisiana,2,0.1,531.4591839
-Louisiana,2,0.25,673.4413858
-Louisiana,2,0.5,1370
-Louisiana,2,0.75,2070.006899
-Louisiana,2,0.9,2712.92477
-Louisiana,2,0.975,2738.59096
-Louisiana,3,point,720
+Oklahoma,7,0.5,644
+Oklahoma,7,0.75,863.433924134122
+Oklahoma,7,0.9,3082.23428220337
+Oklahoma,7,0.975,3254.66549693772
+Pennsylvania,1,point,19571
+Pennsylvania,1,0.025,18910.0405833623
+Pennsylvania,1,0.1,18992.028858825
+Pennsylvania,1,0.25,19236.7706470266
+Pennsylvania,1,0.5,19571
+Pennsylvania,1,0.75,20287.6200770221
+Pennsylvania,1,0.9,21151.0529318933
+Pennsylvania,1,0.975,21186.0348932352
+Pennsylvania,2,point,17215
+Pennsylvania,2,0.025,16499.3041790894
+Pennsylvania,2,0.1,16590.0149266715
+Pennsylvania,2,0.25,16851.5936505485
+Pennsylvania,2,0.5,17215
+Pennsylvania,2,0.75,17998.8594377857
+Pennsylvania,2,0.9,18949.7982398648
+Pennsylvania,2,0.975,18992.6763298865
+Pennsylvania,3,point,15051
+Pennsylvania,3,0.025,14298.1263641139
+Pennsylvania,3,0.1,14395.2614157593
+Pennsylvania,3,0.25,14667.2351072219
+Pennsylvania,3,0.5,15051
+Pennsylvania,3,0.75,15883.8220145538
+Pennsylvania,3,0.9,16901.2312683335
+Pennsylvania,3,0.975,16951.4569999752
+Pennsylvania,4,point,13154
+Pennsylvania,4,0.025,12322.6736556807
+Pennsylvania,4,0.1,12432.9394594007
+Pennsylvania,4,0.25,12727.6684630989
+Pennsylvania,4,0.5,13154
+Pennsylvania,4,0.75,14087.942681598
+Pennsylvania,4,0.9,15241.1115635577
+Pennsylvania,4,0.975,15305.5788075553
+Pennsylvania,5,point,11475
+Pennsylvania,5,0.025,10606.8463645065
+Pennsylvania,5,0.1,10724.6579032008
+Pennsylvania,5,0.25,11027.0706073414
+Pennsylvania,5,0.5,11475
+Pennsylvania,5,0.75,12466.5456030796
+Pennsylvania,5,0.9,13705.4224441031
+Pennsylvania,5,0.975,13782.6115604092
+Pennsylvania,6,point,9998
+Pennsylvania,6,0.025,9116.09235270017
+Pennsylvania,6,0.1,9237.19830852878
+Pennsylvania,6,0.25,9541.53314205313
+Pennsylvania,6,0.5,9998
+Pennsylvania,6,0.75,11013.8258022435
+Pennsylvania,6,0.9,12290.5367222847
+Pennsylvania,6,0.975,12374.163184289
+Pennsylvania,7,point,8702
+Pennsylvania,7,0.025,7819.42481484331
+Pennsylvania,7,0.1,7941.94003463465
+Pennsylvania,7,0.25,8243.68996903279
+Pennsylvania,7,0.5,8702
+Pennsylvania,7,0.75,9727.90856296587
+Pennsylvania,7,0.9,11025.7042417865
+Pennsylvania,7,0.975,11115.0173657719
+South Carolina,1,point,17651
+South Carolina,1,0.025,16721.2159099348
+South Carolina,1,0.1,16892.2320010994
+South Carolina,1,0.25,17277.5420842413
+South Carolina,1,0.5,17651
+South Carolina,1,0.75,18178.1844608018
+South Carolina,1,0.9,18659.4635848768
+South Carolina,1,0.975,19338.9391452415
+South Carolina,2,point,15910
+South Carolina,2,0.025,14811.1315490216
+South Carolina,2,0.1,15011.9256195029
+South Carolina,2,0.25,15469.8436440848
+South Carolina,2,0.5,15910
+South Carolina,2,0.75,16553.7846091322
+South Carolina,2,0.9,17117.8455503601
+South Carolina,2,0.975,17943.7457050455
+South Carolina,3,point,14188
+South Carolina,3,0.025,12946.5049419405
+South Carolina,3,0.1,13171.3125036422
+South Carolina,3,0.25,13691.6443102517
+South Carolina,3,0.5,14188
+South Carolina,3,0.75,14938.4739949201
+South Carolina,3,0.9,15571.4258884539
+South Carolina,3,0.975,16531.465029069
+South Carolina,4,point,12547
+South Carolina,4,0.025,11018.5519298872
+South Carolina,4,0.1,11290.464803545
+South Carolina,4,0.25,11936.6839535073
+South Carolina,4,0.5,12547
+South Carolina,4,0.75,13507.088975833
+South Carolina,4,0.9,14279.2251561054
+South Carolina,4,0.975,15505.0090965719
+South Carolina,5,point,11017
+South Carolina,5,0.025,9273.65765783532
+South Carolina,5,0.1,9576.4322815483
+South Carolina,5,0.25,10319.9521591
+South Carolina,5,0.5,11017
+South Carolina,5,0.75,12143.9720049364
+South Carolina,5,0.9,13027.0305866922
+South Carolina,5,0.975,14481.5213716215
+South Carolina,6,point,9612
+South Carolina,6,0.025,7762.96448112696
+South Carolina,6,0.1,8081.12531891592
+South Carolina,6,0.25,8872.70209485582
+South Carolina,6,0.5,9612
+South Carolina,6,0.75,10826.4818123268
+South Carolina,6,0.9,11761.3656071719
+South Carolina,6,0.975,13331.0111276661
+South Carolina,7,point,8339
+South Carolina,7,0.025,6408.99315274188
+South Carolina,7,0.1,6736.49826698349
+South Carolina,7,0.25,7566.68668526935
+South Carolina,7,0.5,8339
+South Carolina,7,0.75,9627.11406506121
+South Carolina,7,0.9,10602.8236606258
+South Carolina,7,0.975,12273.9597087355
+District of Columbia,1,point,708
+District of Columbia,1,0.025,570.098627940779
+District of Columbia,1,0.1,571.49862193814
+District of Columbia,1,0.25,649.632600584485
+District of Columbia,1,0.5,708
+District of Columbia,1,0.75,765.119126029977
+District of Columbia,1,0.9,771.604492820609
+District of Columbia,1,0.975,777.188907315769
+District of Columbia,2,point,608
+District of Columbia,2,0.025,457.406259087484
+District of Columbia,2,0.1,458.937581365088
+District of Columbia,2,0.25,542.808316281085
+District of Columbia,2,0.5,608
+District of Columbia,2,0.75,673.499277642553
+District of Columbia,2,0.9,681.195028758398
+District of Columbia,2,0.975,687.923122298545
+District of Columbia,3,point,522
+District of Columbia,3,0.025,363.661376046433
+District of Columbia,3,0.1,365.263511478481
+District of Columbia,3,0.25,452.004659645906
+District of Columbia,3,0.5,522
+District of Columbia,3,0.75,594.101622286964
+District of Columbia,3,0.9,602.892969776926
+District of Columbia,3,0.975,610.654257221766
+District of Columbia,4,point,445
+District of Columbia,4,0.025,268.450669451135
+District of Columbia,4,0.1,270.224588639568
+District of Columbia,4,0.25,364.552501934707
+District of Columbia,4,0.5,445
+District of Columbia,4,0.75,530.844169038042
+District of Columbia,4,0.9,541.8017019639
+District of Columbia,4,0.975,551.623864330796
+District of Columbia,5,point,380
+District of Columbia,5,0.025,198.486313920294
+District of Columbia,5,0.1,200.276623007265
+District of Columbia,5,0.25,294.545343525841
+District of Columbia,5,0.5,380
+District of Columbia,5,0.75,474.729075792676
+District of Columbia,5,0.9,487.508357274062
+District of Columbia,5,0.975,499.071220840998
+District of Columbia,6,point,324
+District of Columbia,6,0.025,141.161450309394
+District of Columbia,6,0.1,142.945410708525
+District of Columbia,6,0.25,236.424844615994
+District of Columbia,6,0.5,324
+District of Columbia,6,0.75,422.902085465962
+District of Columbia,6,0.9,436.608904041736
+District of Columbia,6,0.975,449.04148746908
+District of Columbia,7,point,276
+District of Columbia,7,0.025,95.1055495699923
+District of Columbia,7,0.1,96.8423943960564
+District of Columbia,7,0.25,187.787971697696
+District of Columbia,7,0.5,276
+District of Columbia,7,0.75,377.656203127855
+District of Columbia,7,0.9,392.156326531726
+District of Columbia,7,0.975,405.346727543149
+Kansas,1,point,4371
+Kansas,1,0.025,4212.1857636201
+Kansas,1,0.1,4246.5712680448
+Kansas,1,0.25,4299.28681507935
+Kansas,1,0.5,4371
+Kansas,1,0.75,4437.3379075133
+Kansas,1,0.9,4497.09193470439
+Kansas,1,0.975,4573.71274818724
+Kansas,2,point,4039
+Kansas,2,0.025,3853.66192203161
+Kansas,2,0.1,3893.58859263195
+Kansas,2,0.25,3955.42505139107
+Kansas,2,0.5,4039
+Kansas,2,0.75,4116.18660938811
+Kansas,2,0.9,4187.33611800519
+Kansas,2,0.975,4278.01103506609
+Kansas,3,point,3768
+Kansas,3,0.025,3558.25622753008
+Kansas,3,0.1,3603.21356269263
+Kansas,3,0.25,3673.52365248561
+Kansas,3,0.5,3768
+Kansas,3,0.75,3855.05809743587
+Kansas,3,0.9,3937.25318196357
+Kansas,3,0.975,4041.33956026423
+Kansas,4,point,3498
+Kansas,4,0.025,3240.14960296357
+Kansas,4,0.1,3295.03105196337
+Kansas,4,0.25,3382.022957783
+Kansas,4,0.5,3498
+Kansas,4,0.75,3605.45929595372
+Kansas,4,0.9,3708.4612264414
+Kansas,4,0.975,3838.9649372369
+Kansas,5,point,3245
+Kansas,5,0.025,2944.0569124786
+Kansas,5,0.1,3007.64096135536
+Kansas,5,0.25,3109.78054864453
+Kansas,5,0.5,3245
+Kansas,5,0.75,3371.61353006006
+Kansas,5,0.9,3493.65478172915
+Kansas,5,0.975,3649.19562434664
+Kansas,6,point,3005
+Kansas,6,0.025,2682.81322241877
+Kansas,6,0.1,2750.67395883602
+Kansas,6,0.25,2860.30540600663
+Kansas,6,0.5,3005
+Kansas,6,0.75,3140.74693786547
+Kansas,6,0.9,3272.5527744291
+Kansas,6,0.975,3440.50792851132
+Kansas,7,point,2777
+Kansas,7,0.025,2435.72083080298
+Kansas,7,0.1,2507.3517563169
+Kansas,7,0.25,2623.79395456676
+Kansas,7,0.5,2777
+Kansas,7,0.75,2921.41834548312
+Kansas,7,0.9,3062.04747660293
+Kansas,7,0.975,3241.70860611422
+Missouri,1,point,3910
+Missouri,1,0.025,3428.10920682341
+Missouri,1,0.1,3436.37445783688
+Missouri,1,0.25,3623.29120734421
+Missouri,1,0.5,3910
+Missouri,1,0.75,4178.04004300399
+Missouri,1,0.9,4368.09501252526
+Missouri,1,0.975,4388.22235088147
+Missouri,2,point,3151
+Missouri,2,0.025,2650.16007215649
+Missouri,2,0.1,2658.69638166502
+Missouri,2,0.25,2849.80872100935
+Missouri,2,0.5,3151
+Missouri,2,0.75,3440.80596652707
+Missouri,2,0.9,3650.41120362027
+Missouri,2,0.975,3673.34474490715
+Missouri,3,point,2535
+Missouri,3,0.025,2032.23866943233
+Missouri,3,0.1,2040.73242683065
+Missouri,3,0.25,2229.70227705638
+Missouri,3,0.5,2535
+Missouri,3,0.75,2836.78897622814
+Missouri,3,0.9,3059.24301432322
+Missouri,3,0.975,3084.30498069139
+Missouri,4,point,2038
+Missouri,4,0.025,1516.65718875981
+Missouri,4,0.1,1525.34810382172
+Missouri,4,0.25,1716.3776366763
+Missouri,4,0.5,2038
+Missouri,4,0.75,2369.58028832244
+Missouri,4,0.9,2620.99222263445
+Missouri,4,0.975,2650.50615038724
+Missouri,5,point,1636
+Missouri,5,0.025,1141.79031166463
+Missouri,5,0.1,1149.85384935039
+Missouri,5,0.25,1325.76719663088
+Missouri,5,0.5,1636
+Missouri,5,0.75,1971.26020918855
+Missouri,5,0.9,2233.62948643896
+Missouri,5,0.975,2265.75963561753
+Missouri,6,point,1312
+Missouri,6,0.025,836.981998880885
+Missouri,6,0.1,844.621024470536
+Missouri,6,0.25,1010.64810092466
+Missouri,6,0.5,1312
+Missouri,6,0.75,1646.65870972926
+Missouri,6,0.9,1913.08315928034
+Missouri,6,0.975,1946.42218341703
+Missouri,7,point,1053
+Missouri,7,0.025,605.538442455945
+Missouri,7,0.1,612.607314910895
+Missouri,7,0.25,766.077047231297
+Missouri,7,0.5,1053
+Missouri,7,0.75,1380.84370060692
+Missouri,7,0.9,1646.65762007202
+Missouri,7,0.975,1680.65893556132
+Vermont,1,point,823
+Vermont,1,0.025,700.026168399429
+Vermont,1,0.1,704.030677261588
+Vermont,1,0.25,779.855762867677
+Vermont,1,0.5,823
+Vermont,1,0.75,837.567980976419
+Vermont,1,0.9,865.975493426748
+Vermont,1,0.975,869.39616808153
+Vermont,2,point,792
+Vermont,2,0.025,647.363006374175
+Vermont,2,0.1,652.12096416478
+Vermont,2,0.25,740.268714289482
+Vermont,2,0.5,792
+Vermont,2,0.75,809.82978475411
+Vermont,2,0.9,844.267802937942
+Vermont,2,0.975,848.825081676239
+Vermont,3,point,759
+Vermont,3,0.025,595.756857348724
+Vermont,3,0.1,601.160589862867
+Vermont,3,0.25,699.520877207092
+Vermont,3,0.5,759
+Vermont,3,0.75,779.916847540329
+Vermont,3,0.9,819.949810006023
+Vermont,3,0.975,825.729958727469
+Vermont,4,point,725
+Vermont,4,0.025,524.056802640623
+Vermont,4,0.1,530.754168059889
+Vermont,4,0.25,649.99854942212
+Vermont,4,0.5,725
+Vermont,4,0.75,752.062698031135
+Vermont,4,0.9,803.263265517491
+Vermont,4,0.975,811.458556597317
+Vermont,5,point,690
+Vermont,5,0.025,459.92426463802
+Vermont,5,0.1,467.612743411252
+Vermont,5,0.25,601.892541815119
+Vermont,5,0.5,690
+Vermont,5,0.75,722.681657060136
+Vermont,5,0.9,783.767488227592
+Vermont,5,0.975,794.607203208997
+Vermont,6,point,656
+Vermont,6,0.025,411.629465136851
+Vermont,6,0.1,419.80879997765
+Vermont,6,0.25,561.368721478165
+Vermont,6,0.5,656
+Vermont,6,0.75,691.499903032509
+Vermont,6,0.9,757.529610312605
+Vermont,6,0.975,769.706544101832
+Vermont,7,point,621
+Vermont,7,0.025,365.04811341633
+Vermont,7,0.1,373.614458345415
+Vermont,7,0.25,520.655772452589
+Vermont,7,0.5,621
+Vermont,7,0.75,659.128138680951
+Vermont,7,0.9,729.657903259632
+Vermont,7,0.975,743.23811798232
+Virginia,1,point,13346
+Virginia,1,0.025,11510.0561333823
+Virginia,1,0.1,11732.502516116
+Virginia,1,0.25,12330.2443076999
+Virginia,1,0.5,13346
+Virginia,1,0.75,14373.3804917176
+Virginia,1,0.9,15104.7552649206
+Virginia,1,0.975,15146.4891127165
+Virginia,2,point,10119
+Virginia,2,0.025,8353.3451102351
+Virginia,2,0.1,8559.7199987647
+Virginia,2,0.25,9126.67232567137
+Virginia,2,0.5,10119
+Virginia,2,0.75,11156.5988421549
+Virginia,2,0.9,11917.2972681705
+Virginia,2,0.975,11960.706776494
+Virginia,3,point,7560
+Virginia,3,0.025,5909.2464112837
+Virginia,3,0.1,6096.60624127676
+Virginia,3,0.25,6620.23970516567
+Virginia,3,0.5,7560
+Virginia,3,0.75,8571.35813836105
+Virginia,3,0.9,9332.56021301815
+Virginia,3,0.975,9376.0464941034
+Virginia,4,point,5594
+Virginia,4,0.025,4087.48730897019
+Virginia,4,0.1,4247.42465487359
+Virginia,4,0.25,4713.42236887967
+Virginia,4,0.5,5594
+Virginia,4,0.75,6593.61480884409
+Virginia,4,0.9,7380.04079720364
+Virginia,4,0.975,7425.02960465858
+Virginia,5,point,4108
+Virginia,5,0.025,2881.12663331207
+Virginia,5,0.1,3001.86120425761
+Virginia,5,0.25,3369.74610432629
+Virginia,5,0.5,4108
+Virginia,5,0.75,4998.67358866225
+Virginia,5,0.9,5735.48811581468
+Virginia,5,0.975,5777.79469379652
+Virginia,6,point,3002
+Virginia,6,0.025,1941.26574461709
+Virginia,6,0.1,2039.71673011965
+Virginia,6,0.25,2350.09659888499
+Virginia,6,0.5,3002
+Virginia,6,0.75,3823.06980645331
+Virginia,6,0.9,4525.23231678807
+Virginia,6,0.975,4565.6569865872
+Virginia,7,point,2184
+Virginia,7,0.025,1287.95031255832
+Virginia,7,0.1,1366.49815792261
+Virginia,7,0.25,1622.14333865142
+Virginia,7,0.5,2184
+Virginia,7,0.75,2922.67511078205
+Virginia,7,0.9,3576.00199641074
+Virginia,7,0.975,3613.75605950738
+Connecticut,1,point,4792
+Connecticut,1,0.025,4537.71655823913
+Connecticut,1,0.1,4596.16597627156
+Connecticut,1,0.25,4672.6184539702
+Connecticut,1,0.5,4792
+Connecticut,1,0.75,4875.04650045819
+Connecticut,1,0.9,5009.52296487155
+Connecticut,1,0.975,5087.30508230176
+Connecticut,2,point,4269
+Connecticut,2,0.025,3971.08835970109
+Connecticut,2,0.1,4039.08046840092
+Connecticut,2,0.25,4129.13890048526
+Connecticut,2,0.5,4269
+Connecticut,2,0.75,4369.58204578516
+Connecticut,2,0.9,4528.73282053929
+Connecticut,2,0.975,4622.92021339953
+Connecticut,3,point,3790
+Connecticut,3,0.025,3455.22088062818
+Connecticut,3,0.1,3531.09063784498
+Connecticut,3,0.25,3632.7872460856
+Connecticut,3,0.5,3790
+Connecticut,3,0.75,3906.65422877825
+Connecticut,3,0.9,4087.39537918945
+Connecticut,3,0.975,4196.74642510957
+Connecticut,4,point,3357
+Connecticut,4,0.025,2947.43030879549
+Connecticut,4,0.1,3039.37420074602
+Connecticut,4,0.25,3164.57168992516
+Connecticut,4,0.5,3357
+Connecticut,4,0.75,3505.65136745034
+Connecticut,4,0.9,3729.94001149416
+Connecticut,4,0.975,3869.5525616567
+Connecticut,5,point,2964
+Connecticut,5,0.025,2498.51365037756
+Connecticut,5,0.1,2601.91929229128
+Connecticut,5,0.25,2745.09207194414
+Connecticut,5,0.5,2964
+Connecticut,5,0.75,3140.34896273188
+Connecticut,5,0.9,3399.47000397459
+Connecticut,5,0.975,3565.70197170502
+Connecticut,6,point,2612
+Connecticut,6,0.025,2119.16180575279
+Connecticut,6,0.1,2228.12390676601
+Connecticut,6,0.25,2380.13965174015
+Connecticut,6,0.5,2612
+Connecticut,6,0.75,2802.22337957449
+Connecticut,6,0.9,3078.5391566426
+Connecticut,6,0.975,3258.08266279369
+Connecticut,7,point,2296
+Connecticut,7,0.025,1781.81448630807
+Connecticut,7,0.1,1894.89056075835
+Connecticut,7,0.25,2053.95278897672
+Connecticut,7,0.5,2296
+Connecticut,7,0.75,2498.56827884396
+Connecticut,7,0.9,2789.26474634263
+Connecticut,7,0.975,2980.85501482732
+Iowa,1,point,5148
+Iowa,1,0.025,4975.55415578972
+Iowa,1,0.1,5028.73047738847
+Iowa,1,0.25,5067.89964503651
+Iowa,1,0.5,5148
+Iowa,1,0.75,5985.32895264515
+Iowa,1,0.9,6851.73813050874
+Iowa,1,0.975,6917.87457718922
+Iowa,2,point,5101
+Iowa,2,0.025,4912.20613137891
+Iowa,2,0.1,4970.55601160686
+Iowa,2,0.25,5012.34283473741
+Iowa,2,0.5,5101
+Iowa,2,0.75,6049.03582383876
+Iowa,2,0.9,7089.96370746988
+Iowa,2,0.975,7175.66772153258
+Iowa,3,point,5031
+Iowa,3,0.025,4832.3394505722
+Iowa,3,0.1,4893.77480790591
+Iowa,3,0.25,4937.07053898613
+Iowa,3,0.5,5031
+Iowa,3,0.75,6062.40648041442
+Iowa,3,0.9,7261.57663621177
+Iowa,3,0.975,7367.77760673269
+Iowa,4,point,4938
+Iowa,4,0.025,4716.27731873104
+Iowa,4,0.1,4784.74082304242
+Iowa,4,0.25,4832.28653813583
+Iowa,4,0.5,4938
+Iowa,4,0.75,6145.85699351584
+Iowa,4,0.9,7661.68598339209
+Iowa,4,0.975,7808.48795759871
+Iowa,5,point,4824
+Iowa,5,0.025,4596.42446618927
+Iowa,5,0.1,4666.36744219564
+Iowa,5,0.25,4714.77048572073
+Iowa,5,0.5,4824
+Iowa,5,0.75,6134.08647029139
+Iowa,5,0.9,7919.42810074849
+Iowa,5,0.975,8109.22452153551
+Iowa,6,point,4690
+Iowa,6,0.025,4460.96957124319
+Iowa,6,0.1,4531.21912712877
+Iowa,6,0.25,4579.63440331144
+Iowa,6,0.5,4690
+Iowa,6,0.75,6046.6588310313
+Iowa,6,0.9,7966.34936952705
+Iowa,6,0.975,8177.83770776567
+Iowa,7,point,4541
+Iowa,7,0.025,4314.9054089421
+Iowa,7,0.1,4383.94796475102
+Iowa,7,0.25,4431.95506980188
+Iowa,7,0.5,4541
+Iowa,7,0.75,5923.15962890187
+Iowa,7,0.9,7961.25234658496
+Iowa,7,0.975,8195.1012255
+Louisiana,1,point,2607
+Louisiana,1,0.025,1737.82250639045
+Louisiana,1,0.1,1739.21635429971
+Louisiana,1,0.25,1892.65218232513
+Louisiana,1,0.5,2607
+Louisiana,1,0.75,3266.80126645594
+Louisiana,1,0.9,3835.87179719073
+Louisiana,1,0.975,3861.92942010376
+Louisiana,2,point,1364
+Louisiana,2,0.025,531.423378805393
+Louisiana,2,0.1,532.724452475501
+Louisiana,2,0.25,672.510754959323
+Louisiana,2,0.5,1364
+Louisiana,2,0.75,2057.62600133948
+Louisiana,2,0.9,2693.58710873746
+Louisiana,2,0.975,2724.36255118556
+Louisiana,3,point,714
 Louisiana,3,0.025,0
 Louisiana,3,0.1,0
-Louisiana,3,0.25,62.2672485
-Louisiana,3,0.5,720
-Louisiana,3,0.75,1431.560534
-Louisiana,3,0.9,2124.569484
-Louisiana,3,0.975,2153.835807
-Louisiana,4,point,378
+Louisiana,3,0.25,61.9183131591824
+Louisiana,3,0.5,714
+Louisiana,3,0.75,1418.22201714762
+Louisiana,3,0.9,2102.14583258284
+Louisiana,3,0.975,2136.98266859141
+Louisiana,4,point,375
 Louisiana,4,0.025,0
 Louisiana,4,0.1,0
 Louisiana,4,0.25,0
-Louisiana,4,0.5,378
-Louisiana,4,0.75,1130.476897
-Louisiana,4,0.9,1931.31556
-Louisiana,4,0.975,1967.785134
-Louisiana,5,point,199
+Louisiana,4,0.5,375
+Louisiana,4,0.75,1118.36875920256
+Louisiana,4,0.9,1906.01154796936
+Louisiana,4,0.975,1949.01856031017
+Louisiana,5,point,197
 Louisiana,5,0.025,0
 Louisiana,5,0.1,0
 Louisiana,5,0.25,0
-Louisiana,5,0.5,199
-Louisiana,5,0.75,929.9054123
-Louisiana,5,0.9,1787.062983
-Louisiana,5,0.975,1829.286815
-Louisiana,6,point,105
+Louisiana,5,0.5,197
+Louisiana,5,0.75,917.354410730494
+Louisiana,5,0.9,1757.57502185279
+Louisiana,5,0.975,1806.90503752679
+Louisiana,6,point,103
 Louisiana,6,0.025,0
 Louisiana,6,0.1,0
 Louisiana,6,0.25,0
-Louisiana,6,0.5,105
-Louisiana,6,0.75,818.1176262
-Louisiana,6,0.9,1699.955051
-Louisiana,6,0.975,1745.038987
-Louisiana,7,point,55
+Louisiana,6,0.5,103
+Louisiana,6,0.75,804.806206535781
+Louisiana,6,0.9,1667.7947663118
+Louisiana,6,0.975,1720.24753613545
+Louisiana,7,point,54
 Louisiana,7,0.025,0
 Louisiana,7,0.1,0
 Louisiana,7,0.25,0
-Louisiana,7,0.5,55
-Louisiana,7,0.75,737.5829252
-Louisiana,7,0.9,1629.914676
-Louisiana,7,0.975,1677.360925
-Ohio,1,point,14372
-Ohio,1,0.025,13165.68937
-Ohio,1,0.1,13211.72084
-Ohio,1,0.25,13424.80629
-Ohio,1,0.5,14372
-Ohio,1,0.75,14554.0931
-Ohio,1,0.9,15840.14833
-Ohio,1,0.975,15887.78109
-Ohio,2,point,12238
-Ohio,2,0.025,10956.70262
-Ohio,2,0.1,11006.40703
-Ohio,2,0.25,11228.67609
-Ohio,2,0.5,12238
-Ohio,2,0.75,12440.1452
-Ohio,2,0.9,13858.94198
-Ohio,2,0.975,13916.01131
-Ohio,3,point,10399
-Ohio,3,0.025,9087.169344
-Ohio,3,0.1,9138.614345
-Ohio,3,0.25,9362.487562
-Ohio,3,0.5,10399
-Ohio,3,0.75,10614.21624
-Ohio,3,0.9,12120.13029
-Ohio,3,0.975,12185.21297
-Ohio,4,point,8824
-Ohio,4,0.025,7419.723203
-Ohio,4,0.1,7475.763847
-Ohio,4,0.25,7709.194176
-Ohio,4,0.5,8824
-Ohio,4,0.75,9068.282009
-Ohio,4,0.9,10770.52026
-Ohio,4,0.975,10851.52205
-Ohio,5,point,7477
-Ohio,5,0.025,6098.564092
-Ohio,5,0.1,6154.215358
-Ohio,5,0.25,6376.875199
-Ohio,5,0.5,7477
-Ohio,5,0.75,7731.880278
-Ohio,5,0.9,9508.055373
-Ohio,5,0.975,9601.030273
-Ohio,6,point,6329
-Ohio,6,0.025,4976.181556
-Ohio,6,0.1,5031.131281
-Ohio,6,0.25,5245.963281
-Ohio,6,0.5,6329
-Ohio,6,0.75,6587.787088
-Ohio,6,0.9,8391.237715
-Ohio,6,0.975,8490.169111
-Ohio,7,point,5352
-Ohio,7,0.025,4050.327957
-Ohio,7,0.1,4103.35317
-Ohio,7,0.25,4306.52255
-Ohio,7,0.5,5352
-Ohio,7,0.75,5609.615619
-Ohio,7,0.9,7408.542642
-Ohio,7,0.975,7511.99149
-Michigan,1,point,7235
-Michigan,1,0.025,7039.963167
-Michigan,1,0.1,7057.097514
-Michigan,1,0.25,7119.159901
-Michigan,1,0.5,7235
-Michigan,1,0.75,7328.875385
-Michigan,1,0.9,7393.146312
-Michigan,1,0.975,7433.541261
-Michigan,2,point,6684
-Michigan,2,0.025,6450.973851
-Michigan,2,0.1,6471.209421
-Michigan,2,0.25,6545.297948
-Michigan,2,0.5,6684
-Michigan,2,0.75,6797.205424
-Michigan,2,0.9,6875.016664
-Michigan,2,0.975,6923.605617
-Michigan,3,point,6170
-Michigan,3,0.025,5902.867869
-Michigan,3,0.1,5925.806315
-Michigan,3,0.25,6010.654908
-Michigan,3,0.5,6170
-Michigan,3,0.75,6300.974495
-Michigan,3,0.9,6391.361432
-Michigan,3,0.975,6447.461805
-Michigan,4,point,5689
-Michigan,4,0.025,5353.383829
-Michigan,4,0.1,5381.783885
-Michigan,4,0.25,5488.239475
-Michigan,4,0.5,5689
-Michigan,4,0.75,5855.534939
-Michigan,4,0.9,5971.066406
-Michigan,4,0.975,6042.22667
-Michigan,5,point,5237
-Michigan,5,0.025,4843.998021
-Michigan,5,0.1,4876.737432
-Michigan,5,0.25,5001.18367
-Michigan,5,0.5,5237
-Michigan,5,0.75,5434.575879
-Michigan,5,0.9,5572.444092
-Michigan,5,0.975,5656.701718
-Michigan,6,point,4815
-Michigan,6,0.025,4393.50211
-Michigan,6,0.1,4428.379306
-Michigan,6,0.25,4561.756902
-Michigan,6,0.5,4815
-Michigan,6,0.75,5028.05482
-Michigan,6,0.9,5177.074773
-Michigan,6,0.975,5267.851814
-Michigan,7,point,4420
-Michigan,7,0.025,3973.667513
-Michigan,7,0.1,4010.324029
-Michigan,7,0.25,4151.438507
-Michigan,7,0.5,4420
-Michigan,7,0.75,4647.007912
-Michigan,7,0.9,4806.22379
-Michigan,7,0.975,4902.869523
-South Dakota,1,point,1116
-South Dakota,1,0.025,1054.648858
-South Dakota,1,0.1,1057.481419
-South Dakota,1,0.25,1106.628263
-South Dakota,1,0.5,1116
-South Dakota,1,0.75,1385.475897
-South Dakota,1,0.9,1589.970377
-South Dakota,1,0.975,1593.395684
-South Dakota,2,point,1117
-South Dakota,2,0.025,1053.517923
-South Dakota,2,0.1,1056.470708
-South Dakota,2,0.25,1107.167307
-South Dakota,2,0.5,1117
-South Dakota,2,0.75,1412.104927
-South Dakota,2,0.9,1651.76561
-South Dakota,2,0.975,1656.279011
-South Dakota,3,point,1110
-South Dakota,3,0.025,1046.038991
-South Dakota,3,0.1,1049.0275
-South Dakota,3,0.25,1099.967461
-South Dakota,3,0.5,1110
-South Dakota,3,0.75,1424.109286
-South Dakota,3,0.9,1696.5954
-South Dakota,3,0.975,1702.317955
-South Dakota,4,point,1099
-South Dakota,4,0.025,1033.176192
-South Dakota,4,0.1,1036.280246
-South Dakota,4,0.25,1088.448802
-South Dakota,4,0.5,1099
-South Dakota,4,0.75,1452.518118
-South Dakota,4,0.9,1789.855604
-South Dakota,4,0.975,1797.974814
-South Dakota,5,point,1089
-South Dakota,5,0.025,1025.226981
-South Dakota,5,0.1,1028.244303
-South Dakota,5,0.25,1078.553096
-South Dakota,5,0.5,1089
-South Dakota,5,0.75,1465.88605
-South Dakota,5,0.9,1862.6134
-South Dakota,5,0.975,1873.490622
-South Dakota,6,point,1075
-South Dakota,6,0.025,1012.85157
-South Dakota,6,0.1,1015.797153
-South Dakota,6,0.25,1064.690506
-South Dakota,6,0.5,1075
-South Dakota,6,0.75,1461.905072
-South Dakota,6,0.9,1887.931156
-South Dakota,6,0.975,1900.190335
-South Dakota,7,point,1059
-South Dakota,7,0.025,999.4270553
-South Dakota,7,0.1,1002.250011
-South Dakota,7,0.25,1048.992529
-South Dakota,7,0.5,1059
-South Dakota,7,0.75,1450.87609
-South Dakota,7,0.9,1903.857772
-South Dakota,7,0.975,1917.610783
-Arkansas,1,point,2464
-Arkansas,1,0.025,1433.522621
-Arkansas,1,0.1,1435.81689
-Arkansas,1,0.25,1775.621393
-Arkansas,1,0.5,2464
-Arkansas,1,0.75,4158.653209
-Arkansas,1,0.9,4651.041312
-Arkansas,1,0.975,4666.071225
-Arkansas,2,point,1514
-Arkansas,2,0.025,501.9631659
-Arkansas,2,0.1,504.0823365
-Arkansas,2,0.25,815.6156829
-Arkansas,2,0.5,1514
-Arkansas,2,0.75,3202.750396
-Arkansas,2,0.9,3650.124134
-Arkansas,2,0.975,3665.279504
-Arkansas,3,point,908
+Louisiana,7,0.5,54
+Louisiana,7,0.75,724.708206717672
+Louisiana,7,0.9,1596.48200728984
+Louisiana,7,0.975,1651.44273337028
+Ohio,1,point,14438
+Ohio,1,0.025,13518.8577301237
+Ohio,1,0.1,13543.3284106124
+Ohio,1,0.25,13774.4912063348
+Ohio,1,0.5,14438
+Ohio,1,0.75,14846.9269033024
+Ohio,1,0.9,16213.0319391245
+Ohio,1,0.975,16231.6206038409
+Ohio,2,point,12356
+Ohio,2,0.025,11377.9642996747
+Ohio,2,0.1,11405.3147928377
+Ohio,2,0.25,11647.3514126123
+Ohio,2,0.5,12356
+Ohio,2,0.75,12800.3029455
+Ohio,2,0.9,14312.9749021985
+Ohio,2,0.975,14337.5689175865
+Ohio,3,point,10553
+Ohio,3,0.025,9550.15167462099
+Ohio,3,0.1,9579.22953443774
+Ohio,3,0.25,9823.85613781073
+Ohio,3,0.5,10553
+Ohio,3,0.75,11017.5431053024
+Ohio,3,0.9,12628.6101722066
+Ohio,3,0.975,12658.8190416739
+Ohio,4,point,9001
+Ohio,4,0.025,7924.94763308531
+Ohio,4,0.1,7957.91191655197
+Ohio,4,0.25,8214.42123184139
+Ohio,4,0.5,9001
+Ohio,4,0.75,9514.52018813884
+Ohio,4,0.9,11344.700745943
+Ohio,4,0.975,11385.6268178053
+Ohio,5,point,7667
+Ohio,5,0.025,6608.32011564534
+Ohio,5,0.1,6642.26536349565
+Ohio,5,0.25,6888.47652329836
+Ohio,5,0.5,7667
+Ohio,5,0.75,8189.2125574309
+Ohio,5,0.9,10109.1629305864
+Ohio,5,0.975,10159.6322542851
+Ohio,6,point,6522
+Ohio,6,0.025,5481.61359435161
+Ohio,6,0.1,5515.80563146468
+Ohio,6,0.25,5754.26420431666
+Ohio,6,0.5,6522
+Ohio,6,0.75,7044.91775374376
+Ohio,6,0.9,8999.85305599928
+Ohio,6,0.975,9055.25344653569
+Ohio,7,point,5543
+Ohio,7,0.025,4540.72345635961
+Ohio,7,0.1,4574.31619544832
+Ohio,7,0.25,4800.70826194063
+Ohio,7,0.5,5543
+Ohio,7,0.75,6056.74664762736
+Ohio,7,0.9,8012.53614419214
+Ohio,7,0.975,8072.19997577318
+Michigan,1,point,7216
+Michigan,1,0.025,7014.17762441929
+Michigan,1,0.1,7032.78023869775
+Michigan,1,0.25,7096.16879542269
+Michigan,1,0.5,7216
+Michigan,1,0.75,7312.08019260659
+Michigan,1,0.9,7378.06287505406
+Michigan,1,0.975,7421.72966537004
+Michigan,2,point,6646
+Michigan,2,0.025,6405.37392264221
+Michigan,2,0.1,6427.30189988726
+Michigan,2,0.25,6502.81077344372
+Michigan,2,0.5,6646
+Michigan,2,0.75,6761.65114427113
+Michigan,2,0.9,6841.39448132552
+Michigan,2,0.975,6893.85109406176
+Michigan,3,point,6117
+Michigan,3,0.025,5841.7237255832
+Michigan,3,0.1,5866.53458403186
+Michigan,3,0.25,5952.82758746032
+Michigan,3,0.5,6117
+Michigan,3,0.75,6250.56213648104
+Michigan,3,0.9,6343.03322107823
+Michigan,3,0.975,6403.52194999259
+Michigan,4,point,5624
+Michigan,4,0.025,5279.078948845
+Michigan,4,0.1,5309.72205976555
+Michigan,4,0.25,5417.69260969644
+Michigan,4,0.5,5624
+Michigan,4,0.75,5793.42926661715
+Michigan,4,0.9,5911.36217601151
+Michigan,4,0.975,5987.96217176483
+Michigan,5,point,5161
+Michigan,5,0.025,4758.27105649823
+Michigan,5,0.1,4793.5024057503
+Michigan,5,0.25,4919.34501107918
+Michigan,5,0.5,5161
+Michigan,5,0.75,5361.50423221366
+Michigan,5,0.9,5501.90125781985
+Michigan,5,0.975,5592.43771923817
+Michigan,6,point,4731
+Michigan,6,0.025,4299.60056097653
+Michigan,6,0.1,4337.08874317921
+Michigan,6,0.25,4471.79233962164
+Michigan,6,0.5,4731
+Michigan,6,0.75,4946.98836070226
+Michigan,6,0.9,5098.59379429596
+Michigan,6,0.975,5196.06349772927
+Michigan,7,point,4331
+Michigan,7,0.025,3874.81314219839
+Michigan,7,0.1,3914.16269642035
+Michigan,7,0.25,4056.47755032658
+Michigan,7,0.5,4331
+Michigan,7,0.75,4560.86314784809
+Michigan,7,0.9,4722.66195901464
+Michigan,7,0.975,4826.34620359339
+South Dakota,1,point,987
+South Dakota,1,0.025,783.168923058592
+South Dakota,1,0.1,787.241561630954
+South Dakota,1,0.25,808.763235846685
+South Dakota,1,0.5,987
+South Dakota,1,0.75,1189.07226992527
+South Dakota,1,0.9,1218.97330856155
+South Dakota,1,0.975,1222.4272081537
+South Dakota,2,point,968
+South Dakota,2,0.025,748.111685388191
+South Dakota,2,0.1,752.370156741797
+South Dakota,2,0.25,774.569747674683
+South Dakota,2,0.5,968
+South Dakota,2,0.75,1205.36171537438
+South Dakota,2,0.9,1241.63933508627
+South Dakota,2,0.975,1246.34556616915
+South Dakota,3,point,947
+South Dakota,3,0.025,718.40660530735
+South Dakota,3,0.1,722.693372484695
+South Dakota,3,0.25,744.818692150599
+South Dakota,3,0.5,947
+South Dakota,3,0.75,1214.7084882389
+South Dakota,3,0.9,1256.91631664473
+South Dakota,3,0.975,1263.00085341679
+South Dakota,4,point,921
+South Dakota,4,0.025,670.387816883423
+South Dakota,4,0.1,674.858086098304
+South Dakota,4,0.25,697.533193403155
+South Dakota,4,0.5,921
+South Dakota,4,0.75,1250.31871669592
+South Dakota,4,0.9,1304.36104878455
+South Dakota,4,0.975,1313.16728722876
+South Dakota,5,point,895
+South Dakota,5,0.025,642.04206685418
+South Dakota,5,0.1,646.282255591944
+South Dakota,5,0.25,667.479609890493
+South Dakota,5,0.5,895
+South Dakota,5,0.75,1272.10921042204
+South Dakota,5,0.9,1336.6691802591
+South Dakota,5,0.975,1348.53943845379
+South Dakota,6,point,866
+South Dakota,6,0.025,613.766630051273
+South Dakota,6,0.1,617.840677680506
+South Dakota,6,0.25,638.037601817341
+South Dakota,6,0.5,866
+South Dakota,6,0.75,1266.51947443847
+South Dakota,6,0.9,1336.34101141276
+South Dakota,6,0.975,1349.76078966498
+South Dakota,7,point,836
+South Dakota,7,0.025,589.042182609367
+South Dakota,7,0.1,592.868922882565
+South Dakota,7,0.25,611.720374703562
+South Dakota,7,0.5,836
+South Dakota,7,0.75,1255.61594867739
+South Dakota,7,0.9,1330.24221033021
+South Dakota,7,0.975,1345.3141728148
+Arkansas,1,point,2323
+Arkansas,1,0.025,1293.26252036156
+Arkansas,1,0.1,1295.70668483737
+Arkansas,1,0.25,1472.53218402017
+Arkansas,1,0.5,2323
+Arkansas,1,0.75,2984.88157347506
+Arkansas,1,0.9,3209.63008133094
+Arkansas,1,0.975,3240.32677735721
+Arkansas,2,point,1325
+Arkansas,2,0.025,313.881296479409
+Arkansas,2,0.1,316.135183482613
+Arkansas,2,0.25,477.729963414327
+Arkansas,2,0.5,1325
+Arkansas,2,0.75,2003.68746418075
+Arkansas,2,0.9,2301.3806506653
+Arkansas,2,0.975,2337.77356991312
+Arkansas,3,point,758
 Arkansas,3,0.025,0
 Arkansas,3,0.1,0
-Arkansas,3,0.25,223.2235258
-Arkansas,3,0.5,908
-Arkansas,3,0.75,2490.541201
-Arkansas,3,0.9,2858.917685
-Arkansas,3,0.975,2876.591176
-Arkansas,4,point,549
+Arkansas,3,0.25,0
+Arkansas,3,0.5,758
+Arkansas,3,0.75,1440.02991065744
+Arkansas,3,0.9,1798.35105333983
+Arkansas,3,0.975,1839.99964683952
+Arkansas,4,point,432
 Arkansas,4,0.025,0
 Arkansas,4,0.1,0
 Arkansas,4,0.25,0
-Arkansas,4,0.5,549
-Arkansas,4,0.75,1882.609953
-Arkansas,4,0.9,2207.171108
-Arkansas,4,0.975,2226.408017
-Arkansas,5,point,332
+Arkansas,4,0.5,432
+Arkansas,4,0.75,1131.08058992347
+Arkansas,4,0.9,1604.3798122625
+Arkansas,4,0.975,1656.10073840559
+Arkansas,5,point,248
 Arkansas,5,0.025,0
 Arkansas,5,0.1,0
 Arkansas,5,0.25,0
-Arkansas,5,0.5,332
-Arkansas,5,0.75,1630.491054
-Arkansas,5,0.9,1920.795016
-Arkansas,5,0.975,1938.66752
-Arkansas,6,point,201
+Arkansas,5,0.5,248
+Arkansas,5,0.75,926.524461676594
+Arkansas,5,0.9,1492.45916536179
+Arkansas,5,0.975,1553.37923675354
+Arkansas,6,point,141
 Arkansas,6,0.025,0
 Arkansas,6,0.1,0
 Arkansas,6,0.25,0
-Arkansas,6,0.5,201
-Arkansas,6,0.75,1485.057486
-Arkansas,6,0.9,1715.621801
-Arkansas,6,0.975,1734.736272
-Arkansas,7,point,121
+Arkansas,6,0.5,141
+Arkansas,6,0.75,804.896654069082
+Arkansas,6,0.9,1415.82697259854
+Arkansas,6,0.975,1481.34928330293
+Arkansas,7,point,81
 Arkansas,7,0.025,0
 Arkansas,7,0.1,0
 Arkansas,7,0.25,0
-Arkansas,7,0.5,121
-Arkansas,7,0.75,1276.062662
-Arkansas,7,0.9,1479.371535
-Arkansas,7,0.975,1499.680249
-Delaware,1,point,1793
-Delaware,1,0.025,1627.788816
-Delaware,1,0.1,1635.456025
-Delaware,1,0.25,1687.098209
-Delaware,1,0.5,1793
-Delaware,1,0.75,1835.693267
-Delaware,1,0.9,2138.031869
-Delaware,1,0.975,2157.300054
-Delaware,2,point,1540
-Delaware,2,0.025,1362.703007
-Delaware,2,0.1,1371.079575
-Delaware,2,0.25,1425.735803
-Delaware,2,0.5,1540
-Delaware,2,0.75,1586.830369
-Delaware,2,0.9,1925.246516
-Delaware,2,0.975,1948.076249
-Delaware,3,point,1308
-Delaware,3,0.025,1123.05898
-Delaware,3,0.1,1131.912738
-Delaware,3,0.25,1188.197526
-Delaware,3,0.5,1308
-Delaware,3,0.75,1357.874291
-Delaware,3,0.9,1725.657499
-Delaware,3,0.975,1751.832383
-Delaware,4,point,1113
-Delaware,4,0.025,911.5161099
-Delaware,4,0.1,921.371696
-Delaware,4,0.25,981.4145318
-Delaware,4,0.5,1113
-Delaware,4,0.75,1169.131642
-Delaware,4,0.9,1595.875266
-Delaware,4,0.975,1628.612355
-Delaware,5,point,944
-Delaware,5,0.025,736.4177258
-Delaware,5,0.1,746.7163491
-Delaware,5,0.25,807.2931532
-Delaware,5,0.5,944
-Delaware,5,0.75,1003.782176
-Delaware,5,0.9,1473.463167
-Delaware,5,0.975,1512.23817
-Delaware,6,point,800
-Delaware,6,0.025,590.6436782
-Delaware,6,0.1,601.1091732
-Delaware,6,0.25,661.5107498
-Delaware,6,0.5,800
-Delaware,6,0.75,861.3433269
-Delaware,6,0.9,1351.061506
-Delaware,6,0.975,1392.839768
-Delaware,7,point,677
-Delaware,7,0.025,469.0430443
-Delaware,7,0.1,479.4954899
-Delaware,7,0.25,538.7981391
-Delaware,7,0.5,677
-Delaware,7,0.75,739.0438772
-Delaware,7,0.9,1243.118522
-Delaware,7,0.975,1287.651412
-Mississippi,1,point,3368
-Mississippi,1,0.025,3015.397479
-Mississippi,1,0.1,3025.314036
-Mississippi,1,0.25,3265.070941
-Mississippi,1,0.5,3368
-Mississippi,1,0.75,3942.108918
-Mississippi,1,0.9,4962.189149
-Mississippi,1,0.975,4987.172509
-Mississippi,2,point,2557
-Mississippi,2,0.025,2184.645503
-Mississippi,2,0.1,2194.915356
-Mississippi,2,0.25,2452.634625
-Mississippi,2,0.5,2557
-Mississippi,2,0.75,3156.72213
-Mississippi,2,0.9,4237.805632
-Mississippi,2,0.975,4266.362201
-Mississippi,3,point,1969
-Mississippi,3,0.025,1588.369354
-Mississippi,3,0.1,1598.59451
-Mississippi,3,0.25,1862.498353
-Mississippi,3,0.5,1969
-Mississippi,3,0.75,2573.582389
-Mississippi,3,0.9,3687.614831
-Mississippi,3,0.975,3719.619203
-Mississippi,4,point,1455
-Mississippi,4,0.025,1042.613653
-Mississippi,4,0.1,1053.099396
-Mississippi,4,0.25,1343.718158
-Mississippi,4,0.5,1455
-Mississippi,4,0.75,2077.368709
-Mississippi,4,0.9,3240.798112
-Mississippi,4,0.975,3279.373468
-Mississippi,5,point,1114
-Mississippi,5,0.025,718.7680513
-Mississippi,5,0.1,728.4830756
-Mississippi,5,0.25,1003.4052
-Mississippi,5,0.5,1114
-Mississippi,5,0.75,1722.39756
-Mississippi,5,0.9,2937.92645
-Mississippi,5,0.975,2981.642237
-Mississippi,6,point,843
-Mississippi,6,0.025,467.0500174
-Mississippi,6,0.1,476.2381974
-Mississippi,6,0.25,740.6696534
-Mississippi,6,0.5,843
-Mississippi,6,0.75,1450.449977
-Mississippi,6,0.9,2700.798623
-Mississippi,6,0.975,2747.521028
-Mississippi,7,point,632
-Mississippi,7,0.025,274.6034974
-Mississippi,7,0.1,283.0778245
-Mississippi,7,0.25,531.7843119
-Mississippi,7,0.5,632
-Mississippi,7,0.75,1216.412714
-Mississippi,7,0.9,2462.179804
-Mississippi,7,0.975,2511.384277
-New Mexico,1,point,2271
-New Mexico,1,0.025,2150.161432
-New Mexico,1,0.1,2153.96828
-New Mexico,1,0.25,2256.184498
-New Mexico,1,0.5,2271
-New Mexico,1,0.75,2409.902133
-New Mexico,1,0.9,2674.194465
-New Mexico,1,0.975,2677.754118
-New Mexico,2,point,1983
-New Mexico,2,0.025,1854.995122
-New Mexico,2,0.1,1859.186559
-New Mexico,2,0.25,1966.811431
-New Mexico,2,0.5,1983
-New Mexico,2,0.75,2133.268617
-New Mexico,2,0.9,2428.997586
-New Mexico,2,0.975,2433.631031
-New Mexico,3,point,1729
-New Mexico,3,0.025,1598.314727
-New Mexico,3,0.1,1602.717227
-New Mexico,3,0.25,1712.034056
-New Mexico,3,0.5,1729
-New Mexico,3,0.75,1885.557321
-New Mexico,3,0.9,2203.729124
-New Mexico,3,0.975,2209.386334
-New Mexico,4,point,1504
-New Mexico,4,0.025,1364.712715
-New Mexico,4,0.1,1369.617153
-New Mexico,4,0.25,1485.167978
-New Mexico,4,0.5,1504
-New Mexico,4,0.75,1676.137185
-New Mexico,4,0.9,2042.897052
-New Mexico,4,0.975,2050.52551
-New Mexico,5,point,1305
-New Mexico,5,0.025,1169.024374
-New Mexico,5,0.1,1173.99081
-New Mexico,5,0.25,1285.854786
-New Mexico,5,0.5,1305
-New Mexico,5,0.75,1479.161632
-New Mexico,5,0.9,1870.228445
-New Mexico,5,0.975,1879.665266
-New Mexico,6,point,1130
-New Mexico,6,0.025,996.994384
-New Mexico,6,0.1,1001.951005
-New Mexico,6,0.25,1110.84601
-New Mexico,6,0.5,1130
-New Mexico,6,0.75,1303.918471
-New Mexico,6,0.9,1705.460535
-New Mexico,6,0.975,1715.827632
-New Mexico,7,point,978
-New Mexico,7,0.025,850.4937806
-New Mexico,7,0.1,855.3208751
-New Mexico,7,0.25,959.2306025
-New Mexico,7,0.5,978
-New Mexico,7,0.75,1148.435271
-New Mexico,7,0.9,1553.811731
-New Mexico,7,0.975,1565.016252
-North Dakota,1,point,787
-North Dakota,1,0.025,627.1209975
-North Dakota,1,0.1,627.7831104
-North Dakota,1,0.25,769.6463464
-North Dakota,1,0.5,787
-North Dakota,1,0.75,1026.616518
-North Dakota,1,0.9,1313.048486
-North Dakota,1,0.975,1314.887584
-North Dakota,2,point,956
-North Dakota,2,0.025,787.1854908
-North Dakota,2,0.1,787.8671103
-North Dakota,2,0.25,936.6733126
-North Dakota,2,0.5,956
-North Dakota,2,0.75,1243.05962
-North Dakota,2,0.9,1629.352594
-North Dakota,2,0.975,1632.857088
-North Dakota,3,point,1157
-North Dakota,3,0.025,984.9046561
-North Dakota,3,0.1,985.5784194
-North Dakota,3,0.25,1136.314001
-North Dakota,3,0.5,1157
-North Dakota,3,0.75,1487.430187
-North Dakota,3,0.9,1987.189466
-North Dakota,3,0.975,1993.355863
-North Dakota,4,point,1393
-North Dakota,4,0.025,1209.932708
-North Dakota,4,0.1,1210.616629
-North Dakota,4,0.25,1369.328378
-North Dakota,4,0.5,1393
-North Dakota,4,0.75,1810.847555
-North Dakota,4,0.9,2539.241638
-North Dakota,4,0.975,2551.479746
-North Dakota,5,point,1666
-North Dakota,5,0.025,1487.198158
-North Dakota,5,0.1,1487.821633
-North Dakota,5,0.25,1640.993871
-North Dakota,5,0.5,1666
-North Dakota,5,0.75,2159.773933
-North Dakota,5,0.9,3158.583389
-North Dakota,5,0.975,3181.087069
-North Dakota,6,point,1977
-North Dakota,6,0.025,1802.037394
-North Dakota,6,0.1,1802.620257
-North Dakota,6,0.25,1951.446691
-North Dakota,6,0.5,1977
-North Dakota,6,0.75,2508.379211
-North Dakota,6,0.9,3641.678658
-North Dakota,6,0.975,3668.855686
-North Dakota,7,point,2325
-North Dakota,7,0.025,2156.923535
-North Dakota,7,0.1,2157.453973
-North Dakota,7,0.25,2299.344185
-North Dakota,7,0.5,2325
-North Dakota,7,0.75,2890.375973
-North Dakota,7,0.9,4172.81657
-North Dakota,7,0.975,4206.219048
-Wyoming,1,point,502
-Wyoming,1,0.025,487.9282184
-Wyoming,1,0.1,490.235115
-Wyoming,1,0.25,496.129813
-Wyoming,1,0.5,502
-Wyoming,1,0.75,510.46043
-Wyoming,1,0.9,513.9044989
-Wyoming,1,0.975,519.6220092
+Arkansas,7,0.5,81
+Arkansas,7,0.75,723.16049332617
+Arkansas,7,0.9,1365.55851057527
+Arkansas,7,0.975,1435.09439521029
+Delaware,1,point,1950
+Delaware,1,0.025,1702.5579733308
+Delaware,1,0.1,1712.58987283887
+Delaware,1,0.25,1724.35780344322
+Delaware,1,0.5,1950
+Delaware,1,0.75,1975.91075906707
+Delaware,1,0.9,2286.95760296818
+Delaware,1,0.975,2296.57034715448
+Delaware,2,point,1801
+Delaware,2,0.025,1533.97658466689
+Delaware,2,0.1,1544.64022340642
+Delaware,2,0.25,1557.64496632743
+Delaware,2,0.5,1801
+Delaware,2,0.75,1830.88988550849
+Delaware,2,0.9,2187.14581061037
+Delaware,2,0.975,2199.64430556455
+Delaware,3,point,1654
+Delaware,3,0.025,1376.60868161383
+Delaware,3,0.1,1387.5113215472
+Delaware,3,0.25,1401.23929142792
+Delaware,3,0.5,1654
+Delaware,3,0.75,1686.96031862901
+Delaware,3,0.9,2078.74093484415
+Delaware,3,0.975,2094.12832614242
+Delaware,4,point,1511
+Delaware,4,0.025,1207.28126646392
+Delaware,4,0.1,1218.94568526905
+Delaware,4,0.25,1234.28060292416
+Delaware,4,0.5,1511
+Delaware,4,0.75,1550.27486204067
+Delaware,4,0.9,2015.87145018977
+Delaware,4,0.975,2036.8789468288
+Delaware,5,point,1374
+Delaware,5,0.025,1068.43325566274
+Delaware,5,0.1,1079.81189707665
+Delaware,5,0.25,1095.37615906414
+Delaware,5,0.5,1374
+Delaware,5,0.75,1417.13978384714
+Delaware,5,0.9,1930.06497830828
+Delaware,5,0.975,1956.61336917334
+Delaware,6,point,1245
+Delaware,6,0.025,940.865102573187
+Delaware,6,0.1,951.988429342418
+Delaware,6,0.25,967.572787044615
+Delaware,6,0.5,1245
+Delaware,6,0.75,1289.9642862393
+Delaware,6,0.9,1825.1912745133
+Delaware,6,0.975,1854.57581184379
+Delaware,7,point,1124
+Delaware,7,0.025,827.075997205856
+Delaware,7,0.1,837.720814086866
+Delaware,7,0.25,852.928231066134
+Delaware,7,0.5,1124
+Delaware,7,0.75,1170.0099600415
+Delaware,7,0.9,1719.68488817209
+Delaware,7,0.975,1751.8123555268
+Mississippi,1,point,4209
+Mississippi,1,0.025,3730.47369128573
+Mississippi,1,0.1,3743.49034321518
+Mississippi,1,0.25,3921.52374178333
+Mississippi,1,0.5,4209
+Mississippi,1,0.75,4723.04708449235
+Mississippi,1,0.9,5179.12236208054
+Mississippi,1,0.975,5209.75654856306
+Mississippi,2,point,3568
+Mississippi,2,0.025,3067.99129652935
+Mississippi,2,0.1,3081.87339122808
+Mississippi,2,0.25,3290.52885002895
+Mississippi,2,0.5,3568
+Mississippi,2,0.75,4131.78127704855
+Mississippi,2,0.9,4638.04452688373
+Mississippi,2,0.975,4674.0804511
+Mississippi,3,point,3012
+Mississippi,3,0.025,2507.82230195904
+Mississippi,3,0.1,2521.93556596134
+Mississippi,3,0.25,2748.78197938487
+Mississippi,3,0.5,3012
+Mississippi,3,0.75,3606.88185056811
+Mississippi,3,0.9,4152.27506643452
+Mississippi,3,0.975,4193.07462319956
+Mississippi,4,point,2539
+Mississippi,4,0.025,2012.210024748
+Mississippi,4,0.1,2027.42361943117
+Mississippi,4,0.25,2306.24050577519
+Mississippi,4,0.5,2539
+Mississippi,4,0.75,3205.6793611274
+Mississippi,4,0.9,3830.7012288367
+Mississippi,4,0.975,3881.01715701276
+Mississippi,5,point,2137
+Mississippi,5,0.025,1633.84828544655
+Mississippi,5,0.1,1648.29350832237
+Mississippi,5,0.25,1926.62233188714
+Mississippi,5,0.5,2137
+Mississippi,5,0.75,2825.67678558365
+Mississippi,5,0.9,3502.92735433643
+Mississippi,5,0.975,3560.94675380521
+Mississippi,6,point,1796
+Mississippi,6,0.025,1310.21507216245
+Mississippi,6,0.1,1324.09372976327
+Mississippi,6,0.25,1598.56195865195
+Mississippi,6,0.5,1796
+Mississippi,6,0.75,2491.50194517974
+Mississippi,6,0.9,3192.80908191686
+Mississippi,6,0.975,3254.62840110721
+Mississippi,7,point,1508
+Mississippi,7,0.025,1048.4387254632
+Mississippi,7,0.1,1061.45079459543
+Mississippi,7,0.25,1327.23455328066
+Mississippi,7,0.5,1508
+Mississippi,7,0.75,2197.6746420006
+Mississippi,7,0.9,2913.80843545805
+Mississippi,7,0.975,2978.820481906
+New Mexico,1,point,2268
+New Mexico,1,0.025,2152.35024369182
+New Mexico,1,0.1,2156.7024703792
+New Mexico,1,0.25,2181.1568676407
+New Mexico,1,0.5,2268
+New Mexico,1,0.75,2411.4554055824
+New Mexico,1,0.9,2675.60296075019
+New Mexico,1,0.975,2679.95051760322
+New Mexico,2,point,1979
+New Mexico,2,0.025,1856.8192658899
+New Mexico,2,0.1,1861.57574777743
+New Mexico,2,0.25,1887.00802343497
+New Mexico,2,0.5,1979
+New Mexico,2,0.75,2134.22523849325
+New Mexico,2,0.9,2429.59949369269
+New Mexico,2,0.975,2435.12882517216
+New Mexico,3,point,1722
+New Mexico,3,0.025,1597.55050717662
+New Mexico,3,0.1,1602.5181086375
+New Mexico,3,0.25,1628.0664869332
+New Mexico,3,0.5,1722
+New Mexico,3,0.75,1883.71705142609
+New Mexico,3,0.9,2201.30883772619
+New Mexico,3,0.975,2207.94384212816
+New Mexico,4,point,1496
+New Mexico,4,0.025,1363.85752129272
+New Mexico,4,0.1,1369.34449065557
+New Mexico,4,0.25,1395.86786651638
+New Mexico,4,0.5,1496
+New Mexico,4,0.75,1673.81375976501
+New Mexico,4,0.9,2039.57943011024
+New Mexico,4,0.975,2048.35748458704
+New Mexico,5,point,1297
+New Mexico,5,0.025,1168.50526366422
+New Mexico,5,0.1,1174.01927942124
+New Mexico,5,0.25,1199.20089288116
+New Mexico,5,0.5,1297
+New Mexico,5,0.75,1476.84504310056
+New Mexico,5,0.9,1866.46996798241
+New Mexico,5,0.975,1877.15735098498
+New Mexico,6,point,1122
+New Mexico,6,0.025,996.592255194466
+New Mexico,6,0.1,1002.07233617171
+New Mexico,6,0.25,1026.2999853034
+New Mexico,6,0.5,1122
+New Mexico,6,0.75,1301.54795876978
+New Mexico,6,0.9,1701.41053614831
+New Mexico,6,0.975,1713.07475323544
+New Mexico,7,point,969
+New Mexico,7,0.025,849.047562764572
+New Mexico,7,0.1,854.364588238231
+New Mexico,7,0.25,877.212816798604
+New Mexico,7,0.5,969
+New Mexico,7,0.75,1144.88569928445
+New Mexico,7,0.9,1548.35101735769
+New Mexico,7,0.975,1560.87842168759
+North Dakota,1,point,777
+North Dakota,1,0.025,619.789313706138
+North Dakota,1,0.1,621.624199925
+North Dakota,1,0.25,758.798222873486
+North Dakota,1,0.5,777
+North Dakota,1,0.75,1012.37281084409
+North Dakota,1,0.9,1288.46287842675
+North Dakota,1,0.975,1295.1318647948
+North Dakota,2,point,931
+North Dakota,2,0.025,765.989535045175
+North Dakota,2,0.1,767.822667253156
+North Dakota,2,0.25,910.864963747796
+North Dakota,2,0.5,931
+North Dakota,2,0.75,1211.2271172893
+North Dakota,2,0.9,1580.87889490492
+North Dakota,2,0.975,1591.13427796092
+North Dakota,3,point,1111
+North Dakota,3,0.025,943.710861243239
+North Dakota,3,0.1,945.482052290803
+North Dakota,3,0.25,1089.58682485948
+North Dakota,3,0.5,1111
+North Dakota,3,0.75,1431.60114648093
+North Dakota,3,0.9,1906.37573570617
+North Dakota,3,0.975,1921.54598735869
+North Dakota,4,point,1319
+North Dakota,4,0.025,1142.61555805379
+North Dakota,4,0.1,1144.33797737605
+North Dakota,4,0.25,1294.72207461279
+North Dakota,4,0.5,1319
+North Dakota,4,0.75,1721.20522308365
+North Dakota,4,0.9,2407.39725960578
+North Dakota,4,0.975,2433.14433419395
+North Dakota,5,point,1557
+North Dakota,5,0.025,1386.42688577367
+North Dakota,5,0.1,1387.93542914784
+North Dakota,5,0.25,1531.61465368046
+North Dakota,5,0.5,1557
+North Dakota,5,0.75,2028.22534253901
+North Dakota,5,0.9,2961.0688034012
+North Dakota,5,0.975,3002.47973172407
+North Dakota,6,point,1825
+North Dakota,6,0.025,1659.0648028517
+North Dakota,6,0.1,1660.43999680501
+North Dakota,6,0.25,1799.19740463636
+North Dakota,6,0.5,1825
+North Dakota,6,0.75,2330.29681764105
+North Dakota,6,0.9,3385.99084071464
+North Dakota,6,0.975,3434.79385416268
+North Dakota,7,point,2119
+North Dakota,7,0.025,1960.55633744817
+North Dakota,7,0.1,1961.78063932747
+North Dakota,7,0.25,2093.24147739158
+North Dakota,7,0.5,2119
+North Dakota,7,0.75,2654.46574464643
+North Dakota,7,0.9,3845.27880617303
+North Dakota,7,0.975,3903.34463306381
+Wyoming,1,point,501
+Wyoming,1,0.025,487.069465222272
+Wyoming,1,0.1,489.276780039754
+Wyoming,1,0.25,493.74215583674
+Wyoming,1,0.5,501
+Wyoming,1,0.75,508.353626545977
+Wyoming,1,0.9,512.340225558906
+Wyoming,1,0.975,516.946021877408
 Wyoming,2,point,467
-Wyoming,2,0.025,450.6441416
-Wyoming,2,0.1,453.2976439
-Wyoming,2,0.25,460.104101
+Wyoming,2,0.025,450.811540244144
+Wyoming,2,0.1,453.349849373286
+Wyoming,2,0.25,458.493496405121
 Wyoming,2,0.5,467
-Wyoming,2,0.75,476.8698974
-Wyoming,2,0.9,480.9259266
-Wyoming,2,0.975,487.6008956
+Wyoming,2,0.75,475.538907566923
+Wyoming,2,0.9,480.243084219235
+Wyoming,2,0.975,485.643563933205
 Wyoming,3,point,431
-Wyoming,3,0.025,412.5610444
-Wyoming,3,0.1,415.5224787
-Wyoming,3,0.25,423.1416241
+Wyoming,3,0.025,412.753430749763
+Wyoming,3,0.1,415.585590209404
+Wyoming,3,0.25,421.33424869472
 Wyoming,3,0.5,431
-Wyoming,3,0.75,442.1702688
-Wyoming,3,0.9,446.8030474
-Wyoming,3,0.975,454.3649484
-Wyoming,4,point,400
-Wyoming,4,0.025,377.4428103
-Wyoming,4,0.1,381.014801
-Wyoming,4,0.25,390.2476921
-Wyoming,4,0.5,400
-Wyoming,4,0.75,413.7401786
-Wyoming,4,0.9,419.5111429
-Wyoming,4,0.975,428.8262107
-Wyoming,5,point,369
-Wyoming,5,0.025,342.8047488
-Wyoming,5,0.1,346.8942649
-Wyoming,5,0.25,357.5032651
-Wyoming,5,0.5,369
-Wyoming,5,0.75,385.0541175
-Wyoming,5,0.9,391.8831275
-Wyoming,5,0.975,402.7883505
+Wyoming,3,0.75,440.620637445538
+Wyoming,3,0.9,446.003113647533
+Wyoming,3,0.975,452.146522009666
+Wyoming,4,point,399
+Wyoming,4,0.025,376.684432942167
+Wyoming,4,0.1,380.099279540815
+Wyoming,4,0.25,387.046959784575
+Wyoming,4,0.5,399
+Wyoming,4,0.75,410.760506215897
+Wyoming,4,0.9,417.480890611857
+Wyoming,4,0.975,425.09168644219
+Wyoming,5,point,368
+Wyoming,5,0.025,342.093071039578
+Wyoming,5,0.1,346.00123226123
+Wyoming,5,0.25,353.971958745881
+Wyoming,5,0.5,368
+Wyoming,5,0.75,381.655706998359
+Wyoming,5,0.9,389.624556371029
+Wyoming,5,0.975,398.584174531181
 Wyoming,6,point,340
-Wyoming,6,0.025,312.0158605
-Wyoming,6,0.1,316.3577442
-Wyoming,6,0.25,327.6364482
+Wyoming,6,0.025,312.32736624577
+Wyoming,6,0.1,316.476032407389
+Wyoming,6,0.25,324.946278070542
 Wyoming,6,0.5,340
-Wyoming,6,0.75,357.1940414
-Wyoming,6,0.9,364.5468085
-Wyoming,6,0.975,376.2353878
-Wyoming,7,point,314
-Wyoming,7,0.025,284.4238436
-Wyoming,7,0.1,288.9819154
-Wyoming,7,0.25,300.8396094
-Wyoming,7,0.5,314
-Wyoming,7,0.75,332.2259552
-Wyoming,7,0.9,340.0656748
-Wyoming,7,0.975,352.4679989
-Alaska,1,point,812
-Alaska,1,0.025,726.9559595
-Alaska,1,0.1,732.0591614
-Alaska,1,0.25,781.4816575
-Alaska,1,0.5,812
-Alaska,1,0.75,939.5093364
-Alaska,1,0.9,966.4277218
-Alaska,1,0.975,971.5167967
-Alaska,2,point,688
-Alaska,2,0.025,593.9389165
-Alaska,2,0.1,599.5912497
-Alaska,2,0.25,653.7545894
-Alaska,2,0.5,688
-Alaska,2,0.75,835.7754488
-Alaska,2,0.9,867.7010846
-Alaska,2,0.975,874.1539869
-Alaska,3,point,585
-Alaska,3,0.025,484.9390664
-Alaska,3,0.1,490.9459363
-Alaska,3,0.25,548.0721055
-Alaska,3,0.5,585
-Alaska,3,0.75,749.4831672
-Alaska,3,0.9,785.8217872
-Alaska,3,0.975,793.636748
-Alaska,4,point,494
-Alaska,4,0.025,380.5364568
-Alaska,4,0.1,387.3362549
-Alaska,4,0.25,451.3056697
-Alaska,4,0.5,494
-Alaska,4,0.75,692.7356143
-Alaska,4,0.9,737.9622022
-Alaska,4,0.975,748.4625932
-Alaska,5,point,419
-Alaska,5,0.025,300.2193347
-Alaska,5,0.1,307.2974829
-Alaska,5,0.25,373.3562252
-Alaska,5,0.5,419
-Alaska,5,0.75,642.155664
-Alaska,5,0.9,694.58614
-Alaska,5,0.975,707.7423326
-Alaska,6,point,353
-Alaska,6,0.025,232.1857608
-Alaska,6,0.1,239.3634696
-Alaska,6,0.25,306.0682643
-Alaska,6,0.5,353
-Alaska,6,0.75,587.9392525
-Alaska,6,0.9,643.9325068
-Alaska,6,0.975,658.4330829
-Alaska,7,point,297
-Alaska,7,0.025,176.2850851
-Alaska,7,0.1,183.4221212
-Alaska,7,0.25,249.5665574
-Alaska,7,0.5,297
-Alaska,7,0.75,540.7277412
-Alaska,7,0.9,599.7362847
-Alaska,7,0.975,615.5555914
-Maine,1,point,849
-Maine,1,0.025,809.7269979
-Maine,1,0.1,810.3715121
-Maine,1,0.25,839.8615617
-Maine,1,0.5,849
-Maine,1,0.75,914.9881004
-Maine,1,0.9,935.6210064
-Maine,1,0.975,936.0763884
-Maine,2,point,664
-Maine,2,0.025,623.8146159
-Maine,2,0.1,624.5012246
-Maine,2,0.25,654.5588693
-Maine,2,0.5,664
-Maine,2,0.75,733.2680246
-Maine,2,0.9,755.3149051
-Maine,2,0.975,755.8716722
-Maine,3,point,519
-Maine,3,0.025,479.2439391
-Maine,3,0.1,479.9430393
-Maine,3,0.25,509.5796585
-Maine,3,0.5,519
-Maine,3,0.75,589.1670091
-Maine,3,0.9,611.8766572
-Maine,3,0.975,612.5127895
-Maine,4,point,405
-Maine,4,0.025,364.7719194
-Maine,4,0.1,365.516038
-Maine,4,0.25,395.3282812
-Maine,4,0.5,405
-Maine,4,0.75,478.8388982
-Maine,4,0.9,503.3760118
-Maine,4,0.975,504.168461
-Maine,5,point,317
-Maine,5,0.025,279.9267244
-Maine,5,0.1,280.6414234
-Maine,5,0.25,307.9438746
-Maine,5,0.5,317
-Maine,5,0.75,388.1491135
-Maine,5,0.9,412.5085514
-Maine,5,0.975,413.4015656
-Maine,6,point,246
-Maine,6,0.025,210.9951667
-Maine,6,0.1,211.6860272
-Maine,6,0.25,237.3629162
-Maine,6,0.5,246
-Maine,6,0.75,315.0695111
-Maine,6,0.9,339.1356638
-Maine,6,0.975,340.0776737
-Maine,7,point,192
-Maine,7,0.025,159.6343989
-Maine,7,0.1,160.2845823
-Maine,7,0.25,183.9336243
-Maine,7,0.5,192
-Maine,7,0.75,257.7234158
-Maine,7,0.9,281.0486847
-Maine,7,0.975,282.0177237
-Alabama,1,point,5631
-Alabama,1,0.025,4295.080186
-Alabama,1,0.1,4303.125041
-Alabama,1,0.25,4576.604977
-Alabama,1,0.5,5631
-Alabama,1,0.75,6545.138421
-Alabama,1,0.9,6618.625516
-Alabama,1,0.975,6682.693946
-Alabama,2,point,4476
-Alabama,2,0.025,3096.47839
-Alabama,2,0.1,3104.692891
-Alabama,2,0.25,3375.538482
-Alabama,2,0.5,4476
-Alabama,2,0.75,5492.869439
-Alabama,2,0.9,5579.385176
-Alabama,2,0.975,5655.202326
-Alabama,3,point,3546
-Alabama,3,0.025,2168.604395
-Alabama,3,0.1,2176.659143
-Alabama,3,0.25,2436.893326
-Alabama,3,0.5,3546
-Alabama,3,0.75,4634.66892
-Alabama,3,0.9,4731.34586
-Alabama,3,0.975,4817.275115
-Alabama,4,point,2805
-Alabama,4,0.025,1389.275848
-Alabama,4,0.1,1397.346783
-Alabama,4,0.25,1647.227423
-Alabama,4,0.5,2805
-Alabama,4,0.75,4051.489919
-Alabama,4,0.9,4168.427061
-Alabama,4,0.975,4274.692075
-Alabama,5,point,2215
-Alabama,5,0.025,884.6955832
-Alabama,5,0.1,891.9330739
-Alabama,5,0.25,1108.926685
-Alabama,5,0.5,2215
-Alabama,5,0.75,3534.835011
-Alabama,5,0.9,3665.399552
-Alabama,5,0.975,3787.391363
-Alabama,6,point,1747
-Alabama,6,0.025,475.2510144
-Alabama,6,0.1,481.9387149
-Alabama,6,0.25,678.8479294
-Alabama,6,0.5,1747
-Alabama,6,0.75,3097.195781
-Alabama,6,0.9,3234.474881
-Alabama,6,0.975,3364.235786
-Alabama,7,point,1378
-Alabama,7,0.025,185.7770195
-Alabama,7,0.1,191.7861402
-Alabama,7,0.25,366.6842407
-Alabama,7,0.5,1378
-Alabama,7,0.75,2736.573544
-Alabama,7,0.9,2877.745123
-Alabama,7,0.975,3013.738558
-Idaho,1,point,1533
-Idaho,1,0.025,1484.74051
-Idaho,1,0.1,1488.953231
-Idaho,1,0.25,1499.076661
-Idaho,1,0.5,1533
-Idaho,1,0.75,1631.348846
-Idaho,1,0.9,1654.191929
-Idaho,1,0.975,1656.008517
-Idaho,2,point,1275
-Idaho,2,0.025,1224.602608
-Idaho,2,0.1,1229.068098
-Idaho,2,0.25,1239.521349
-Idaho,2,0.5,1275
-Idaho,2,0.75,1379.172212
-Idaho,2,0.9,1403.552248
-Idaho,2,0.975,1405.644646
-Idaho,3,point,1048
-Idaho,3,0.025,996.7592606
-Idaho,3,0.1,1001.353007
-Idaho,3,0.25,1011.876777
-Idaho,3,0.5,1048
-Idaho,3,0.75,1155.370211
-Idaho,3,0.9,1180.689712
-Idaho,3,0.975,1183.004951
-Idaho,4,point,862
-Idaho,4,0.025,808.4973438
-Idaho,4,0.1,813.393974
-Idaho,4,0.25,824.1919088
-Idaho,4,0.5,862
-Idaho,4,0.75,976.6975191
-Idaho,4,0.9,1004.079357
-Idaho,4,0.975,1006.835881
-Idaho,5,point,709
-Idaho,5,0.025,656.2377626
-Idaho,5,0.1,661.1435682
-Idaho,5,0.25,671.6208896
-Idaho,5,0.5,709
-Idaho,5,0.75,824.8916933
-Idaho,5,0.9,852.9379841
-Idaho,5,0.975,856.0019704
-Idaho,6,point,583
-Idaho,6,0.025,531.0640984
-Idaho,6,0.1,535.9360229
-Idaho,6,0.25,546.1529736
-Idaho,6,0.5,583
-Idaho,6,0.75,698.6480043
-Idaho,6,0.9,726.8435435
-Idaho,6,0.975,730.0548884
-Idaho,7,point,479
-Idaho,7,0.025,428.6891638
-Idaho,7,0.1,433.4437971
-Idaho,7,0.25,443.2521597
-Idaho,7,0.5,479
-Idaho,7,0.75,592.6499019
-Idaho,7,0.9,620.5803227
-Idaho,7,0.975,623.8888395
-Montana,1,point,1294
-Montana,1,0.025,1239.818854
-Montana,1,0.1,1241.703117
-Montana,1,0.25,1262.917042
-Montana,1,0.5,1294
-Montana,1,0.75,1327.303479
-Montana,1,0.9,1347.500522
-Montana,1,0.975,1350.912027
-Montana,2,point,1131
-Montana,2,0.025,1068.191963
-Montana,2,0.1,1070.343756
-Montana,2,0.25,1094.826081
-Montana,2,0.5,1131
-Montana,2,0.75,1170.076777
-Montana,2,0.9,1193.986726
-Montana,2,0.975,1198.003804
-Montana,3,point,986
-Montana,3,0.025,916.1412895
-Montana,3,0.1,918.5007491
-Montana,3,0.25,945.6108107
-Montana,3,0.5,986
-Montana,3,0.75,1029.98737
-Montana,3,0.9,1057.139779
-Montana,3,0.975,1061.6797
-Montana,4,point,857
-Montana,4,0.025,772.7042155
-Montana,4,0.1,775.4966498
-Montana,4,0.25,808.0117371
-Montana,4,0.5,857
-Montana,4,0.75,910.9406971
-Montana,4,0.9,944.6283592
-Montana,4,0.975,950.2263378
-Montana,5,point,743
-Montana,5,0.025,648.6188911
-Montana,5,0.1,651.6810165
-Montana,5,0.25,687.8400888
-Montana,5,0.5,743
-Montana,5,0.75,804.4809964
-Montana,5,0.9,843.3741164
-Montana,5,0.975,849.7978004
-Montana,6,point,643
-Montana,6,0.025,543.7546387
-Montana,6,0.1,546.9429325
-Montana,6,0.25,584.8459475
-Montana,6,0.5,643
-Montana,6,0.75,708.1754114
-Montana,6,0.9,749.6393124
-Montana,6,0.975,756.468851
-Montana,7,point,556
-Montana,7,0.025,453.2357555
-Montana,7,0.1,456.5020181
-Montana,7,0.25,495.6101975
-Montana,7,0.5,556
-Montana,7,0.75,624.101658
-Montana,7,0.9,667.7039714
-Montana,7,0.975,674.8654223
-Puerto Rico,1,point,1759
-Puerto Rico,1,0.025,1485.598214
-Puerto Rico,1,0.1,1486.641923
-Puerto Rico,1,0.25,1594.312491
-Puerto Rico,1,0.5,1759
-Puerto Rico,1,0.75,1930.839454
-Puerto Rico,1,0.9,2071.94895
-Puerto Rico,1,0.975,2072.891599
-Puerto Rico,2,point,1680
-Puerto Rico,2,0.025,1387.827675
-Puerto Rico,2,0.1,1388.954176
-Puerto Rico,2,0.25,1502.041643
-Puerto Rico,2,0.5,1680
-Puerto Rico,2,0.75,1871.700752
-Puerto Rico,2,0.9,2033.290226
-Puerto Rico,2,0.975,2034.542317
-Puerto Rico,3,point,1562
-Puerto Rico,3,0.025,1258.409883
-Puerto Rico,3,0.1,1259.584742
-Puerto Rico,3,0.25,1375.142851
-Puerto Rico,3,0.5,1562
-Puerto Rico,3,0.75,1769.615942
-Puerto Rico,3,0.9,1949.176638
-Puerto Rico,3,0.975,1950.755725
-Puerto Rico,4,point,1465
-Puerto Rico,4,0.025,1136.003813
-Puerto Rico,4,0.1,1137.286773
-Puerto Rico,4,0.25,1259.114184
-Puerto Rico,4,0.5,1465
-Puerto Rico,4,0.75,1704.843936
-Puerto Rico,4,0.9,1920.170242
-Puerto Rico,4,0.975,1922.386596
-Puerto Rico,5,point,1369
-Puerto Rico,5,0.025,1032.20804
-Puerto Rico,5,0.1,1033.515347
-Puerto Rico,5,0.25,1154.609368
-Puerto Rico,5,0.5,1369
-Puerto Rico,5,0.75,1631.469653
-Puerto Rico,5,0.9,1876.492928
-Puerto Rico,5,0.975,1879.391275
-Puerto Rico,6,point,1279
-Puerto Rico,6,0.025,940.3894183
-Puerto Rico,6,0.1,941.7004527
-Puerto Rico,6,0.25,1061.492241
-Puerto Rico,6,0.5,1279
-Puerto Rico,6,0.75,1551.971247
-Puerto Rico,6,0.9,1811.411098
-Puerto Rico,6,0.975,1814.656669
-Puerto Rico,7,point,1194
-Puerto Rico,7,0.025,858.6805386
-Puerto Rico,7,0.1,859.9702927
-Puerto Rico,7,0.25,976.5799555
-Puerto Rico,7,0.5,1194
-Puerto Rico,7,0.75,1474.200113
-Puerto Rico,7,0.9,1745.776779
-Puerto Rico,7,0.975,1749.377402
-"Virgin Islands, U.S.",1,point,52
-"Virgin Islands, U.S.",1,0.025,21.56676608
-"Virgin Islands, U.S.",1,0.1,21.59910119
-"Virgin Islands, U.S.",1,0.25,31.98512557
-"Virgin Islands, U.S.",1,0.5,52
-"Virgin Islands, U.S.",1,0.75,53.53514056
-"Virgin Islands, U.S.",1,0.9,75.91080557
-"Virgin Islands, U.S.",1,0.975,76.1622777
-"Virgin Islands, U.S.",2,point,52
-"Virgin Islands, U.S.",2,0.025,18.17012062
-"Virgin Islands, U.S.",2,0.1,18.20155952
-"Virgin Islands, U.S.",2,0.25,28.73746258
-"Virgin Islands, U.S.",2,0.5,52
-"Virgin Islands, U.S.",2,0.75,53.93134939
-"Virgin Islands, U.S.",2,0.9,83.93800082
-"Virgin Islands, U.S.",2,0.975,84.32246042
-"Virgin Islands, U.S.",3,point,54
-"Virgin Islands, U.S.",3,0.025,17.59089227
-"Virgin Islands, U.S.",3,0.1,17.62053878
-"Virgin Islands, U.S.",3,0.25,27.97466586
-"Virgin Islands, U.S.",3,0.5,54
-"Virgin Islands, U.S.",3,0.75,56.33186635
-"Virgin Islands, U.S.",3,0.9,95.00437834
-"Virgin Islands, U.S.",3,0.975,95.57125763
-"Virgin Islands, U.S.",4,point,54
-"Virgin Islands, U.S.",4,0.025,11.90457945
-"Virgin Islands, U.S.",4,0.1,11.93212864
-"Virgin Islands, U.S.",4,0.25,22.28992187
-"Virgin Islands, U.S.",4,0.5,54
-"Virgin Islands, U.S.",4,0.75,57.13059319
-"Virgin Islands, U.S.",4,0.9,113.3438542
-"Virgin Islands, U.S.",4,0.975,114.30532
-"Virgin Islands, U.S.",5,point,54
-"Virgin Islands, U.S.",5,0.025,8.472941555
-"Virgin Islands, U.S.",5,0.1,8.495797505
-"Virgin Islands, U.S.",5,0.25,17.94037394
-"Virgin Islands, U.S.",5,0.5,54
-"Virgin Islands, U.S.",5,0.75,57.94118388
-"Virgin Islands, U.S.",5,0.9,135.0393239
-"Virgin Islands, U.S.",5,0.975,136.590891
-"Virgin Islands, U.S.",6,point,55
-"Virgin Islands, U.S.",6,0.025,7.959799423
-"Virgin Islands, U.S.",6,0.1,7.97982726
-"Virgin Islands, U.S.",6,0.25,16.83871339
-"Virgin Islands, U.S.",6,0.5,55
-"Virgin Islands, U.S.",6,0.75,59.34734277
-"Virgin Islands, U.S.",6,0.9,146.7771689
-"Virgin Islands, U.S.",6,0.975,148.6056178
-"Virgin Islands, U.S.",7,point,56
-"Virgin Islands, U.S.",7,0.025,7.953004488
-"Virgin Islands, U.S.",7,0.1,7.970124847
-"Virgin Islands, U.S.",7,0.25,16.12012666
-"Virgin Islands, U.S.",7,0.5,56
-"Virgin Islands, U.S.",7,0.75,60.75646507
-"Virgin Islands, U.S.",7,0.9,159.6963631
-"Virgin Islands, U.S.",7,0.975,161.8731542
-Guam,1,point,44
-Guam,1,0.025,43.4787653
-Guam,1,0.1,43.50279946
-Guam,1,0.25,43.70492653
-Guam,1,0.5,44
-Guam,1,0.75,44.31441038
-Guam,1,0.9,44.50823995
-Guam,1,0.975,44.52390152
-Guam,2,point,41
-Guam,2,0.025,40.38798075
-Guam,2,0.1,40.41604346
-Guam,2,0.25,40.65317352
-Guam,2,0.5,41
-Guam,2,0.75,41.37016526
-Guam,2,0.9,41.59884918
-Guam,2,0.975,41.61726196
-Guam,3,point,40
-Guam,3,0.025,39.3023126
-Guam,3,0.1,39.33412917
-Guam,3,0.25,39.60421743
-Guam,3,0.5,40
-Guam,3,0.75,40.4231252
-Guam,3,0.9,40.68508134
-Guam,3,0.975,40.70610192
-Guam,4,point,37
-Guam,4,0.025,36.1333034
-Guam,4,0.1,36.17253029
-Guam,4,0.25,36.50764079
-Guam,4,0.5,37
-Guam,4,0.75,37.52759873
-Guam,4,0.9,37.85518815
-Guam,4,0.975,37.88135465
-Guam,5,point,35
-Guam,5,0.025,33.97514274
-Guam,5,0.1,34.02117716
-Guam,5,0.25,34.41693328
-Guam,5,0.5,35
-Guam,5,0.75,35.62633838
-Guam,5,0.9,36.01641809
-Guam,5,0.975,36.0474359
-Guam,6,point,34
-Guam,6,0.025,32.89720427
-Guam,6,0.1,32.94658352
-Guam,6,0.25,33.37221416
-Guam,6,0.5,34
-Guam,6,0.75,34.67504775
-Guam,6,0.9,35.09597884
-Guam,6,0.975,35.12938786
-Guam,7,point,32
-Guam,7,0.025,30.82439665
-Guam,7,0.1,30.87685287
-Guam,7,0.25,31.33031405
-Guam,7,0.5,32
-Guam,7,0.75,32.72092036
-Guam,7,0.9,33.1710795
-Guam,7,0.975,33.20673605
-West Virginia,1,point,1923
-West Virginia,1,0.025,1751.134617
-West Virginia,1,0.1,1755.432226
-West Virginia,1,0.25,1790.154685
-West Virginia,1,0.5,1923
-West Virginia,1,0.75,1972.538689
-West Virginia,1,0.9,2126.53015
-West Virginia,1,0.975,2143.923965
-West Virginia,2,point,1522
-West Virginia,2,0.025,1340.917824
-West Virginia,2,0.1,1345.548484
-West Virginia,2,0.25,1381.465943
-West Virginia,2,0.5,1522
-West Virginia,2,0.75,1575.530986
-West Virginia,2,0.9,1744.382065
-West Virginia,2,0.975,1764.20276
-West Virginia,3,point,1201
-West Virginia,3,0.025,1016.984948
-West Virginia,3,0.1,1021.760905
-West Virginia,3,0.25,1057.658902
-West Virginia,3,0.5,1201
-West Virginia,3,0.75,1256.684718
-West Virginia,3,0.9,1434.861928
-West Virginia,3,0.975,1456.518787
-West Virginia,4,point,946
-West Virginia,4,0.025,751.3412487
-West Virginia,4,0.1,756.5187851
-West Virginia,4,0.25,793.4733036
-West Virginia,4,0.5,946
-West Virginia,4,0.75,1007.082895
-West Virginia,4,0.9,1206.767677
-West Virginia,4,0.975,1232.264614
-West Virginia,5,point,745
-West Virginia,5,0.025,556.4403684
-West Virginia,5,0.1,561.5403373
-West Virginia,5,0.25,596.2831495
-West Virginia,5,0.5,745
-West Virginia,5,0.75,806.5918564
-West Virginia,5,0.9,1012.97402
-West Virginia,5,0.975,1040.713012
-West Virginia,6,point,584
-West Virginia,6,0.025,400.3867123
-West Virginia,6,0.1,405.3966753
-West Virginia,6,0.25,438.6202011
-West Virginia,6,0.5,584
-West Virginia,6,0.75,645.3850259
-West Virginia,6,0.9,853.8790613
-West Virginia,6,0.975,882.652919
-West Virginia,7,point,459
-West Virginia,7,0.025,283.7598015
-West Virginia,7,0.1,288.5631476
-West Virginia,7,0.25,319.6936955
-West Virginia,7,0.5,459
-West Virginia,7,0.75,519.010743
-West Virginia,7,0.9,725.8594774
-West Virginia,7,0.975,755.1908438
-Northern Mariana Islands,1,point,1
-Northern Mariana Islands,1,0.025,0.529285385
-Northern Mariana Islands,1,0.1,0.529361426
-Northern Mariana Islands,1,0.25,0.884268388
-Northern Mariana Islands,1,0.5,1
-Northern Mariana Islands,1,0.75,1.352430683
-Northern Mariana Islands,1,0.9,1.435527602
-Northern Mariana Islands,1,0.975,1.436211306
-Northern Mariana Islands,2,point,1
-Northern Mariana Islands,2,0.025,0.541356294
-Northern Mariana Islands,2,0.1,0.541420295
-Northern Mariana Islands,2,0.25,0.876321068
-Northern Mariana Islands,2,0.5,1
-Northern Mariana Islands,2,0.75,1.413707342
-Northern Mariana Islands,2,0.9,1.51858836
-Northern Mariana Islands,2,0.975,1.519470295
-Northern Mariana Islands,3,point,0
-Northern Mariana Islands,3,0.025,0
-Northern Mariana Islands,3,0.1,0
-Northern Mariana Islands,3,0.25,0
-Northern Mariana Islands,3,0.5,0
-Northern Mariana Islands,3,0.75,0.467491358
-Northern Mariana Islands,3,0.9,0.59469585
-Northern Mariana Islands,3,0.975,0.595789252
-Northern Mariana Islands,4,point,1
-Northern Mariana Islands,4,0.025,0.587337396
-Northern Mariana Islands,4,0.1,0.587373568
-Northern Mariana Islands,4,0.25,0.862135179
-Northern Mariana Islands,4,0.5,1
-Northern Mariana Islands,4,0.75,1.577139449
-Northern Mariana Islands,4,0.9,1.748974016
-Northern Mariana Islands,4,0.975,1.750491545
-Northern Mariana Islands,5,point,0
-Northern Mariana Islands,5,0.025,0
-Northern Mariana Islands,5,0.1,0
-Northern Mariana Islands,5,0.25,0
-Northern Mariana Islands,5,0.5,0
-Northern Mariana Islands,5,0.75,0.666050322
-Northern Mariana Islands,5,0.9,0.884188248
-Northern Mariana Islands,5,0.975,0.886171517
-Northern Mariana Islands,6,point,0
-Northern Mariana Islands,6,0.025,0
-Northern Mariana Islands,6,0.1,0
-Northern Mariana Islands,6,0.25,0
-Northern Mariana Islands,6,0.5,0
-Northern Mariana Islands,6,0.75,0.709517341
-Northern Mariana Islands,6,0.9,0.950799814
-Northern Mariana Islands,6,0.975,0.953015207
-Northern Mariana Islands,7,point,1
-Northern Mariana Islands,7,0.025,0.705053411
-Northern Mariana Islands,7,0.1,0.705061724
-Northern Mariana Islands,7,0.25,0.868256849
-Northern Mariana Islands,7,0.5,1
-Northern Mariana Islands,7,0.75,1.746844016
-Northern Mariana Islands,7,0.9,2.01180954
-Northern Mariana Islands,7,0.975,2.01427119
+Wyoming,6,0.75,354.586556743434
+Wyoming,6,0.9,363.174114072316
+Wyoming,6,0.975,372.799843622961
+Wyoming,7,point,313
+Wyoming,7,0.025,283.75723322444
+Wyoming,7,0.1,288.111690751891
+Wyoming,7,0.25,297.012531390634
+Wyoming,7,0.5,313
+Wyoming,7,0.75,328.417158781325
+Wyoming,7,0.9,337.581598696347
+Wyoming,7,0.975,347.82106146375
+Alaska,1,point,662
+Alaska,1,0.025,646.272352477607
+Alaska,1,0.1,649.396779495882
+Alaska,1,0.25,653.809082436288
+Alaska,1,0.5,662
+Alaska,1,0.75,669.577876652014
+Alaska,1,0.9,674.812113859322
+Alaska,1,0.975,679.422563906845
+Alaska,2,point,612
+Alaska,2,0.025,593.544058764974
+Alaska,2,0.1,597.16889126251
+Alaska,2,0.25,602.348228563436
+Alaska,2,0.5,612
+Alaska,2,0.75,620.879351799053
+Alaska,2,0.9,627.085476194532
+Alaska,2,0.975,632.534160046498
+Alaska,3,point,579
+Alaska,3,0.025,557.983803497879
+Alaska,3,0.1,562.066027543289
+Alaska,3,0.25,567.964873788363
+Alaska,3,0.5,579
+Alaska,3,0.75,589.119167940882
+Alaska,3,0.9,596.240394108856
+Alaska,3,0.975,602.490840803429
+Alaska,4,point,543
+Alaska,4,0.025,516.939240826003
+Alaska,4,0.1,521.924256987889
+Alaska,4,0.25,529.240350453266
+Alaska,4,0.5,543
+Alaska,4,0.75,555.56493213279
+Alaska,4,0.9,564.487366372986
+Alaska,4,0.975,572.317935219022
+Alaska,5,point,510
+Alaska,5,0.025,479.273162908641
+Alaska,5,0.1,485.06100811436
+Alaska,5,0.25,493.686587678749
+Alaska,5,0.5,510
+Alaska,5,0.75,524.860599309255
+Alaska,5,0.9,535.4790684756
+Alaska,5,0.975,544.815060729771
+Alaska,6,point,478
+Alaska,6,0.025,444.971612160401
+Alaska,6,0.1,451.152722292773
+Alaska,6,0.25,460.424449886954
+Alaska,6,0.5,478
+Alaska,6,0.75,493.994953216408
+Alaska,6,0.9,505.450129379015
+Alaska,6,0.975,515.530461679052
+Alaska,7,point,448
+Alaska,7,0.025,412.84242367151
+Alaska,7,0.1,419.375220869566
+Alaska,7,0.25,429.244044200978
+Alaska,7,0.5,448
+Alaska,7,0.75,465.065345208488
+Alaska,7,0.9,477.2983181053
+Alaska,7,0.975,488.084299416917
+Maine,1,point,850
+Maine,1,0.025,810.832535336295
+Maine,1,0.1,811.26943157304
+Maine,1,0.25,840.987933669439
+Maine,1,0.5,850
+Maine,1,0.75,915.996068338319
+Maine,1,0.9,936.872376712588
+Maine,1,0.975,937.056212629811
+Maine,2,point,666
+Maine,2,0.025,625.89657035041
+Maine,2,0.1,626.373558294693
+Maine,2,0.25,656.682957209136
+Maine,2,0.5,666
+Maine,2,0.75,735.31678901839
+Maine,2,0.9,757.637582277393
+Maine,2,0.975,757.902783889678
+Maine,3,point,521
+Maine,3,0.025,481.301584733508
+Maine,3,0.1,481.795816903038
+Maine,3,0.25,511.697604119971
+Maine,3,0.5,521
+Maine,3,0.75,591.254390411703
+Maine,3,0.9,614.259537207203
+Maine,3,0.975,614.59409566903
+Maine,4,point,408
+Maine,4,0.025,367.789617324142
+Maine,4,0.1,368.330786304046
+Maine,4,0.25,398.439287988284
+Maine,4,0.5,408
+Maine,4,0.75,481.995243622485
+Maine,4,0.9,506.874020557931
+Maine,4,0.975,507.338538021346
+Maine,5,point,318
+Maine,5,0.025,280.900652777944
+Maine,5,0.1,281.432802979043
+Maine,5,0.25,309.037235266987
+Maine,5,0.5,318
+Maine,5,0.75,389.36954714911
+Maine,5,0.9,414.09299049914
+Maine,5,0.975,414.658358017467
+Maine,6,point,249
+Maine,6,0.025,213.9448482723
+Maine,6,0.1,214.466064307075
+Maine,6,0.25,240.445624892882
+Maine,6,0.5,249
+Maine,6,0.75,318.324229938216
+Maine,6,0.9,342.764052382329
+Maine,6,0.975,343.381191200303
+Maine,7,point,194
+Maine,7,0.025,161.563572565482
+Maine,7,0.1,162.05943958955
+Maine,7,0.25,186.004823914434
+Maine,7,0.5,194
+Maine,7,0.75,260.005989564754
+Maine,7,0.9,283.707670185837
+Maine,7,0.975,284.360755710645
+Alabama,1,point,5478
+Alabama,1,0.025,4237.01232699952
+Alabama,1,0.1,4244.16567018466
+Alabama,1,0.25,5079.84117195193
+Alabama,1,0.5,5478
+Alabama,1,0.75,6369.91952147467
+Alabama,1,0.9,7425.11830644226
+Alabama,1,0.975,7473.37957389158
+Alabama,2,point,4224
+Alabama,2,0.025,2961.67718116561
+Alabama,2,0.1,2968.87671972378
+Alabama,2,0.25,3805.53000661774
+Alabama,2,0.5,4224
+Alabama,2,0.75,5171.54851949324
+Alabama,2,0.9,6369.32054778661
+Alabama,2,0.975,6426.24082862111
+Alabama,3,point,3244
+Alabama,3,0.025,2000.86191734367
+Alabama,3,0.1,2007.83118625998
+Alabama,3,0.25,2819.76052309964
+Alabama,3,0.5,3244
+Alabama,3,0.75,4222.75386518111
+Alabama,3,0.9,5534.79512184749
+Alabama,3,0.975,5599.94778468872
+Alabama,4,point,2487
+Alabama,4,0.025,1239.00162968776
+Alabama,4,0.1,1245.83411935944
+Alabama,4,0.25,2039.92741851292
+Alabama,4,0.5,2487
+Alabama,4,0.75,3537.95554714627
+Alabama,4,0.9,5085.88842988317
+Alabama,4,0.975,5167.08861646839
+Alabama,5,point,1905
+Alabama,5,0.025,763.132582086019
+Alabama,5,0.1,769.102884044423
+Alabama,5,0.25,1473.83579619657
+Alabama,5,0.5,1905
+Alabama,5,0.75,2969.0198232731
+Alabama,5,0.9,4675.21434147472
+Alabama,5,0.975,4771.47653370417
+Alabama,6,point,1458
+Alabama,6,0.025,384.676108929936
+Alabama,6,0.1,390.092713613536
+Alabama,6,0.25,1039.25402123833
+Alabama,6,0.5,1458
+Alabama,6,0.75,2522.95048007877
+Alabama,6,0.9,4303.10002636244
+Alabama,6,0.975,4406.87749799569
+Alabama,7,point,1114
+Alabama,7,0.025,125.010897351958
+Alabama,7,0.1,129.786995371008
+Alabama,7,0.25,715.473191446043
+Alabama,7,0.5,1114
+Alabama,7,0.75,2162.45546892204
+Alabama,7,0.9,3994.15761121004
+Alabama,7,0.975,4104.89513305768
+Idaho,1,point,1540
+Idaho,1,0.025,1481.63307931021
+Idaho,1,0.1,1484.49594020502
+Idaho,1,0.25,1503.6654886641
+Idaho,1,0.5,1540
+Idaho,1,0.75,1591.13716322978
+Idaho,1,0.9,1663.31481359358
+Idaho,1,0.975,1663.59340628303
+Idaho,2,point,1284
+Idaho,2,0.025,1223.06836365178
+Idaho,2,0.1,1226.12845262359
+Idaho,2,0.25,1245.97271490819
+Idaho,2,0.5,1284
+Idaho,2,0.75,1337.99605407091
+Idaho,2,0.9,1414.96615596179
+Idaho,2,0.975,1415.38856932661
+Idaho,3,point,1058
+Idaho,3,0.025,996.066356915623
+Idaho,3,0.1,999.234843976612
+Idaho,3,0.25,1019.25542150742
+Idaho,3,0.5,1058
+Idaho,3,0.75,1113.48330651315
+Idaho,3,0.9,1193.34128030429
+Idaho,3,0.975,1193.90341115726
+Idaho,4,point,874
+Idaho,4,0.025,809.364819084812
+Idaho,4,0.1,812.779993594345
+Idaho,4,0.25,833.401540657066
+Idaho,4,0.5,874
+Idaho,4,0.75,932.970460114678
+Idaho,4,0.9,1019.20044697746
+Idaho,4,0.975,1020.00655492049
+Idaho,5,point,721
+Idaho,5,0.025,657.286164215831
+Idaho,5,0.1,660.736912699736
+Idaho,5,0.25,680.812512445843
+Idaho,5,0.5,721
+Idaho,5,0.75,780.257668315133
+Idaho,5,0.9,868.398739373727
+Idaho,5,0.975,869.453186495586
+Idaho,6,point,595
+Idaho,6,0.025,532.299114930507
+Idaho,6,0.1,535.742049308454
+Idaho,6,0.25,555.356555635546
+Idaho,6,0.5,595
+Idaho,6,0.75,653.953259118738
+Idaho,6,0.9,742.465958016397
+Idaho,6,0.975,743.650659240779
+Idaho,7,point,490
+Idaho,7,0.025,429.274081015178
+Idaho,7,0.1,432.647402451495
+Idaho,7,0.25,451.510609633915
+Idaho,7,0.5,490
+Idaho,7,0.75,547.746769960208
+Idaho,7,0.9,635.314549666388
+Idaho,7,0.975,636.609526168584
+Montana,1,point,1267
+Montana,1,0.025,1163.91198908551
+Montana,1,0.1,1171.5806366583
+Montana,1,0.25,1209.3836004641
+Montana,1,0.5,1267
+Montana,1,0.75,1294.82101837807
+Montana,1,0.9,1305.44751280242
+Montana,1,0.975,1307.0098391871
+Montana,2,point,1118
+Montana,2,0.025,1003.30172568072
+Montana,2,0.1,1011.93144770946
+Montana,2,0.25,1053.41538707253
+Montana,2,0.5,1118
+Montana,2,0.75,1151.57608444507
+Montana,2,0.9,1164.73079650044
+Montana,2,0.975,1166.43110465441
+Montana,3,point,973
+Montana,3,0.025,850.326294388596
+Montana,3,0.1,859.630161433453
+Montana,3,0.25,903.436492501026
+Montana,3,0.5,973
+Montana,3,0.75,1010.79560935935
+Montana,3,0.9,1026.60784263924
+Montana,3,0.975,1028.50737694461
+Montana,4,point,850
+Montana,4,0.025,709.805210821778
+Montana,4,0.1,720.554760371386
+Montana,4,0.25,769.700647836181
+Montana,4,0.5,850
+Montana,4,0.75,898.005146455998
+Montana,4,0.9,917.331072203508
+Montana,4,0.975,919.39824062035
+Montana,5,point,741
+Montana,5,0.025,593.042779780859
+Montana,5,0.1,604.475250598622
+Montana,5,0.25,655.32525745257
+Montana,5,0.5,741
+Montana,5,0.75,793.451848911816
+Montana,5,0.9,818.241165173944
+Montana,5,0.975,820.858386371629
+Montana,6,point,645
+Montana,6,0.025,493.873432439069
+Montana,6,0.1,505.597931438757
+Montana,6,0.25,556.998083738205
+Montana,6,0.5,645
+Montana,6,0.75,699.51786688786
+Montana,6,0.9,727.235737859033
+Montana,6,0.975,730.137035003915
+Montana,7,point,561
+Montana,7,0.025,409.34093142997
+Montana,7,0.1,421.135948297361
+Montana,7,0.25,472.160529351665
+Montana,7,0.5,561
+Montana,7,0.75,616.743394968447
+Montana,7,0.9,646.787434613875
+Montana,7,0.975,649.951079653098
+Puerto Rico,1,point,1545
+Puerto Rico,1,0.025,1205.14617862027
+Puerto Rico,1,0.1,1206.51640590804
+Puerto Rico,1,0.25,1457.99676650838
+Puerto Rico,1,0.5,1545
+Puerto Rico,1,0.75,1786.71390805294
+Puerto Rico,1,0.9,1971.67171054516
+Puerto Rico,1,0.975,1976.44360034566
+Puerto Rico,2,point,1423
+Puerto Rico,2,0.025,1065.25057634776
+Puerto Rico,2,0.1,1066.65545676706
+Puerto Rico,2,0.25,1328.64284741921
+Puerto Rico,2,0.5,1423
+Puerto Rico,2,0.75,1694.27158269044
+Puerto Rico,2,0.9,1910.22943059977
+Puerto Rico,2,0.975,1916.05999520607
+Puerto Rico,3,point,1315
+Puerto Rico,3,0.025,948.307661012275
+Puerto Rico,3,0.1,949.708377530513
+Puerto Rico,3,0.25,1215.54418896509
+Puerto Rico,3,0.5,1315
+Puerto Rico,3,0.75,1610.6872085121
+Puerto Rico,3,0.9,1855.44328987591
+Puerto Rico,3,0.975,1862.34811141449
+Puerto Rico,4,point,1216
+Puerto Rico,4,0.025,827.672113873682
+Puerto Rico,4,0.1,829.088418003537
+Puerto Rico,4,0.25,1105.81993998109
+Puerto Rico,4,0.5,1216
+Puerto Rico,4,0.75,1560.73387316854
+Puerto Rico,4,0.9,1862.42247451108
+Puerto Rico,4,0.975,1871.44741410752
+Puerto Rico,5,point,1121
+Puerto Rico,5,0.025,731.946415530303
+Puerto Rico,5,0.1,733.287937250576
+Puerto Rico,5,0.25,1005.44028858055
+Puerto Rico,5,0.5,1121
+Puerto Rico,5,0.75,1502.5253698371
+Puerto Rico,5,0.9,1856.22999470301
+Puerto Rico,5,0.975,1867.4469078689
+Puerto Rico,6,point,1035
+Puerto Rico,6,0.025,648.467232160884
+Puerto Rico,6,0.1,649.756802659302
+Puerto Rico,6,0.25,917.329558134095
+Puerto Rico,6,0.5,1035
+Puerto Rico,6,0.75,1433.8678227677
+Puerto Rico,6,0.9,1813.19025292065
+Puerto Rico,6,0.975,1825.50103302914
+Puerto Rico,7,point,954
+Puerto Rico,7,0.025,575.768386371095
+Puerto Rico,7,0.1,576.984867097689
+Puerto Rico,7,0.25,835.912380794895
+Puerto Rico,7,0.5,954
+Puerto Rico,7,0.75,1365.84222815595
+Puerto Rico,7,0.9,1768.61947363968
+Puerto Rico,7,0.975,1782.03165077641
+"Virgin Islands, U.S.",1,point,54
+"Virgin Islands, U.S.",1,0.025,50.6330376881703
+"Virgin Islands, U.S.",1,0.1,50.7409518754444
+"Virgin Islands, U.S.",1,0.25,53.1549284186603
+"Virgin Islands, U.S.",1,0.5,54
+"Virgin Islands, U.S.",1,0.75,57.3437022555576
+"Virgin Islands, U.S.",1,0.9,58.4995062650496
+"Virgin Islands, U.S.",1,0.975,58.6072706054761
+"Virgin Islands, U.S.",2,point,53
+"Virgin Islands, U.S.",2,0.025,49.2375022092089
+"Virgin Islands, U.S.",2,0.1,49.3621348921968
+"Virgin Islands, U.S.",2,0.25,52.2298498751788
+"Virgin Islands, U.S.",2,0.5,53
+"Virgin Islands, U.S.",2,0.75,56.895430696124
+"Virgin Islands, U.S.",2,0.9,58.3023342042554
+"Virgin Islands, U.S.",2,0.975,58.432415376024
+"Virgin Islands, U.S.",3,point,49
+"Virgin Islands, U.S.",3,0.025,45.0297495648555
+"Virgin Islands, U.S.",3,0.1,45.1679908005563
+"Virgin Islands, U.S.",3,0.25,48.180552822043
+"Virgin Islands, U.S.",3,0.5,49
+"Virgin Islands, U.S.",3,0.75,53.4951588638834
+"Virgin Islands, U.S.",3,0.9,54.9615790912525
+"Virgin Islands, U.S.",3,0.975,55.1117938943863
+"Virgin Islands, U.S.",4,point,48
+"Virgin Islands, U.S.",4,0.025,43.3565776871751
+"Virgin Islands, U.S.",4,0.1,43.5218635770715
+"Virgin Islands, U.S.",4,0.25,46.9772139437005
+"Virgin Islands, U.S.",4,0.5,48
+"Virgin Islands, U.S.",4,0.75,53.5132649029954
+"Virgin Islands, U.S.",4,0.9,55.1522316334558
+"Virgin Islands, U.S.",4,0.975,55.3429249736381
+"Virgin Islands, U.S.",5,point,46
+"Virgin Islands, U.S.",5,0.025,40.5477167584321
+"Virgin Islands, U.S.",5,0.1,40.7419744636072
+"Virgin Islands, U.S.",5,0.25,44.8320710003007
+"Virgin Islands, U.S.",5,0.5,46
+"Virgin Islands, U.S.",5,0.75,52.4215344411347
+"Virgin Islands, U.S.",5,0.9,54.4104193345141
+"Virgin Islands, U.S.",5,0.975,54.6477753275425
+"Virgin Islands, U.S.",6,point,42
+"Virgin Islands, U.S.",6,0.025,36.3455300201683
+"Virgin Islands, U.S.",6,0.1,36.55469032529
+"Virgin Islands, U.S.",6,0.25,40.964528913465
+"Virgin Islands, U.S.",6,0.5,42
+"Virgin Islands, U.S.",6,0.75,49.0234246166257
+"Virgin Islands, U.S.",6,0.9,51.233311199137
+"Virgin Islands, U.S.",6,0.975,51.4948866971119
+"Virgin Islands, U.S.",7,point,42
+"Virgin Islands, U.S.",7,0.025,36.1104081027828
+"Virgin Islands, U.S.",7,0.1,36.3310257862354
+"Virgin Islands, U.S.",7,0.25,40.8011671363752
+"Virgin Islands, U.S.",7,0.5,42
+"Virgin Islands, U.S.",7,0.75,49.5143608162266
+"Virgin Islands, U.S.",7,0.9,51.7408089248917
+"Virgin Islands, U.S.",7,0.975,52.0238990335933
+Guam,1,point,19
+Guam,1,0.025,17.2781102304913
+Guam,1,0.1,17.2994878438309
+Guam,1,0.25,18.3270595210194
+Guam,1,0.5,19
+Guam,1,0.75,30.1114161950445
+Guam,1,0.9,32.7502445760591
+Guam,1,0.975,32.7992070331678
+Guam,2,point,15
+Guam,2,0.025,13.2667699092653
+Guam,2,0.1,13.2880947931689
+Guam,2,0.25,14.3168752471985
+Guam,2,0.5,15
+Guam,2,0.75,27.2278368492483
+Guam,2,0.9,30.3663699333511
+Guam,2,0.975,30.4264917451763
+Guam,3,point,10
+Guam,3,0.025,8.29628983592556
+Guam,3,0.1,8.31706399428813
+Guam,3,0.25,9.3232826196614
+Guam,3,0.5,10
+Guam,3,0.75,23.107193646837
+Guam,3,0.9,26.7333469630923
+Guam,3,0.975,26.8050326760224
+Guam,4,point,8
+Guam,4,0.025,6.32651327414087
+Guam,4,0.1,6.34658492258222
+Guam,4,0.25,7.32560885500261
+Guam,4,0.5,8
+Guam,4,0.75,22.9056234591981
+Guam,4,0.9,27.4943618237587
+Guam,4,0.975,27.5889437156648
+Guam,5,point,5
+Guam,5,0.025,3.44873332766533
+Guam,5,0.1,3.46698068493552
+Guam,5,0.25,4.36545488605843
+Guam,5,0.5,5
+Guam,5,0.75,21.1542239694032
+Guam,5,0.9,26.690286112272
+Guam,5,0.975,26.8093109865395
+Guam,6,point,5
+Guam,6,0.025,3.52862823328064
+Guam,6,0.1,3.54571913227721
+Guam,6,0.25,4.39252025812596
+Guam,6,0.5,5
+Guam,6,0.75,21.7131459972244
+Guam,6,0.9,27.7182888627391
+Guam,6,0.975,27.8494655685906
+Guam,7,point,3
+Guam,7,0.025,1.62725466251178
+Guam,7,0.1,1.64298696264207
+Guam,7,0.25,2.42791953558935
+Guam,7,0.5,3
+Guam,7,0.75,20.0918283923459
+Guam,7,0.9,26.5528031485765
+Guam,7,0.975,26.6965054643868
+West Virginia,1,point,1924
+West Virginia,1,0.025,1759.27195472129
+West Virginia,1,0.1,1763.30911433516
+West Virginia,1,0.25,1797.85436298733
+West Virginia,1,0.5,1924
+West Virginia,1,0.75,1980.53424281999
+West Virginia,1,0.9,2005.56895066337
+West Virginia,1,0.975,2020.95492531083
+West Virginia,2,point,1524
+West Virginia,2,0.025,1350.50090149599
+West Virginia,2,0.1,1354.86430377901
+West Virginia,2,0.25,1390.60681474728
+West Virginia,2,0.5,1524
+West Virginia,2,0.75,1585.03757033373
+West Virginia,2,0.9,1611.99287894033
+West Virginia,2,0.975,1629.07463232584
+West Virginia,3,point,1204
+West Virginia,3,0.025,1027.75296125453
+West Virginia,3,0.1,1032.26396451317
+West Virginia,3,0.25,1067.99485136927
+West Virginia,3,0.5,1204
+West Virginia,3,0.75,1267.44454858558
+West Virginia,3,0.9,1295.41472162864
+West Virginia,3,0.975,1313.61695542855
+West Virginia,4,point,949
+West Virginia,4,0.025,762.663486620296
+West Virginia,4,0.1,767.571895003974
+West Virginia,4,0.25,804.367660786252
+West Virginia,4,0.5,949
+West Virginia,4,0.75,1018.51407057365
+West Virginia,4,0.9,1049.08076449974
+West Virginia,4,0.975,1069.76780897401
+West Virginia,5,point,746
+West Virginia,5,0.025,565.621410047384
+West Virginia,5,0.1,570.472558797913
+West Virginia,5,0.25,605.08034628566
+West Virginia,5,0.5,746
+West Virginia,5,0.75,816.007976794193
+West Virginia,5,0.9,846.749917299283
+West Virginia,5,0.975,868.392897911349
+West Virginia,6,point,588
+West Virginia,6,0.025,412.422882606721
+West Virginia,6,0.1,417.197467942366
+West Virginia,6,0.25,450.300368688655
+West Virginia,6,0.5,588
+West Virginia,6,0.75,657.725411224248
+West Virginia,6,0.9,688.321108677155
+West Virginia,6,0.975,710.327768936879
+West Virginia,7,point,461
+West Virginia,7,0.025,293.501262868936
+West Virginia,7,0.1,298.086666552976
+West Virginia,7,0.25,329.112434909165
+West Virginia,7,0.5,461
+West Virginia,7,0.75,529.118030674009
+West Virginia,7,0.9,559.006590312473
+West Virginia,7,0.975,580.959107458882
+Northern Mariana Islands,1,point,2
+Northern Mariana Islands,1,0.025,0.931967476474812
+Northern Mariana Islands,1,0.1,0.932754285723424
+Northern Mariana Islands,1,0.25,1.21740295156155
+Northern Mariana Islands,1,0.5,2
+Northern Mariana Islands,1,0.75,2.06087979501759
+Northern Mariana Islands,1,0.9,2.6226840457595
+Northern Mariana Islands,1,0.975,2.62484296105231
+Northern Mariana Islands,2,point,2
+Northern Mariana Islands,2,0.025,0.575424065230639
+Northern Mariana Islands,2,0.1,0.576387580984406
+Northern Mariana Islands,2,0.25,0.932246728931535
+Northern Mariana Islands,2,0.5,2
+Northern Mariana Islands,2,0.75,2.08800739521909
+Northern Mariana Islands,2,0.9,2.92967083858844
+Northern Mariana Islands,2,0.975,2.93307777483887
+Northern Mariana Islands,3,point,3
+Northern Mariana Islands,3,0.025,1.14966226138865
+Northern Mariana Islands,3,0.1,1.15080653699591
+Northern Mariana Islands,3,0.25,1.58251449690049
+Northern Mariana Islands,3,0.5,3
+Northern Mariana Islands,3,0.75,3.12385458208115
+Northern Mariana Islands,3,0.9,4.35316167921323
+Northern Mariana Islands,3,0.975,4.35843395856945
+Northern Mariana Islands,4,point,4
+Northern Mariana Islands,4,0.025,1.27558655989275
+Northern Mariana Islands,4,0.1,1.27708943134339
+Northern Mariana Islands,4,0.25,1.85999297317538
+Northern Mariana Islands,4,0.5,4
+Northern Mariana Islands,4,0.75,4.19998998813751
+Northern Mariana Islands,4,0.9,6.27134959481643
+Northern Mariana Islands,4,0.975,6.28087396902383
+Northern Mariana Islands,5,point,5
+Northern Mariana Islands,5,0.025,1.15356871275466
+Northern Mariana Islands,5,0.1,1.15544533692465
+Northern Mariana Islands,5,0.25,1.90514776842756
+Northern Mariana Islands,5,0.5,5
+Northern Mariana Islands,5,0.75,5.30953639272302
+Northern Mariana Islands,5,0.9,8.66016075558722
+Northern Mariana Islands,5,0.975,8.67682768895194
+Northern Mariana Islands,6,point,6
+Northern Mariana Islands,6,0.025,1.6088554957502
+Northern Mariana Islands,6,0.1,1.61091798604087
+Northern Mariana Islands,6,0.25,2.44337309967797
+Northern Mariana Islands,6,0.5,6
+Northern Mariana Islands,6,0.75,6.36147331381511
+Northern Mariana Islands,6,0.9,10.3086914365825
+Northern Mariana Islands,6,0.975,10.3285670404511
+Northern Mariana Islands,7,point,7
+Northern Mariana Islands,7,0.025,1.97654271716757
+Northern Mariana Islands,7,0.1,1.97879482579872
+Northern Mariana Islands,7,0.25,2.89890477922346
+Northern Mariana Islands,7,0.5,7
+Northern Mariana Islands,7,0.75,7.42550101981228
+Northern Mariana Islands,7,0.9,12.1280448430849
+Northern Mariana Islands,7,0.975,12.1521619818686
 American Samoa,1,point,0
-American Samoa,1,0.025,0
-American Samoa,1,0.1,0
-American Samoa,1,0.25,0
-American Samoa,1,0.5,0
-American Samoa,1,0.75,0
-American Samoa,1,0.9,0
-American Samoa,1,0.975,0
+American Samoa,1,0.025,NaN
+American Samoa,1,0.1,NaN
+American Samoa,1,0.25,NaN
+American Samoa,1,0.5,NaN
+American Samoa,1,0.75,NaN
+American Samoa,1,0.9,NaN
+American Samoa,1,0.975,NaN
 American Samoa,2,point,0
-American Samoa,2,0.025,0
-American Samoa,2,0.1,0
-American Samoa,2,0.25,0
-American Samoa,2,0.5,0
-American Samoa,2,0.75,0
-American Samoa,2,0.9,0
-American Samoa,2,0.975,0
+American Samoa,2,0.025,NaN
+American Samoa,2,0.1,NaN
+American Samoa,2,0.25,NaN
+American Samoa,2,0.5,NaN
+American Samoa,2,0.75,NaN
+American Samoa,2,0.9,NaN
+American Samoa,2,0.975,NaN
 American Samoa,3,point,0
-American Samoa,3,0.025,0
-American Samoa,3,0.1,0
-American Samoa,3,0.25,0
-American Samoa,3,0.5,0
-American Samoa,3,0.75,0
-American Samoa,3,0.9,0
-American Samoa,3,0.975,0
+American Samoa,3,0.025,NaN
+American Samoa,3,0.1,NaN
+American Samoa,3,0.25,NaN
+American Samoa,3,0.5,NaN
+American Samoa,3,0.75,NaN
+American Samoa,3,0.9,NaN
+American Samoa,3,0.975,NaN
 American Samoa,4,point,0
-American Samoa,4,0.025,0
-American Samoa,4,0.1,0
-American Samoa,4,0.25,0
-American Samoa,4,0.5,0
-American Samoa,4,0.75,0
-American Samoa,4,0.9,0
-American Samoa,4,0.975,0
+American Samoa,4,0.025,NaN
+American Samoa,4,0.1,NaN
+American Samoa,4,0.25,NaN
+American Samoa,4,0.5,NaN
+American Samoa,4,0.75,NaN
+American Samoa,4,0.9,NaN
+American Samoa,4,0.975,NaN
 American Samoa,5,point,0
-American Samoa,5,0.025,0
-American Samoa,5,0.1,0
-American Samoa,5,0.25,0
-American Samoa,5,0.5,0
-American Samoa,5,0.75,0
-American Samoa,5,0.9,0
-American Samoa,5,0.975,0
+American Samoa,5,0.025,NaN
+American Samoa,5,0.1,NaN
+American Samoa,5,0.25,NaN
+American Samoa,5,0.5,NaN
+American Samoa,5,0.75,NaN
+American Samoa,5,0.9,NaN
+American Samoa,5,0.975,NaN
 American Samoa,6,point,0
-American Samoa,6,0.025,0
-American Samoa,6,0.1,0
-American Samoa,6,0.25,0
-American Samoa,6,0.5,0
-American Samoa,6,0.75,0
-American Samoa,6,0.9,0
-American Samoa,6,0.975,0
+American Samoa,6,0.025,NaN
+American Samoa,6,0.1,NaN
+American Samoa,6,0.25,NaN
+American Samoa,6,0.5,NaN
+American Samoa,6,0.75,NaN
+American Samoa,6,0.9,NaN
+American Samoa,6,0.975,NaN
 American Samoa,7,point,0
-American Samoa,7,0.025,0
-American Samoa,7,0.1,0
-American Samoa,7,0.25,0
-American Samoa,7,0.5,0
-American Samoa,7,0.75,0
-American Samoa,7,0.9,0
-American Samoa,7,0.975,0
-US,1,point,458978
-US,1,0.025,408528.3869
-US,1,0.1,410388.479
-US,1,0.25,427921.5802
-US,1,0.5,458978
-US,1,0.75,487652.5683
-US,1,0.9,532808.4996
-US,1,0.975,534701.9387
-US,2,point,388730
-US,2,0.025,335830.6067
-US,2,0.1,337888.7788
-US,2,0.25,356389.2632
-US,2,0.5,388730
-US,2,0.75,420021.347
-US,2,0.9,469298.5799
-US,2,0.975,471602.6835
-US,3,point,331970
-US,3,0.025,283084.5671
-US,3,0.1,285237.2085
-US,3,0.25,301920.3363
-US,3,0.5,331970
-US,3,0.75,364979.0487
-US,3,0.9,417114.7674
-US,3,0.975,419812.1277
-US,4,point,286652
-US,4,0.025,238809.1862
-US,4,0.1,241249.543
-US,4,0.25,259273.1113
-US,4,0.5,286652
-US,4,0.75,323334.6337
-US,4,0.9,381656.0718
-US,4,0.975,385133.4934
-US,5,point,249418
-US,5,0.025,203430.4227
-US,5,0.1,205989.3404
-US,5,0.25,224300.6484
-US,5,0.5,249418
-US,5,0.75,288162.6174
-US,5,0.9,350470.8721
-US,5,0.975,354671.2645
-US,6,point,218741
-US,6,0.025,174428.8799
-US,6,0.1,177016.8486
-US,6,0.25,195156.9187
-US,6,0.5,218741
-US,6,0.75,258360.1164
-US,6,0.9,322641.1978
-US,6,0.975,327211.4126
-US,7,point,192988
-US,7,0.025,150349.831
-US,7,0.1,152930.4611
-US,7,0.25,170656.8702
-US,7,0.5,192988
-US,7,0.75,232766.2608
-US,7,0.9,297927.3234
-US,7,0.975,302842.2441
+American Samoa,7,0.025,NaN
+American Samoa,7,0.1,NaN
+American Samoa,7,0.25,NaN
+American Samoa,7,0.5,NaN
+American Samoa,7,0.75,NaN
+American Samoa,7,0.9,NaN
+American Samoa,7,0.975,NaN
+US,1,point,451532
+US,1,0.025,408212.97268581
+US,1,0.1,410601.563145378
+US,1,0.25,422144.850694277
+US,1,0.5,451532
+US,1,0.75,476322.958511015
+US,1,0.9,515621.387416689
+US,1,0.975,518263.667598536
+US,2,point,380983
+US,2,0.025,335417.177881208
+US,2,0.1,338039.859313079
+US,2,0.25,350335.820166805
+US,2,0.5,380983
+US,2,0.75,408076.556571391
+US,2,0.9,451176.931820312
+US,2,0.975,454400.321889918
+US,3,point,324193
+US,3,0.025,279281.896986663
+US,3,0.1,281988.222942992
+US,3,0.25,293699.391930436
+US,3,0.5,324193
+US,3,0.75,352815.379243944
+US,3,0.9,398767.545688405
+US,3,0.975,402540.716471803
+US,4,point,278216
+US,4,0.025,234859.674706444
+US,4,0.1,237909.920675854
+US,4,0.25,250657.625146319
+US,4,0.5,278216
+US,4,0.75,310213.443186222
+US,4,0.9,362114.488409453
+US,4,0.975,366970.530299442
+US,5,point,240235
+US,5,0.025,199187.549687326
+US,5,0.1,202351.839157541
+US,5,0.25,215328.642483999
+US,5,0.5,240235
+US,5,0.75,273766.002826676
+US,5,0.9,329275.986400938
+US,5,0.975,335111.680592528
+US,6,point,208526
+US,6,0.025,169395.382905883
+US,6,0.1,172584.140631192
+US,6,0.25,185273.795266201
+US,6,0.5,208526
+US,6,0.75,242641.261821419
+US,6,0.9,299738.361747331
+US,6,0.975,306067.523626231
+US,7,point,181815
+US,7,0.025,144496.039738989
+US,7,0.1,147661.396757554
+US,7,0.25,160065.204840269
+US,7,0.5,181815
+US,7,0.75,215968.232177719
+US,7,0.9,273928.960652714
+US,7,0.975,280712.269913621
