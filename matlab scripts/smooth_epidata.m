@@ -9,13 +9,14 @@ if isnumeric(smooth_factor)
      cleandel = deldata;
     for cid = 1:size(data_4, 1)
         week_dat = diff(data_4(cid, mod(maxt-1, 7)+1:7:maxt)');
-        [clean_week, TF] = filloutliers(week_dat, 'linear', 'movmean', 8, 'ThresholdFactor', 3);
-        [~, peak_idx] = findpeaks(week_dat);
+        [clean_week, TF] = filloutliers(week_dat, 'linear', 'movmedian', 8, 'ThresholdFactor', 2);
+        [~, peak_idx] = findpeaks([week_dat; 0]);
         tf_vals = intersect(find(TF), peak_idx);
         for jj=1:length(tf_vals)
             cleandel(date_map==tf_vals(jj), cid) = clean_week(tf_vals(jj))/7;
         end
     end
+    deldata = cleandel;
     cleandel = filloutliers(deldata, 'center', 'movmean', smooth_factor*2, 'ThresholdFactor', 2);
     data_4_s = [data_4(:, 1) cumsum(movmean(cleandel', smooth_factor, 2), 2)];
 else
