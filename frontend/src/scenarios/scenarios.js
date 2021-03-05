@@ -29,9 +29,9 @@ import {
   Input
 } from "antd";
 
-const cases_url = "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/recent_cases.csv";
-const vacc_url = "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/vacc_num.csv";
-const vacc_full_url = "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/vacc_full.csv";
+const cases_url = "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/G_recent_cases.csv";
+const vacc_url = "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/G_vacc_person.csv";
+const vacc_full_url = "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/G_vacc_full.csv";
 
 
 const { Option } = Select;
@@ -65,7 +65,7 @@ class Scenarios extends Component {
 	      eff_vacc_full: 0.95,
 	      eff_vacc_one: 0.50,
 	      data_loading: true,
-	      areas: "US",
+	      areas: "United States of America|||",
 	      width: 0, 
 	      height: 0,
 	      arealist: [],
@@ -214,7 +214,7 @@ class Scenarios extends Component {
   		this.setState({data_date: all_dates});
   		this.setState({all_data: all_dat});
   		this.setState({thispopu: this.state.vacc_one[vacc_one_idx].slice(-1)});
-  		var full_dd = [{id: "Cases", data:dd_cases}, {id: "Vaccines Administered", data:dd_one}, {id:"Full Doses", data:dd_full},{id:"Immunity", data: dd_imm}];
+  		var full_dd = [{id: "Cases", data:dd_cases}, {id: "People Vaccinated (at least 1 dose)", data:dd_one}, {id:"Full Doses", data:dd_full},{id:"Immunity", data: dd_imm}];
   		this.setState({to_plot: full_dd});
   	}
 
@@ -247,7 +247,7 @@ class Scenarios extends Component {
   		this.setState({perc: allValues.perc});
   		this.setState({underrep: allValues.underrep});
   		this.setState({norm_fact:norm_fact});
-  		var full_dd = [{id: "Cases", data:dd_cases}, {id: "Vaccines Administered", data:dd_one}, {id:"Full Doses", data:dd_full},{id:"Immunity", data: dd_imm}];
+  		var full_dd = [{id: "Cases", data:dd_cases}, {id: "People Vaccinated (at least 1 dose)", data:dd_one}, {id:"Full Doses", data:dd_full},{id:"Immunity", data: dd_imm}];
   		this.setState({to_plot: full_dd});
   		}
   	}
@@ -518,12 +518,13 @@ class Scenarios extends Component {
             </div>
           </Row>
           <Row>
-          Vaccine Data Sources: <a href="https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data" target="_blank"> Centers for Civic Impact
- </a>, <a href="https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations" target = "_blank"> Our World in Data </a>.
+          Vaccine Data Sources: <a href="https://github.com/GoogleCloudPlatform/covid-19-open-data/blob/main/docs/table-vaccinations.md" target="_blank"> Google COVID-19 Open Data </a>.
           </Row>
           <Row>
-          Download formatted time-series data for all locations (Right-click-> Save As): <a href="https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/vacc_num.csv" download target="_blank"> Total vaccines given
- </a>, <a href="https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/vacc_full.csv" download target = "_blank"> Full dosage given </a>.
+          Download formatted time-series data for all locations (Right-click-> Save As):
+          <a href="https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/G_vacc_num.csv" download target="_blank"> (1) People vaccinated with at least one dose
+          </a>, 
+          <a href="https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/G_vacc_full.csv" download target = "_blank"> (2) People vaccinated with full dose </a>.
           </Row>
           <Row>
           Note: We only show the locations for which data is available in the above sources. We assume that previously infected are immune.
