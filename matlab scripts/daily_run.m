@@ -99,3 +99,14 @@ catch thiErr
     fprintf('%s\n', thisErr.message);
 end
 
+%% Genrate submission file for EU hub
+clear;
+try
+     
+    if weekday(now)==1
+        quant_gen_eu;
+    end
+catch thiErr
+    fprintf('Error in creating EU submission\n');
+    fprintf('%s\n', thisErr.message);
+end
