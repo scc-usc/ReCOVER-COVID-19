@@ -54,10 +54,81 @@ deaths(sub2ind(size(data_4), ridx(val_idx), date_list(val_idx))) = all_tab.total
 
 disp('Finished pre-processing data ');
 toc
+
+%% Vaccine data download
+sel_url = 'https://storage.googleapis.com/covid19-open-data/v2/vaccinations.csv';
+urlwrite(sel_url, 'dummy.csv');
+vacc_tab = readtable('dummy.csv');
+
+%% Vaccine data prep
+if ~issorted(vacc_tab.key)
+    vacc_tab = sortrows(vacc_tab, 'key');
+end
+% Get the first and last occurrence of each key
+[~, fo] = ismember(all_keys, vacc_tab.key);
+[~, lo] = ismember(all_keys, flip(vacc_tab.key));
+lo = length(vacc_tab.key)+1 - lo;
+
+%% Vaccine data matrix creation
+date_list = days(vacc_tab.date - datetime(2020, 1, 23));
+maxt = days(datetime(floor(now),'ConvertFrom','datenum') - datetime(2020, 1, 23));
+good_dates =  date_list> 0 & date_list < maxt; % Only consider the dates after this
+
+vacc = nan(length(all_keys), maxt-1);
+vacc_full = nan(length(all_keys), maxt-1);
+vacc_person = nan(length(all_keys), maxt-1);
+
+ridx = zeros(length(vacc_tab.key), 1);
+for j= 1:length(all_keys)
+     if fo(j) == 0
+         continue;
+     end
+     ridx(fo(j):lo(j)) = j;
+end
+val_idx = (ridx>0) & good_dates;
+
+vacc(sub2ind(size(vacc), ridx(val_idx), date_list(val_idx))) = vacc_tab.new_vaccine_doses_administered(val_idx);
+vacc_full(sub2ind(size(vacc_full), ridx(val_idx), date_list(val_idx))) = vacc_tab.new_persons_fully_vaccinated(val_idx);
+vacc_person(sub2ind(size(vacc_person), ridx(val_idx), date_list(val_idx))) = vacc_tab.new_persons_vaccinated(val_idx);
+
+%% Write vaccine data
+
+gt_offset = 344; % Only need to show starting from Jan 1
+T_full = size(vacc, 2);
+
+bad_idx = all(isnan(vacc), 2);
+bad_idx_full = all(isnan(vacc_full), 2);
+bad_idx_person = all(isnan(vacc_person), 2);
+
+vacc = cumsum(vacc, 2, 'omitnan');
+vacc_full = cumsum(vacc_full, 2, 'omitnan');
+vacc_person = cumsum(vacc_person, 2, 'omitnan');
+
+vacc = fillmissing(vacc(:, gt_offset:T_full), "previous",2);
+vacc_full = fillmissing(vacc_full(:, gt_offset:T_full), "previous",2);
+vacc_person = fillmissing(vacc_person(:, gt_offset:T_full), "previous",2);
+
+vacc_full(isnan(vacc_full)) = 0;
+vacc(isnan(vacc)) = 0;
+
+T2r = infec2table(vacc, countries, bad_idx, datetime(2020, 1, 23)+gt_offset, 1, 1);
+T2r.population = popu(~bad_idx);
+T2r_full = infec2table(vacc_full, countries, bad_idx_full, datetime(2020, 1, 23)+gt_offset,1 , 1);
+T2r_full.population = popu(~bad_idx_full);
+T2r_person = infec2table(vacc_person, countries, bad_idx_person, datetime(2020, 1, 23)+gt_offset, 1, 1);
+T2r_person.population = popu(~bad_idx_person);
 %%
+data_4 = fillmissing(data_4, 'previous', 2);
+writetable(infec2table(data_4(:, gt_offset:T_full), countries, bad_idx & bad_idx_full & bad_idx_person , datetime(2020, 1, 23)+gt_offset,1 , 1), '../results/forecasts/G_recent_cases.csv');
+writetable(T2r, '../results/forecasts/G_vacc_num.csv');
+writetable(T2r_full, '../results/forecasts/G_vacc_full.csv');
+writetable(T2r_person, '../results/forecasts/G_vacc_person.csv');
+disp('Finished writing vaccine data ');
+
+%% Smoothing for prediction
 tic;
 
-data_4 = fillmissing(data_4, 'previous', 2);
+%data_4 = fillmissing(data_4, 'previous', 2);
 deaths = fillmissing(deaths, 'previous', 2);
 
 data_4(isnan(data_4)) = 0;
