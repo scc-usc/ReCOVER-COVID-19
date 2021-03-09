@@ -25,20 +25,21 @@ end
 u_countries = readcell('us_states_list.txt');
 u_ab = readcell('us_states_abbr_list.txt');
 u_popu = load('us_states_population_data.txt');
-sel_url = 'https://raw.githubusercontent.com/govex/COVID-19/master/data_tables/vaccine_data/raw_data/vaccine_data_us_state_timeline.csv';
+sel_url = 'https://raw.githubusercontent.com/govex/COVID-19/master/data_tables/vaccine_data/us_data/time_series/vaccine_data_us_timeline.csv';
 urlwrite(sel_url, 'dummy.csv');
 u_vacc_tab = readtable('dummy.csv');
 %%
-d_idx = days(u_vacc_tab.date - datetime(2020, 1, 23));
-[~, cidx] = ismember(u_vacc_tab.stabbr, u_ab);
+d_idx = days(u_vacc_tab.Date - datetime(2020, 1, 23));
+[~, cidx] = ismember(u_vacc_tab.Province_State, u_countries);
 u_vacc = nan(length(u_countries), max(d_idx));
 u_vacc_full = nan(length(u_countries), max(d_idx));
 u_vacc_shipped = nan(length(u_countries), max(d_idx));
+u_vacc_sd = nan(length(u_countries), max(d_idx)); % Single Dose
 for ii = 1:size(u_vacc_tab, 1)
     if cidx(ii)>0
-        u_vacc(cidx(ii), d_idx(ii)) = u_vacc_tab.doses_admin_total(ii);
-        u_vacc_full(cidx(ii), d_idx(ii)) = u_vacc_tab.people_total_2nd_dose(ii);
-        u_vacc_shipped(cidx(ii), d_idx(ii)) = u_vacc_tab.doses_shipped_total(ii);
+        u_vacc(cidx(ii), d_idx(ii)) = u_vacc_tab.Doses_admin(ii);
+        u_vacc_full(cidx(ii), d_idx(ii)) = u_vacc_tab.Stage_Two_Doses(ii);
+        u_vacc_shipped(cidx(ii), d_idx(ii)) = u_vacc_tab.Doses_shipped(ii);
     end
 end
 %% Write data
@@ -71,6 +72,7 @@ T2r_full.population = popu(~bad_idx_full);
 T2r_shipped = infec2table(gu_vacc_shipped, countries, bad_idx_shipped, datetime(2020, 1, 23)+gt_offset, 1, 1);
 T2r_shipped.population = popu(~bad_idx_shipped);
 
+save vacc_data.mat
 %% Write recent cases file to be used for immunity analysis
 got_data = 0;
 tt = 1;

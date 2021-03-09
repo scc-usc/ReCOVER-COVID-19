@@ -9,7 +9,7 @@ if isnumeric(smooth_factor)
      cleandel = deldata;
     for cid = 1:size(data_4, 1)
         week_dat = diff(data_4(cid, mod(maxt-1, 7)+1:7:maxt)');
-        [clean_week, TF] = filloutliers(week_dat, 'linear', 'movmedian', 8, 'ThresholdFactor', 2);
+        [clean_week, TF] = filloutliers(week_dat, 'linear', 'movmedian', 20, 'ThresholdFactor', 2);
         [~, peak_idx] = findpeaks([week_dat; 0]);
         tf_vals = intersect(find(TF), peak_idx);
         for jj=1:length(tf_vals)

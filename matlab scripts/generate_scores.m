@@ -12,10 +12,10 @@ MFR_scores = [];
 MFR_dev = [];
 skip_length = 7;
 horizon = 7; % Same as validation
-un = 5;
+un = 1.5;
 dalpha = 1;
 saved_days = (size(data_4, 2))-8; % Set it to higher number to avoid recomputing hypoerparameters from the beginning
-start_day = 52;
+start_day = 52-21;
 
 %%
 

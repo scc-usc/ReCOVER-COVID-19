@@ -25,7 +25,7 @@ function [Rt, Rt_conf] = calc_Rt(beta_cell, k_l, jp_l, sus_frac, beta_confs)
         k  = k_l(j);
         beta = beta(1:k);
         jp = jp_l(j);
-        Rt(j) = sus_frac(j) * jp * sum(beta);
+        Rt(j) = sus_frac(j) * jp * nansum(beta);
     end
 end
 

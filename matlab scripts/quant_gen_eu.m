@@ -11,7 +11,7 @@ load global_hyperparam_latest.mat;
 now_date = datetime((now),'ConvertFrom','datenum', 'TimeZone', 'America/Los_Angeles');
 path = '../results/historical_forecasts/';
 dirname = datestr(now_date, 'yyyy-mm-dd');
-fullpath = [path dirname];      
+fullpath = [path dirname];
 
 xx = readtable([fullpath '/' prefix '_data.csv']); data_4 = table2array(xx(2:end, 3:end));
 xx = readtable([fullpath '/' prefix '_deaths.csv']); deaths = table2array(xx(2:end, 3:end));
@@ -75,8 +75,8 @@ for simnum = 1:size(scen_list, 1)
     infec_un1 = var_simulate_pred_un(data_4_s(:, 1:end-lags), 0, beta_after, popu, best_param_list(:, 1), horizon+lags, best_param_list(:, 2), un, base_infec);
     infec_dat = [data_4_s(:, 1:end-lags), infec_un1-base_infec+data_4_s(:, end-lags)];
     net_infec_A(simnum, :, :) = infec_un1(:, 1+lags:end);
-
-   % Deaths
+    
+    % Deaths
     for jj = 1:length(death_rates_list)
         death_rates = death_rates_list{1};
         this_rate_change = intermed_betas(death_rates, best_death_hyperparam, death_rates_list{jj}, best_death_hyperparam, rate_smooth);
@@ -117,8 +117,8 @@ for cid = 1:length(popu)
     thisdata = squeeze(net_infec_A(:, cid, :));
     thisdata(all(thisdata==0, 2), :) = [];
     thisdata = diff(thisdata(:, 1:7:num_ahead)')';
-%     dt = data_4_s; gt_lidx = size(dt, 2); extern_dat = diff(dt(cid, gt_lidx-14:7:gt_lidx))';
-%     thisdata = [thisdata; repmat(extern_dat, [10 size(thisdata, 2)])];
+    %     dt = data_4_s; gt_lidx = size(dt, 2); extern_dat = diff(dt(cid, gt_lidx-14:7:gt_lidx))';
+    %     thisdata = [thisdata; repmat(extern_dat, [10 size(thisdata, 2)])];
     thisdata = repmat(thisdata, [5 1]);
     quant_preds_cases(cid, :, :) = movmean(quantile(thisdata, quant_cases)', 5, 1);
     adjust_quants = (squeeze(quant_preds_cases(cid, :, med_idx_c)) - mean_preds_cases(cid, :));
@@ -127,44 +127,48 @@ for cid = 1:length(popu)
     thisdata = squeeze(net_death_A(:, cid, :));
     thisdata(all(thisdata==0, 2), :) = [];
     thisdata = diff(thisdata(:, 1:7:num_ahead)')';
-%     dt = deaths_s; gt_lidx = size(dt, 2); extern_dat = diff(dt(cid, gt_lidx-14:7:gt_lidx))';
-%     thisdata = [thisdata; repmat(extern_dat, [10 size(thisdata, 2)])];
+    %     dt = deaths_s; gt_lidx = size(dt, 2); extern_dat = diff(dt(cid, gt_lidx-14:7:gt_lidx))';
+    %     thisdata = [thisdata; repmat(extern_dat, [10 size(thisdata, 2)])];
     thisdata = repmat(thisdata, [5 1]);
     quant_preds_deaths(cid, :, :) = movmean(quantile(thisdata, quant_deaths)', 5, 1);
     adjust_quants = (squeeze(quant_preds_deaths(cid, :, med_idx_d)) - mean_preds_deaths(cid, :));
     quant_preds_deaths(cid, :, :) = quant_preds_deaths(cid, :, :) - adjust_quants;
 end
- 
+
 quant_preds_cases = (quant_preds_cases + abs(quant_preds_cases))/2;
 quant_preds_deaths = (quant_preds_deaths + abs(quant_preds_deaths))/2;
 
 %% Plot
-sel_idx = 61;
-dt = deaths;
-dts = deaths_s;
-thisquant = squeeze(nansum(quant_preds_deaths(sel_idx, :, [1 12 23]), 1));
-gt_len = 20;
-gt_lidx = size(dt, 2); gt_idx = (gt_lidx-gt_len*7:7:gt_lidx);
-gt = diff(nansum(dt(sel_idx, gt_idx), 1))';
-gts = diff(nansum(dts(sel_idx, gt_idx), 1))';
-point_forecast = num2cell([(gt_len+1:gt_len+size(thisquant, 1))' mean_preds_deaths(sel_idx, :)']);
-historical = num2cell([(1:gt_len)' gt]);
-forecast = num2cell([(gt_len+1:gt_len+size(thisquant, 1))' thisquant]);
-%fanplot([historical; point_forecast], forecast);
-plot([gt gts]); hold on; plot((gt_len+1:gt_len+size(thisquant, 1)), thisquant); hold off;
-title(['Deaths']);
+plot_check = 1;
 
-figure;
-dt = data_4_s;
-thisquant = squeeze(nansum(quant_preds_cases(sel_idx, :, :), 1));
-gt_lidx = size(dt, 2); gt_idx = (gt_lidx-gt_len*7:7:gt_lidx);
-gt = nansum(diff(dt(sel_idx, gt_idx)'), 2);
-point_forecast = num2cell([(gt_len+1:gt_len+size(thisquant, 1))' mean_preds_cases(sel_idx, :)']);
-historical = num2cell([(1:gt_len)' gt]);
-forecast = num2cell([(gt_len+1:gt_len+size(thisquant, 1))' thisquant]);
-%fanplot([historical; point_forecast], forecast)
-plot(gt); hold on; plot((gt_len+1:gt_len+size(thisquant, 1)), thisquant); hold off;
-title(['Cases']);
+if plot_check > 0
+    sel_idx = 61; sel_idx = contains(countries, 'Italy');
+    dt = deaths;
+    dts = deaths_s;
+    thisquant = squeeze(nansum(quant_preds_deaths(sel_idx, :, [1 12 23]), 1));
+    gt_len = 20;
+    gt_lidx = size(dt, 2); gt_idx = (gt_lidx-gt_len*7:7:gt_lidx);
+    gt = diff(nansum(dt(sel_idx, gt_idx), 1))';
+    gts = diff(nansum(dts(sel_idx, gt_idx), 1))';
+    point_forecast = num2cell([(gt_len+1:gt_len+size(thisquant, 1))' mean_preds_deaths(sel_idx, :)']);
+    historical = num2cell([(1:gt_len)' gt]);
+    forecast = num2cell([(gt_len+1:gt_len+size(thisquant, 1))' thisquant]);
+    %fanplot([historical; point_forecast], forecast);
+    plot([gt gts]); hold on; plot((gt_len+1:gt_len+size(thisquant, 1)), thisquant); hold off;
+    title(['Deaths']);
+    
+    figure;
+    dt = data_4_s;
+    thisquant = squeeze(nansum(quant_preds_cases(sel_idx, :, :), 1));
+    gt_lidx = size(dt, 2); gt_idx = (gt_lidx-gt_len*7:7:gt_lidx);
+    gt = nansum(diff(dt(sel_idx, gt_idx)'), 2);
+    point_forecast = num2cell([(gt_len+1:gt_len+size(thisquant, 1))' mean_preds_cases(sel_idx, :)']);
+    historical = num2cell([(1:gt_len)' gt]);
+    forecast = num2cell([(gt_len+1:gt_len+size(thisquant, 1))' thisquant]);
+    %fanplot([historical; point_forecast], forecast)
+    plot(gt); hold on; plot((gt_len+1:gt_len+size(thisquant, 1)), thisquant); hold off;
+    title(['Cases']);
+end
 %% Write to file
 max_weeks = 5;
 eu_names_short = eu_names(eu_present>0);
@@ -187,7 +191,7 @@ thesevals = quant_matrix(:);
 [cc, wh, qq] = ind2sub(size(quant_matrix), (1:length(thesevals))');
 wh_string = sprintfc('%d', [1:max(wh)]');
 T1.forecast_date = repmat({datestr(now_date - T_corr, 'YYYY-mm-DD')}, [length(thesevals) 1]);
-T1.target = strcat(wh_string(wh), ' wk ahead inc case');
+T1.target = strcat(wh_string(wh), ' wk ahead inc death');
 T1.target_end_date = datestr(now_date - T_corr - 1 + 7*wh, 'YYYY-mm-DD');
 T1.location = eu_names_short(cc);
 T1.type = repmat({'quantile'}, [length(thesevals) 1]);

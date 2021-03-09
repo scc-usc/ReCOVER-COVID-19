@@ -1,16 +1,21 @@
 % Get from 
 % https://healthdata.gov/dataset/covid-19-reported-patient-impact-and-hospital-capacity-state-timeseries
-sel_url = 'https://healthdata.gov/sites/default/files/reported_hospital_utilization_timeseries_20201206_2146.csv';
+sel_url = 'https://healthdata.gov/sites/default/files/reported_hospital_utilization_timeseries_20210306_1105.csv';
 urlwrite(sel_url, 'dummy.csv');
 hosp_tab = readtable('dummy.csv');
 %% Load case data
 prefix = 'us';
-now_date = datetime((now),'ConvertFrom','datenum', 'TimeZone', 'America/Los_Angeles');
+
+%%%%%%%% Choose a date or selcect current date
+%now_date = datetime(2021, 1, 3);
+now_date = datetime((now),'ConvertFrom','datenum'); % 'TimeZone', 'America/Los_Angeles');
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+daynum = floor(days((now_date) - datetime(2020, 1, 23)));
+
 path = '../results/historical_forecasts/';
 dirname = datestr(now_date, 'yyyy-mm-dd');
 fullpath = [path dirname];      
-daynum = days(date - datetime(2020, 1, 23));
-
 xx = readtable([fullpath '/' prefix '_data.csv']); data_4 = table2array(xx(2:end, 3:end));
 lcorrection = daynum - size(data_4, 2); data_4 = [zeros(size(data_4, 1), lcorrection) data_4];
 
@@ -44,26 +49,26 @@ for idx = 1:size(hosp_tab, 1)
 end
 
 %% Learn hospitalization rate like death forecasts
-T_full = size(data_4, 2);
+T_full = max(find(any(~isnan(hosp_dat), 1)));
+maxt = size(data_4, 2);
 load us_hyperparam_latest.mat;
 hosp_cumu = cumsum(nan2zero(hosp_dat), 2);
 
 %% Load case forecasts
-dirname = datestr(datetime(2020, 1, 23)+caldays(T_full), 'yyyy-mm-dd');
+dirname = datestr(datetime(2020, 1, 23)+caldays(maxt), 'yyyy-mm-dd');
 fullpath = [path dirname];      
-daynum = T_full;
-xx = readtable([fullpath '/' prefix '_forecasts_cases.csv']); pred_cases = table2array(xx(2:end, 3:end));
 
+xx = readtable([fullpath '/' prefix '_forecasts_cases.csv']); pred_cases = table2array(xx(2:end, 4:end));
 placenames = xx{2:end, 2};
 popu = load('us_states_population_data.txt');
 
 %% 
 smooth_factor = 14;
-data_4_s = smooth_epidata(data_4(:, 1:end), smooth_factor);
+data_4_s = smooth_epidata(data_4(:, 1:maxt), smooth_factor);
 hosp_cumu_s = smooth_epidata(hosp_cumu(:, 1:T_full), smooth_factor);
 
 % Redefine hyper-parameter ranges, no need to enforce lag
-dkrange = (1:4); djprange = 7; dwin = [25 50 100]; lag_range = (0:3);
+dkrange = (1:4); djprange = 7; dwin = [25 50 100]; lag_range = (1:3);
 [X, Y, Z, A] = ndgrid(dkrange, djprange, dwin, lag_range);
 param_list = [X(:), Y(:), Z(:), A(:)];
 idx = (param_list(:, 1).*param_list(:, 2) <=21) & (param_list(:, 3) > param_list(:, 1).*param_list(:, 2)) & (param_list(:, 1) - param_list(:, 4))>0;
@@ -77,75 +82,113 @@ dalpha = 1;
 dhorizon = 100;
 
 %% Perform prediction
-infec_data = [data_4_s(:, 1:T_full) pred_cases];
-base_hosp = hosp_cumu(:, T_full);
-
+hosp_data_limit = T_full;
 [hosp_rates] = var_ind_deaths(data_4_s(:, 1:T_full), hosp_cumu_s, dalpha, dk, djp, dwin, 0, popu > -1, lags);
 disp('trained hospitalizations');
-[pred_hosps] = var_simulate_deaths(infec_data, hosp_rates, dk, djp, dhorizon, base_hosp, T_full-1);
 
-pred_new_hosps = diff(pred_hosps')';
+infec_data = [data_4_s pred_cases-data_4(:, maxt)+data_4_s(:, maxt)];
+base_hosp = hosp_cumu(:, maxt);
+[pred_hosps] = var_simulate_deaths(infec_data, hosp_rates, dk, djp, dhorizon, base_hosp, T_full-1);
+pred_base_hosp = pred_hosps(:, maxt-T_full+1);
+pred_new_hosps = diff([base_hosp pred_hosps]')';
+pred_new_hosps(:,  1:(maxt-T_full)) = [];   % Adjust based on the day of prediction
 disp('predicted hospitalizations');
 
-%% Temporary quick way of finding quantiles - Training
-num_ahead = 56;
-cidx = find(~isnan(hosp_dat(:, end)));
-lookback = 14;
-base_hosp = hosp_cumu(:, T_full-lookback);
-[xx] = var_simulate_deaths(infec_data, hosp_rates, dk, djp, dhorizon, base_hosp, T_full-1-lookback);
-xx = diff([base_hosp xx]')';
-xx1 = repmat((1:lookback), [length(cidx) 1]); 
-extern_dat = xx1(:);
-extern_dat = [];
-xx2 = xx(cidx, 1:lookback); AllXdata = [xx2(:) extern_dat];
-AllYdata = hosp_dat(cidx, end-lookback+1:end); AllYdata = AllYdata(:);
-All_Mdl = TreeBagger(100, AllXdata, (AllYdata-AllXdata(:, 1)), 'Method','regression');
-%%  Temporary quick way of finding quantiles - generation
-quant_hosp = [0.01, 0.025, (0.05:0.05:0.95), 0.975, 0.99];
-preds = pred_new_hosps;
-quant_preds_hosp = zeros(size(data_4, 1), num_ahead, length(quant_hosp));
-mean_preds_hosp = zeros(size(data_4, 1), num_ahead);
+save us_hospitalization hosp_cumu hosp_cumu_s best_hosp_hyperparam hosp_rates pred_hosps hosp_data_limit fips;
+%% We generate multiple sub-scenarios and sample to get quantiles
 
-for jj=1:num_ahead
-    tt = 0;
-%     this_inc = data_4(cidx, end - 7*tt) - data_4(cidx, end - 7*tt-7);
-%     prev_inc = data_4(cidx, end - 7*tt-7) - data_4(cidx, end - 7*tt-14);
-%     extern_dat = [data_4(cidx, end - 7*tt), this_inc , prev_inc, jj*ones(length(this_inc), 1)];
-    extern_dat = [jj*ones(size(data_4, 1), 1)];
-    extern_dat = [];
-    errs = preds(:, jj) + quantilePredict(All_Mdl,[preds(:, jj) extern_dat], 'Quantile', quant_hosp);
-    errs = errs - errs(:, abs(quant_hosp-0.5) < 1e-5);
-    quant_preds_hosp(:, jj, :) = preds(:, jj) + ((num_ahead/2+2*jj)/num_ahead)*errs;
-    mean_preds_hosp(:, jj) = preds(:, jj);% + predict(Mdl{jj}, [preds(:, jj) extern_dat]);
+un_list = 1:0.2:2;
+lags_list = 0:7:28;
+
+hk = best_hosp_hyperparam(:, 1);
+hjp = best_hosp_hyperparam(:, 2);
+hwin = best_hosp_hyperparam(:, 3);
+hlags = best_hosp_hyperparam(:, 4);
+halpha = 1; hhorizon = 110; horizon = 100;
+
+for j=1:length(lags_list)
+    T_full = hosp_data_limit;
+    [hosp_rates] = var_ind_deaths(data_4_s(:, 1:T_full - lags_list(j)), hosp_cumu_s(:, 1:T_full - lags_list(j)), halpha, hk, hjp, hwin, 0, popu > -1, hlags);
+    hosp_rates_list{j} = hosp_rates;
 end
 
-quant_preds_hosp = (quant_preds_hosp + abs(quant_preds_hosp))/2;
+[X, Y] = ndgrid(un_list, lags_list);
+scen_list = [X(:), Y(:)];
 
+net_infec_A = zeros(size(scen_list, 1), size(data_4, 1), horizon);
+net_hosp_A = zeros(size(scen_list, 1)*length(lags_list), size(data_4, 1), horizon);
+
+
+for simnum = 1:size(scen_list, 1)
+    un = scen_list(simnum, 1);
+    lags = scen_list(simnum, 2);
+    beta_after = var_ind_beta_un(data_4_s(:, 1:end-lags), 0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, popu>-1);
+    
+    % Cases
+    base_infec = data_4(:, end);
+    infec_un1 = var_simulate_pred_un(data_4_s(:, 1:end), 0, beta_after, popu, best_param_list(:, 1), horizon, best_param_list(:, 2), un, base_infec);
+    infec_dat = [data_4_s(:, 1:end), infec_un1-base_infec+data_4_s(:, end)];
+    net_infec_A(simnum, :, :) = infec_un1;
+
+    % Hosp
+    for jj = 1:length(hosp_rates_list)
+        hosp_rates = hosp_rates_list{1};
+        rate_change = intermed_betas(hosp_rates, best_hosp_hyperparam, hosp_rates_list{jj}, best_hosp_hyperparam, 21);
+        T_full = hosp_data_limit;
+        infec_data = [data_4_s squeeze(net_infec_A(simnum, :, :))-data_4(:, T_full)+data_4_s(:, T_full)];
+        base_hosp = hosp_cumu(:, T_full);
+        pred_hosps1 = var_simulate_deaths_vac(infec_data, hosp_rates, hk, hjp, hhorizon, base_hosp, T_full-1, rate_change);
+        h_start = size(data_4, 2)-T_full+1;
+        net_hosp_A(simnum+(jj-1)*size(scen_list, 1), :, :) = pred_hosps1(:, h_start:h_start+horizon-1);
+    end
+    fprintf('.');
+    
+end
+fprintf('\n');
+
+%% Generate quantiles
+num_ahead = 100;
+quant_hosp = [0.01, 0.025, (0.05:0.05:0.95), 0.975, 0.99]';
+quant_preds_hosp = zeros(length(popu), num_ahead, length(quant_hosp));
+%mean_preds_hosp = zeros(length(popu), num_ahead);
+mean_preds_hosp = pred_new_hosps(:, 1:num_ahead);
+med_idx  = find(abs(quant_hosp-0.5)<0.001);
+for cid = 1:length(popu)
+    thisdata = squeeze(net_hosp_A(:, cid, :));
+    thisdata(all(thisdata==0, 2), :) = [];
+    thisdata = diff([repmat(pred_base_hosp(cid, 1),[size(thisdata, 1), 1]) thisdata]')';
+    quant_preds_hosp(cid, :, :) = quantile(thisdata(:, 1:num_ahead), quant_hosp)';
+    adjust_quants = (squeeze(quant_preds_hosp(cid, :, med_idx)) - mean_preds_hosp(cid, :));
+    quant_preds_hosp(cid, :, :) = quant_preds_hosp(cid, :, :) - adjust_quants;
+    %mean_preds_hosp(cid, :) = mean(thisdata(:, 1:num_ahead), 1);
+end
+quant_preds_hosp = (quant_preds_hosp+abs(quant_preds_hosp))./2;
 %% Plot
-cid = 10;
+cid = 3;
 sel_idx = cid;
 % plot((1:size(data_4, 2)), hosp_dat(cid, :)); hold on;
 % plot((T_full+1:T_full+size(pred_new_hosps, 2)), pred_new_hosps(cid, :)); hold off;
 
 dt = hosp_dat;
-thisquant = squeeze(quant_preds_hosp(sel_idx, :, :));
-gt_len = 40;
+thisquant = squeeze(nansum(quant_preds_hosp(sel_idx, :, :), 1));
+gt_len = 150;
 gt_lidx = size(dt, 2); gt_idx = (gt_lidx-gt_len+1:1:gt_lidx);
-gt = dt(sel_idx, gt_idx);
-point_forecast = num2cell([(gt_len+1:gt_len+num_ahead)' mean_preds_hosp(sel_idx, 1:num_ahead)']);
+gt = nansum(dt(sel_idx, gt_idx), 1);
+point_forecast = num2cell([(gt_len+1:gt_len+num_ahead)' nansum(mean_preds_hosp(sel_idx, 1:num_ahead), 1)']);
 historical = num2cell([(1:gt_len)' gt']);
 forecast = num2cell([(gt_len+1:gt_len+num_ahead)' thisquant]);
 fanplot([historical; point_forecast], forecast)
 
 %%
+cidx = find(popu>-1);
 hosp_vals = cell((1+length(quant_hosp))*(1+length(cidx))*num_ahead, 7);
 kk = 1;
-forecast_date = datestr(datetime(2020, 1, 23)+caldays(T_full), 'yyyy-mm-dd');
+forecast_date = datestr(datetime(2020, 1, 23)+caldays(maxt), 'yyyy-mm-dd');
 
 for ii = 1:length(cidx)
     for jj = 1:num_ahead
-        target_date = datestr(datetime(2020, 1, 23)+caldays(T_full+jj), 'yyyy-mm-dd');
-        thisentry = [{forecast_date} {[num2str(jj) ' day ahead inc hosp']} {target_date} fips{cidx(ii)} {'point'} {'NA'} {pred_new_hosps(cidx(ii), jj)}];
+        target_date = datestr(datetime(2020, 1, 23)+caldays(maxt+jj), 'yyyy-mm-dd');
+        thisentry = [{forecast_date} {[num2str(jj) ' day ahead inc hosp']} {target_date} fips{cidx(ii)} {'point'} {'NA'} compose('%.1f', pred_new_hosps(cidx(ii), jj))];
         hosp_vals(kk, :) = thisentry;
         
         hosp_vals(kk+1:kk+length(quant_hosp), 1) = mat2cell(repmat(forecast_date, [length(quant_hosp) 1]), ones(length(quant_hosp), 1));
@@ -153,8 +196,9 @@ for ii = 1:length(cidx)
         hosp_vals(kk+1:kk+length(quant_hosp), 3) = mat2cell(repmat(target_date, [length(quant_hosp) 1]), ones(length(quant_hosp), 1));
         hosp_vals(kk+1:kk+length(quant_hosp), 4) = mat2cell(repmat(fips{cidx(ii)}, [length(quant_hosp) 1]), ones(length(quant_hosp), 1));
         hosp_vals(kk+1:kk+length(quant_hosp), 5) = mat2cell(repmat('quantile', [length(quant_hosp) 1]), ones(length(quant_hosp), 1));
-        hosp_vals(kk+1:kk+length(quant_hosp), 6) = mat2cell(quant_hosp(:), ones(length(quant_hosp), 1));
-        hosp_vals(kk+1:kk+length(quant_hosp), 7) = mat2cell(squeeze(quant_preds_hosp(cidx(ii), jj, :)), ones(length(quant_hosp), 1));
+        hosp_vals(kk+1:kk+length(quant_hosp), 6) = compose('%g', quant_hosp(:));
+        %hosp_vals(kk+1:kk+length(quant_hosp), 7) = mat2cell(squeeze(quant_preds_hosp(cidx(ii), jj, :)), ones(length(quant_hosp), 1));
+        hosp_vals(kk+1:kk+length(quant_hosp), 7) = compose('%.1f', squeeze(quant_preds_hosp(cidx(ii), jj, :)));
         kk = kk+length(quant_hosp)+1;
     end
     fprintf('.');
@@ -162,8 +206,8 @@ end
 %%
 % Add US forecasts by combining states
 for jj = 1:num_ahead
-    target_date = datestr(datetime(2020, 1, 23)+caldays(T_full+jj), 'yyyy-mm-dd');
-    thisentry = [{forecast_date} {[num2str(jj) ' day ahead inc hosp']} {target_date} {'US'} {'point'} {'NA'} {sum(pred_new_hosps(cidx, jj))}];
+    target_date = datestr(datetime(2020, 1, 23)+caldays(maxt+jj), 'yyyy-mm-dd');
+    thisentry = [{forecast_date} {[num2str(jj) ' day ahead inc hosp']} {target_date} {'US'} {'point'} {'NA'} compose('%.1f',nansum(pred_new_hosps(cidx, jj)))];
     hosp_vals(kk, :) = thisentry;
     
     hosp_vals(kk+1:kk+length(quant_hosp), 1) = mat2cell(repmat(forecast_date, [length(quant_hosp) 1]), ones(length(quant_hosp), 1));
@@ -171,8 +215,8 @@ for jj = 1:num_ahead
     hosp_vals(kk+1:kk+length(quant_hosp), 3) = mat2cell(repmat(target_date, [length(quant_hosp) 1]), ones(length(quant_hosp), 1));
     hosp_vals(kk+1:kk+length(quant_hosp), 4) = mat2cell(repmat('US', [length(quant_hosp) 1]), ones(length(quant_hosp), 1));
     hosp_vals(kk+1:kk+length(quant_hosp), 5) = mat2cell(repmat('quantile', [length(quant_hosp) 1]), ones(length(quant_hosp), 1));
-    hosp_vals(kk+1:kk+length(quant_hosp), 6) = mat2cell(quant_hosp(:), ones(length(quant_hosp), 1));
-    hosp_vals(kk+1:kk+length(quant_hosp), 7) = mat2cell(sum(squeeze(quant_preds_hosp(cidx, jj, :)), 1)', ones(length(quant_hosp), 1));
+    hosp_vals(kk+1:kk+length(quant_hosp), 6) = compose('%g', quant_hosp(:));
+    hosp_vals(kk+1:kk+length(quant_hosp), 7) = compose('%.1f', nansum(squeeze(quant_preds_hosp(cidx, jj, :)), 1)');
     kk = kk+length(quant_hosp)+1;
 end
 
@@ -184,5 +228,5 @@ fullpath = [pathname dirname];
 if ~exist(fullpath, 'dir')
     mkdir(fullpath);
 end
-
+hosp_vals((strcmpi(hosp_vals(:, 7), 'nan')), :) = [];
 writecell(hosp_vals, [fullpath '/' prefix '_hosp_quants.csv']);
