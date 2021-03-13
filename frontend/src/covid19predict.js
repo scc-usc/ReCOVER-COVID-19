@@ -858,7 +858,7 @@ class Covid19Predict extends PureComponent {
                         />
                       </Form.Item>
                     </Popover>
-                    <Popover
+                    {/* <Popover
                       content={CONTROL_INSTRUCTIONS.socialDistancing}
                       placement="right"
                       visible={this.state.showControlInstructions}
@@ -882,7 +882,7 @@ class Covid19Predict extends PureComponent {
                           </Row>
                         </Checkbox.Group>
                       </Form.Item>
-                    </Popover>
+                    </Popover> */}
                   </Form>
                   <Form>
                     <Popover
