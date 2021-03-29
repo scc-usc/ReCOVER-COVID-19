@@ -9,8 +9,8 @@ function [Rt, Rt_conf] = calc_Rt(beta_cell, k_l, jp_l, sus_frac, beta_confs)
     end
     
     if nargin > 4
-        beta_min = cell(num_countries);
-        beta_max = cell(num_countries);
+        beta_min = cell(num_countries, 1);
+        beta_max = cell(num_countries, 1);
         for j=1:num_countries
            beta_min{j} = beta_confs{j}(:, 1);
            beta_max{j} = beta_confs{j}(:, 2);

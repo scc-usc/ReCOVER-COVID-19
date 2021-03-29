@@ -29,6 +29,8 @@ sel_url = 'https://raw.githubusercontent.com/govex/COVID-19/master/data_tables/v
 urlwrite(sel_url, 'dummy.csv');
 u_vacc_tab = readtable('dummy.csv');
 %%
+aidx = strcmp(u_vacc_tab.Vaccine_Type, 'All');
+u_vacc_tab(~aidx, :) = [];
 d_idx = days(u_vacc_tab.Date - datetime(2020, 1, 23));
 [~, cidx] = ismember(u_vacc_tab.Province_State, u_countries);
 u_vacc = nan(length(u_countries), max(d_idx));

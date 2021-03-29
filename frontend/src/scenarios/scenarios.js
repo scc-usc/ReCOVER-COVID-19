@@ -522,7 +522,7 @@ class Scenarios extends Component {
           </Row>
           <Row>
           Download formatted time-series data for all locations (Right-click-> Save As):
-          <a href="https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/G_vacc_num.csv" download target="_blank"> (1) People vaccinated with at least one dose
+          <a href="https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/G_vacc_person.csv" download target="_blank"> (1) People vaccinated with at least one dose
           </a>, 
           <a href="https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/G_vacc_full.csv" download target = "_blank"> (2) People vaccinated with full dose </a>.
           </Row>

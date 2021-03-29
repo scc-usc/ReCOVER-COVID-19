@@ -1,4 +1,4 @@
-function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, alpha_l, k_l, un_fact, popu, jp_l, ret_conf, compute_region, window_size)
+function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, alpha_l, k_l, un_fact, popu, jp_l, ret_conf, compute_region, window_size, extra_imm)
     
     maxt = size(data_4, 2);    
 
@@ -11,6 +11,14 @@ function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, a
     end
     
     if nargin < 10
+        window_size = maxt*ones(size(data_4, 1), 1); % By default, use all data to fit parameters
+    end
+    
+    if nargin < 11
+        extra_imm = zeros(size(data_4, 1), maxt); % By default, use all data to fit parameters
+    end
+    
+    if isempty(window_size)
         window_size = maxt*ones(size(data_4, 1), 1); % By default, use all data to fit parameters
     end
     
@@ -71,7 +79,7 @@ function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, a
         
         for t = skip_days+jk+1:maxt-1
             Ikt1 = deldata(j, t-jk:t-1);
-            S = (1-un_fact(j)*data_4(j,t)./popu(j));
+            S = (1-(extra_imm(j, t) + un_fact(j)*data_4(j,t))./popu(j));
             for kk=1:k
                 Ikt(kk) = S*sum(Ikt1((kk-1)*jp+1 : kk*jp), 2);
             end
