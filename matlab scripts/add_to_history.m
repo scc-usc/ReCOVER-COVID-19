@@ -13,7 +13,7 @@ if strcmpi(prefix, 'us') || strcmpi(prefix, 'global')
     ihme_countries = readcell(['ihme_' prefix '.txt']);
 else
     ihme_countries = countries;
-    infec_un_0 = infec_un_20; % The default is set to unreported factor 20 for "other" forecasts because we don't calculate the default
+    infec_un_0 = infec_un_20; % The default is set to be called _20 for "other" forecasts
     deaths_un_0 = deaths_un_20;
 end
 

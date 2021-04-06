@@ -20,12 +20,18 @@ try
     save us_hyperparam_latest.mat best_param_list MAPEtable_s best_death_hyperparam one_hyperparam;
     add_to_history;
     disp('Finished updating US forecasts');
-    
+
 catch thisErr
     fprintf('Error in US states forecasts\n');
     fprintf('%s\n', thisErr.message);
 end
-
+%% Update US forecasts based on variants
+try
+    us_new_case_forecasts;
+catch thisErr
+    fprintf('Error in US variant forecasts\n');
+    fprintf('%s\n', thisErr.message);
+end
 %% For Global
 clear;
 try
