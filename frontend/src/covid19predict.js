@@ -199,7 +199,7 @@ class Covid19Predict extends PureComponent {
         },
         () => {
           this.modelAPI.death_models(deathModels => {
-            for (let i = 6; i < deathModels.length; ++i) {
+            for (let i = 7; i < deathModels.length; ++i) {
               this.setState(prevState => ({
                 modelsList: [...prevState.modelsList, deathModels[i]],
               }));

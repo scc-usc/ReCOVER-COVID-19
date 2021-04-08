@@ -10,7 +10,7 @@ import csv
 
 # Static model predictions from other universities/research labs.
 class StaticForeignModel:
-    def __init__(self, 
+    def __init__(self,
                  us_death_prediction_url: str,
                  name: str,
                  description: str = ""):
@@ -18,65 +18,13 @@ class StaticForeignModel:
         self.name = name
         self.description = description
 
-STATIC_FOREIGN_MODELS = [
-    StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/CU-select/2020-09-27-CU-select.csv",
-        name="Columbia University - Select (US state level death prediction only)",
-        description="This metapopulation county-level SEIR model makes projections of future COVID-19 deaths. \
-        The predictions are provided by the Shaman Lab at Columbia University. \
-        More info on https://github.com/shaman-lab/COVID-19Projection."
-    ), 
-
-    StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/UCLA-SuEIR/2020-09-27-UCLA-SuEIR.csv",
-        name="UCLA - SuEIR (US state level death prediction only)",
-        description="The SuEIR model is a variant of the SEIR model considering both untested and unreported cases. \
-        The model takes reopening into consideration and assumes that the contact rate will increase after the reopen.\
-        The predictions are provided by the UCLA Statistical Machine Learning Lab. \
-        More info on https://github.com/reichlab/covid19-forecast-hub/tree/master/data-processed/UCLA-SuEIR."
-    ),
-    
-    StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/JHU_IDD-CovidSP/2020-09-27-JHU_IDD-CovidSP.csv",
-        name="JHU - IDD (US state level death prediction only)",
-        description="County-level metapopulation model with commuting and stochastic SEIR disease dynamics. \
-        The predictions are provided by the Johns Hopkins ID Dynamics COVID-19 Working Group. \
-        More info on https://github.com/HopkinsIDD/COVIDScenarioPipeline."
-    ), 
-
-    StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/Covid19Sim-Simulator/2020-09-27-Covid19Sim-Simulator.csv",
-        name="Covid19 Simulator (US state level death prediction only)",
-        description="An interactive tool developed by researchers at Mass General Hospital, \
-        Harvard Medical School, Georgia Tech and Boston Medical Center to inform COVID-19 intervention policy decisions in the US. \
-        More info on https://covid19sim.org/."
-    ), 
-
-    StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/YYG-ParamSearch/2020-09-27-YYG-ParamSearch.csv",
-        name="YYG - ParamSearch (US state level death prediction only)",
-        description="Based on the SEIR model to make daily projections regarding \
-        COVID-19 infections and deaths in 50 US states. The model accounts for \
-        state reopenings and its effects on infections and deaths. \
-        The model's contributor is Youyang Gu. \
-        More info on http://covid19-projections.com/about/."
-    ), 
-
-    StaticForeignModel(
-        us_death_prediction_url="https://raw.githubusercontent.com/reichlab/covid19-forecast-hub/master/data-processed/IowaStateLW-STEM/2020-09-27-IowaStateLW-STEM.csv",
-        name="Iowa State Lily Wang's Research Group - Spatiotemporal Epidemic Modeling (US state level death prediction only)",
-        description="A COVID19 forecast project led by Lily Wang in Iowa State University. \
-        They study on a nonparametric space-time disease transmission model for the epidemic data. \
-        More info on https://covid19.stat.iastate.edu."
-    ), 
-    
-]
+STATIC_FOREIGN_MODELS = []
 
 
 def load_csv(apps, url, state_mapping):
     """
-    Reads the given csv url and <state id, state name> mapping, 
-    returns a list of Covid19PredictionDataPoint objects. 
+    Reads the given csv url and <state id, state name> mapping,
+    returns a list of Covid19PredictionDataPoint objects.
     Only the date, area, and val fields on the objects are set. Note
     that the objects have not been saved into the database yet.
     :param apps: Django apps object.
@@ -150,7 +98,7 @@ def load_csv(apps, url, state_mapping):
                 msg += ' in model_api_area. Skip this area.'
                 print(msg)
                 continue
-            
+
             raw_date = row[date_col]
             date = datetime.datetime(*[int(item) for item in raw_date.split('-')])
 
@@ -158,12 +106,12 @@ def load_csv(apps, url, state_mapping):
             raw_val = row[value_col]
             if raw_val in ['NaN', '-Inf', 'Inf']:
                 continue
-            
+
             # Skip negative values.
             val = int(float(raw_val))
             if val < 0:
                 continue
-            
+
             data.append(Covid19PredictionDataPoint(
                 area=area,
                 date=date,
@@ -178,11 +126,11 @@ def load_csv(apps, url, state_mapping):
     except urllib.error.URLError as urle:
         print("A URLError is found when loading data from" + url)
         return []
-    
+
 
 def load_state_mapping(apps):
     """
-    Return a mapping of <state id, state name> from 
+    Return a mapping of <state id, state name> from
     https://github.com/reichlab/covid19-forecast-hub/blob/master/data-locations/locations.csv.
     """
     try:
@@ -190,7 +138,7 @@ def load_state_mapping(apps):
         f = io.StringIO(urllib.request.urlopen(MAPPING_CSV_URL).read().decode('utf-8'))
         reader = csv.reader(f)
         state_mapping = {}
-        
+
         # Skip first two lines
         next(reader)
         next(reader)
@@ -203,9 +151,9 @@ def load_state_mapping(apps):
             state_id = int(row[1])
             state_name = row[2]
             state_mapping[state_id] = state_name
-        
+
         return state_mapping
-    
+
     except urllib.error.HTTPError as httpe:
         print("A HttpError is found when loading state_ids and states mapping.")
         raise
@@ -223,7 +171,7 @@ def load_covid19_foreign_predictions(apps, schema_editor):
     state_mapping = load_state_mapping(apps)
     for static_model in STATIC_FOREIGN_MODELS:
         print("Loading model: " + static_model.name)
-    
+
         # Create an entry for the model in the database.
         covid19_model = Covid19Model(
             name=static_model.name,
@@ -242,7 +190,7 @@ def load_covid19_foreign_predictions(apps, schema_editor):
                     model=p.model,
                     social_distancing=p.social_distancing,
                     area=p.area,
-                    date=p.date 
+                    date=p.date
                 ).count() == 1:
                 continue
             p.save()
