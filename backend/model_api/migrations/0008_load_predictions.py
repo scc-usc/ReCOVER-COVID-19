@@ -39,107 +39,107 @@ STATIC_MODELS = [
         description="The default version of the SI-kJalpha model, \
         the model calculates the under-reporting ratio based on the training data."
     ),
-    StaticModel(
-        quarantined_prediction_paths=[
-            "../results/forecasts/global_forecasts_current_1.csv",
-            "../results/forecasts/us_forecasts_current_1.csv"
-        ],
-        released_prediction_paths=[
-            "../results/forecasts/global_forecasts_released_1.csv",
-            "../results/forecasts/us_forecasts_released_1.csv"
-        ],
-        restricted_prediction_paths=[
-            "../results/forecasts/global_forecasts_restricted_1.csv",
-            "../results/forecasts/us_forecasts_restricted_1.csv"
-        ],
-        name="SI-kJalpha - No under-reported",
-        description="The SI-kJalpha model with no assumptions about under-reporting positive cases."
-    ),
+    # StaticModel(
+    #     quarantined_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_current_1.csv",
+    #         "../results/forecasts/us_forecasts_current_1.csv"
+    #     ],
+    #     released_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_released_1.csv",
+    #         "../results/forecasts/us_forecasts_released_1.csv"
+    #     ],
+    #     restricted_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_restricted_1.csv",
+    #         "../results/forecasts/us_forecasts_restricted_1.csv"
+    #     ],
+    #     name="SI-kJalpha - No under-reported",
+    #     description="The SI-kJalpha model with no assumptions about under-reporting positive cases."
+    # ),
 
-    StaticModel(
-        quarantined_prediction_paths=[
-            "../results/forecasts/global_forecasts_current_2.csv",
-            "../results/forecasts/us_forecasts_current_2.csv"
-        ],
-        released_prediction_paths=[
-            "../results/forecasts/global_forecasts_released_2.csv",
-            "../results/forecasts/us_forecasts_released_2.csv"
-        ],
-        restricted_prediction_paths=[
-            "../results/forecasts/global_forecasts_restricted_2.csv",
-            "../results/forecasts/us_forecasts_restricted_2.csv"
-        ],
-        name="SI-kJalpha - 2x",
-        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 2x."
-    ),
+    # StaticModel(
+    #     quarantined_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_current_2.csv",
+    #         "../results/forecasts/us_forecasts_current_2.csv"
+    #     ],
+    #     released_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_released_2.csv",
+    #         "../results/forecasts/us_forecasts_released_2.csv"
+    #     ],
+    #     restricted_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_restricted_2.csv",
+    #         "../results/forecasts/us_forecasts_restricted_2.csv"
+    #     ],
+    #     name="SI-kJalpha - 2x",
+    #     description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 2x."
+    # ),
 
-    StaticModel(
-        quarantined_prediction_paths=[
-            "../results/forecasts/global_forecasts_current_5.csv",
-            "../results/forecasts/us_forecasts_current_5.csv"
-        ],
-        released_prediction_paths=[
-            "../results/forecasts/global_forecasts_released_5.csv",
-            "../results/forecasts/us_forecasts_released_5.csv"
-        ],
-        restricted_prediction_paths=[
-            "../results/forecasts/global_forecasts_restricted_5.csv",
-            "../results/forecasts/us_forecasts_restricted_5.csv"
-        ],
-        name="SI-kJalpha - 5x",
-        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 5x."
-    ),
+    # StaticModel(
+    #     quarantined_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_current_5.csv",
+    #         "../results/forecasts/us_forecasts_current_5.csv"
+    #     ],
+    #     released_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_released_5.csv",
+    #         "../results/forecasts/us_forecasts_released_5.csv"
+    #     ],
+    #     restricted_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_restricted_5.csv",
+    #         "../results/forecasts/us_forecasts_restricted_5.csv"
+    #     ],
+    #     name="SI-kJalpha - 5x",
+    #     description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 5x."
+    # ),
 
-    StaticModel(
-        quarantined_prediction_paths=[
-            "../results/forecasts/global_forecasts_current_10.csv",
-            "../results/forecasts/us_forecasts_current_10.csv"
-        ],
-        released_prediction_paths=[
-            "../results/forecasts/global_forecasts_released_10.csv",
-            "../results/forecasts/us_forecasts_released_10.csv"
-        ],
-        restricted_prediction_paths=[
-            "../results/forecasts/global_forecasts_restricted_10.csv",
-            "../results/forecasts/us_forecasts_restricted_10.csv"
-        ],
-        name="SI-kJalpha - 10x",
-        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 10x."
-    ),
+    # StaticModel(
+    #     quarantined_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_current_10.csv",
+    #         "../results/forecasts/us_forecasts_current_10.csv"
+    #     ],
+    #     released_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_released_10.csv",
+    #         "../results/forecasts/us_forecasts_released_10.csv"
+    #     ],
+    #     restricted_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_restricted_10.csv",
+    #         "../results/forecasts/us_forecasts_restricted_10.csv"
+    #     ],
+    #     name="SI-kJalpha - 10x",
+    #     description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 10x."
+    # ),
 
-    StaticModel(
-        quarantined_prediction_paths=[
-            "../results/forecasts/global_forecasts_current_20.csv",
-            "../results/forecasts/us_forecasts_current_20.csv"
-        ],
-        released_prediction_paths=[
-            "../results/forecasts/global_forecasts_released_20.csv",
-            "../results/forecasts/us_forecasts_released_20.csv"
-        ],
-        restricted_prediction_paths=[
-            "../results/forecasts/global_forecasts_restricted_20.csv",
-            "../results/forecasts/us_forecasts_restricted_20.csv"
-        ],
-        name="SI-kJalpha - 20x",
-        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 20x."
-    ),
+    # StaticModel(
+    #     quarantined_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_current_20.csv",
+    #         "../results/forecasts/us_forecasts_current_20.csv"
+    #     ],
+    #     released_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_released_20.csv",
+    #         "../results/forecasts/us_forecasts_released_20.csv"
+    #     ],
+    #     restricted_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_restricted_20.csv",
+    #         "../results/forecasts/us_forecasts_restricted_20.csv"
+    #     ],
+    #     name="SI-kJalpha - 20x",
+    #     description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 20x."
+    # ),
 
-    StaticModel(
-        quarantined_prediction_paths=[
-            "../results/forecasts/global_forecasts_current_40.csv",
-            "../results/forecasts/us_forecasts_current_40.csv"
-        ],
-        released_prediction_paths=[
-            "../results/forecasts/global_forecasts_released_40.csv",
-            "../results/forecasts/us_forecasts_released_40.csv"
-        ],
-        restricted_prediction_paths=[
-            "../results/forecasts/global_forecasts_restricted_40.csv",
-            "../results/forecasts/us_forecasts_restricted_40.csv"
-        ],
-        name="SI-kJalpha - 40x",
-        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 40x."
-    ),
+    # StaticModel(
+    #     quarantined_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_current_40.csv",
+    #         "../results/forecasts/us_forecasts_current_40.csv"
+    #     ],
+    #     released_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_released_40.csv",
+    #         "../results/forecasts/us_forecasts_released_40.csv"
+    #     ],
+    #     restricted_prediction_paths=[
+    #         "../results/forecasts/global_forecasts_restricted_40.csv",
+    #         "../results/forecasts/us_forecasts_restricted_40.csv"
+    #     ],
+    #     name="SI-kJalpha - 40x",
+    #     description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 40x."
+    # ),
 ]
 
 STATIC_DEATH_MODELS = [
@@ -161,107 +161,107 @@ STATIC_DEATH_MODELS = [
         the model calculates the under-reporting ratio based on the training data."
     ),
 
-    StaticModel(
-        quarantined_prediction_paths=[
-            "../results/forecasts/global_deaths_current_1.csv",
-            "../results/forecasts/us_deaths_current_1.csv"
-        ],
-        released_prediction_paths=[
-            "../results/forecasts/global_deaths_released_1.csv",
-            "../results/forecasts/us_deaths_released_1.csv"
-        ],
-        restricted_prediction_paths=[
-            "../results/forecasts/global_deaths_restricted_1.csv",
-            "../results/forecasts/us_deaths_restricted_1.csv"
-        ],
-        name="SI-kJalpha - No under-reported (death prediction)",
-        description="The SI-kJalpha model with no assumptions about under-reporting positive cases."
-    ),
+    # StaticModel(
+    #     quarantined_prediction_paths=[
+    #         "../results/forecasts/global_deaths_current_1.csv",
+    #         "../results/forecasts/us_deaths_current_1.csv"
+    #     ],
+    #     released_prediction_paths=[
+    #         "../results/forecasts/global_deaths_released_1.csv",
+    #         "../results/forecasts/us_deaths_released_1.csv"
+    #     ],
+    #     restricted_prediction_paths=[
+    #         "../results/forecasts/global_deaths_restricted_1.csv",
+    #         "../results/forecasts/us_deaths_restricted_1.csv"
+    #     ],
+    #     name="SI-kJalpha - No under-reported (death prediction)",
+    #     description="The SI-kJalpha model with no assumptions about under-reporting positive cases."
+    # ),
 
-    StaticModel(
-        quarantined_prediction_paths=[
-            "../results/forecasts/global_deaths_current_2.csv",
-            "../results/forecasts/us_deaths_current_2.csv"
-        ],
-        released_prediction_paths=[
-            "../results/forecasts/global_deaths_released_2.csv",
-            "../results/forecasts/us_deaths_released_2.csv"
-        ],
-        restricted_prediction_paths=[
-            "../results/forecasts/global_deaths_restricted_2.csv",
-            "../results/forecasts/us_deaths_restricted_2.csv"
-        ],
-        name="SI-kJalpha - 2x (death prediction)",
-        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 2x."
-    ),
+    # StaticModel(
+    #     quarantined_prediction_paths=[
+    #         "../results/forecasts/global_deaths_current_2.csv",
+    #         "../results/forecasts/us_deaths_current_2.csv"
+    #     ],
+    #     released_prediction_paths=[
+    #         "../results/forecasts/global_deaths_released_2.csv",
+    #         "../results/forecasts/us_deaths_released_2.csv"
+    #     ],
+    #     restricted_prediction_paths=[
+    #         "../results/forecasts/global_deaths_restricted_2.csv",
+    #         "../results/forecasts/us_deaths_restricted_2.csv"
+    #     ],
+    #     name="SI-kJalpha - 2x (death prediction)",
+    #     description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 2x."
+    # ),
 
-    StaticModel(
-        quarantined_prediction_paths=[
-            "../results/forecasts/global_deaths_current_5.csv",
-            "../results/forecasts/us_deaths_current_5.csv"
-        ],
-        released_prediction_paths=[
-            "../results/forecasts/global_deaths_released_5.csv",
-            "../results/forecasts/us_deaths_released_5.csv"
-        ],
-        restricted_prediction_paths=[
-            "../results/forecasts/global_deaths_restricted_5.csv",
-            "../results/forecasts/us_deaths_restricted_5.csv"
-        ],
-        name="SI-kJalpha - 5x (death prediction)",
-        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 5x."
-    ),
+    # StaticModel(
+    #     quarantined_prediction_paths=[
+    #         "../results/forecasts/global_deaths_current_5.csv",
+    #         "../results/forecasts/us_deaths_current_5.csv"
+    #     ],
+    #     released_prediction_paths=[
+    #         "../results/forecasts/global_deaths_released_5.csv",
+    #         "../results/forecasts/us_deaths_released_5.csv"
+    #     ],
+    #     restricted_prediction_paths=[
+    #         "../results/forecasts/global_deaths_restricted_5.csv",
+    #         "../results/forecasts/us_deaths_restricted_5.csv"
+    #     ],
+    #     name="SI-kJalpha - 5x (death prediction)",
+    #     description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 5x."
+    # ),
 
-    StaticModel(
-        quarantined_prediction_paths=[
-            "../results/forecasts/global_deaths_current_10.csv",
-            "../results/forecasts/us_deaths_current_10.csv"
-        ],
-        released_prediction_paths=[
-            "../results/forecasts/global_deaths_released_10.csv",
-            "../results/forecasts/us_deaths_released_10.csv"
-        ],
-        restricted_prediction_paths=[
-            "../results/forecasts/global_deaths_restricted_10.csv",
-            "../results/forecasts/us_deaths_restricted_10.csv"
-        ],
-        name="SI-kJalpha - 10x (death prediction)",
-        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 10x."
-    ),
+    # StaticModel(
+    #     quarantined_prediction_paths=[
+    #         "../results/forecasts/global_deaths_current_10.csv",
+    #         "../results/forecasts/us_deaths_current_10.csv"
+    #     ],
+    #     released_prediction_paths=[
+    #         "../results/forecasts/global_deaths_released_10.csv",
+    #         "../results/forecasts/us_deaths_released_10.csv"
+    #     ],
+    #     restricted_prediction_paths=[
+    #         "../results/forecasts/global_deaths_restricted_10.csv",
+    #         "../results/forecasts/us_deaths_restricted_10.csv"
+    #     ],
+    #     name="SI-kJalpha - 10x (death prediction)",
+    #     description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 10x."
+    # ),
 
-    StaticModel(
-        quarantined_prediction_paths=[
-            "../results/forecasts/global_deaths_current_20.csv",
-            "../results/forecasts/us_deaths_current_20.csv"
-        ],
-        released_prediction_paths=[
-            "../results/forecasts/global_deaths_released_20.csv",
-            "../results/forecasts/us_deaths_released_20.csv"
-        ],
-        restricted_prediction_paths=[
-            "../results/forecasts/global_deaths_restricted_20.csv",
-            "../results/forecasts/us_deaths_restricted_20.csv"
-        ],
-        name="SI-kJalpha - 20x (death prediction)",
-        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 20x."
-    ),
+    # StaticModel(
+    #     quarantined_prediction_paths=[
+    #         "../results/forecasts/global_deaths_current_20.csv",
+    #         "../results/forecasts/us_deaths_current_20.csv"
+    #     ],
+    #     released_prediction_paths=[
+    #         "../results/forecasts/global_deaths_released_20.csv",
+    #         "../results/forecasts/us_deaths_released_20.csv"
+    #     ],
+    #     restricted_prediction_paths=[
+    #         "../results/forecasts/global_deaths_restricted_20.csv",
+    #         "../results/forecasts/us_deaths_restricted_20.csv"
+    #     ],
+    #     name="SI-kJalpha - 20x (death prediction)",
+    #     description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 20x."
+    # ),
 
-    StaticModel(
-        quarantined_prediction_paths=[
-            "../results/forecasts/global_deaths_current_40.csv",
-            "../results/forecasts/us_deaths_current_40.csv"
-        ],
-        released_prediction_paths=[
-            "../results/forecasts/global_deaths_released_40.csv",
-            "../results/forecasts/us_deaths_released_40.csv"
-        ],
-        restricted_prediction_paths=[
-            "../results/forecasts/global_deaths_restricted_40.csv",
-            "../results/forecasts/us_deaths_restricted_40.csv"
-        ],
-        name="SI-kJalpha - 40x (death prediction)",
-        description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 40x."
-    ),
+    # StaticModel(
+    #     quarantined_prediction_paths=[
+    #         "../results/forecasts/global_deaths_current_40.csv",
+    #         "../results/forecasts/us_deaths_current_40.csv"
+    #     ],
+    #     released_prediction_paths=[
+    #         "../results/forecasts/global_deaths_released_40.csv",
+    #         "../results/forecasts/us_deaths_released_40.csv"
+    #     ],
+    #     restricted_prediction_paths=[
+    #         "../results/forecasts/global_deaths_restricted_40.csv",
+    #         "../results/forecasts/us_deaths_restricted_40.csv"
+    #     ],
+    #     name="SI-kJalpha - 40x (death prediction)",
+    #     description="The SI-kJalpha model with the assumption that observed positive cases are under-reported by 40x."
+    # ),
 ]
 
 

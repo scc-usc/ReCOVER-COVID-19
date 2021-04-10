@@ -829,7 +829,7 @@ class Covid19Predict extends PureComponent {
                         ]}
                       >
                         <Select
-                          mode="multiple"
+                          mode="single"
                           style={{ width: "100%" }}
                           placeholder="Select Prediction Models"
                         >
