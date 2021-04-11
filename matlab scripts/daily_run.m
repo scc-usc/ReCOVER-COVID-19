@@ -27,6 +27,7 @@ catch thisErr
 end
 %% Update US forecasts based on variants
 try
+    clear;
     us_new_case_forecasts;
 catch thisErr
     fprintf('Error in US variant forecasts\n');

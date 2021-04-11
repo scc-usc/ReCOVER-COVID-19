@@ -46,7 +46,7 @@ variant_fact(~sel_idx_bool, :) = repmat(nanmedian(variant_fact(cid, :), 1), [sum
 
 %% Prepare vaccine data
 xx = load('vacc_data.mat');
-latest_vac = xx.u_vacc(:, thisday) - xx.u_vacc_full(:, thisday);
+latest_vac = xx.u_vacc(:, end) - xx.u_vacc_full(:, end);
 nidx = isnan(latest_vac); latest_vac(nidx) = popu(nidx).*(mean(latest_vac(~nidx))/mean(popu(~nidx)));
 vacc_lag_rate = ones(length(popu), 14);
 vacc_ad_dist(:) = 1; % This round specifies administration, rather than distribution. No need to model distribution rates
