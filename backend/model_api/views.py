@@ -132,8 +132,8 @@ def death_models(request):
 def predict(request):
     """
     This endpoint handles predicting the data for a specific area over some number
-    of days in the future. The expected query params are "country", "state" and "days", 
-    and the response is a list of data points, each represented as custom objects containing 
+    of days in the future. The expected query params are "country", "state" and "days",
+    and the response is a list of data points, each represented as custom objects containing
     the date of infection, the value, and source (a string indicating whether this data point was
     predicted by our model or is from observed data) in a given number of future days.
     """
@@ -393,12 +393,12 @@ def predict_all(request):
     # mean = sum([d.val for d in qs])/len(qs)
     # var = sum([(d.val-mean)**2 for d in qs])/len(qs)
     # min_norm = (min([d.val for d in qs]) - mean)/var
-    greatest_model = Covid19Model.objects.get(name="SI-kJalpha - 40x")
+    greatest_model = Covid19Model.objects.get(name="SI-kJalpha - Default")
     greatest_predictions = Covid19PredictionDataPoint.objects.filter(model=greatest_model)
     greatest_predictions = greatest_predictions.filter(date=greatest_predictions.last().date, social_distancing=1)
     greatest_vals = [d.val for d in greatest_predictions]
     max_val = max(greatest_vals)
-    greatest_death_model = Covid19Model.objects.get(name="SI-kJalpha - 40x (death prediction)")
+    greatest_death_model = Covid19Model.objects.get(name="SI-kJalpha - Default")
     greatest_death_predictions = Covid19PredictionDataPoint.objects.filter(model=greatest_death_model)
     greatest_death_predictions = greatest_death_predictions.filter(date=greatest_death_predictions.last().date,
                                                                    social_distancing=1)
@@ -424,9 +424,9 @@ def predict_all(request):
 @api_view(["GET"])
 def scores(request):
     """
-    This endpoint will return a list of quarantine score data points of 
-    for a specific area from 2020-3-11 to a given date. The expected 
-    query params are "country", "state" and "weeks" where "weeks" denoting 
+    This endpoint will return a list of quarantine score data points of
+    for a specific area from 2020-3-11 to a given date. The expected
+    query params are "country", "state" and "weeks" where "weeks" denoting
     the number of weeks after 2020-3-11.
     """
     country = request.query_params.get("country")
@@ -484,8 +484,8 @@ def scores(request):
 @api_view(["GET"])
 def scores_all(request):
     """
-    This endpoint will return a list of quarantine score data points 
-    for all areas in a given date. The query param contains "weeks" and 
+    This endpoint will return a list of quarantine score data points
+    for all areas in a given date. The query param contains "weeks" and
     "weeks" denote the number of weeks after 2020-3-11.
     """
     weeks = int(float(request.query_params.get("weeks")))
@@ -507,7 +507,7 @@ def scores_all(request):
         'conf': d.conf
 
     } for d in quarantine_scores]
-    
+
     return Response(response)
 
 @api_view(['GET'])

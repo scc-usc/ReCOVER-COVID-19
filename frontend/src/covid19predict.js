@@ -122,7 +122,7 @@ class Covid19Predict extends PureComponent {
       best_effort: false,
       mainGraphData: {},
       mainGraphDataShown: {},
-      days: 14,
+      days: 49,
       dynamicMapOn: true,
       perMillion: false,
       dataType: ["confirmed"],
