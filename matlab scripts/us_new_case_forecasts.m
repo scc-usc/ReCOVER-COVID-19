@@ -52,7 +52,7 @@ vacc_lag_rate = ones(length(popu), 14);
 vacc_ad_dist(:) = 1; % This round specifies administration, rather than distribution. No need to model distribution rates
 u_vacc_fd = xx.u_vacc(:, 1:end) - xx.u_vacc_full(:, 1:end); 
 u_vacc_fd = fillmissing(u_vacc_fd, 'linear'); u_vacc_fd(isnan(u_vacc_fd)) = 0;
-u_vacc_fd = [zeros(size(data_4, 1), size(data_4, 1)-size(u_vacc_fd, 1)), u_vacc_fd];
+u_vacc_fd = [zeros(size(data_4, 1), size(data_4, 2)-size(u_vacc_fd, 2)), u_vacc_fd];
 latest_vac = xx.u_vacc(:, end) - xx.u_vacc_full(:, end);
 %% Assume future vaccination rates
 vacc_monthly = 55000000;
