@@ -1,6 +1,7 @@
 % Get from 
 % https://healthdata.gov/dataset/covid-19-reported-patient-impact-and-hospital-capacity-state-timeseries
-sel_url = 'https://healthdata.gov/sites/default/files/reported_hospital_utilization_timeseries_20210306_1105.csv';
+%sel_url = 'https://healthdata.gov/sites/default/files/reported_hospital_utilization_timeseries_20210306_1105.csv';
+sel_url = 'https://healthdata.gov/api/views/g62h-syeh/rows.csv?accessType=DOWNLOAD';
 urlwrite(sel_url, 'dummy.csv');
 hosp_tab = readtable('dummy.csv');
 %% Load case data
@@ -37,7 +38,7 @@ for idx = 1:size(hosp_tab, 1)
     if isempty(cid)
         disp(['Error at ' num2str(idx)]);
     end
-    date_idx = days(hosp_tab.date(idx) - datetime(2020, 1, 23));
+    date_idx = days(datetime(hosp_tab.date(idx), 'InputFormat', 'yyyy/MM/dd') - datetime(2020, 1, 23));
     
     if date_idx < 1
         continue;
@@ -63,12 +64,22 @@ placenames = xx{2:end, 2};
 popu = load('us_states_population_data.txt');
 
 %% 
+CDC_sero;
+
+un_ts = fillmissing(un_ts(:, 1:thisday), 'previous', 2); un_ts(un_ts<1) = 1;
+un_lts = fillmissing(un_lts(:, 1:thisday), 'previous', 2); un_lts(un_lts<1) = 1;
+un_uts = fillmissing(un_uts(:, 1:thisday), 'previous', 2);
+un_array = [un_lts(:, end), un_ts(:, end), un_uts(:, end)];
+un_array(isnan(un_array)) = 1; un_array(isnan(un_array)) = 1;
+un = un_array(:, 2);
+
+%%
 smooth_factor = 14;
-data_4_s = smooth_epidata(data_4(:, 1:maxt), smooth_factor);
+data_4_s = smooth_epidata(data_4(:, :), smooth_factor);
 hosp_cumu_s = smooth_epidata(hosp_cumu(:, 1:T_full), smooth_factor);
 
 % Redefine hyper-parameter ranges, no need to enforce lag
-dkrange = (1:4); djprange = 7; dwin = [25 50 100]; lag_range = (1:3);
+dkrange = (1:4); djprange = 7; dwin = [50 100]; lag_range = (1:3);
 [X, Y, Z, A] = ndgrid(dkrange, djprange, dwin, lag_range);
 param_list = [X(:), Y(:), Z(:), A(:)];
 idx = (param_list(:, 1).*param_list(:, 2) <=21) & (param_list(:, 3) > param_list(:, 1).*param_list(:, 2)) & (param_list(:, 1) - param_list(:, 4))>0;
@@ -86,7 +97,7 @@ hosp_data_limit = T_full;
 [hosp_rates] = var_ind_deaths(data_4_s(:, 1:T_full), hosp_cumu_s, dalpha, dk, djp, dwin, 0, popu > -1, lags);
 disp('trained hospitalizations');
 
-infec_data = [data_4_s pred_cases-data_4(:, maxt)+data_4_s(:, maxt)];
+infec_data = [data_4_s (pred_cases-data_4(:,end)+data_4_s(:, end))];
 base_hosp = hosp_cumu(:, maxt);
 [pred_hosps] = var_simulate_deaths(infec_data, hosp_rates, dk, djp, dhorizon, base_hosp, T_full-1);
 pred_base_hosp = pred_hosps(:, maxt-T_full+1);
@@ -97,8 +108,8 @@ disp('predicted hospitalizations');
 save us_hospitalization hosp_cumu hosp_cumu_s best_hosp_hyperparam hosp_rates pred_hosps hosp_data_limit fips;
 %% We generate multiple sub-scenarios and sample to get quantiles
 
-un_list = 1:0.2:2;
-lags_list = 0:7:28;
+un_list = [1 2 3];
+lags_list = 0:7:14;
 
 hk = best_hosp_hyperparam(:, 1);
 hjp = best_hosp_hyperparam(:, 2);
@@ -120,7 +131,7 @@ net_hosp_A = zeros(size(scen_list, 1)*length(lags_list), size(data_4, 1), horizo
 
 
 for simnum = 1:size(scen_list, 1)
-    un = scen_list(simnum, 1);
+    un = un_array(:, scen_list(simnum, 1));
     lags = scen_list(simnum, 2);
     beta_after = var_ind_beta_un(data_4_s(:, 1:end-lags), 0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, popu>-1);
     
@@ -128,7 +139,7 @@ for simnum = 1:size(scen_list, 1)
     base_infec = data_4(:, end);
     infec_un1 = var_simulate_pred_un(data_4_s(:, 1:end), 0, beta_after, popu, best_param_list(:, 1), horizon, best_param_list(:, 2), un, base_infec);
     infec_dat = [data_4_s(:, 1:end), infec_un1-base_infec+data_4_s(:, end)];
-    net_infec_A(simnum, :, :) = infec_un1;
+    net_infec_A(simnum, :, :) = pred_cases(:, 1:horizon); %infec_un1;
 
     % Hosp
     for jj = 1:length(hosp_rates_list)
@@ -164,8 +175,7 @@ for cid = 1:length(popu)
 end
 quant_preds_hosp = (quant_preds_hosp+abs(quant_preds_hosp))./2;
 %% Plot
-cid = 3;
-sel_idx = cid;
+sel_idx = 27;
 % plot((1:size(data_4, 2)), hosp_dat(cid, :)); hold on;
 % plot((T_full+1:T_full+size(pred_new_hosps, 2)), pred_new_hosps(cid, :)); hold off;
 

@@ -21,14 +21,24 @@ xx = readtable([fullpath '/' prefix '_forecasts_cases.csv']); pred_cases = table
 xx = readtable([fullpath '/' prefix '_forecasts_deaths.csv']); pred_deaths = table2array(xx(2:end, 3:end));
 placenames = xx{2:end, 2};
 
+%%
+CDC_sero;
+
+un_ts = fillmissing(un_ts(:, 1:thisday), 'previous', 2); un_ts(un_ts<1) = 1;
+un_lts = fillmissing(un_lts(:, 1:thisday), 'previous', 2); un_lts(un_lts<1) = 1;
+un_uts = fillmissing(un_uts(:, 1:thisday), 'previous', 2);
+un_array = [un_lts(:, end), un_ts(:, end), un_uts(:, end)];
+un_array(isnan(un_array)) = 1; un_array(isnan(un_array)) = 1;
+un = un_array(:, 2);
+
 %% Generate various samples
 smooth_factor = 14;
 T_full = size(data_4, 2);
 data_4_s = smooth_epidata(data_4, smooth_factor);
 deaths_s = smooth_epidata(deaths, smooth_factor);
 rate_smooth = 1;
-un_list = 1.1:0.1:1.5;
-lags_list = 0:7:21;
+un_list = [1 2 3];
+lags_list = 0:7:7;
 horizon = 100;
 dk = best_death_hyperparam(:, 1);
 djp = best_death_hyperparam(:, 2);
@@ -49,7 +59,7 @@ net_death_A = zeros(size(scen_list, 1)*length(lags_list), size(data_4, 1), horiz
 
 
 for simnum = 1:size(scen_list, 1)
-    un = scen_list(simnum, 1);
+    un = un_array(:, scen_list(simnum, 1));
     lags = scen_list(simnum, 2);
     beta_after = var_ind_beta_un(data_4_s(:, 1:end-lags), 0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, popu>-1);
     
@@ -77,7 +87,7 @@ for simnum = 1:size(scen_list, 1)
 end
 fprintf('\n');
 %% Data correction (for delayed forecasting)
-T_corr = 0;
+T_corr = 1;
 if T_corr > 0
     pred_cases_orig = pred_cases; pred_deaths_orig = pred_deaths;
     data_orig = data_4; deaths_orig = deaths;
@@ -100,8 +110,8 @@ for cid = 1:length(popu)
     thisdata = squeeze(net_infec_A(:, cid, :));
     thisdata(all(thisdata==0, 2), :) = [];
     thisdata = diff(thisdata(:, 1:7:num_ahead)')';
-%     dt = data_4_s; gt_lidx = size(dt, 2); extern_dat = diff(dt(cid, gt_lidx-14:7:gt_lidx))';
-%     thisdata = [thisdata; repmat(extern_dat, [10 size(thisdata, 2)])];
+    dt = data_4; gt_lidx = size(dt, 2); extern_dat = diff(dt(cid, gt_lidx-7:7:gt_lidx))';
+    thisdata = [thisdata; repmat(extern_dat, [1 size(thisdata, 2)])];
     thisdata = repmat(thisdata, [5 1]);
     quant_preds_cases(cid, :, :) = movmean(quantile(thisdata, quant_cases)', 5, 1);
     adjust_quants = (squeeze(quant_preds_cases(cid, :, med_idx_c)) - mean_preds_cases(cid, :));
@@ -110,8 +120,8 @@ for cid = 1:length(popu)
     thisdata = squeeze(net_death_A(:, cid, :));
     thisdata(all(thisdata==0, 2), :) = [];
     thisdata = diff(thisdata(:, 1:7:num_ahead)')';
-%     dt = deaths_s; gt_lidx = size(dt, 2); extern_dat = diff(dt(cid, gt_lidx-14:7:gt_lidx))';
-%     thisdata = [thisdata; repmat(extern_dat, [10 size(thisdata, 2)])];
+    dt = deaths; gt_lidx = size(dt, 2); extern_dat = diff(dt(cid, gt_lidx-7:7:gt_lidx))';
+    thisdata = [thisdata; repmat(extern_dat, [1 size(thisdata, 2)])];
     thisdata = repmat(thisdata, [5 1]);
     quant_preds_deaths(cid, :, :) = movmean(quantile(thisdata, quant_deaths)', 5, 1);
     adjust_quants = (squeeze(quant_preds_deaths(cid, :, med_idx_d)) - mean_preds_deaths(cid, :));
@@ -122,11 +132,12 @@ quant_preds_cases = (quant_preds_cases + abs(quant_preds_cases))/2;
 quant_preds_deaths = (quant_preds_deaths + abs(quant_preds_deaths))/2;
 
 %% Plot
-sel_idx = 1:56; sel_idx = contains(countries, 'Alaska');
+cidx = 1:56;
+sel_idx = 38; %sel_idx = contains(countries, 'Washington');
 dt = deaths(cidx, :);
 dts = deaths_s(cidx, :);
 thisquant = squeeze(nansum(quant_preds_deaths(sel_idx, :, [1 12 23]), 1));
-gt_len = 20;
+gt_len = 50;
 gt_lidx = size(dt, 2); gt_idx = (gt_lidx-gt_len*7:7:gt_lidx);
 gt = diff(nansum(dt(sel_idx, gt_idx), 1))';
 gts = diff(nansum(dts(sel_idx, gt_idx), 1))';
@@ -139,7 +150,7 @@ title(['Deaths']);
 
 figure;
 dt = data_4(cidx, :);
-thisquant = squeeze(nansum(quant_preds_cases(sel_idx, :, :), 1));
+thisquant = squeeze(nansum(quant_preds_cases(sel_idx, :, [1 4 7]), 1));
 gt_lidx = size(dt, 2); gt_idx = (gt_lidx-gt_len*7:7:gt_lidx);
 gt = nansum(diff(dt(sel_idx, gt_idx)'), 2);
 point_forecast = num2cell([(gt_len+1:gt_len+size(thisquant, 1))' mean_preds_cases(sel_idx, :)']);

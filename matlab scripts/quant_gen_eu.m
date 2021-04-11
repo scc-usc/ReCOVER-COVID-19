@@ -44,8 +44,8 @@ T_full = size(data_4, 2);
 data_4_s = smooth_epidata(data_4, smooth_factor);
 deaths_s = smooth_epidata(deaths, smooth_factor);
 rate_smooth = 1;
-un_list = 1:0.2:2;
-lags_list = 0:7:28;
+un_list = 1.5:0.2:2.5;
+lags_list = 0:7:14;
 horizon = 56;
 dk = best_death_hyperparam(:, 1);
 djp = best_death_hyperparam(:, 2);
@@ -142,7 +142,7 @@ quant_preds_deaths = (quant_preds_deaths + abs(quant_preds_deaths))/2;
 plot_check = 1;
 
 if plot_check > 0
-    sel_idx = 61; sel_idx = contains(countries, 'Italy');
+    sel_idx = 61; sel_idx = contains(countries, 'Germany');
     dt = deaths;
     dts = deaths_s;
     thisquant = squeeze(nansum(quant_preds_deaths(sel_idx, :, [1 12 23]), 1));
@@ -159,7 +159,7 @@ if plot_check > 0
     
     figure;
     dt = data_4_s;
-    thisquant = squeeze(nansum(quant_preds_cases(sel_idx, :, :), 1));
+    thisquant = squeeze(nansum(quant_preds_cases(sel_idx, :, [1 12 23]), 1));
     gt_lidx = size(dt, 2); gt_idx = (gt_lidx-gt_len*7:7:gt_lidx);
     gt = nansum(diff(dt(sel_idx, gt_idx)'), 2);
     point_forecast = num2cell([(gt_len+1:gt_len+size(thisquant, 1))' mean_preds_cases(sel_idx, :)']);

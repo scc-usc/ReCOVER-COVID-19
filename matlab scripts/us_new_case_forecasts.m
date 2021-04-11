@@ -50,17 +50,21 @@ latest_vac = xx.u_vacc(:, end) - xx.u_vacc_full(:, end);
 nidx = isnan(latest_vac); latest_vac(nidx) = popu(nidx).*(mean(latest_vac(~nidx))/mean(popu(~nidx)));
 vacc_lag_rate = ones(length(popu), 14);
 vacc_ad_dist(:) = 1; % This round specifies administration, rather than distribution. No need to model distribution rates
-u_vacc_fd = xx.u_vacc(:, 1:end) - xx.u_vacc_full(:, 1:end); 
-u_vacc_fd = fillmissing(u_vacc_fd, 'linear'); u_vacc_fd(isnan(u_vacc_fd)) = 0;
-u_vacc_fd = [zeros(size(data_4, 1), size(data_4, 2)-size(u_vacc_fd, 2)), u_vacc_fd];
-latest_vac = xx.u_vacc(:, end) - xx.u_vacc_full(:, end);
+vacc_all = xx.u_vacc(:, 1:end); vacc_full = xx.u_vacc_full(:, 1:end); 
+vacc_all = fillmissing(vacc_all, 'previous', 2); vacc_all(isnan(vacc_all)) = 0;
+vacc_full = fillmissing(vacc_full, 'previous', 2); vacc_full(isnan(vacc_full)) = 0;
+
+vacc_fd = vacc_all - vacc_full;
+
+vacc_fd = [zeros(size(data_4, 1), size(data_4, 2)-size(vacc_fd, 2)), vacc_fd];
+latest_vac = vacc_fd(:, end);
 %% Assume future vaccination rates
 vacc_monthly = 55000000;
 vac_administered =(popu./sum(popu))*ones(1, horizon)*vacc_monthly/30.5 ;
 equiv_vacc_effi = 0.5*(0.5+0.95);
 vac_available = [vac_administered];
 vac_effect = cumsum([latest_vac vac_available]*equiv_vacc_effi, 2);
-vacc_pre_immunity = equiv_vacc_effi*((1 - un.*data_4./popu).*u_vacc_fd);
+vacc_pre_immunity = equiv_vacc_effi*((1 - un.*data_4./popu).*vacc_fd);
 
 %% Run projections
 scenario_forecasts = 0;
@@ -91,8 +95,8 @@ deaths_un_0 = pred_deaths;
 file_suffix = '0';
 prefix = 'us';
 file_prefix =  ['../results/forecasts/' prefix];
-writetable(infec2table(pred_cases(:, 1:100), countries), [file_prefix '_forecasts_current_' file_suffix '.csv']);
-writetable(infec2table(pred_deaths, countries), [file_prefix '_deaths_current_' file_suffix '.csv']);
+writetable(infec2table(infec_un_0(:, 1:100), countries), [file_prefix '_forecasts_current_' file_suffix '.csv']);
+writetable(infec2table(deaths_un_0, countries), [file_prefix '_deaths_current_' file_suffix '.csv']);
 
 add_to_history;
 disp('Files Written');
