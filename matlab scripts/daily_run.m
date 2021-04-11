@@ -50,6 +50,8 @@ try
     save global_hyperparam_latest.mat best_param_list MAPEtable_s best_death_hyperparam one_hyperparam;
     add_to_history;
     disp('Finished updating Global forecasts');
+    
+    global_vacc_pred;
 catch thisErr
     fprintf('Error in global forecasts\n');
     fprintf('%s\n', thisErr.message);

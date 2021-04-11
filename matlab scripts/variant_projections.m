@@ -39,4 +39,4 @@ while new_horizon > 0
 end
 
 infec_net = infec_var + infec_nvar;
-infec_net = infec_net - infec_net(:, 1) + data_4(:, end);
+infec_net = infec_net - data_4_s(:, end) + data_4(:, end);
