@@ -87,9 +87,9 @@ for j= 1:length(all_keys)
 end
 val_idx = (ridx>0) & good_dates;
 
-vacc(sub2ind(size(vacc), ridx(val_idx), date_list(val_idx))) = vacc_tab.new_vaccine_doses_administered(val_idx);
-vacc_full(sub2ind(size(vacc_full), ridx(val_idx), date_list(val_idx))) = vacc_tab.new_persons_fully_vaccinated(val_idx);
-vacc_person(sub2ind(size(vacc_person), ridx(val_idx), date_list(val_idx))) = vacc_tab.new_persons_vaccinated(val_idx);
+vacc(sub2ind(size(vacc), ridx(val_idx), date_list(val_idx))) = vacc_tab.total_vaccine_doses_administered(val_idx);
+vacc_full(sub2ind(size(vacc_full), ridx(val_idx), date_list(val_idx))) = vacc_tab.total_persons_fully_vaccinated(val_idx);
+vacc_person(sub2ind(size(vacc_person), ridx(val_idx), date_list(val_idx))) = vacc_tab.total_persons_vaccinated(val_idx);
 
 %% Write vaccine data
 
@@ -100,9 +100,9 @@ bad_idx = all(isnan(vacc), 2);
 bad_idx_full = all(isnan(vacc_full), 2);
 bad_idx_person = all(isnan(vacc_person), 2);
 
-vacc = cumsum(vacc, 2, 'omitnan');
-vacc_full = cumsum(vacc_full, 2, 'omitnan');
-vacc_person = cumsum(vacc_person, 2, 'omitnan');
+% vacc = cumsum(vacc, 2, 'omitnan');
+% vacc_full = cumsum(vacc_full, 2, 'omitnan');
+% vacc_person = cumsum(vacc_person, 2, 'omitnan');
 
 vacc = fillmissing(vacc(:, gt_offset:T_full), "previous",2);
 vacc_full = fillmissing(vacc_full(:, gt_offset:T_full), "previous",2);
