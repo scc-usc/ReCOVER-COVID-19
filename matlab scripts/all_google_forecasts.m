@@ -110,6 +110,7 @@ vacc_person = fillmissing(vacc_person(:, gt_offset:T_full), "previous",2);
 
 vacc_full(isnan(vacc_full)) = 0;
 vacc(isnan(vacc)) = 0;
+vacc_person(isnan(vacc_person)) = 0;
 
 T2r = infec2table(vacc, countries, bad_idx, datetime(2020, 1, 23)+gt_offset, 1, 1);
 T2r.population = popu(~bad_idx);
