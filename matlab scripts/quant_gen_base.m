@@ -3,7 +3,7 @@ prefix = 'us'; cidx = (1:56); num_ens_weeks = 15; week_len = 1;
 
 num_ahead = 4;
 quant_deaths = [0.01, 0.025, (0.05:0.05:0.95), 0.975, 0.99];
-quant_cases = [0.025, 0.100, 0.250, 0.500, 0.750, 0.900, 0.975];
+quant_cases = [-0.975, 0.100, 0.250, 0.500, 0.750, 0.900, 0.975];
 
 load latest_us_data.mat
 load us_hyperparam_latest.mat
@@ -87,7 +87,7 @@ for simnum = 1:size(scen_list, 1)
 end
 fprintf('\n');
 %% Data correction (for delayed forecasting)
-T_corr = 1;
+T_corr = 0;
 if T_corr > 0
     pred_cases_orig = pred_cases; pred_deaths_orig = pred_deaths;
     data_orig = data_4; deaths_orig = deaths;
@@ -133,7 +133,7 @@ quant_preds_deaths = (quant_preds_deaths + abs(quant_preds_deaths))/2;
 
 %% Plot
 cidx = 1:56;
-sel_idx = 38; %sel_idx = contains(countries, 'Washington');
+sel_idx = 27; %sel_idx = contains(countries, 'Washington');
 dt = deaths(cidx, :);
 dts = deaths_s(cidx, :);
 thisquant = squeeze(nansum(quant_preds_deaths(sel_idx, :, [1 12 23]), 1));
@@ -149,7 +149,7 @@ plot([gt gts]); hold on; plot((gt_len+1:gt_len+size(thisquant, 1)), thisquant); 
 title(['Deaths']);
 
 figure;
-dt = data_4(cidx, :);
+dt = data_4_s(cidx, :);
 thisquant = squeeze(nansum(quant_preds_cases(sel_idx, :, [1 4 7]), 1));
 gt_lidx = size(dt, 2); gt_idx = (gt_lidx-gt_len*7:7:gt_lidx);
 gt = nansum(diff(dt(sel_idx, gt_idx)'), 2);
