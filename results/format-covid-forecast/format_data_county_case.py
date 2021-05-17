@@ -1,3 +1,4 @@
+import math
 import datetime
 import pandas as pd
 import csv
@@ -96,6 +97,8 @@ def load_csv(input_filename):
             for i in range(2, len(header)):
                 date_str = header[i]
                 val = float(row[i])
+                if math.isnan(val) or val < 0:
+                    val = 0
                 dataset[date_str][region_id] = val
 
     return dataset

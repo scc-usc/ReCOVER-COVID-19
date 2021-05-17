@@ -1,3 +1,4 @@
+import math
 import datetime
 import pandas as pd
 import csv
@@ -111,6 +112,8 @@ def load_csv(input_filename_state):
             week_ahead = int(row[week_ahead_col])
             quantile = row[quantile_col]
             val = max(float(row[value_col]), 0)
+            if math.isnan(val):
+                val = 0
             if week_ahead not in dataset:
                 dataset[week_ahead] = {}
             if state_id not in dataset[week_ahead]:
