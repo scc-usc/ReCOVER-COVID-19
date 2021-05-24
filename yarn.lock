@@ -2,7 +2,10 @@
 # yarn lockfile v1
 
 
+<<<<<<< HEAD
 papaparse@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-5.3.0.tgz#ab1702feb96e79ab4309652f36db9536563ad05a"
   integrity sha512-Lb7jN/4bTpiuGPrYy4tkKoUS8sTki8zacB5ke1p5zolhcSE4TlWgrlsxjrDTbG/dFVh07ck7X36hUf/b5V68pg==
+=======
+>>>>>>> 67fa49eea5d682e9d3eb569e07d9d13adaeccb83

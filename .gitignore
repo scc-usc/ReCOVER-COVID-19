@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 
 .DS_Store
 .DS_Store
 backend/data/.DS_Store
 .MATLABDriveTag
+=======
+.idea
+__pycache__
+venv
+>>>>>>> 67fa49eea5d682e9d3eb569e07d9d13adaeccb83
