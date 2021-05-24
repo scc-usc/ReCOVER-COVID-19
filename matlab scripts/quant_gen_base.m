@@ -3,7 +3,7 @@ prefix = 'us'; cidx = (1:56); num_ens_weeks = 15; week_len = 1;
 
 num_ahead = 4;
 quant_deaths = [0.01, 0.025, (0.05:0.05:0.95), 0.975, 0.99];
-quant_cases = [-0.975, 0.100, 0.250, 0.500, 0.750, 0.900, 0.975];
+quant_cases = [0.025, 0.100, 0.250, 0.500, 0.750, 0.900, 0.975];
 
 load latest_us_data.mat
 load us_hyperparam_latest.mat
@@ -111,6 +111,7 @@ for cid = 1:length(popu)
     thisdata(all(thisdata==0, 2), :) = [];
     thisdata = diff(thisdata(:, 1:7:num_ahead)')';
     dt = data_4; gt_lidx = size(dt, 2); extern_dat = diff(dt(cid, gt_lidx-7:7:gt_lidx))';
+    extern_dat = [];
     thisdata = [thisdata; repmat(extern_dat, [1 size(thisdata, 2)])];
     thisdata = repmat(thisdata, [5 1]);
     quant_preds_cases(cid, :, :) = movmean(quantile(thisdata, quant_cases)', 5, 1);
@@ -121,6 +122,7 @@ for cid = 1:length(popu)
     thisdata(all(thisdata==0, 2), :) = [];
     thisdata = diff(thisdata(:, 1:7:num_ahead)')';
     dt = deaths; gt_lidx = size(dt, 2); extern_dat = diff(dt(cid, gt_lidx-7:7:gt_lidx))';
+    %extern_dat = [];
     thisdata = [thisdata; repmat(extern_dat, [1 size(thisdata, 2)])];
     thisdata = repmat(thisdata, [5 1]);
     quant_preds_deaths(cid, :, :) = movmean(quantile(thisdata, quant_deaths)', 5, 1);
@@ -133,7 +135,7 @@ quant_preds_deaths = (quant_preds_deaths + abs(quant_preds_deaths))/2;
 
 %% Plot
 cidx = 1:56;
-sel_idx = 27; %sel_idx = contains(countries, 'Washington');
+sel_idx = 3; %sel_idx = contains(countries, 'Rhode Island');
 dt = deaths(cidx, :);
 dts = deaths_s(cidx, :);
 thisquant = squeeze(nansum(quant_preds_deaths(sel_idx, :, [1 12 23]), 1));

@@ -25,9 +25,9 @@ load_data_global;
 
 %% Prepare vaccine data
 xx = load('vacc_data.mat');
-nidx = isnan(latest_vac); latest_vac(nidx) = popu(nidx).*(mean(latest_vac(~nidx))/mean(popu(~nidx)));
+%nidx = isnan(latest_vac); latest_vac(nidx) = popu(nidx).*(mean(latest_vac(~nidx))/mean(popu(~nidx)));
 vacc_lag_rate = ones(length(popu), 14);
-vacc_ad_dist(:) = 1; % This round specifies administration, rather than distribution. No need to model distribution rates
+vacc_ad_dist(:) = 1; 
 vacc_all = xx.g_vacc(:, 1:end); vacc_full = xx.g_vacc_full(:, 1:end); 
 vacc_all = fillmissing(vacc_all, 'previous', 2); vacc_all(isnan(vacc_all)) = 0;
 vacc_full = fillmissing(vacc_full, 'previous', 2); vacc_full(isnan(vacc_full)) = 0;
