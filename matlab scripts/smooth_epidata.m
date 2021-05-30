@@ -24,7 +24,8 @@ if isnumeric(smooth_factor)
         end
         deldata = cleandel;
     end
-    cleandel = filloutliers(deldata, 'center', 'movmean', smooth_factor*2, 'ThresholdFactor', 3);
+    %cleandel = filloutliers(deldata, 'center', 'movmean', smooth_factor*2, 'ThresholdFactor', 3);
+    cleandel = filloutliers(deldata, 'linear', 'movmean', smooth_factor*2, 'ThresholdFactor', 3);
     data_4_s = [data_4(:, 1) cumsum(movmean(cleandel', smooth_factor, 2), 2)];
 else
     %cleandel = filloutliers(deldata, 'center', 'movmedian', 14);
