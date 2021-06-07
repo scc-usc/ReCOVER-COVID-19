@@ -1,11 +1,13 @@
 import math
 import datetime
+import pytz
 import pandas as pd
 import csv
 import urllib.request
 import io
 
-FORECAST_DATE = datetime.datetime.today()
+FORECAST_DATE = datetime.datetime.now(pytz.timezone('US/Pacific'))
+FORECAST_DATE = FORECAST_DATE.replace(tzinfo=None)
 # FIRST_WEEK is the first Saturday after forecast date.
 FIRST_WEEK = FORECAST_DATE
 for i in range(0, 8):
