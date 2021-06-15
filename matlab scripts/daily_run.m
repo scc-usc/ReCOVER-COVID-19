@@ -1,6 +1,7 @@
 clear; warning off;
 addpath('./hyper_params');
 
+
 %% For US
 try
     
@@ -25,10 +26,18 @@ catch thisErr
     fprintf('Error in US states forecasts\n');
     fprintf('%s\n', thisErr.message);
 end
+
+%% Variant data
+try
+    all_variants_data;
+catch thisErr
+    fprintf('Error in Preparing Variants Data\n');
+    fprintf('%s\n', thisErr.message);
+end
 %% Update US forecasts based on variants
 try
     clear;
-    us_new_case_forecasts;
+    all_variants_us_forecasts;
 catch thisErr
     fprintf('Error in US variant forecasts\n');
     fprintf('%s\n', thisErr.message);
