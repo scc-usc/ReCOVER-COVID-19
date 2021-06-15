@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Delete all previously-existing data in the database.
+python manage.py dbshell --settings=covid19_site.settings_dev <<EOF
+DROP TABLE model_api_area;
+DROP TABLE model_api_covid19cumulativedatapoint;
+DROP TABLE model_api_covid19datapoint;
+DROP TABLE model_api_covid19deathdatapoint;
+DROP TABLE model_api_covid19deathmodel;
+DROP TABLE model_api_covid19infectionmodel;
+DROP TABLE model_api_covid19model;
+DROP TABLE model_api_covid19predictiondatapoint;
+DROP TABLE model_api_mrfscoredatapoint;
+DROP TABLE model_api_quarantinescoredatapoint;
+EOF
+
+# Now we need to fake back to migration state 0 so that Django can rerun all the migrations.
+python manage.py migrate model_api zero --fake --settings=covid19_site.settings_dev
+
+python manage.py migrate --settings=covid19_site.settings_dev
