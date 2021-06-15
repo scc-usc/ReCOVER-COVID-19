@@ -334,6 +334,11 @@ updateWindowDimensions() {
             {
               return
             }
+
+            console.log(observedConfirmed);
+            console.log(augmented_timeSeries);
+
+
             chartData.push({
               id: `${area} (${modelName}, ${distancing})`,
               // If we're displaying deltas, we pass in the last observed value as

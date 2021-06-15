@@ -134,9 +134,9 @@ class Covid19App extends Component {
         <Switch>
           <Route exact path='/' 
             render={(props) => <Covid19Predict {...props} />}/>
-          <Route exact path='/score' 
+          {/*<Route exact path='/score' 
             render={(props) => <ScorePage {...props}/>}
-          />
+          />*/}
           <Route exact path='/about'
             render={(props) => <AboutUS {...props} />} />
           <Route exact path='/leaderboard' 

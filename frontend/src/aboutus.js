@@ -17,10 +17,11 @@ class AboutUs extends Component {
                     <h1 className="article-title">ReCOVER: Accurate Predictions and Resource Management for COVID-19 Epidemic Response</h1>
                     <p className="article-paragraph">
                         Accurate forecasts of COVID-19 is central to resource management and building strategies to deal with the epidemic. 
-                        This is a part of an NSF-funded project on COVID-19 forecasting led by
-                        by <a className="article-anchor" href="https://sites.usc.edu/prasanna/"> Viktor K. Prasanna </a> and <a className="article-anchor" href="http://www-scf.usc.edu/~ajiteshs/"> Ajitesh Srivastava </a> 
-                        from the <a className="article-anchor" href="https://dslab.usc.edu/"> Data Science Lab </a> at the University of Southern California. 
+                        This work was started as a part of an NSF-funded project on COVID-19 forecasting. </p>
+                    <p className="article-paragraph">
+                        Contact: Ajitesh Srivastava, Research Assitant Professor at the University of Southern California, email: ajiteshs AT usc DOT edu 
                     </p>
+
                     <h2>Our Approach</h2>
                     <p className="article-paragraph">
                         We use our own epidemic model called <a className="article-anchor" href="https://arxiv.org/abs/2007.05180"> SI-kJalpha</a>, preliminary version of which we have successfully used 
@@ -69,14 +70,6 @@ class AboutUs extends Component {
                         <a className="article-anchor" href="https://www.youtube.com/watch?v=ll6k8wlxOFo" target="_blank">Webinar </a> describing our intial approach (April).
                     </li></ol>
 
-			
-                    <h2>USC Data Science Lab</h2>
-                    <p className="article-paragraph">
-                        The USC Data Science Lab focuses on applying machine learning, data mining, 
-                        and network analysis to real-world problems in society and industry. 
-                        Please find more information and other research projects <a className="article-anchor" href="https://sites.usc.edu/dslab/" target="_blank"> on 
-                        our website</a>.
-                    </p>
 
                 </div>
             </div>

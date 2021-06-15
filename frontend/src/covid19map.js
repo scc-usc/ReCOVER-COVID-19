@@ -545,9 +545,9 @@ getRadius(value, popu) {
 	if (value === 0)
 		return value;
   	//var radius = Math.log(value / 1000);
-  	var radius = (this.state.zoomlevel)*Math.log(value / 1000)/3;
-  	if (radius < 1)
-  		radius = 1;
+  	var radius = 1 + (this.state.zoomlevel)*Math.log(value / 1000)/3;
+  	if (radius < 3)
+  		radius = 3;
 
   	//return (this.state.height/1000)*radius;
   	return radius;
