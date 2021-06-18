@@ -82,7 +82,7 @@ partd==1.1.0
 pathspec==0.5.9
 pexpect==4.8.0
 pickleshare==0.7.5
-Pillow==6.2.1
+Pillow==8.2.0
 prometheus-client==0.7.1
 prompt-toolkit==3.0.4
 protobuf==3.9.1
