@@ -71,36 +71,36 @@ class Leaderboard extends Component {
                 <div className="grid">
                     <Row>
 	                     <div className = "introduction"><p>
-	                     We evaluate the submissions that are made publicly on various forecasting hubs and highlight where our submissions stand.
-	                     Note that the following only compares the submissions and not the forecasting methodologies.
-	                     The submissions may have used different methodologies over time and tuned manually. The evaluation 
-	                     of different methodologies is a part of our other upcoming project <a href="https://github.com/scc-usc/covid19-forecast-bench">here</a>.
-	                     </p>
+	                     For our evaluation of different methodologies please see our benchmarking project here: 
+	                     <Button type="default" onClick={()=> openInNewTab('https://scc-usc.github.io/covid19-forecast-bench/#/')}>
+            COVID-19 Forecast Benchmarking               
+                      </Button>
+                       </p>
 	                     <p>
-	                     We are currently contributing to the following hubs. Please select one to see the evaluations.
+	                     We participate in several forecast hubs and public evaluations. To view the evaluations produced by others, please click on one of the following buttons.
 	                     {"\n"}
 	                     </p>
 	                     </div>
 	                     
-	                     <div>
-                  		<Button onClick={()=>this.setState({which_hub : USFH})}>
+                    </Row>
+
+                    <Row>
+                    <br/>
+	                     <div className = "introduction">
+                  		<Button type="default" onClick={()=> openInNewTab('https://delphi.cmu.edu/forecast-eval/')}>
 						US Forecast Hub                  
-                  		</Button>
-                  		<Button onClick={()=>this.setState({which_hub : GFH})}>
+                  		</Button><br/>
+                  		<Button type="default" onClick={()=> openInNewTab('https://jobrac.shinyapps.io/app_evaluation/')}>
 						Germany/Poland Forecast Hub                  
-                  		</Button>
-                      <Button onClick = {()=> openInNewTab('https://covidcompare.io/model_performance')}>
+                  		</Button><br/>
+                      <Button type="default" onClick={()=> openInNewTab('https://covid19forecasthub.eu/reports')}>
+            Europe Forecast Hub                  
+                      </Button><br/>
+                      <Button type="default" onClick = {()=> openInNewTab('https://covidcompare.io/model_performance')}>
                       Country-level Evaulation by "covidcompare.io"
                     </Button>
                 		</div>
                     </Row> 
-                    <Row>
-                    	<Iframe url={this.state.which_hub}
-                    	width="100%"
-        				height={(0.7*this.state.height).toString()}
-        				/>
-                    </Row>
-
                 </div>
             </div>
         );
