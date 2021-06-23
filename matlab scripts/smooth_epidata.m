@@ -2,11 +2,11 @@ function [data_4_s] = smooth_epidata(data_4, smooth_factor, week_correction)
 %SMOOTH_EPIDATA removes outliers and smoothes
 
 if nargin < 3
-    week_correction = 0;
+    week_correction = 1;
 end
 
 deldata = diff(data_4');
-deldata(deldata < 0) = 0;
+%deldata(deldata < 0) = 0;
 data_4_s = data_4;
 maxt = size(data_4, 2);
 date_map = ceil(((1:maxt-1) - mod(maxt-1, 7))/7);
@@ -25,8 +25,9 @@ if isnumeric(smooth_factor)
         deldata = cleandel;
     end
     %cleandel = filloutliers(deldata, 'center', 'movmean', smooth_factor*2, 'ThresholdFactor', 3);
-    cleandel = filloutliers(deldata, 'linear', 'movmean', smooth_factor*2, 'ThresholdFactor', 3);
-    data_4_s = [data_4(:, 1) cumsum(movmean(cleandel', smooth_factor, 2), 2)];
+    %cleandel = filloutliers(deldata, 'linear', 'movmean', smooth_factor*2, 'ThresholdFactor', 3);
+    deldata(deldata < 0) = 0;
+    data_4_s = [data_4(:, 1) cumsum(movmean(movmean(cleandel', smooth_factor, 2), smooth_factor, 2), 2)];
 else
     %cleandel = filloutliers(deldata, 'center', 'movmedian', 14);
     cleandel = deldata;

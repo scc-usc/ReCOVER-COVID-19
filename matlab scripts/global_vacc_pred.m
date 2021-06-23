@@ -55,7 +55,7 @@ data_4_s = smooth_epidata(data_4, smooth_factor);
 deaths_s = smooth_epidata(deaths, smooth_factor);
 
 best_param_list = zeros(length(countries), 3);
-best_param_list(:, 1) = 2; best_param_list(:, 2) = 7; best_param_list(:, 3) = 8;
+best_param_list(:, 1) = 2; best_param_list(:, 2) = 7; best_param_list(:, 3) = 9;
 compute_region = popu > -1;
 base_infec = data_4(:, end);
 
@@ -72,7 +72,7 @@ dalpha = 1;
 dhorizon = 100;
 T_full = size(data_4, 2);
 base_deaths = deaths(:, T_full);
-infec_data = [data_4_s infec_un_0];
+infec_data = [data_4_s, infec_un_0-data_4(:, end)+data_4_s(:, end)];
 [death_rates] = var_ind_deaths(data_4_s, deaths_s, dalpha, dk, djp, dwin, 0, compute_region, lags);
 [deaths_un_0] = var_simulate_deaths(infec_data, death_rates, dk, djp, dhorizon, base_deaths, T_full-1);
 %%

@@ -62,7 +62,7 @@ for cid = 1:nn
     quant_preds_cases(cid, :, :) = quantile(thisdata(:, 1:num_ahead), quant_cases)';
     mean_preds_cases(cid, :) = preds(cid, 1:horizon);
     med_idx = find(abs(quant_cases-0.5)< 1e-5);
-    quant_preds_cases(cid, :, :) = squeeze(quant_preds_cases(cid, :, :)) - quant_preds_cases(cid, :, med_idx)' + mean_preds_cases(cid, :)';
+    %quant_preds_cases(cid, :, :) = squeeze(quant_preds_cases(cid, :, :)) - quant_preds_cases(cid, :, med_idx)' + mean_preds_cases(cid, :)';
     
     thisdata = squeeze(all_dat_d(cid, :, :));
     thisdata(all(isnan(thisdata), 2), :) = [];
@@ -70,7 +70,7 @@ for cid = 1:nn
     quant_preds_deaths(cid, :, :) = quantile(thisdata(:, 1:num_ahead), quant_deaths)';
     mean_preds_deaths(cid, :) = preds_d(cid, 1:horizon);
     med_idx = find(abs(quant_deaths-0.5)< 1e-5);
-    quant_preds_deaths(cid, :, :) = squeeze(quant_preds_deaths(cid, :, :)) - quant_preds_deaths(cid, :, med_idx)' + mean_preds_deaths(cid, :)';
+    %quant_preds_deaths(cid, :, :) = squeeze(quant_preds_deaths(cid, :, :)) - quant_preds_deaths(cid, :, med_idx)' + mean_preds_deaths(cid, :)';
 end
 quant_preds_cases = (quant_preds_cases + abs(quant_preds_cases))/2;
 quant_preds_deaths = (quant_preds_deaths + abs(quant_preds_deaths))/2;
