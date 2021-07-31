@@ -1,4 +1,4 @@
-# ReCOVER: Accurate Predictions and Resource Allocation for COVID-19 Epidemic Response
+# ReCOVER: Accurate Predictions and Scenario Projections for COVID-19 Epidemic Response
 
 ### Created by
 Ajitesh Srivastava (ajiteshs@usc.edu)
@@ -9,7 +9,7 @@ Ajitesh Srivastava, Frost Xu, Bob Xiaochen Yang, Jamin Chen
 
 ## Approach
 We use our own epidemic model called [SI-kJalpha](https://arxiv.org/abs/2007.05180), preliminary version of which we have successfully used during [DARPA Grand Challenge 2014](https://news.usc.edu/83180/usc-engineers-earn-national-recognition-for-predicting-disease-outbreaks/). Our forecast appears on the official [CDC webpage](https://www.cdc.gov/coronavirus/2019-ncov/covid-data/forecasting-us.html).  Our model can consider the effect of many complexities of the epidemic process and yet be simplified to a few parameters that are learned using fast linear regressions. Therefore, our approach can learn and generate forecasts extremely quickly. On a 2 core desktop machine, our approach takes only 3.18s to tune hyper-parameters, learn parameters and generate 100 days of forecasts of reported cases and deaths for all the states in the US. The total execution time for 184 countries is 11.83s and for more than 3000 US counties is around 30s. For around 20,000 locations data for which are made available by [Google](https://github.com/GoogleCloudPlatform/covid-19-open-data), our approch takes around 10 mins.
-Despite being fast, the accuracy of our forecasts is on par with the state-of-the-art as demonstrated on the [evaluation page](https://scc-usc.github.io/ReCOVER-COVID-19/#/leaderboard).
+Despite being fast, the accuracy of our forecasts is on par with the state-of-the-art as demonstrated on the [evaluation page](https://scc-usc.github.io/ReCOVER-COVID-19/#/leaderboard). For country-level and US state-level projections, additional capabilities have been included in the model - currently, the model accounts for vaccinations and all variants as per outbreak.info.
 
 ## Web Interface and Visualization
 ![](frontend/screenshot.png)
@@ -31,7 +31,4 @@ Our web-interface provides the following
 
 ## Acknowledgement
 
-This work is supported by National Science Foundation Award No. 2027007 (RAPID).
-
-PIs: Viktor K. Prasanna (prasanna@usc.edu), Ajitesh Srivastava (ajiteshs@usc.edu)
-University of Southern California
+This work is supported by National Science Foundation Award No. 2027007 (2020-2021) and Award No. 2135784 (2021-2022).
