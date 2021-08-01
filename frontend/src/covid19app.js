@@ -1,6 +1,7 @@
 import React, { Component, Suspense } from "react";
 //import Covid19Predict from "./covid19predict";
 import AboutUS from "./aboutus";
+import Announcements from "./announcement";
 //import ScorePage from './scorePage/scorePage';
 import {HashRouter, Route, Redirect, Switch} from 'react-router-dom'; 
 import Navbar from "./navbar/navbar";
@@ -147,6 +148,8 @@ class Covid19App extends Component {
             render={(props) => <RoW {...props} />}/>
             <Route exact path='/scenarios'
             render={(props) => <Scenarios {...props} />}/>
+            <Route exact path='/announcement'
+            render={(props) => <Announcements {...props} />}/>
         </Switch>
       </HashRouter>
       </Suspense>
