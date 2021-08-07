@@ -22,6 +22,9 @@ function [Rt, Rt_conf] = calc_Rt(beta_cell, k_l, jp_l, sus_frac, beta_confs)
     
     for j=1:num_countries
         beta = beta_cell{j};
+        if isempty(beta)
+            continue;
+        end
         k  = k_l(j);
         beta = beta(1:k);
         jp = jp_l(j);

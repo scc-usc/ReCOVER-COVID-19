@@ -14,7 +14,7 @@ longs = zeros(length(countries), 1);
 for cidx = 1:length(countries)
     idx = strcmpi(countries{cidx}, tableConfirmed.CountryRegion);
     if(sum(idx)<1)
-        disp([countries{cidx} ' not found']);
+%        disp([countries{cidx} ' not found']);
         continue;
     end
     data_4(cidx, :) = sum(vals(idx, :), 1);

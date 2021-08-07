@@ -2,7 +2,7 @@
 
 dk = 3;
 djp = 7;
-dalpha = 1;
+dalpha = 0.9;
 dwin = 100; % Choose a lower number if death rates evolve
 
 %% Override fixed values and search for best hyper-parameters

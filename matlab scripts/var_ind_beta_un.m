@@ -106,9 +106,9 @@ function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, a
                 beta_CI = [1./(1+ exp(-mdl.coefCI))];
                 ci{j} = beta_CI;
             end
+            beta_all_cell{j} = beta_vec;
         end
         
-        beta_all_cell{j} = beta_vec;
         fittedC{j} = [X*beta_all_cell{j},y];
     end
     

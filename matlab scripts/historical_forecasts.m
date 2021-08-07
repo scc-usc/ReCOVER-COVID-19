@@ -1,6 +1,6 @@
 %% Setup: Assumes  the corresponding load script has been executed
 last_day = size(data_4_JHU, 2);
-daynums = 122:7:last_day;
+daynums = 164:7:last_day;
 %daynums = size(data_4, 2)-10:1:size(data_4, 2);
 path = '../results/historical_forecasts/';
 dalpha = 1;
@@ -8,12 +8,11 @@ horizon = 100; % days of predcitions
 dhorizon = horizon;
 passengerFlow = 0;
 alpha_test = 1; % Set this to one to indicate experimental nature. Will write to "other forecasts"
-test_suffix = '_smooth7_custom_un'; % indicates sescription
+test_suffix = 'un10_hyper7_smooth7'; % indicates subscript
  
-smooth_factor = 7; un = 1;
-%un = load(['../results/unreported/' prefix 'unreported.txt']); 
-all_uns = load(['../results/unreported/' prefix '_all_unreported.csv']); 
+smooth_factor = 7; def_un = 10; un = def_un.*ones(length(popu), 1);
 T_val = 7;
+
 if strcmpi(prefix, 'us') || strcmpi(prefix, 'global')
     ihme_countries = readcell(['ihme_' prefix '.txt']);
 else
@@ -37,8 +36,8 @@ for day_idx = 1:length(daynums)
     data_4_s = smooth_epidata(data_4(:, 1:T_full), smooth_factor);
     deaths_s = smooth_epidata(deaths(:, 1:T_full), smooth_factor);
     
-    idx = find(all_uns(1, :) <= T_full);
-    un = all_uns(2:end, idx(end));
+    %no_un_idx = un.*data_4(:, end)./popu > 0.2;
+    %un(no_un_idx) = 1;
     
     [best_param_list] = hyperparam_tuning(data_4(:, 1:T_full), data_4_s, popu, 0, un, T_full, T_val); %, (1:3), [7 14], [1], [25 50 100]);
     [best_death_hyperparam, one_hyperparam] = death_hyperparams(deaths(:, 1:T_full), data_4_s, deaths_s, T_full, T_val, popu, 0, best_param_list, un);

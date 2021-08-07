@@ -59,6 +59,7 @@ for cid = 1:nn
     thisdata = squeeze(all_dat(cid, :, :));
     thisdata(all(isnan(thisdata), 2), :) = [];
     thisdata =  fillmissing(thisdata, "linear", 2);
+    thisdata =  filloutliers(thisdata, "linear", 2);
     quant_preds_cases(cid, :, :) = quantile(thisdata(:, 1:num_ahead), quant_cases)';
     mean_preds_cases(cid, :) = preds(cid, 1:horizon);
     med_idx = find(abs(quant_cases-0.5)< 1e-5);

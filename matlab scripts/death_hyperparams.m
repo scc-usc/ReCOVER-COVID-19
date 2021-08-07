@@ -1,9 +1,9 @@
 function [best_death_hyperparam, one_hyperparam] = death_hyperparams(deaths, data_4_s, deaths_s, T_full, T_val, popu, passengerFlow, best_param_list, un, param_list)
-dalpha = 1;
+dalpha = 0.9;
 dkrange = (2:5);
 lag_range = (2:4);
 djprange = [7];
-dwin = [25, 50, 100];
+dwin = [50, 100];
 
 T_tr = T_full-T_val;
 best_death_hyperparam = zeros(size(deaths, 1), 4);
@@ -11,7 +11,7 @@ best_death_hyperparam = zeros(size(deaths, 1), 4);
 if nargin < 10
     [X, Y, Z, A] = ndgrid(dkrange, djprange, dwin, lag_range);
     param_list = [X(:), Y(:), Z(:), A(:)];
-    idx = (param_list(:, 1).*param_list(:, 2) <=21) & (param_list(:, 3) > param_list(:, 1).*param_list(:, 2)) & (param_list(:, 1) - param_list(:, 4))>0;
+    idx = (param_list(:, 1).*param_list(:, 2) <=28) & (param_list(:, 3) > param_list(:, 1).*param_list(:, 2)) & (param_list(:, 1) - param_list(:, 4))>0;
     param_list = param_list(idx, :);
 end
 RMSE_all = zeros(size(deaths, 1), size(param_list, 1));

@@ -1,6 +1,6 @@
 dest_path = '..\results\unreported\';
 %%
-prefix = 'us';
+prefix = 'global';
 eval(['load ' prefix '_unreported.mat']);
 %%
 uns = zeros(length(countries), 1);

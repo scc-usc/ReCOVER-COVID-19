@@ -40,7 +40,6 @@ if length(idx)<1
 end
 
 param_list = param_list(idx, :);
-
 RMSE_all = zeros(size(data_4, 1), size(param_list, 1));
 
 %% Full

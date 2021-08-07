@@ -20,6 +20,9 @@ un_lts = nan(size(data_4));
 un_uts = nan(size(data_4));
 
 for ii = 1:length(whichday)
+    if ~isKey(state_map, sero_data.Site{ii})
+        continue;
+    end
     cidx = state_map(sero_data.Site{ii});
     un_ts(cidx, whichday(ii)) = sero_data.EstimatedCumulativeInfectionsCount(ii)/data_4(cidx, whichday(ii)); 
     un_lts(cidx, whichday(ii)) = sero_data.EstimatedCumulativeInfectionsLowerCI7(ii)/data_4(cidx, whichday(ii)); 
@@ -27,6 +30,13 @@ for ii = 1:length(whichday)
 end
 %%
 thisday = size(data_4, 2);
-un_ts_s = fillmissing(un_ts(:, 1:thisday), 'previous', 2); un_ts_s(un_ts<1) = 1;
-un_lts_s = fillmissing(un_lts(:, 1:thisday), 'previous', 2); un_lts_s(un_lts<1) = 1;
-un_uts_s = fillmissing(un_uts(:, 1:thisday), 'previous', 2);
+un_ts_s = fillmissing(un_ts(:, 1:thisday), 'linear', 2); un_ts_s = fillmissing(un_ts(:, 1:thisday), 'nearest', 2); un_ts_s(un_ts_s<1) = 1;
+un_lts_s = fillmissing(un_lts(:, 1:thisday), 'linear', 2); un_lts_s = fillmissing(un_lts(:, 1:thisday), 'nearest', 2); un_lts_s(un_lts_s<1) = 1;
+un_uts_s = fillmissing(un_uts(:, 1:thisday), 'linear', 2); un_uts_s = fillmissing(un_uts(:, 1:thisday), 'nearest', 2); un_uts_s(un_lts_s<1) = 1;
+
+dd_s = smooth_epidata(data_4, 14);
+
+ddata = [0*popu diff(dd_s')'];
+un_array = [sum(un_lts_s.*ddata, 2)./dd_s(:, end), ...
+    sum(un_ts_s.*ddata, 2)./dd_s(:, end), sum(un_uts_s.*ddata, 2)./dd_s(:, end)];
+un_array(isnan(un_array)) = 1;

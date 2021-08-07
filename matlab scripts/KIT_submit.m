@@ -139,21 +139,21 @@ quant_preds_cases = round((quant_preds_cases + abs(quant_preds_cases))/2);
 quant_preds_deaths = round((quant_preds_deaths + abs(quant_preds_deaths))/2);
 
 %% Plot
-% sel_idx = 17;
-% thisquant = squeeze(quant_preds_deaths(sel_idx, :, :));
-% gt_len = 6;
-% point_forecast = num2cell([(gt_len+1:gt_len+4)' mean_preds_deaths(sel_idx, :)']);
-% historical = num2cell([(1:gt_len)' diff(death_gt(sel_idx, end-gt_len:end))']);
-% forecast = num2cell([(gt_len+1:gt_len+4)' thisquant]);
-% fanplot([historical; point_forecast], forecast)
-% title([placenames{sel_idx} 'Deaths']);
-% 
-% thisquant = squeeze(quant_preds_cases(sel_idx, :, :));
-% point_forecast = num2cell([(gt_len+1:gt_len+4)' mean_preds_cases(sel_idx, :)']);
-% historical = num2cell([(1:gt_len)' diff(case_gt(sel_idx, end-gt_len:end))']);
-% forecast = num2cell([(gt_len+1:gt_len+4)' thisquant]);
-% fanplot([historical; point_forecast], forecast)
-% title([placenames{sel_idx} 'Cases']);
+sel_idx = 17;
+thisquant = squeeze(quant_preds_deaths(sel_idx, :, :));
+gt_len = 6;
+point_forecast = num2cell([(gt_len+1:gt_len+4)' mean_preds_deaths(sel_idx, :)']);
+historical = num2cell([(1:gt_len)' diff(death_gt(sel_idx, end-gt_len:end))']);
+forecast = num2cell([(gt_len+1:gt_len+4)' thisquant]);
+fanplot([historical; point_forecast], forecast)
+title([placenames{sel_idx} 'Deaths']);
+
+thisquant = squeeze(quant_preds_cases(sel_idx, :, :));
+point_forecast = num2cell([(gt_len+1:gt_len+4)' mean_preds_cases(sel_idx, :)']);
+historical = num2cell([(1:gt_len)' diff(case_gt(sel_idx, end-gt_len:end))']);
+forecast = num2cell([(gt_len+1:gt_len+4)' thisquant]);
+fanplot([historical; point_forecast], forecast)
+title([placenames{sel_idx} 'Cases']);
 %% Convert to the format
 forecast_date = pred_dates{1}+1;
 forecast_date = datestr(forecast_date, 'yyyy-mm-dd');

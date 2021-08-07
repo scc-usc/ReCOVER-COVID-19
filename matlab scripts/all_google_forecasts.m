@@ -93,7 +93,7 @@ vacc_person(sub2ind(size(vacc_person), ridx(val_idx), date_list(val_idx))) = vac
 
 %% Write vaccine data
 
-gt_offset = 344; % Only need to show starting from Jan 1
+gt_offset = 339; % Only need to show starting from Jan 1
 T_full = size(vacc, 2);
 
 bad_idx = all(isnan(vacc), 2);
@@ -104,27 +104,33 @@ bad_idx_person = all(isnan(vacc_person), 2);
 % vacc_full = cumsum(vacc_full, 2, 'omitnan');
 % vacc_person = cumsum(vacc_person, 2, 'omitnan');
 
-vacc = fillmissing(vacc(:, gt_offset:T_full), "previous",2);
-vacc_full = fillmissing(vacc_full(:, gt_offset:T_full), "previous",2);
-vacc_person = fillmissing(vacc_person(:, gt_offset:T_full), "previous",2);
+vacc = fillmissing(vacc, "previous",2);
+vacc_full = fillmissing(vacc_full, "previous",2);
+vacc_person = fillmissing(vacc_person, "previous",2);
 
 vacc_full(isnan(vacc_full)) = 0;
 vacc(isnan(vacc)) = 0;
 vacc_person(isnan(vacc_person)) = 0;
 
-T2r = infec2table(vacc, countries, bad_idx, datetime(2020, 1, 23)+gt_offset, 1, 1);
+T2r = infec2table(vacc(:, gt_offset:T_full), countries, bad_idx, datetime(2020, 1, 23)+gt_offset, 7, 1);
 T2r.population = popu(~bad_idx);
-T2r_full = infec2table(vacc_full, countries, bad_idx_full, datetime(2020, 1, 23)+gt_offset,1 , 1);
+T2r_full = infec2table(vacc_full(:, gt_offset:T_full), countries, bad_idx_full, datetime(2020, 1, 23)+gt_offset, 7 , 1);
 T2r_full.population = popu(~bad_idx_full);
-T2r_person = infec2table(vacc_person, countries, bad_idx_person, datetime(2020, 1, 23)+gt_offset, 1, 1);
+T2r_person = infec2table(vacc_person(:, gt_offset:T_full), countries, bad_idx_person, datetime(2020, 1, 23)+gt_offset, 7, 1);
 T2r_person.population = popu(~bad_idx_person);
 %%
 data_4 = fillmissing(data_4, 'previous', 2);
-writetable(infec2table(data_4(:, gt_offset:T_full), countries, bad_idx & bad_idx_full & bad_idx_person , datetime(2020, 1, 23)+gt_offset,1 , 1), '../results/forecasts/G_recent_cases.csv');
+writetable(infec2table(data_4(:, gt_offset:T_full), countries, bad_idx & bad_idx_full & bad_idx_person , datetime(2020, 1, 23)+gt_offset,7 , 1), '../results/forecasts/G_recent_cases.csv');
 writetable(T2r, '../results/forecasts/G_vacc_num.csv');
 writetable(T2r_full, '../results/forecasts/G_vacc_full.csv');
 writetable(T2r_person, '../results/forecasts/G_vacc_person.csv');
 disp('Finished writing vaccine data ');
+
+%% create vaccination inputs
+[~, admin0_idx] = ismember(strcat(countries_hier(:, 1), '|||'), countries);
+vacc_fd = vacc_person;
+missing_vac = all(vacc_person < 1, 2);
+vacc_fd(missing_vac, :) = popu(missing_vac)./popu(admin0_idx(missing_vac)) .* vacc_person(admin0_idx(missing_vac), :);
 
 %% Smoothing for prediction
 tic;
@@ -140,9 +146,6 @@ data_4_s = smooth_epidata(data_4, smooth_factor);
 deaths_s = smooth_epidata(deaths, smooth_factor);
 
 %%
-un = 1.5*ones(size(data_4, 1), 1); % Select the ratio of true cases to reported cases. 1 for default.
-no_un_idx = un.*data_4(:, end)./popu > 0.2;
-un(no_un_idx) = 1; % These places have enough prevelance that un =1 is sufficient
 
 
 T_full = size(data_4, 2); % Consider all data for predictions
@@ -157,13 +160,30 @@ compute_region = data_4_s(:, end)> 1;
 dalpha=1; dk = 4; lags = 2; djp = 7; dwin = 50*ones(size(data_4, 1), 1); % Change to learn in the future
 lowinc = data_4(439, end-lags*dk) - data_4(439, end-2*dwin) < 20; dwin(lowinc) = 100;
 
+equiv_vacc_effi = 0.75;
+
+un = 2.5*ones(size(data_4, 1), 1); % Select the ratio of true cases to reported cases. 1 for default.
+no_un_idx = un.*data_4(:, end)./popu > 0.2;
+un(no_un_idx) = 1; % These places have enough prevelance that un =1 is sufficient
+
+
+vacc_pre_immunity = equiv_vacc_effi*((1 - un.*data_4./popu).*vacc_fd);
+vacc_per_day = (vacc_fd(:, end) - vacc_fd(:, end-14))/14;
+vacc_future  = vacc_fd(:, end) + cumsum(vacc_per_day*ones(1, horizon), 2);
+vac_effect = vacc_future*equiv_vacc_effi;
+
+%% Case forecasts
+
 best_param_list = [2 7 8 ]; % Change to learn in the future
-%beta_after = var_ind_beta_un(data_4_s(:, 1:T_full), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, compute_region);
+beta_after = var_ind_beta_un(data_4_s(:, 1:T_full), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, compute_region, [], vacc_pre_immunity);
 
-best_param_list = [3 7 10]; % For holidays!
-beta_after  = var_ind_beta_un(data_4_s(:, 1:T_full), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, compute_region, 50);
 
-infec_un = var_simulate_pred_un(data_4_s(:, 1:T_full), passengerFlow*0, beta_after, popu, best_param_list(:, 1), horizon, best_param_list(:, 2), un, base_infec);
+%best_param_list = [3 7 10]; % For holidays!
+%beta_after  = var_ind_beta_un(data_4_s(:, 1:T_full), passengerFlow*0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, compute_region, 50);
+
+infec_un = var_simulate_pred_vac(data_4_s(:, 1:T_full), 0, beta_after, popu, best_param_list(:, 1), horizon, best_param_list(:, 2), un, base_infec, vac_effect);
+%% Death forecasts
+
 infec_un_re = infec_un - repmat(base_infec - data_4_s(:, T_full), [1, size(infec_un, 2)]);
 infec_data = [data_4_s(:, 1:T_full), infec_un_re];
 

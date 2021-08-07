@@ -44,6 +44,8 @@ for ii = 1:size(u_vacc_tab, 1)
         u_vacc_shipped(cidx(ii), d_idx(ii)) = u_vacc_tab.Doses_shipped(ii);
     end
 end
+u_vacc_full = filloutliers(u_vacc_full, 'linear', 2);
+u_vacc = filloutliers(u_vacc, 'linear', 2);
 %% Write data
 tic;
 gt_offset = 344; % Only need to show starting from Jan 1
@@ -88,7 +90,11 @@ while got_data==0
     try
     xx = readtable([fullpath '/us_data.csv']); us_cases = table2array(xx(2:end, 3:end));
     xx = readtable([fullpath '/global_data.csv']); global_cases = table2array(xx(2:end, 3:end));
-    got_data = 1;
+    if size(us_cases, 2) == size(global_cases, 2)
+        got_data = 1;
+        break;
+    end
+    tt = tt+1;
     catch
         got_data = 0;
         tt = tt+1;

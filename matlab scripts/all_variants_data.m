@@ -1,10 +1,26 @@
-load latest_us_data.mat
+load_data_us;
 %%
 abvs = readcell('us_states_abbr_list.txt');
 
 tic;
 T = table;
+failed_list = [];
 for jj=1:length(abvs)
+    try
+        temp = webread(['https://api.outbreak.info/genomics/prevalence-by-location-all-lineages?location_id=USA_US-' abvs{jj} '&other_threshold=0.03&nday_threshold=5&ndays=60']);
+        T0 = struct2table(temp.results); T0.state = repmat(abvs(jj), [size(T0, 1) 1]);
+        T = [T; T0];
+    catch
+        failed_list = [failed_list; jj];
+        disp(['No data for ' abvs{jj}]);
+        %break;
+    end
+end
+pause(2);
+%% Retry for failed queries
+failed_list(failed_list > 50) = [];
+for jj_id=1:length(failed_list)
+    jj = failed_list(jj_id);
     try
         temp = webread(['https://api.outbreak.info/genomics/prevalence-by-location-all-lineages?location_id=USA_US-' abvs{jj} '&other_threshold=0.03&nday_threshold=5&ndays=60']);
         T0 = struct2table(temp.results); T0.state = repmat(abvs(jj), [size(T0, 1) 1]);
@@ -26,6 +42,8 @@ for jj=1:length(T.state)
         all_var_matrix(all_states(jj), all_lineages(jj), all_dates(jj)) = T.lineage_count(jj);
         all_var_est_matrix(all_states(jj), all_lineages(jj), all_dates(jj)) = T.prevalence_rolling(jj);
 end
+
+clear all_dates all_lineages all_states T0 T;
 
 %% Prune low frequency variants
 all_var_matrix = fillmissing(all_var_matrix,'constant',0);
@@ -61,25 +79,41 @@ end
 %% Fit multinomial curves
 ns = size(data_4, 1); nl = length(lineages); maxT = size(data_4, 2);
 var_frac_all = zeros(size(all_var_est_matrix));
+var_frac_all_low = zeros(size(all_var_est_matrix));
+var_frac_all_high = zeros(size(all_var_est_matrix));
 var_frac_se = nan(ns, nl);
 rel_adv = nan(ns, nl);
 for cid = 1:ns
     var_data = squeeze(red_var_matrix(cid, valid_lins(cid, :)>0, :));
     these_lins = find(valid_lins(cid, :)>0);
-    val_times = find(valid_times(cid, :)>0); val_times(val_times< (maxT-90)) = [];
+    val_times = find(valid_times(cid, :)>0); val_times(val_times< (maxT-60)) = [];
 
  %   try
-     if size(var_data, 2) == 1
+     if length(these_lins) == 1
          var_frac_all(cid, these_lins, :) = 1;
-     else
+         var_frac_all_low(cid, these_lins, :) = 1;
+         var_frac_all_high(cid, these_lins, :) = 1;
+         continue;
+     end
+         
+    if length(val_times) == 1
+         var_frac_all(cid, these_lins, :) = var_data./sum(var_data);
+         var_frac_all_low(cid, these_lins, :) = var_data./sum(var_data);
+         var_frac_all_high(cid, these_lins, :) = var_data./sum(var_data);
+         continue;
+    end
+
     var_data = var_data(:, val_times); 
 
-    [betaHat, stat] = mnrfit(val_times', var_data');
-    piHat = mnrval(betaHat, (1:maxT)');
+    [betaHat, ~, stat] = mnrfit(val_times', var_data');
+    [piHat, dlow, dhigh] = mnrval(betaHat, (1:maxT)', stat);
     var_frac_all(cid, these_lins, :) = piHat';
+    var_frac_all_low(cid, these_lins, :) = piHat' - dlow';
+    var_frac_all_high(cid, these_lins, :) = piHat' + dhigh';
+    
     rel_adv(cid, these_lins(1:end-1)) = betaHat(2, :);
     rel_adv(cid, these_lins(end)) = 0;
-     end
+
 %     catch
 %         fprintf('|');
 %     end

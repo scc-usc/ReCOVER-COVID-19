@@ -1,66 +1,32 @@
 clear; warning off;
 addpath('./hyper_params');
 
-
-%% For US
+%% US Variant data
 try
-    
-    load_data_us;
-    lowidx = popu < 1;
-    smooth_factor = 14;
-    data_4_s = smooth_epidata(data_4, smooth_factor);
-    deaths_s = smooth_epidata(deaths, smooth_factor);
-    
-    xx = load(['../results/unreported/' prefix '_all_unreported.csv']);
-    un_from_file = xx(2:end, end);
-    [best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, un_from_file, size(data_4, 2));
-    %[best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, un_from_file, size(data_4, 2), 0, [3], [7], [10], 50);
-    
-    dhyperparams;
-    write_unreported;
-    save us_hyperparam_latest.mat best_param_list MAPEtable_s best_death_hyperparam one_hyperparam;
-    add_to_history;
-    disp('Finished updating US forecasts');
-
+    all_variants_data;
+catch thisErr
+    fprintf('Error in Preparing US Variants Data\n');
+    fprintf('%s\n', thisErr.message);
+end
+%% For US forecasts
+try
+    all_variants_us_forecasts;
 catch thisErr
     fprintf('Error in US states forecasts\n');
     fprintf('%s\n', thisErr.message);
 end
 
-%% Variant data
+%% Global Variant data
 try
-    all_variants_data;
+    all_variants_data_global;
 catch thisErr
-    fprintf('Error in Preparing Variants Data\n');
+    fprintf('Error in Preparing Global Variants Data\n');
     fprintf('%s\n', thisErr.message);
 end
-%% Update US forecasts based on variants
-try
-    clear;
-    all_variants_us_forecasts;
-catch thisErr
-    fprintf('Error in US variant forecasts\n');
-    fprintf('%s\n', thisErr.message);
-end
-%% For Global
+
+%% For Global forecasts
 clear;
-try
-    load_data_global;
-    smooth_factor = 14;
-    data_4_s = smooth_epidata(data_4, smooth_factor);
-    deaths_s = smooth_epidata(deaths, smooth_factor);
-    
-    xx = load(['../results/unreported/' prefix '_all_unreported.csv']);
-    un_from_file = xx(2:end, end);
-    [best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, un_from_file, size(data_4, 2));
-    %[best_param_list, MAPEtable_s] = hyperparam_tuning(data_4, data_4_s, popu, 0, un_from_file, size(data_4, 2), 0, [3], [7], [10], 50);
-    
-    dhyperparams;
-    write_unreported;
-    save global_hyperparam_latest.mat best_param_list MAPEtable_s best_death_hyperparam one_hyperparam;
-    add_to_history;
-    disp('Finished updating Global forecasts');
-    
+try 
     global_vacc_pred;
 catch thisErr
     fprintf('Error in global forecasts\n');

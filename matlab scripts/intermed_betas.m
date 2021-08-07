@@ -11,7 +11,7 @@ else
 end
 
 rate_change(:, 1) = 1;
-rate_change(:, end) = final_Rt./init_Rt;
+rate_change(:, end) = final_Rt./(1e-10 + init_Rt);
 
 rate_change = fillmissing(rate_change, 'linear', 2);
 
