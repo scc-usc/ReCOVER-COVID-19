@@ -8,12 +8,16 @@ import io
 
 FORECAST_DATE = datetime.datetime.now(pytz.timezone('US/Pacific'))
 FORECAST_DATE = FORECAST_DATE.replace(tzinfo=None)
-# FIRST_WEEK is the first Saturday after forecast date.
-FIRST_WEEK = FORECAST_DATE
 for i in range(0, 8):
-    if FIRST_WEEK.weekday() == 5:
+    if FORECAST_DATE.weekday() == 6:
         break
-    FIRST_WEEK += datetime.timedelta(1)
+    FORECAST_DATE -= datetime.timedelta(1)
+# FIRST_WEEK is the first Saturday after forecast date.
+FIRST_WEEK = FORECAST_DATE + datetime.timedelta(6)
+# for i in range(0, 8):
+#     if FIRST_WEEK.weekday() == 5:
+#         break
+#     FIRST_WEEK += datetime.timedelta(1)
 INPUT_FILENAME = "county_forecasts_quarantine_0.csv"
 OUTPUT_FILENAME = FORECAST_DATE.strftime("%Y-%m-%d") + "-USC-SI_kJalpha.csv"
 COLUMNS = ["forecast_date", "target", "target_end_date", "location", "type", "quantile", "value"]
