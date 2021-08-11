@@ -6,10 +6,14 @@ import shutil
 
 FORECAST_DATE = datetime.datetime.now(pytz.timezone('US/Pacific'))
 FORECAST_DATE = FORECAST_DATE.replace(tzinfo=None)
+for i in range(0, 8):
+    if FORECAST_DATE.weekday() == 6:
+        break
+    FORECAST_DATE -= datetime.timedelta(1)
 DATE_PREFIX = FORECAST_DATE.strftime("%Y-%m-%d")
 
 shutil.copy("../forecasts/county_data.csv", "./")
-shutil.copy("../forecasts/county_forecasts_quarantine_0", "./")
+shutil.copy("../forecasts/county_forecasts_quarantine_0.csv", "./")
 shutil.copy("../forecasts/us_deaths.csv", "./")
 shutil.copy("../forecasts/global_deaths.csv", "./")
 
