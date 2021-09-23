@@ -18,3 +18,4 @@ end
 final_cov1 = [59 59 59 59 59 56 74 81 81];
 final_cov2 = [77 77 77 77 77 78 88 95 95];
 final_cov = (final_cov1+final_cov2)*0.5;
+final_cov = [0.4 31.8 44.2 49.5 54.3 63.9 73.9 90.1 86.1];
