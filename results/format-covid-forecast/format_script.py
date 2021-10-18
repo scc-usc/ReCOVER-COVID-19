@@ -12,6 +12,9 @@ for i in range(0, 8):
     FORECAST_DATE -= datetime.timedelta(1)
 DATE_PREFIX = FORECAST_DATE.strftime("%Y-%m-%d")
 
+shutil.copy("../historical_forecasts/{}/us_deaths_quants.csv".format(DATE_PREFIX), "./")
+shutil.copy("../historical_forecasts/{}/us_cases_quants.csv".format(DATE_PREFIX), "./")
+shutil.copy("../historical_forecasts/{}/us_hosp_quants.csv".format(DATE_PREFIX), "./")
 shutil.copy("../forecasts/county_data.csv", "./")
 shutil.copy("../forecasts/county_forecasts_quarantine_0.csv", "./")
 shutil.copy("../forecasts/us_deaths.csv", "./")
