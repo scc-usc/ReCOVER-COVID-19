@@ -48,7 +48,7 @@ clear all_dates all_lineages all_states T0 T;
 %% Prune low frequency variants
 all_var_matrix = fillmissing(all_var_matrix,'constant',0);
 red_var_matrix = all_var_matrix;
-min_samples_per_day = 0; raw_counts= 0; raw_prev_thres = 0; raw_single_day = 5;
+min_samples_per_day = 0; raw_counts= 0; raw_prev_thres = 0; raw_single_day = 5; min_max_frac = 0.01;
 valid_lins = zeros(length(abvs), length(lineages));
 valid_times = zeros(length(abvs), size(all_var_matrix, 3));
 total_samps = zeros(length(abvs), size(all_var_matrix, 3));
@@ -57,7 +57,7 @@ other_idx = find(strcmpi(lineages, 'other'));
 for jj=1:length(abvs)
     xx = squeeze(all_var_matrix(jj, :, :));
     vcount = (squeeze(nansum(xx, 2)));
-    valid_idx = (vcount/sum(vcount)>raw_prev_thres) & vcount > raw_counts & any(xx >= raw_single_day, 2);
+    valid_idx = (vcount/sum(vcount)>raw_prev_thres) & vcount > raw_counts & any(xx >= raw_single_day, 2) & max(xx./vcount, [], 2)>min_max_frac;
     new_other = squeeze(sum(red_var_matrix(jj, ~valid_idx, :), 2));
     red_var_matrix(jj, ~valid_idx, :) = 0;
     red_var_matrix(jj, other_idx, :) = new_other;
@@ -86,7 +86,7 @@ rel_adv = nan(ns, nl);
 for cid = 1:ns
     var_data = squeeze(red_var_matrix(cid, valid_lins(cid, :)>0, :));
     these_lins = find(valid_lins(cid, :)>0);
-    val_times = find(valid_times(cid, :)>0); val_times(val_times< (maxT-60)) = [];
+    val_times = find(valid_times(cid, :)>0); val_times(val_times< (maxT-70)) = [];
 
  %   try
      if length(these_lins) == 1
@@ -104,12 +104,20 @@ for cid = 1:ns
     end
 
     var_data = var_data(:, val_times); 
-
+    var_data = movmean(var_data, 7, 2);
+    try
     [betaHat, ~, stat] = mnrfit(val_times', var_data');
     [piHat, dlow, dhigh] = mnrval(betaHat, (1:maxT)', stat);
     var_frac_all(cid, these_lins, :) = piHat';
     var_frac_all_low(cid, these_lins, :) = piHat' - dlow';
     var_frac_all_high(cid, these_lins, :) = piHat' + dhigh';
+    catch
+        [betaHat] = mnrfit(val_times', var_data');
+        [piHat] = mnrval(betaHat, (1:maxT)', stat);
+        var_frac_all(cid, these_lins, :) = piHat';
+        var_frac_all_low(cid, these_lins, :) = piHat';
+        var_frac_all_high(cid, these_lins, :) = piHat';
+    end
     
     rel_adv(cid, these_lins(1:end-1)) = betaHat(2, :);
     rel_adv(cid, these_lins(end)) = 0;

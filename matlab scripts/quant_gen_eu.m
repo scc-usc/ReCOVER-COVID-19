@@ -151,10 +151,10 @@ quant_preds_cases = 0.5*(quant_preds_cases+abs(quant_preds_cases));
 plot_check = 1;
 
 if plot_check > 0
-    sel_idx = 154; %sel_idx = contains(countries, 'Estonia');
+    sel_idx = 43; %sel_idx = contains(countries, 'Estonia');
     dt = deaths;
     dts = deaths_s;
-    thisquant = squeeze(nansum(quant_preds_deaths(sel_idx, :, [1 12 23]), 1));
+    thisquant = squeeze(nansum(quant_preds_deaths(sel_idx, :, :), 1));
     gt_len = 20;
     gt_lidx = size(dt, 2); gt_idx = (gt_lidx-gt_len*7:7:gt_lidx);
     gt = diff(nansum(dt(sel_idx, gt_idx), 1))';

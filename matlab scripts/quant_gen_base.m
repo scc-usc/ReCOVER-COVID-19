@@ -50,7 +50,7 @@ quant_preds_deaths = 0.5*(quant_preds_deaths+abs(quant_preds_deaths));
 quant_preds_cases = 0.5*(quant_preds_cases+abs(quant_preds_cases));
 %% Plot
 cidx = 1:56;
-sel_idx = 11; %sel_idx = contains(countries, 'California');
+sel_idx = 3; sel_idx = contains(countries, 'Oregon');
 dt = deaths(cidx, :);
 dts = deaths_s(cidx, :);
 thisquant = squeeze(nansum(quant_preds_deaths(sel_idx, :, [1 7 12 17 23]), 1));
@@ -113,7 +113,7 @@ for jj = 1:max_week_ahead
 end
 
 %%
-pathname = '../results/to_reich/';
+pathname = '../results/historical_forecasts/';
 dirname = datestr(now_date, 'yyyy-mm-dd');
 fullpath = [pathname dirname];
 if ~exist(fullpath, 'dir')
@@ -122,3 +122,4 @@ end
 
 writecell(case_vals, [fullpath '/' prefix '_cases_quants.csv']);
 writecell(death_vals, [fullpath '/' prefix '_deaths_quants.csv']);
+
