@@ -1,10 +1,10 @@
-
+addpath('./utils/');
 load_data_global;
 load variants_global.mat
 
 smooth_factor = 14;
-data_4_s = smooth_epidata(data_4, smooth_factor/2, 0);
-deaths_s = smooth_epidata(deaths, smooth_factor/2);
+data_4_s = smooth_epidata(data_4, smooth_factor/2, 0, 1);
+deaths_s = smooth_epidata(deaths, smooth_factor/2, 0, 1);
 % %%
 % G_vacc_one = readtable('../results/forecasts/G_vacc_person.csv');
 % all_cidx = contains(G_vacc_one.Var2, '|||');
@@ -53,14 +53,16 @@ vacc_pre_immunity = equiv_vacc_effi*((1 - un.*data_4./popu).*vacc_fd);
 vacc_per_day = (vacc_fd(:, end) - vacc_fd(:, end-14))/14;
 vacc_future  = vacc_fd(:, end) + cumsum(vacc_per_day*ones(1, horizon), 2);
 vacc_effect = vacc_future*equiv_vacc_effi;
+vac_effect_all = [vacc_future vacc_fd]*equiv_vacc_effi;
 %% hyperparameters
 best_param_list_v = zeros(ns, 3);
-best_param_list_v(:, 1) = 2; best_param_list_v(:, 2) = 7; best_param_list_v(:, 3) = 8;
+best_param_list_v(:, 1) = 2; best_param_list_v(:, 2) = 7; best_param_list_v(:, 3) = 9;
 T_full = size(data_4, 2);
 [best_death_hyperparam, one_hyperparam] = death_hyperparams(deaths, data_4_s, deaths_s, T_full, 7, popu, 0, best_param_list_v, un);
 
 %% Create death rates
-dlag_list = [0 3 7 10 14];
+dlag_list = [0 7 14];
+
 dalpha = 0.9;
 dk = best_death_hyperparam(:, 1);
 djp = best_death_hyperparam(:, 2);
@@ -85,10 +87,10 @@ var_frac_all_high(:, delta_idx, :) = xx;
 
 drate_smooth = 7;
 rate_smooth = 14;
-rlag_list = [0:1:2];
-lag_list = [0:-1:0];
+rlag_list = [0 1 2];
+lag_list = [0 1];
 un_list = [1]; un_array = un;
-var_prev_q = [1 3 2];
+var_prev_q = [2];
 [X1, X2, X3, X4] = ndgrid(un_list, lag_list, var_prev_q, rlag_list);
 scen_list = [X1(:), X2(:), X3(:) X4(:)];
 
@@ -145,7 +147,7 @@ for simnum = 1:size(scen_list, 1)
         new_infec = 0;
         for l=1:length(lineages)
             variant_fact = squeeze(var_frac_this(:, l, :));
-            this_vac_effect = vacc_effect(:, (1+7*ll+horizon-new_horizon):(horizon+7*ll));
+            this_vac_effect = vacc_effect(:, 1:end);
             these_betas = all_betas{l};
             this_data_var = all_data_vars{l};
             base_infec = total_infec;
@@ -172,7 +174,7 @@ for simnum = 1:size(scen_list, 1)
     net_infec_0(simnum, :, :) = infec_net;
     
     % Deaths
-    for jj = 1:length(death_rates_list)
+    for jj = 1:length(dlag_list)
         death_rates = death_rates_list{1};
         infec_data = [data_4_s squeeze(net_infec_0(simnum, :, :))-data_4(:, T_full)+data_4_s(:, T_full)];
         T_full = size(data_4, 2);
@@ -188,6 +190,12 @@ end
 infec_un_0 = squeeze(nanmean(net_infec_0, 1));
 deaths_un_0 = squeeze(nanmean(net_death_0, 1));
 
+infec_un_lb = squeeze(min(net_infec_0, [], 1));
+deaths_un_lb = squeeze(min(net_death_0, [], 1));
+
+infec_un_ub = squeeze(max(net_infec_0, [], 1));
+deaths_un_ub = squeeze(max(net_death_0, [], 1));
+
 save global_results.mat net_death_0 net_infec_0 data_4 data_4_s popu countries best_death_hyperparam best_param_list* un_array;
 %%
 file_suffix = '0';
@@ -198,4 +206,26 @@ writetable(infec2table(deaths_un_0, countries), [file_prefix '_deaths_current_' 
 
 add_to_history;
 disp('Files Written');
-    
+
+%%
+now_date = datetime((now),'ConvertFrom','datenum', 'TimeZone', 'America/Los_Angeles');
+pathname = '../results/historical_forecasts/';
+dirname = datestr(now_date, 'yyyy-mm-dd');
+fullpath = [pathname dirname];
+if ~exist(fullpath, 'dir')
+    mkdir(fullpath);
+end
+lowidx = zeros(length(countries), 1);
+
+writetable(infec2table(infec_un_lb, countries), [file_prefix '_forecasts_current_' file_suffix '_lb.csv']);
+writetable(infec2table(deaths_un_lb, countries), [file_prefix '_deaths_current_' file_suffix '_lb.csv']);
+
+writetable(infec2table(infec_un_ub, countries), [file_prefix '_forecasts_current_' file_suffix '_ub.csv']);
+writetable(infec2table(deaths_un_ub, countries), [file_prefix '_deaths_current_' file_suffix '_ub.csv']);
+
+
+writetable(infec2table([base_infec infec_un_lb], ihme_countries, lowidx, forecast_date-1, 1, 1), [fullpath '/' prefix '_forecasts_cases_lb.csv']);
+writetable(infec2table([base_deaths deaths_un_lb], ihme_countries, lowidx, forecast_date-1, 1, 1), [fullpath '/' prefix '_forecasts_deaths_lb.csv']);
+
+writetable(infec2table([base_infec infec_un_ub], ihme_countries, lowidx, forecast_date-1, 1, 1), [fullpath '/' prefix '_forecasts_cases_ub.csv']);
+writetable(infec2table([base_deaths deaths_un_ub], ihme_countries, lowidx, forecast_date-1, 1, 1), [fullpath '/' prefix '_forecasts_deaths_ub.csv']);
