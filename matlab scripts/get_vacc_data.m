@@ -42,10 +42,13 @@ for ii = 1:size(u_vacc_tab, 1)
         u_vacc(cidx(ii), d_idx(ii)) = u_vacc_tab.Doses_admin(ii);
         u_vacc_full(cidx(ii), d_idx(ii)) = u_vacc_tab.Stage_Two_Doses(ii);
         u_vacc_shipped(cidx(ii), d_idx(ii)) = u_vacc_tab.Doses_shipped(ii);
+        u_vacc_sd(cidx(ii), d_idx(ii)) = u_vacc_tab.Stage_One_Doses(ii);
     end
 end
 u_vacc_full = filloutliers(u_vacc_full, 'linear', 2);
 u_vacc = filloutliers(u_vacc, 'linear', 2);
+u_vacc_sd = filloutliers(u_vacc_sd, 'linear', 2);
+
 %% Write data
 tic;
 gt_offset = 344; % Only need to show starting from Jan 1

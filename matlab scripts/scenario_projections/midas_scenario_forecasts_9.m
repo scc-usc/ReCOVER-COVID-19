@@ -140,6 +140,15 @@ ag_wan_lb_list = [repmat([1 0.7 0.5 0.5], [4 1]); 1 0.35 0.25 0.25];
 ag_wan_param_list = repmat([365*3 365 365*3 365], [5 1]);
 P_list = [1 0.9 0.8 0.8];
 
+%%
+temp = nan(ns, 27); 
+temp(:, 1) = un_array(:, 1);
+temp(:, 27) = un_array(:, 3);
+temp(:, 14) = un_array(:, 2);
+temp = fillmissing(temp, 'linear', 2);
+un_list = [1:27];
+un_array = temp;
+
 %% Prepare scenario list
 [X1, X2, X3, X4, X5, X6] = ndgrid(un_list, [2], Rt_init_scens, Rt_final_scens, rlag_list, num_wan);
 scen_list = [X1(:), X2(:), X3(:), X4(:), X5(:), X6(:)];
@@ -265,7 +274,7 @@ new_death_ag_D = new_death_ag_0;
 new_hosp_ag_D = new_hosp_ag_0;
 
 %%
-cid = 25;
+cid = 1:56;
 tiledlayout(4, 3, 'TileSpacing','compact');
 
 nexttile; plot(diff(nansum(data_4(cid, :), 1))); hold on; plot(size(data_4, 2):size(data_4, 2)+horizon-2, diff(squeeze(nansum(net_infec_A(:, cid, :), 2))')); hold off
@@ -328,7 +337,7 @@ end
 
 %% Quant plots
 %cid = popu>-1;
-cid = 3;
+cid = 1:56;
 quant_show = [1 7 12 17 23];
 xvals = size(data_4(cid, 52:7:end), 2):size(data_4(cid, 52:7:end), 2)+size(all_quant_diff, 5)-1;
 tiledlayout(4, 3, 'TileSpacing','compact');

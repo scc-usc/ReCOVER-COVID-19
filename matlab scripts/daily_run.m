@@ -1,6 +1,6 @@
 clear; warning off;
 addpath('./hyper_params');
-
+addpath('./utils/');
 %% US Variant data
 try
     all_variants_data;
@@ -27,7 +27,7 @@ end
 %% For Global forecasts
 clear;
 try 
-    global_vacc_pred;
+    multivar_global_vacc_pred;
 catch thisErr
     fprintf('Error in global forecasts\n');
     fprintf('%s\n', thisErr.message);
@@ -65,15 +65,6 @@ catch thisErr
     fprintf('%s\n', thisErr.message);
 end
 
-%% Add global forecasts lower and upper bounds
-clear;
-try
-    quant_gen_sampled;
-catch thisErr
-    fprintf('Error in generating quantiles for global forecasts\n');
-    fprintf('%s\n', thisErr.message);
-end
-
 %% Update vaccination data
 clear;
 try
@@ -92,5 +83,19 @@ try
     end
 catch thisErr
     fprintf('Error in creating EU submission\n');
+    fprintf('%s\n', thisErr.message);
+end
+
+%% Generate submission file for US forecast hub
+
+clear;
+try
+     
+    if weekday(now)==1
+        quant_gen_base;
+        hospitalization_us;
+    end
+catch thisErr
+    fprintf('Error in creating US FH submission\n');
     fprintf('%s\n', thisErr.message);
 end

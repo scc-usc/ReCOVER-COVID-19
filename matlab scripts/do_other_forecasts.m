@@ -2,7 +2,7 @@ smooth_factor = 14;
 data_4_s = smooth_epidata(data_4, smooth_factor/7, 0);
 deaths_s = smooth_epidata(deaths, smooth_factor);
 
-un = 2; % Select the ratio of true cases to reported cases. 1 for default.
+un = 2*ones(length(popu), 1); % Select the ratio of true cases to reported cases. 1 for default.
 un_from_file = un; % Change this when calculating un for "other" forecasts
 no_un_idx = un.*data_4(:, end)./popu > 0.2;
 un(no_un_idx) = 1;

@@ -109,6 +109,5 @@ function [beta_all_cell, fittedC, ci] = var_ind_beta_un(data_4, passengerFlow, a
             beta_all_cell{j} = beta_vec;
         end
         
-        fittedC{j} = [X*beta_all_cell{j},y];
     end
     

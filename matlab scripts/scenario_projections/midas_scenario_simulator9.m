@@ -6,7 +6,12 @@ new_infec_ag_0 = zeros(size(scen_list, 1), size(data_4, 1), horizon, size(vacc_a
 new_death_ag_0 = zeros(dh_sims, size(data_4, 1), horizon, size(vacc_ag, 3));
 new_hosp_ag_0 = zeros(dh_sims, size(data_4, 1), horizon, size(vacc_ag, 3));
 
-for simnum = 1:size(scen_list, 1)
+net_d_cell = cell(size(scen_list, 1), 1);
+net_d_ag_cell = cell(size(scen_list, 1), 1);
+net_h_cell = cell(size(scen_list, 1), 1);
+net_h_ag_cell = cell(size(scen_list, 1), 1);
+
+parfor simnum = 1:size(scen_list, 1)
     un = un_array(:, scen_list(simnum, 1)); % Under-reporting (low-1, mean-2, high-3)
     dom_idx = scen_list(simnum, 2); % uncertainty in the dominant variant/VOC
     target_rt_idx = scen_list(simnum, 4);
@@ -75,9 +80,11 @@ for simnum = 1:size(scen_list, 1)
     new_infec_ag_0(simnum, :, :, :) = pred_new_cases;
     
     % Changing death rates and hospitlization rates is no longer necessary
-    dh_rate_change(:) = 1; h_rate_change(:) = 1;
+    dh_rate_change(:) = 1; 
 %%    
     % Deaths
+    temp_res = zeros(length(dhlags_list), length(countries), horizon);
+    temp_res_ag = zeros(length(dhlags_list), length(countries), horizon, size(vacc_ag, 3));
     for jj = 1:length(dhlags_list)
         T_full = size(data_4, 2);
         base_deaths = deaths(:, T_full);
@@ -93,10 +100,14 @@ for simnum = 1:size(scen_list, 1)
         
         [pred_deaths, pred_new_deaths_ag] = simulate_deaths_wan(all_data_age_matrix, reinfec_frac, P, base_death_rate, dk, djp, ...
             horizon, base_deaths, T_full-1, dh_rate_change);
-        
-        net_death_0(simnum+(jj-1)*size(scen_list, 1), :, :) = pred_deaths(:, 1:horizon);
-        new_death_ag_0(simnum+(jj-1)*size(scen_list, 1), :, :, :) = pred_new_deaths_ag(:, 1:horizon, :);
+        temp_res(jj, :, :) = pred_deaths(:, 1:horizon);
+        temp_res_ag(jj, :, :, :) = pred_new_deaths_ag(:, 1:horizon, :);
+%        net_death_0(simnum+(jj-1)*size(scen_list, 1), :, :) = pred_deaths(:, 1:horizon);
+%        new_death_ag_0(simnum+(jj-1)*size(scen_list, 1), :, :, :) = pred_new_deaths_ag(:, 1:horizon, :);
     end
+    net_d_cell{simnum} = temp_res;
+    net_d_ag_cell{simnum} = temp_res_ag;
+
 %%
     % Hosp
     for jj = 1:length(dhlags_list)
@@ -116,9 +127,23 @@ for simnum = 1:size(scen_list, 1)
             horizon, base_hosp, T_full-1, dh_rate_change);
         
         h_start = size(data_4, 2)-T_full+1;
-        net_hosp_0(simnum+(jj-1)*size(scen_list, 1), :, :) = pred_hosps(:, h_start:h_start+horizon-1) - base_hosp;
-        new_hosp_ag_0(simnum+(jj-1)*size(scen_list, 1), :, :, :) = pred_new_hosps_ag(:, 1:horizon, :);
+        temp_res(jj, :, :) = pred_hosps(:, h_start:h_start+horizon-1) - base_hosp;
+        temp_res_ag(jj, :, :, :) = pred_new_hosps_ag(:, 1:horizon, :);
+%        net_hosp_0(simnum+(jj-1)*size(scen_list, 1), :, :) = pred_hosps(:, h_start:h_start+horizon-1) - base_hosp;
+%        new_hosp_ag_0(simnum+(jj-1)*size(scen_list, 1), :, :, :) = pred_new_hosps_ag(:, 1:horizon, :);
     end
+    net_h_cell{simnum} = temp_res;
+    net_h_ag_cell{simnum} = temp_res_ag;
     fprintf('.');
 end
+
+for simnum = 1:size(scen_list, 1)
+    idx = simnum+[0:length(dhlags_list)-1]*size(scen_list, 1);
+    net_death_0(idx, :, :) = net_d_cell{simnum};
+    new_death_ag_0(idx, :, :, :) = net_d_ag_cell{simnum};
+    net_hosp_0(idx, :, :) = net_h_cell{simnum};
+    new_hosp_ag_0(idx, :, :, :) = net_h_ag_cell{simnum};
+end
+%clear net_*_cell
 fprintf('\n');
+

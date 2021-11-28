@@ -1,3 +1,4 @@
+addpath('./utils/');
 % Get from 
 % https://healthdata.gov/dataset/covid-19-reported-patient-impact-and-hospital-capacity-state-timeseries
 %sel_url = 'https://healthdata.gov/sites/default/files/reported_hospital_utilization_timeseries_20210306_1105.csv';
@@ -124,16 +125,6 @@ net_hosp_A = zeros(size(net_infec_A, 1)*length(lags_list), size(data_4, 1), hori
 
 
 for simnum = 1:size(net_infec_A, 1)
-%     un = un_array(:, scen_list(simnum, 1));
-%     lags = scen_list(simnum, 2);
-%     beta_after = var_ind_beta_un(data_4_s(:, 1:end-lags), 0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, popu>-1);
-%     
-%     % Cases
-%     base_infec = data_4_s(:, end);
-%     infec_un1 = var_simulate_pred_un(data_4_s(:, 1:end), 0, beta_after, popu, best_param_list(:, 1), horizon, best_param_list(:, 2), un, base_infec);
-%     infec_dat = [data_4_s(:, 1:end), infec_un1-base_infec+data_4_s(:, end)];
-%     net_infec_A(simnum, :, :) = infec_un1(:, 1:horizon); %infec_un1;
-
     % Hosp
     for jj = 1:length(hosp_rates_list)
         hosp_rates = hosp_rates_list{1};
@@ -181,7 +172,7 @@ quant_preds_hosp = (quant_preds_hosp+abs(quant_preds_hosp))/2;
 % plot((T_full+1:T_full+size(pred_new_hosps, 2)), pred_new_hosps(cid, :)); hold off;
 dt = hosp_dat;
 dt_s = [zeros(length(popu), 2) diff(hosp_cumu_s, 1, 2)];
-sel_idx = 3; %sel_idx = contains(placenames, 'Florida');
+sel_idx = 3;% sel_idx = contains(placenames, 'Nebraska');
 thisquant = squeeze(nansum(quant_preds_hosp(sel_idx, :, [1 7 17 23]), 1));
 mpred = (nansum(mean_preds_hosp(sel_idx, :), 1))';
 gt_len = 400;
@@ -235,11 +226,12 @@ end
 
 %% Write file
 
-pathname = '../results/to_reich/';
+pathname = '../results/historical_forecasts/';
 dirname = datestr(now_date, 'yyyy-mm-dd');
 fullpath = [pathname dirname];
 if ~exist(fullpath, 'dir')
     mkdir(fullpath);
 end
+
 hosp_vals((strcmpi(hosp_vals(:, 7), 'nan')), :) = [];
 writecell(hosp_vals, [fullpath '/' prefix '_hosp_quants.csv']);

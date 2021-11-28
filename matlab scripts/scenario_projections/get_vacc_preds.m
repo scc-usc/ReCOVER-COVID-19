@@ -1,9 +1,22 @@
 function [vacc_given_by_age] = get_vacc_preds(vacc_num_age_est, popu_by_age_new, horizon, final_cov)
 %GET_VACC_PREDS Summary of this function goes here
 %   Detailed explanation goes here
+
 ns = size(vacc_num_age_est, 1);
 na = size(vacc_num_age_est, 3);
 T = size(vacc_num_age_est, 2);
+
+if size(vacc_num_age_est, 1)==1
+    temp = zeros(ns, T, 1);
+    temp(:, :, 1) = vacc_num_age_est;
+    vacc_num_age_est = temp;
+end
+
+vacc_num_age_est_s = vacc_num_age_est;
+
+for idx = 1:na
+    vacc_num_age_est_s(:, :, idx) = smooth_epidata(vacc_num_age_est(:, :, idx), 7);
+end
 
 if nargin < 4
     final_cov = ones(ns, na);
@@ -20,7 +33,7 @@ for cid = 1:ns
     ub = 1;
     for ag = na:-1:1
         
-        Y = squeeze(vacc_num_age_est(cid, :, ag));
+        Y = squeeze(vacc_num_age_est_s(cid, :, ag));
         Y = Y(:)'./popu_by_age_new(cid, ag);
         lag = 14; %bad data in last two weeks
         xs = [0 diff(movmean(Y(1:T), 14))]; xs = xs(1: T-lag);

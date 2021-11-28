@@ -151,7 +151,7 @@ quant_preds_cases = 0.5*(quant_preds_cases+abs(quant_preds_cases));
 plot_check = 1;
 
 if plot_check > 0
-    sel_idx = 43; %sel_idx = contains(countries, 'Estonia');
+    sel_idx = 43; sel_idx = contains(countries, 'US');
     dt = deaths;
     dts = deaths_s;
     thisquant = squeeze(nansum(quant_preds_deaths(sel_idx, :, :), 1));

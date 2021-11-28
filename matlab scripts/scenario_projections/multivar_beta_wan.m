@@ -27,11 +27,11 @@ vac = sum(vac_ag(:, T+1:end, :), 3);
 ag = size(vac_ag, 3);
 
 if nargin < 9
-    ag_case_frac = zeros(size(vac_ag, 3), T);
+    ag_case_frac = ones(num_countries, T, ag)/ag;
 end
 ag_case_frac(isnan(ag_case_frac)) = 0;
 if nargin < 10
-    ag_popu_frac = repmat(popu/size(vac_ag, 3), [1 size(vac_ag, 3)]);
+    ag_popu_frac = repmat(1/ag, [length(popu) ag]);
 end
 
 if nargin < 11
@@ -106,6 +106,10 @@ for j=1:length(popu)
     end
     
     % Get the contact matrix using the most prevelant variant
+    if ag==1
+        beta_cont = 1;
+        C = 1;
+    else
     [~, Ml] = max(squeeze(deltemp(j, :, T)));
     l = Ml;
     all_betas{l}{j} = zeros(k, 1);
@@ -114,8 +118,11 @@ for j=1:length(popu)
     y_ag = zeros(T - jk - skip_days - 1, ag);
     X_ag = zeros(T - jk - skip_days - 1, k*ag);
     Smat = y_ag;
-    
-    thisdel = squeeze(deltemp(j, l, 1:end))'.*this_case_frac(:, 1:end);
+    if ag > 1
+        thisdel = squeeze(deltemp(j, l, 1:end))'.*this_case_frac(:, 1:end);
+    else
+        thisdel = squeeze(deltemp(j, l, 1:end))'.*this_case_frac(:, 1:end)';
+    end
     
     for t=skip_days+jk+1:T-1
         Ikt1 = thisdel(:, t-jk:t-1);
@@ -142,6 +149,7 @@ for j=1:length(popu)
     beta_vec = b(1:k);
     beta_cont = [b(k+1:end); 1];
     C = beta_cont * beta_cont';
+    end
     %%%%%%%%%%%% Contact Matrix calculated %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     for l = 1:nl
@@ -150,7 +158,11 @@ for j=1:length(popu)
         y = zeros(T - jk - skip_days - 1, 1);
         X = zeros(T - jk - skip_days - 1, k);
         
-        thisdel = squeeze(deltemp(j, l, 1:end))'.*this_case_frac(:, 1:end);
+        if ag > 1
+            thisdel = squeeze(deltemp(j, l, 1:end))'.*this_case_frac(:, 1:end);
+        else
+            thisdel = squeeze(deltemp(j, l, 1:end))'.*this_case_frac(:, 1:end)';
+        end
         
         if all(thisdel < 1)
             continue;
@@ -179,12 +191,11 @@ for j=1:length(popu)
         if ~isempty(X) && ~isempty(y)
             % If confidence intervals are not required, we will use lsqlin.
             % code for confidence intervals is not written yet
-            if ret_conf == 0    
+            if ret_conf == 0
                 beta_vec =  lsqlin(X, y,[],[],[],[],zeros(k, 1), [], [], opts1);
             end
             all_betas{l}{j} = beta_vec;
             fittedC{l}{j}{1} = (X./alphamat)*beta_vec;
-            fittedC{l}{j}{2} = y;
         end
     end
 end

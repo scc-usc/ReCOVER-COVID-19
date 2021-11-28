@@ -1,4 +1,4 @@
-prefix = 'other'; num_ens_weeks = 14; week_len = 1;
+prefix = 'other'; num_ens_weeks = 3; week_len = 1;
 %prefix = 'global'; cidx = 1:184; num_ens_weeks = 3;
 
 num_ahead = 4;
@@ -77,8 +77,8 @@ for jj=1:num_ahead
     AllXdata = [AllXdata; [Xdata{jj}]]; AllYdata = [AllYdata; Ydata{jj}];
     AllXdeaths = [AllXdeaths; [Xdeaths{jj}]]; AllYdeaths = [AllYdeaths; Ydeaths{jj}];
 end
-All_Mdl = TreeBagger(100, AllXdata, (AllYdata-AllXdata(:, 1)), 'Method','regression', 'CategoricalPredictors', [size(AllXdata, 2)]);
-All_Mdl_d = TreeBagger(100, AllXdeaths, (AllYdeaths-AllXdeaths(:, 1)), 'Method','regression', 'CategoricalPredictors', [size(AllXdeaths, 2)]);
+All_Mdl = TreeBagger(20, AllXdata, (AllYdata-AllXdata(:, 1)), 'Method','regression', 'CategoricalPredictors', [size(AllXdata, 2)]);
+All_Mdl_d = TreeBagger(20, AllXdeaths, (AllYdeaths-AllXdeaths(:, 1)), 'Method','regression', 'CategoricalPredictors', [size(AllXdeaths, 2)]);
 
 %% Identify predictions based on dates
 

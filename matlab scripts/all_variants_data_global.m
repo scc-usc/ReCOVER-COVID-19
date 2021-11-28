@@ -1,3 +1,4 @@
+clear;
 load_data_global;
 warning off;
 %%

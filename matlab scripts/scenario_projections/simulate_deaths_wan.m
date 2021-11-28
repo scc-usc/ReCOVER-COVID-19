@@ -34,7 +34,7 @@ for g = 1:ag
     % Pad rate_change in case the horizon is longer than rates available
     rate_change = squeeze(rate_change_ag(:, :, g));
     rate_change = movmean([rate_change repmat(rate_change(:, end), ...
-        [1 horizon-size(rate_change, 2)+1])], 14);
+        [1 horizon-size(rate_change, 2)+10])], 14);
     
     for j=1:num_countries
 

@@ -19,12 +19,12 @@ ag = size(vac_ag, 3);
 reinfec_frac = zeros(num_countries, T+horizon, ag);
 
 if nargin < 12
-    ag_case_frac = zeros(size(vac_ag, 3), T);
+    ag_case_frac = ones(num_countries, T, ag)/ag;
 end
 ag_case_frac(isnan(ag_case_frac)) = 0;
 
 if nargin < 13
-    ag_popu_frac = repmat(popu/ag, [1 size(vac_ag, 3)]);
+    ag_popu_frac = repmat(1/ag, [length(popu) ag]);
 end
 
 if nargin < 14
@@ -32,7 +32,7 @@ if nargin < 14
 end
 
 if nargin < 15
-    ag_wan_lb = ones(vd, 1);
+    ag_wan_lb = ones(ag, 1);
 end
 
 if nargin < 16
@@ -59,6 +59,9 @@ end
 
 if isempty(rate_change)
     rate_change = ones(num_countries, horizon);
+end
+if size(rate_change, 2) < horizon
+    rate_change = [rate_change repmat(rate_change(:, end), [1, horizon - size(rate_change, 2)])];
 end
 
 if length(un_fact)==1
@@ -94,6 +97,9 @@ for j=1:length(popu)
     jk = jp*k;
     
     this_case_frac = squeeze(ag_case_frac(j, :, :))';
+    if size(this_case_frac, 2) == 1
+        this_case_frac = this_case_frac';
+    end
     true_new_infec_ts = this_case_frac .*[ 0,  diff(un_fact(j)*data_4(j, :))];
     true_new_infec_ts = [true_new_infec_ts, zeros(ag, horizon)];
     true_infec_ts = cumsum(true_new_infec_ts, 2);
@@ -103,7 +109,11 @@ for j=1:length(popu)
     end
     
     for l=1:nl
-        thisdel = squeeze(diff(all_vars_data(j, l, :), 1, 3)) .* squeeze(ag_case_frac(j, 2:end, :));
+        temp = squeeze(ag_case_frac(j, 2:end, :));
+        if size(temp, 1) == 1
+           temp = temp';
+        end
+        thisdel = squeeze(diff(all_vars_data(j, l, :), 1, 3)) .* temp;
         deltemp(j, l, 2:T, :) = thisdel;
     end
     
@@ -114,6 +124,9 @@ for j=1:length(popu)
         waned_popu(j, :, idx) = (squeeze(waned_impact(:, :, idx))*newM(idx, :)');
     end
     temp = squeeze(waned_popu(j, :, :));
+    if ag==1
+        temp = temp';
+    end
     reinfec_frac(j, :, :) = temp./(1e-50 + M');
     for t=1:horizon
         

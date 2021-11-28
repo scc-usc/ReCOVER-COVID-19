@@ -12,7 +12,7 @@ else
     final_cov = age_cov;
 end
 
-vacc_given_by_age = zeros(size(vacc_fd, 1), horizon, length(tot_popu_for_vacc));
+vacc_given_by_age = zeros(size(vacc_fd, 1), horizon+size(vacc_fd, 2), length(tot_popu_for_vacc));
 latest_vac =  vacc_fd(:, end);
 vacc_perc_orig = vacc_perc;
 
@@ -42,8 +42,8 @@ for cid = 1:size(vacc_fd, 1)
         target_dates = [1:last_date];
         vacc_est(ii, :) = predict(mdl{ii}, target_dates');
     end
-    xx = popu_for_vacc(:, cid)' .* vacc_est(:, (last_date - horizon +1): last_date)'/100;
-    vfact = vacc_fd(cid, end)/sum(xx(1, :));
+    xx = popu_for_vacc(:, cid)' .* vacc_est(:, (1): last_date)'/100;
+    vfact = vacc_fd(cid, end)/sum(xx(last_date - horizon, :));
     vacc_given_by_age(cid, :, :) = xx*vfact;
 end
 

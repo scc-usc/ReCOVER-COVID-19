@@ -15,8 +15,8 @@ load us_results;
 num_ahead = 56;
 smooth_factor = 14;
 T_full = size(data_4, 2);
-data_4_s = smooth_epidata(data_4, smooth_factor/2, 0);
-deaths_s = smooth_epidata(deaths, smooth_factor/2);
+data_4_s = smooth_epidata(data_4, smooth_factor, 0);
+deaths_s = smooth_epidata(deaths, smooth_factor);
 placenames = countries;
 %%
 quant_preds_deaths = zeros(length(popu), floor((num_ahead-1)/7), length(quant_deaths));
@@ -30,7 +30,7 @@ for cid = 1:length(popu)
     thisdata = squeeze(net_infec_0(:, cid, :));
     thisdata(all(thisdata==0, 2), :) = [];
     thisdata = diff(thisdata(:, 1:7:num_ahead)')';
-    dt = data_4; gt_lidx = size(dt, 2); extern_dat = diff(dt(cid, gt_lidx-7:7:gt_lidx))';
+    dt = data_4; gt_lidx = size(dt, 2); extern_dat = diff(dt(cid, gt_lidx-14:7:gt_lidx))';
     extern_dat = extern_dat - mean(extern_dat) + mean_preds_cases(cid, :);
     thisdata = [thisdata; repmat(extern_dat, [3 1])];    
     quant_preds_cases(cid, :, :) = movmean(quantile(thisdata, quant_cases)', 1, 1);
@@ -50,7 +50,7 @@ quant_preds_deaths = 0.5*(quant_preds_deaths+abs(quant_preds_deaths));
 quant_preds_cases = 0.5*(quant_preds_cases+abs(quant_preds_cases));
 %% Plot
 cidx = 1:56;
-sel_idx = 3; sel_idx = contains(countries, 'Oregon');
+sel_idx = 2; %sel_idx = contains(countries, 'Washington');
 dt = deaths(cidx, :);
 dts = deaths_s(cidx, :);
 thisquant = squeeze(nansum(quant_preds_deaths(sel_idx, :, [1 7 12 17 23]), 1));
