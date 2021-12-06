@@ -1,6 +1,8 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 //import ReactDOM from "react-dom";
 import { ResponsiveLine } from "@nivo/line";
+import { quantile, mean } from "d3-array";
+import { area, curveMonotoneX } from "d3-shape";
 import moment from "moment";
 import numeral from "numeral";
 import {
@@ -15,9 +17,8 @@ import {
   blue,
   geekblue,
   purple,
-  magenta
+  magenta,
 } from "@ant-design/colors";
-
 
 function getLineColor(index) {
   const colors = [
@@ -32,90 +33,54 @@ function getLineColor(index) {
     orange,
     lime,
     geekblue,
-    magenta
+    magenta,
   ];
 
   return colors[index % colors.length];
 }
 
-// Custom layer for Nivo Line that allows us to display predictions as dashed
-// lines.
-const DashedLine = ({ series, lineGenerator, xScale, yScale }) => {
-  return series.map(({ id, data, color, predicted, distancing }) => {
-    let style = {
-      strokeWidth: 3
-    };
-
-    // Add custom style if predicted.
-    if (predicted) {
-      if (distancing) {
-        style.strokeDasharray = "6, 4";
-      } else {
-        // Display a sparser pattern for no social distancing.
-        style.strokeDasharray = "2, 6";
-      }
-    }
-
-    return (
-      <path
-        key={id}
-        d={lineGenerator(
-          data.map(d => ({
-            x: xScale(d.data.x),
-            y: yScale(d.data.y)
-          }))
-        )}
-        fill="none"
-        stroke={color}
-        style={style}
-      />
-    );
-  });
-};
-
 const theme = {
   axis: {
     ticks: {
       text: {
-        fontSize: 16
-      }
+        fontSize: 16,
+      },
     },
     legend: {
       text: {
-        fontSize: 16
-      }
-    }
+        fontSize: 16,
+      },
+    },
   },
   legends: {
     text: {
-      fontSize: 14
-    }
-  }
+      fontSize: 14,
+    },
+  },
 };
 
 class Covid19Graph extends Component {
   ////////////////////////////////////
-constructor(props) {
-  super(props);
-  this.state = { width: 0, height: 0 };
-  this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-}
+  constructor(props) {
+    super(props);
+    this.state = { width: 0, height: 0 };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
 
-componentDidMount() {
-  this.updateWindowDimensions();
-  window.addEventListener('resize', this.updateWindowDimensions);
-}
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener("resize", this.updateWindowDimensions);
+  }
 
-componentWillUnmount() {
-  window.removeEventListener('resize', this.updateWindowDimensions);
-}
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindowDimensions);
+  }
 
-updateWindowDimensions() {
-  this.setState({ width: window.innerWidth, height: window.innerHeight });
-}
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
 
   ////////////////////////////////////
-
 
   parseDate(dateStr) {
     let [year, month, day] = dateStr.split("-").map(Number);
@@ -131,7 +96,7 @@ updateWindowDimensions() {
   getCumulativeData(data, normalizer) {
     return data.map(d => ({
       x: this.parseDate(d.date),
-      y: d.value/normalizer
+      y: d.value / normalizer,
     }));
   }
 
@@ -146,13 +111,13 @@ updateWindowDimensions() {
       if (i === 0) {
         return {
           x: this.parseDate(d.date),
-          y: (d.value - initialVal)/normalizer
+          y: (d.value - initialVal) / normalizer,
         };
       }
 
       return {
         x: this.parseDate(d.date),
-        y: (d.value - data[i - 1].value)/normalizer
+        y: (d.value - data[i - 1].value) / normalizer,
       };
     });
   }
@@ -215,7 +180,7 @@ updateWindowDimensions() {
       tickRotation: 0,
       legend: statistic === "delta" ? "New Cases" : "Cumulative Cases",
       legendOffset: -60,
-      legendPosition: "middle"
+      legendPosition: "middle",
     };
 
     let logTickValues = [];
@@ -227,7 +192,7 @@ updateWindowDimensions() {
     // that the tick values must be supplied.
     const logAxisLeft = {
       ...linearAxisLeft,
-      tickValues: logTickValues
+      tickValues: logTickValues,
     };
 
     // For log scale Y axes, we must supply the Y tick values for the grid, as
@@ -241,8 +206,8 @@ updateWindowDimensions() {
           type: "log",
           base: 10,
           min: Math.min(...logTickValues),
-          max: Math.max(...logTickValues)
-        }
+          max: Math.max(...logTickValues),
+        },
       };
     }
 
@@ -251,15 +216,14 @@ updateWindowDimensions() {
       yScale: {
         type: "linear",
         min: "auto",
-        max: "auto"
-      }
+        max: "auto",
+      },
     };
   }
 
   render() {
-
     let { data } = this.props;
-    const { statistic, yScale, dataType } = this.props;
+    const { statistic, yScale, dataType, showInterval } = this.props;
     // chartData contains the data that we will pass into Nivo line chart.
     let chartData = [];
     // colors holds hex values for each line in the chart.
@@ -275,25 +239,22 @@ updateWindowDimensions() {
         const observedDeath = data[area].observed_deaths;
         const normalizer = data[area].normalizer;
         // Add the observed infection data if confirmed is selected
-        if (dataType.includes("confirmed"))
-        {
+        if (dataType.includes("confirmed")) {
           chartData.push({
             id: area,
             data: this.processData(observedConfirmed, {
               statistic: statistic,
               yScale: yScale,
               initialVal: 0,
-              normalizer: normalizer
+              normalizer: normalizer,
             }),
             // 'predicted' is a custom prop that we add so later we can tell the
             // difference between observed/predicted data when drawing the lines.
-            predicted: false
+            predicted: false,
           });
-  
           colors.push(lineColor[4]);
         }
-        if (dataType.includes("death"))
-        {
+        if (dataType.includes("death")) {
           //also push death value to the same graph
           chartData.push({
             id: `${area} death`,
@@ -301,43 +262,44 @@ updateWindowDimensions() {
               statistic: statistic,
               yScale: yScale,
               initialVal: 0,
-              normalizer
+              normalizer,
             }),
             // 'predicted' is a custom prop that we add so later we can tell the
             // difference between observed/predicted data when drawing the lines.
-            predicted: false
+            predicted: false,
           });
 
-          colors.push(lineColor[6])
+          colors.push(lineColor[6]);
         }
-        
+
         // Add the data for each of the predicted time series. Filter out time
         // series that don't have any data associated.
         data[area].predictions
           .filter(p => p.time_series.length > 0)
-          .forEach((p,idx) => {
+          .forEach((p, idx) => {
             const modelName = p.model.name;
-            const isDeathModel = modelName.substring(0, 10) !== "SI-kJalpha" || modelName.includes("death prediction")
+
+            // Disable uppper and lower bound if not showing interval.
+            if (!showInterval && !modelName.includes("Default")) { return; }
+
+            const isDeathModel =
+              modelName.substring(0, 10) !== "SI-kJalpha" ||
+              modelName.includes("death prediction");
             const distancing = p.distancing;
             const timeSeries = p.time_series;
             //check if the model is a death model
-            let augmented_timeSeries = []
-            if (dataType.includes("death") && isDeathModel)
-            {
-              augmented_timeSeries = [observedDeath[observedDeath.length - 1]].concat(timeSeries);
+            let augmented_timeSeries = [];
+            if (dataType.includes("death") && isDeathModel) {
+              augmented_timeSeries = [
+                observedDeath[observedDeath.length - 1],
+              ].concat(timeSeries);
+            } else if (dataType.includes("confirmed") && !isDeathModel) {
+              augmented_timeSeries = [
+                observedConfirmed[observedConfirmed.length - 1],
+              ].concat(timeSeries);
+            } else {
+              return;
             }
-            else if (dataType.includes("confirmed") && !isDeathModel)
-            {
-              augmented_timeSeries = [observedConfirmed[observedConfirmed.length - 1]].concat(timeSeries);
-            }
-            else
-            {
-              return
-            }
-
-            console.log(observedConfirmed);
-            console.log(augmented_timeSeries);
-
 
             chartData.push({
               id: `${area} (${modelName}, ${distancing})`,
@@ -346,28 +308,22 @@ updateWindowDimensions() {
               data: this.processData(augmented_timeSeries, {
                 statistic: statistic,
                 yScale: yScale,
-                initialVal: isDeathModel?observedDeath[observedDeath.length - 2].value:observedConfirmed[observedConfirmed.length - 2].value,
-                normalizer: normalizer
+                initialVal: isDeathModel
+                  ? observedDeath[observedDeath.length - 2].value
+                  : observedConfirmed[observedConfirmed.length - 2].value,
+                normalizer: normalizer,
               }),
               // 'predicted' is a custom prop that we add so later we can tell the
               // difference between observed/predicted data when drawing the lines.
               predicted: true,
               // 'distancing' is also a custom prop we add so we can draw the
               // line patterns differently between yes/no social distancing.
-              distancing: distancing
+              distancing: distancing,
             });
-            if (idx <= 4)
-            {
-              colors.push(lineColor[4+idx]);
-            }
-            else if (idx <= 8)
-            {
-              colors.push(lineColor[8 - idx]);
-
-            }
-            else 
-            {
-              colors.push(lineColor[idx%10]);
+            if (modelName.includes("Default")) {
+              colors.push(lineColor[6]);
+            } else {
+              colors.push(lineColor[2]);
             }
           });
       });
@@ -396,19 +352,126 @@ updateWindowDimensions() {
         tickValues = "every month";
       }
     }
-    
-    const num_ticks = 1 + this.state.width/300;
-    return (
 
+    // Custom layer for Nivo Line that allows us to display predictions as dashed
+    // lines.
+    const renderDashedLine = ({ series, lineGenerator, xScale, yScale }) => {
+      return series.map(({ id, data, color, predicted, distancing }) => {
+        let style = {
+          strokeWidth: 3,
+        };
+
+        // Do not render uppper and lower bounds as dashed lines.
+        if (id.includes("Upper") || id.includes("Lower")) {
+          return null;
+        }
+
+        // Add custom style if predicted.
+        if (predicted) {
+          if (distancing) {
+            style.strokeDasharray = "6, 4";
+          } else {
+            // Display a sparser pattern for no social distancing.
+            style.strokeDasharray = "2, 6";
+          }
+        }
+
+        return (
+          <path
+            key={id}
+            d={lineGenerator(
+              data.map(d => ({
+                x: xScale(d.data.x),
+                y: yScale(d.data.y),
+              }))
+            )}
+            fill="none"
+            stroke={color}
+            style={style}
+          />
+        );
+      });
+    };
+
+    // A custom nivo line layer to render quantile intervals.
+    const renderInterval = ({ series, lineGenerator, xScale, yScale }) => {
+      return series.map(({ id, data, color, predicted }) => {
+        const style = { opacity: 0.2 };
+
+        // Only render bands for the upper and lower bounds.
+        if (!predicted || !id.includes("Default")) {
+          return null;
+        }
+
+        // A helper function to interpolate over x axis.
+        const interpolatedXScale = (xScale, x) => {
+          const floorX = Math.floor(x);
+          const decimalPart = x - floorX;
+          return (
+            xScale(floorX) + (xScale(floorX + 1) - xScale(floorX)) * decimalPart
+          );
+        };
+
+        // Find the upper and lower bound time series.
+        const upperSeries = chartData.find(
+          series => series.id == id.replace("Default", "Upper")
+        );
+        const lowerSeries = chartData.find(
+          series => series.id == id.replace("Default", "Lower")
+        );
+
+        // Given a prediction data point, 
+        // find the upper bound value inside the upperSeries,
+        // if not found, return datapoint.y 
+        const findUpperBound = datapoint => {
+          if (!upperSeries) { return datapoint.y; }
+          const upper = upperSeries.data.find(
+            d => d.x.getTime() == datapoint.x.getTime()
+          );
+          if (!upper) { return datapoint.y; }
+          return upper.y;
+        };
+
+        // Given a prediction data point, 
+        // find the lower bound value inside the upperSeries,
+        // if not found, return datapoint.y
+        const findLowerBound = datapoint => {
+          if (!lowerSeries) { return datapoint.y; }
+          const lower = lowerSeries.data.find(
+            d => d.x.getTime() == datapoint.x.getTime()
+          );
+          if (!lower) { return datapoint.y; }
+          return lower.y;
+        };
+
+        const areaGenerator = area()
+          .x(d => interpolatedXScale(xScale, d.data.x))
+          .y0(d => yScale(findUpperBound(d.data)))
+          .y1(d => yScale(findLowerBound(d.data)))
+          .curve(curveMonotoneX);
+
+        return (
+          <path
+            key={id}
+            d={areaGenerator(data)}
+            fill={color}
+            stroke="none"
+            style={style}
+          />
+        );
+      });
+    };
+
+    const num_ticks = 1 + this.state.width / 300;
+    return (
       <ResponsiveLine
         data={chartData}
         colors={colors}
-        //50,50,50,80
         margin={{ top: 10, right: 50, bottom: 70, left: 100 }}
         xScale={{
           type: "time",
           format: "native",
-          precision: "day"
+          precision: "day",
         }}
         axisBottom={{
           // tickValues determines how often / with what values our 'format'
@@ -426,7 +489,7 @@ updateWindowDimensions() {
           tickRotation: 0,
           legend: "Date",
           legendOffset: 36,
-          legendPosition: "middle"
+          legendPosition: "middle",
         }}
         // Set up the Y axis.
         {...this.getYAxisProps()}
@@ -437,26 +500,30 @@ updateWindowDimensions() {
               style={{
                 background: "white",
                 padding: "9px 12px",
-                border: "1px solid #ccc"
+                border: "1px solid #ccc",
               }}
             >
               <div>
-                {// Grab the date from the first point, this will be the title of
-                // the tooltip.
-                moment(slice.points[0].data.x).format("MMM Do YYYY")}
+                {
+                  // Grab the date from the first point, this will be the title of
+                  // the tooltip.
+                  moment(slice.points[0].data.x).format("MMM Do YYYY")
+                }
               </div>
-              {slice.points.map(point => (
-                <div
+              {slice.points.map(point => {
+                // Does not show upper and lower bound if not showing interval.
+                return (<div
                   key={point.id}
                   style={{
                     color: point.serieColor,
-                    padding: "3px 0"
+                    padding: "3px 0",
                   }}
                 >
                   <strong>{point.serieId}</strong>[
                   {numeral(point.data.yFormatted).format("0.[0]a")}]
                 </div>
-              ))}
+                );
+              })}
             </div>
           );
         }}
@@ -483,22 +550,23 @@ updateWindowDimensions() {
                 on: "hover",
                 style: {
                   itemBackground: "rgba(0, 0, 0, .03)",
-                  itemOpacity: 1
-                }
-              }
-            ]
-          }
+                  itemOpacity: 1,
+                },
+              },
+            ],
+          },
         ]}
         layers={[
           "grid",
           "markers",
           "areas",
           "crosshair",
-          DashedLine,
+          renderInterval,
+          renderDashedLine,
           "slices",
           "points",
           "axes",
-          "legends"
+          "legends",
         ]}
         theme={theme}
       />

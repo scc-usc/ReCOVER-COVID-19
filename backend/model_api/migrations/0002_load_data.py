@@ -56,7 +56,6 @@ def load_csv(apps, path, scope, type):
                 area = Area(state=state, country=country)
                 area.save()
                 msg = 'Created area ' + ((state + ' ') if state != '' else '') + country + '.'
-                print(msg)
 
             except Area.MultipleObjectsReturned:
                 msg = "Found multiple areas for country '{0}'".format(
