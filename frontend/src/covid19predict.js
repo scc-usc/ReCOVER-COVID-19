@@ -677,7 +677,7 @@ class Covid19Predict extends PureComponent {
 
       interval: (
         <p className="instruction">
-          Check to show the quantile interval of the forecasts.
+          Check to show the interval of the forecasts.
         </p>
       )
     };
@@ -961,7 +961,7 @@ class Covid19Predict extends PureComponent {
                         style={{ marginBottom: "0px" }}
                       >
                         <Checkbox defaultChecked onChange={this.handleShowIntervalChange}>
-                          Show Quantile Interval
+                          Show Interval
                         </Checkbox>
                       </Form.Item>
                     </Popover>
