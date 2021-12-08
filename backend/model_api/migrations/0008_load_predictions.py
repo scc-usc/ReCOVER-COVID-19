@@ -27,6 +27,24 @@ STATIC_MODELS = [
         description="The default version of the SI-kJalpha model, \
         the model calculates the under-reporting ratio based on the training data."
     ),
+    StaticModel(
+        quarantined_prediction_paths=[
+            "../results/forecasts/global_forecasts_current_0_ub.csv",
+            "../results/forecasts/us_forecasts_current_0_ub.csv"
+        ],
+        name="SI-kJalpha - Upper",
+        description="The SI-kJalpha model forecating towards upper bounds, \
+        the model calculates the under-reporting ratio based on the training data."
+    ),
+    StaticModel(
+        quarantined_prediction_paths=[
+            "../results/forecasts/global_forecasts_current_0_lb.csv",
+            "../results/forecasts/us_forecasts_current_0_lb.csv"
+        ],
+        name="SI-kJalpha - Lower",
+        description="The SI-kJalpha model forecating towards lower bounds, \
+        the model calculates the under-reporting ratio based on the training data."
+    )
 ]
 
 STATIC_DEATH_MODELS = [
@@ -39,6 +57,24 @@ STATIC_DEATH_MODELS = [
         description="The default version of the SI-kJalpha model, \
         the model calculates the under-reporting ratio based on the training data."
     ),
+    StaticModel(
+        quarantined_prediction_paths=[
+            "../results/forecasts/global_deaths_current_0_ub.csv",
+            "../results/forecasts/us_deaths_current_0_ub.csv"
+        ],
+        name="SI-kJalpha - Upper (death prediction)",
+        description="The SI-kJalpha model forecating towards upper bounds, \
+        the model calculates the under-reporting ratio based on the training data."
+    ),
+    StaticModel(
+        quarantined_prediction_paths=[
+            "../results/forecasts/global_deaths_current_0_lb.csv",
+            "../results/forecasts/us_deaths_current_0_lb.csv"
+        ],
+        name="SI-kJalpha - Lower (death prediction)",
+        description="The SI-kJalpha model forecating towards lower bounds, \
+        the model calculates the under-reporting ratio based on the training data."
+    )
 ]
 
 

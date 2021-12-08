@@ -122,6 +122,7 @@ class Covid19Map extends Component {
 		);
 		this.updateMarkerSizes = this.updateMarkerSizes.bind(this);
 		this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+
 	}
 
 	componentDidMount() {

@@ -70,7 +70,6 @@ const { Option } = Select;
 
 class Covid19Predict extends PureComponent {
   handleYScaleSelect = e => {
-    console.log(e);
     this.setState({
       yScale: e.target.value,
     });
@@ -88,12 +87,17 @@ class Covid19Predict extends PureComponent {
   };
 
   handleDataTypeSelect = e => {
-    console.log(e);
-
     this.setState({
       dataType: e,
     });
   };
+
+  handleShowIntervalChange = e => {
+    const showInterval = e.target.checked;
+    this.setState({
+      showInterval: showInterval
+    });
+  }
 
   handleMapShownSelect = e => {
     this.setState(
@@ -113,16 +117,17 @@ class Covid19Predict extends PureComponent {
       areasList: [],
       plainareas: [],
       all_populations: [],
-      models: this.props.models || ["SI-kJalpha - Default"],
+      models: this.props.models || ["SI-kJalpha - Default", "SI-kJalpha - Upper", "SI-kJalpha - Lower"],
       modelsList: [],
       currentDate: "",
       firstDate: "",
       current: true,
+      showInterval: true,
       worst_effort: false,
       best_effort: false,
       mainGraphData: {},
       mainGraphDataShown: {},
-      days: 49,
+      days: 70,
       dynamicMapOn: true,
       perMillion: false,
       dataType: ["confirmed"],
@@ -387,10 +392,10 @@ class Covid19Predict extends PureComponent {
         }
       );
     }
-    if ("models" in changedValues) {
+    else if ("models" in changedValues) {
       this.setState(
         {
-          models: changedValues.models,
+          models: [changedValues.models],
         },
         () => {
           this.reloadAll();
@@ -584,6 +589,7 @@ class Covid19Predict extends PureComponent {
       days,
       mainGraphData,
       mainGraphDataShown,
+      showInterval,
       dynamicMapOn,
       perMillion,
       dataType,
@@ -668,6 +674,12 @@ class Covid19Predict extends PureComponent {
           Switch between linear view and logarithmic view.
         </p>
       ),
+
+      interval: (
+        <p className="instruction">
+          Check to show the interval of the forecasts.
+        </p>
+      )
     };
 
     const MAP_INSTRUCTION = {
@@ -738,19 +750,19 @@ class Covid19Predict extends PureComponent {
         " people have died of COVID-19.";
     }
 
-    let confirmed_model_map = "";
-    let death_model_map = "";
-    for (let i = models.length - 1; i >= 0; i--) {
-      if (models[i].substring(0, 10) === "SI-kJalpha") {
-        confirmed_model_map = models[i];
-        if (death_model_map.length === 0) {
-          death_model_map = models[i] + " (death prediction)";
-        }
-        break;
-      } else {
-        death_model_map = models[i];
-      }
-    }
+    let confirmed_model_map = models[0];
+    let death_model_map = models[0] + " (death prediction)";
+    // for (let i = models.length - 1; i >= 0; i--) {
+    //   if (models[i].substring(0, 10) === "SI-kJalpha") {
+    //     confirmed_model_map = models[i];
+    //     if (death_model_map.length === 0) {
+    //       death_model_map = models[i] + " (death prediction)";
+    //     }
+    //     break;
+    //   } else {
+    //     death_model_map = models[i];
+    //   }
+    // }
 
     const Heading = (
       <div id="header" className="text-center">
@@ -938,6 +950,21 @@ class Covid19Predict extends PureComponent {
                         </Radio.Group>
                       </Form.Item>
                     </Popover>
+                    <Popover 
+                      content={CONTROL_INSTRUCTIONS.interval}
+                      placement="right"
+                      visible={this.state.showControlInstructions}
+                    >
+                       <Form.Item
+                        label="Interval"
+                        name="interval"
+                        style={{ marginBottom: "0px" }}
+                      >
+                        <Checkbox defaultChecked onChange={this.handleShowIntervalChange}>
+                          Show Interval
+                        </Checkbox>
+                      </Form.Item>
+                    </Popover>
                   </Form>
                 </div>
               </div>
@@ -946,6 +973,7 @@ class Covid19Predict extends PureComponent {
                   <div className="graph-wrapper">
                     <Covid19Graph
                       data={mainGraphDataShown}
+                      showInterval={showInterval}
                       perMillion = {perMillion}
                       dataType={dataType}
                       onNoData={this.onNoData}
