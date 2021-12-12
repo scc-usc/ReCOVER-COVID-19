@@ -622,7 +622,7 @@ getRadius(value, popu) {
   	return (
   		<div>
   		<Map
-  		style={{ height: "65vh", width: "100%" }}
+  		style={{ height: "42vh", width: "100%" }}
   		zoom={default_zoom}
   		minZoom={1}
   		center={[37.8, -96]}
