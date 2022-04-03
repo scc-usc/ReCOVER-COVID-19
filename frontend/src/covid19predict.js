@@ -772,7 +772,7 @@ class Covid19Predict extends PureComponent {
         " people around the world have been tested positive, and " +
         totalDeaths +
         " people have died of COVID-19.";*/
-        overview = "Caution: Expect unreliable forecats due to under-reporting around holidays and uncertainty in the prevalence of the Omicron variant"
+        overview = "Caution: Expect unreliable forecats due to unreliable case reporting"
     }
 
     let confirmed_model_map = models[0];

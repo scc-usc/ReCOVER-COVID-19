@@ -149,8 +149,14 @@ class Covid19Map extends Component {
 				
 				if (typeof(this.state.caseData) != "undefined" && typeof(this.state.deathData) != "undefined") {
 					for (var i = 0; i < global_lat_long.length; i++) {
+						if (typeof(this.state.caseData[i]) === "undefined" || typeof(this.state.deathData[i]) === "undefined")
+						{
+							continue;
+						}
+						
 						let caseArea = this.state.caseData[i];
 						let deathArea = this.state.deathData[i];
+						
 						let caseOpacity = 0.5;
 						if (caseArea.valueTrue === 0) {
 							caseOpacity = 0;
@@ -234,6 +240,10 @@ class Covid19Map extends Component {
 				let stateMarkers = this.state.stateMarkers;
 				let us = this.state.us;
 				for (i = 0; i < global_lat_long.length; i++) {
+					if (typeof(this.state.caseData[i]) === "undefined" || typeof(this.state.deathData[i]) === "undefined")
+						{
+							continue;
+						}
 					let caseValue = this.state.caseData[i].caseValueTrue;
 					let deathValue = this.state.deathData[i].deathValueTrue;
 					let caseOpacity = 0.5;
