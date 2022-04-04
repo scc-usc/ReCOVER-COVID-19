@@ -146,16 +146,26 @@ class Covid19Map extends Component {
 			this.setState({ callbackCounter });
 
 			if (!this.state.mapInitialized) {
-				
+				var load_success = 1;
 				if (typeof(this.state.caseData) != "undefined" && typeof(this.state.deathData) != "undefined") {
 					for (var i = 0; i < global_lat_long.length; i++) {
 						if (typeof(this.state.caseData[i]) === "undefined" || typeof(this.state.deathData[i]) === "undefined")
+							load_success = 0;
+					}
+				}
+				if(load_success==1){
+					for (var i = 0; i < global_lat_long.length; i++) {
+						/*if (typeof(this.state.caseData[i]) === "undefined" || typeof(this.state.deathData[i]) === "undefined")
 						{
+							console.log(i);
+							console.log(this.state.caseData);
+							console.log(this.state.deathData);
 							continue;
-						}
+						}*/
 						
 						let caseArea = this.state.caseData[i];
 						let deathArea = this.state.deathData[i];
+						
 						
 						let caseOpacity = 0.5;
 						if (caseArea.valueTrue === 0) {
@@ -242,6 +252,7 @@ class Covid19Map extends Component {
 				for (i = 0; i < global_lat_long.length; i++) {
 					if (typeof(this.state.caseData[i]) === "undefined" || typeof(this.state.deathData[i]) === "undefined")
 						{
+							if(i>=184) stateCount++;
 							continue;
 						}
 					let caseValue = this.state.caseData[i].caseValueTrue;
