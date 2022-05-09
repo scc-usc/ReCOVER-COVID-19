@@ -24,7 +24,10 @@ print("Format state death quantile forecasts:")
 exec(open("format_data_state_death_quantile.py").read())
 print("Format state case quantile forecasts:")
 exec(open("format_data_state_case_quantile.py").read())
+# Skip formatting county forecasts.
+"""
 print("Format county case forecasts:")
 exec(open("format_data_county_case.py").read())
+"""
 
 os.system("cat us_hosp_quants.csv >> {}-USC-SI_kJalpha.csv".format(DATE_PREFIX))
