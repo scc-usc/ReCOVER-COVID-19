@@ -8,6 +8,7 @@ end
 if nargin < 3
     week_correction = 1;
 end
+data_4 = fillmissing(data_4, 'linear', 2);
 
 deldata = diff(data_4');
 %deldata(deldata < 0) = 0;
@@ -19,7 +20,7 @@ if isnumeric(smooth_factor)
     if week_correction == 1
         for cid = 1:size(data_4, 1)
             week_dat = diff(data_4(cid, mod(maxt-1, 7)+1:7:maxt)');
-            [clean_week, TF] = filloutliers(week_dat, 'linear', 'movmedian', 5, 'ThresholdFactor', 3);
+            [clean_week, TF] = filloutliers(week_dat, 'linear', 'movmedian', 15, 'ThresholdFactor', 4);
             [~, peak_idx] = findpeaks([week_dat; 0]);
             tf_vals = intersect(find(TF), peak_idx);
 
@@ -33,15 +34,18 @@ if isnumeric(smooth_factor)
     if week_smoothing == 1
             temp = [zeros(size(data_4, 1), 1) cumsum(deldata', 2)];
             week_dat = diff(temp(:, mod(maxt-1, 7)+1:7:maxt)');
-            for jj=1:size(week_dat, 1)
-                deldata(date_map==jj, :) = repmat(week_dat(jj, :)/7, [7 1]);
-            end
+            xx = nan(size(deldata));
+            xx(((maxt-1)-7*size(week_dat, 1)+7):7:maxt-1, :) = cumsum(week_dat, 1);
+            %xx  = fillmissing(xx, 'spline', 1);
+            xx  = fillmissing(xx, 'linear', 1);
+            deldata(2:end, :) = diff(xx);
+
     end
     
     %cleandel = filloutliers(deldata, 'center', 'movmean', smooth_factor*2, 'ThresholdFactor', 3);
     %cleandel = filloutliers(deldata, 'linear', 'movmean', smooth_factor*2, 'ThresholdFactor', 3);
     deldata(deldata < 0) = 0;
-    data_4_s = [data_4(:, 1) cumsum(movmean(movmean(deldata', smooth_factor, 2), smooth_factor, 2), 2)];
+    data_4_s = [data_4(:, 1) cumsum(movmean(deldata', smooth_factor, 2), 2)];
 else
     %cleandel = filloutliers(deldata, 'center', 'movmedian', 14);
     cleandel = deldata;

@@ -14,8 +14,8 @@ now_date = datetime((now),'ConvertFrom','datenum', 'TimeZone', 'America/Los_Ange
 load us_results;
 num_ahead = 56;
 smooth_factor = 14;
-T_full = size(data_4, 2);
-data_4_s = smooth_epidata(data_4, smooth_factor, 0);
+Tcd_full = size(data_4, 2);
+data_4_s = smooth_epidata(data_4, smooth_factor/2, 0);
 deaths_s = smooth_epidata(deaths, smooth_factor);
 placenames = countries;
 %%
@@ -50,20 +50,23 @@ quant_preds_deaths = 0.5*(quant_preds_deaths+abs(quant_preds_deaths));
 quant_preds_cases = 0.5*(quant_preds_cases+abs(quant_preds_cases));
 %% Plot
 cidx = 1:56;
-sel_idx = 2; %sel_idx = contains(countries, 'Washington');
+sel_idx = 11; %sel_idx = contains(countries, 'Washington');
 dt = deaths(cidx, :);
 dts = deaths_s(cidx, :);
 thisquant = squeeze(nansum(quant_preds_deaths(sel_idx, :, [1 7 12 17 23]), 1));
 thismean = (nansum(mean_preds_deaths(sel_idx, :), 1));
 gt_len = 50;
 gt_lidx = size(dt, 2); gt_idx = (gt_lidx-gt_len*7:7:gt_lidx);
-gt = diff(nansum(dt(sel_idx, gt_idx), 1))';
-gts = diff(nansum(dts(sel_idx, gt_idx), 1))';
+gt = nansum(diff(dt(sel_idx, gt_idx), 1, 2), 1)';
+gts = nansum(diff(dts(sel_idx, gt_idx), 1, 2), 1)';
 
-plot([gt gts]); hold on; plot((gt_len+1:gt_len+size(thisquant, 1)), [thisquant thismean']); hold off;
+tiledlayout(2, 1); nexttile;
+
+plot([gt gts]); hold on; plot((gt_len+1:gt_len+size(thisquant, 1)), [thisquant]); 
+plot((gt_len+1:gt_len+size(thisquant, 1)), [thismean'], 'o'); 
 title(['Deaths']);
 
-figure;
+nexttile;
 dt = data_4(cidx, :);
 dts = data_4_s(cidx, :);
 thisquant = squeeze(nansum(quant_preds_cases(sel_idx, :, [1 4 7]), 1));
@@ -72,7 +75,9 @@ gt_lidx = size(dt, 2); gt_idx = (gt_lidx-gt_len*7:7:gt_lidx);
 gt = nansum(diff(dt(sel_idx, gt_idx)'), 2);
 gts = diff(nansum(dts(sel_idx, gt_idx), 1))';
 
-plot([gt gts]); hold on; plot((gt_len+1:gt_len+size(thisquant, 1)), [thisquant thismean']); hold off;
+plot([gt gts]); hold on; plot((gt_len+1:gt_len+size(thisquant, 1)), [thisquant]); 
+plot((gt_len+1:gt_len+size(thisquant, 1)), [thismean'], 'o'); 
+hold off;
 title(['Cases']);
 %% Write to file
 max_week_ahead = size(quant_preds_deaths, 2);

@@ -1,167 +1,134 @@
 
 clear; warning off;
-load variants.mat
+load_data_us;
 addpath('./utils/');
 addpath('./scenario_projections/');
-CDC_sero;
+prevalence_ww;
+%load ww_prevalence_us.mat
 %%
 smooth_factor = 14;
-data_4_s = smooth_epidata(data_4, smooth_factor, 0);
-deaths_s = smooth_epidata(deaths, smooth_factor);
+data_4(:, 669:669+13) = nan; deaths(:, 669:669+13) = nan;
+data_4_s = smooth_epidata(data_4, smooth_factor, 0, 1);
+deaths_s = smooth_epidata(deaths, 1);
 horizon = 100;
+ns = size(data_4, 1); maxt = size(data_4, 2);
 %% Vaccine data
 
-xx = load('vacc_data.mat');
-un = un_array(:, 2);
-vacc_effi1 = 0.5; vacc_effi2 = 0.9 - vacc_effi1;
-vacc_all = xx.u_vacc(:, 1:end); vacc_full = xx.u_vacc_full(:, 1:end); 
-vacc_all = fillmissing(vacc_all, 'previous', 2); vacc_all(isnan(vacc_all)) = 0;
-vacc_full = fillmissing(vacc_full, 'previous', 2); vacc_full(isnan(vacc_full)) = 0;
-vacc_fd = vacc_all - vacc_full; vacc_fd(:, end-14:end) = [];
-vacc_fd = [zeros(size(data_4, 1), size(data_4, 2)-size(vacc_fd, 2)), vacc_fd];
-vac_effect = vacc_fd*vacc_effi1 + [zeros(ns, 28), vacc_fd(:, 1:end-28)]*vacc_effi2;
+vacc_download_age_state;
+%%
+[vacc_given_by_age] = get_vacc_preds(vacc_num_age_est, pop_by_age, horizon);
+all_boosters_ts = cell(3, 1);
+booster_by_age_orig = get_booster_preds(extra_dose_age_est, vacc_given_by_age, pop_by_age, 1, 180, 0);
+all_boosters_ts{2} = sum(booster_by_age_orig, 3);
+pred_adopts = squeeze(booster_by_age_orig(:, end, :)./(vacc_given_by_age(:, end, :) + 1e-10)); pred_adopts(pred_adopts>1) = 1;
+curr_adopts = squeeze(booster_by_age_orig(:, end-horizon, :)./(vacc_given_by_age(:, end, :) + 1e-10)); curr_adopts(curr_adopts>1) = 1;
 
-vacc_pre_immunity = [(1 - un.*data_4./popu).*vac_effect(:, 1:size(data_4, 2))];
-vacc_pre_immunity = vacc_pre_immunity(:, 1:size(data_4, 2));
-
-horizon = 100; 
-un = 2*ones(length(countries), 1);
-no_un_idx = un.*data_4(:, end)./popu > 0.2;
-un(no_un_idx) = 1;
-equiv_vacc_effi = 0.85;
-vacc_fd = smooth_epidata(vacc_fd, 1);
-for cid=1:length(countries)
-    idx = vacc_fd(cid, :)./popu(cid) > 1;
-    vacc_fd(cid, idx) = popu(cid);
-end
-
-vacc_future = get_vacc_preds(vacc_fd, popu, horizon);
-
-vacc_effect = vacc_future*equiv_vacc_effi;
-vac_effect_all = [zeros(length(countries), 14) vacc_future(:, 1:end-14)]*equiv_vacc_effi;
-vac_effect_all = smooth_epidata(vac_effect_all, 7);
+lb = curr_adopts + (pred_adopts - curr_adopts)*(1 - 0.1);
+ub = pred_adopts + (1 - pred_adopts)*(0.3);
+all_boosters_ts{1} = sum(get_booster_preds(extra_dose_age_est, vacc_given_by_age, pop_by_age, ub, 180, 1), 3);
+all_boosters_ts{3} = sum(get_booster_preds(extra_dose_age_est, vacc_given_by_age, pop_by_age, lb, 180, 1), 3);
+boost_cov = [1 2 3];
+vacc_given_by_age = sum(vacc_given_by_age, 3);
 
 %% hyperparameters
 best_param_list_v = zeros(ns, 3);
-best_param_list_v(:, 1) = 2; best_param_list_v(:, 2) = 7; best_param_list_v(:, 3) = 9;
+best_param_list_v(:, 1) = 2; best_param_list_v(:, 2) = 7; case_alpha = 0.95;
 k_l = best_param_list_v(:, 1); jp_l = best_param_list_v(:, 2);
 T_full = size(data_4, 2);
-[best_death_hyperparam, one_hyperparam] = death_hyperparams(deaths, data_4_s, deaths_s, T_full, 7, popu, 0, best_param_list_v, un);
+thisday = T_full;
 
+%% Adjust variants prevalences
+xx = load('variants.mat', "var_frac_all*","lineages_voc", 'valid_lins_voc', "all_var_data*");
+var_frac_all = xx.var_frac_all_voc(:, :, 1:thisday);
+var_frac_all_low = xx.var_frac_all_low_voc(:, :, 1:thisday); 
+var_frac_all_high = xx.var_frac_all_high_voc(:, :, 1:thisday); 
+lineages = xx.lineages_voc;
+valid_lins = xx.valid_lins_voc;
 
-%% Create death rates
-dlag_list = [0 3 7 10 14];
-dalpha = 0.9;
-dk = best_death_hyperparam(:, 1);
-djp = best_death_hyperparam(:, 2);
-dwin = best_death_hyperparam(:, 3);
-lags = best_death_hyperparam(:, 4);
-for j=1:length(dlag_list)
-    [death_rates] = var_ind_deaths(data_4_s(:, 1:end-dlag_list(j)), deaths_s(:, 1:end-dlag_list(j)), dalpha, dk, djp, dwin, 0, popu>-1, lags);
-    death_rates_list{j} = death_rates;
-end
+% xx = load('variants.mat', "var_frac_all*","lineages", 'valid_lins', "all_var_data");
+% var_frac_all = xx.var_frac_all(:, :, 1:thisday);
+% var_frac_all_low = xx.var_frac_all_low(:, :, 1:thisday); 
+% var_frac_all_high = xx.var_frac_all_high(:, :, 1:thisday); 
+% lineages = xx.lineages;
+% valid_lins = xx.valid_lins;
 
+%% Adjust bounds to focus on omicron
+var_frac_all_low(var_frac_all_low < 0) = 0;
+var_frac_all_high(var_frac_all_high > 1) = 1;
+var_frac_all_low = var_frac_all_low./(1e-20 + nansum(var_frac_all_low, 2));
+var_frac_all_high = var_frac_all_high./(1e-20 + nansum(var_frac_all_high, 2));
 
-%% Fit transmission rates
+% omic_idx = find(contains(lineages, 'Omicron')); omic_idx = omic_idx(1);
+% other_idx = find(contains(lineages, 'other')); other_idx = other_idx(1);
 
-% Readjust bounds to focus on uncertainty in delta
-delta_idx = find(strcmpi(lineages, 'B.1.617.2'));
-xx = var_frac_all_low(:, delta_idx, :);
-var_frac_all_low = var_frac_all.*(1 - xx)./(1 - var_frac_all(:, delta_idx, :));
-var_frac_all_low(:, delta_idx, :) = xx;
+% omic_refs = valid_lins(:, omic_idx)> 0;
+% if sum(omic_refs)>0
+%     temp = var_frac_all(omic_refs, omic_idx, :);
+%     [~, idx] = min(abs(sum(temp(:, end-7:end), 3) - median(sum(temp(:, end-7:end), 3))));
+%     omic_fill = temp(idx(1), :);
+% 
+%     omic_fill_low = omic_fill/2; % Necessary to have some prevelance
+% 
+%     temp = var_frac_all_high(omic_refs, omic_idx, :);
+%     [~, idx] = min(abs(sum(temp(:, end-7:end), 3) - median(sum(temp(:, end-7:end), 3))));
+%     omic_fill_high = temp(idx(1), :);
+% end
 
-xx = var_frac_all_high(:, delta_idx, :);
-var_frac_all_high = var_frac_all.*(1 - xx)./(1 - var_frac_all(:, delta_idx, :));
-var_frac_all_high(:, delta_idx, :) = xx;
+nl = length(lineages);
 
-drate_smooth = 7;
-rate_smooth = 14;
-rlag_list = [0 1 2];
-lag_list = [0:1:1];
-un_list = [1 3 2];
-var_prev_q = [2];
-[X1, X2, X3, X4] = ndgrid(un_list, lag_list, var_prev_q, rlag_list);
-scen_list = [X1(:), X2(:), X3(:) X4(:)];
-
-
-%%
-var_frac_range{1} = var_frac_all_low./(1e-10 + nansum(var_frac_all_low, 2));
-var_frac_range{3} = var_frac_all_high./nansum(var_frac_all_high, 2);
+var_frac_all(isnan(var_frac_all)) = 0;
+var_frac_all_low(isnan(var_frac_all_low)) = 0;
+var_frac_all_high(isnan(var_frac_all_high)) = 0;
+var_frac_range{1} = var_frac_all_low;
 var_frac_range{2} = var_frac_all;
-
-for dom_idx=1:3
-    var_frac_range{dom_idx}(isnan(var_frac_range{dom_idx})) = 0;
-end
-
-
-net_infec_0 = zeros(size(scen_list, 1), size(data_4, 1), horizon);
-net_death_0 = zeros(size(scen_list, 1)*length(dlag_list), size(data_4, 1), horizon);
-
-for simnum = 1:size(scen_list, 1)
-    un = un_array(:, scen_list(simnum, 1));
-    no_un_idx = (un.*data_4(:, end)+vacc_effect(:, 1))./popu > 0.9;
-    un(no_un_idx) = 1;
-
-    ll = scen_list(simnum, 2);
-    rl = scen_list(simnum, 4);
-    dom_idx = scen_list(simnum, 3); 
-    
-    compute_region = popu > -1;
-    
-    % Cases
-    
-    % Fit variants transmission rates
-    ns = length(popu);
-    var_frac_this = var_frac_range{dom_idx};
-    var_frac_this(isnan(var_frac_this)) = 0;
-    all_betas = cell(length(lineages), 1);
-    all_data_vars0 = cell(length(lineages), 1);
-    all_data_vars = zeros(length(popu), length(lineages), size(data_4, 2));
-    for l=1:length(lineages)
-        variant_fact = squeeze(var_frac_all(:, l, :));
-        data_var_s = cumsum([zeros(ns, 1) diff(data_4_s')'].*(variant_fact), 2);
-        all_data_vars0{l} = data_var_s;
-        all_data_vars(:, l, :) =  data_var_s;
-    end
-    
-    rate_change = nan(length(popu), horizon);
-    rate_change(:, 1) = 1;
-    rate_change(:, end) = 1;
-    rate_change = fillmissing(rate_change, 'linear', 2);
-    
-    
-    [all_betas, ~, ~] = multivar_beta_wan(all_data_vars(:, :, 1:(end-7*rl)), 0, popu, k_l, 0.9, jp_l, un, vac_effect_all);
-
-    base_infec = data_4;
-   
-    [infec, ~, deltemp, ~] = multivar_simulate_pred_wan(all_data_vars(:, :, 1:(end-7*ll)), 0, ...
-        all_betas, popu, k_l, horizon+7*ll, jp_l, un, base_infec, vac_effect_all, rate_change);
-
-    all_data_vars_matrix = cumsum(squeeze(sum(deltemp, 4)), 3);
-    
-    
-    T_full = size(data_4, 2);
-    infec_data = squeeze(sum(all_data_vars_matrix, 2));
-    infec_data = smooth_epidata(infec_data, 7);
-    infec_net = infec_data(:, T_full+1:end) - data_4_s(:, end-7*ll) + data_4(:, end-7*ll);
-    net_infec_0(simnum, :, :) = infec_net;
-    
-    % Deaths
-    for jj = 1:length(death_rates_list)
-        death_rates = death_rates_list{1};
-        infec_data = [data_4_s squeeze(net_infec_0(simnum, :, :))-data_4(:, T_full)+data_4_s(:, T_full)];
-        T_full = size(data_4, 2);
-        base_deaths = deaths(:, T_full);
-        dh_rate_change = intermed_betas(death_rates, best_death_hyperparam, death_rates_list{jj}, best_death_hyperparam, drate_smooth);
-        [pred_deaths] = var_simulate_deaths_vac(infec_data, death_rates, dk, djp, horizon+10, base_deaths, T_full-1, dh_rate_change);
-        net_death_0(simnum+(jj-1)*size(scen_list, 1), :, :) = pred_deaths(:, 1:horizon);
-    end
-    fprintf('.');
-end
+var_frac_range{3} = var_frac_all_high;
 
 %%
-infec_un_0 = squeeze(nanmean(net_infec_0, 1));
-deaths_un_0 = squeeze(nanmean(net_death_0, 1));
+rate_smooth = 14;
+rlag_list = [0 1]; rlag_idx = (1:length(rlag_list));
+lag_list = [0];
+un_array = true_new_infec_ww;
+
+un_list = [1 2 3];
+var_prev_q = [1 2 3];
+
+booster_cov_list = [1 2 3];
+
+%% Waning possibilities
+% 2nd dimension represents scenarios. 
+% 1st dimension is # of age gorups
+% 3rd dimension is # of lineages
+num_wan = [1:2];
+ag_wan_lb_list = repmat([0.3 0.5], [2 1]);
+ag_wan_param_list = repmat([30*6 30*4], [2 1]);
+P_death_list_orig = repmat([repmat([0.93 0.93], [2 1])], [1 1 nl]);
+P_hosp_list_orig = repmat([repmat([0.87 0.87], [2 1])], [1 1 nl]);
+
+%%
+[X1, X2, X3, X4, X5, X6] = ndgrid(un_list, lag_list, var_prev_q(2), rlag_idx, booster_cov_list(2), num_wan);
+scen_list = [X1(:), X2(:), X3(:) X4(:) X5(:) X6(:)];
+num_dh_rates_sample = 5;
+
+dalpha = 0.98;
+[X, Y, Z, A, A1] = ndgrid([3:8], 7, [75 100], [1:6], [1]);
+param_list = [X(:), Y(:), Z(:), A(:), A1(:)];
+val_idx = (param_list(:, 1).*param_list(:, 2) <=49) & (param_list(:, 3) > param_list(:, 1).*param_list(:, 2)) & (param_list(:, 1) - param_list(:, 4))>2 & (param_list(:, 1) - param_list(:, 4))<4;
+param_list = param_list(val_idx, :);
+
+%%
+tic;
+net_infec_0 = zeros(size(scen_list, 1), size(data_4, 1), horizon);
+net_death_0 = zeros(size(scen_list, 1)*num_dh_rates_sample, size(data_4, 1), horizon);
+
+P_death_list = P_death_list_orig;
+P_hosp_list = P_hosp_list_orig;
+forecast_simulator;
+toc
+%%
+net_infec_0(isnan(net_infec_0)) = 0;
+%%
+infec_un_0 = squeeze(trimmean(net_infec_0, 0.9, 1));
+deaths_un_0 = squeeze(trimmean(net_death_0, 0.9, 1));
 
 infec_un_lb = squeeze(min(net_infec_0, [], 1));
 deaths_un_lb = squeeze(min(net_death_0, [], 1));
@@ -169,7 +136,29 @@ deaths_un_lb = squeeze(min(net_death_0, [], 1));
 infec_un_ub = squeeze(max(net_infec_0, [], 1));
 deaths_un_ub = squeeze(max(net_death_0, [], 1));
 
-save us_results.mat net_death_0 net_infec_0 data_4 data_4_s popu countries best_death_hyperparam best_param_list* un_array;
+
+%% Plot test
+cid = 26; maxt = size(data_4, 2); horizon = size(net_death_0, 3);
+tiledlayout(2, 1);
+nexttile;
+plot(diff(sum(data_4(cid, :), 1))); hold on;
+plot(diff(sum(data_4_s(cid, :), 1))); hold on;
+plot(maxt:maxt+horizon-2, squeeze(diff(sum(net_infec_0(:, cid, :), 2), 1, 3))); 
+%plot(maxt:maxt+horizon-2, diff(sum(infec_un_0(cid, :), 1)), 'o'); hold on;
+
+nexttile;
+plot(diff(sum(deaths(cid, :), 1))); hold on;
+plot(diff(sum(deaths_s(cid, :), 1))); hold on;
+plot(maxt:maxt+horizon-2, squeeze(diff(sum(net_death_0(:, cid, :), 2), 1, 3))); hold off;
+hold off;
+%%
+% figure; cid = 3; ss = 6;
+% plot(maxt:maxt+horizon-2, squeeze(diff(sum(net_infec_0(scen_list(:, ss)==1, cid, :), 2), 1, 3)), 'r'); hold on;
+% plot(maxt:maxt+horizon-2, squeeze(diff(sum(net_infec_0(scen_list(:, ss)==2, cid, :), 2), 1, 3)), 'g'); hold on;
+% plot(maxt:maxt+horizon-2, squeeze(diff(sum(net_infec_0(scen_list(:, ss)==3, cid, :), 2), 1, 3)), 'b'); 
+
+%%
+save us_results.mat all_deltemps all_immune_infecs net_death_0 net_infec_0 data_4 deaths deaths_s data_4_s popu countries best_param_list* un_array;
 %%
 file_suffix = '0';
 prefix = 'us';

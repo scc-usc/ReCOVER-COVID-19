@@ -40,70 +40,7 @@ for jj = 1:length(eu_names_table.location)
     end
 end
 
-% %% Generate various samples
-% smooth_factor = 14;
-% T_full = size(data_4, 2);
-% data_4_s = smooth_epidata(data_4, smooth_factor);
-% deaths_s = smooth_epidata(deaths, smooth_factor);
-% rate_smooth = 1;
-% un_list = 1.5:0.2:2.5;
-% lags_list = 0:7:14;
-% horizon = 56;
-% dk = best_death_hyperparam(:, 1);
-% djp = best_death_hyperparam(:, 2);
-% dwin = best_death_hyperparam(:, 3);
-% lags = best_death_hyperparam(:, 4);
-% dalpha = 1; dhorizon = horizon+28;
-% 
-% for j=1:length(lags_list)
-%     [death_rates] = var_ind_deaths(data_4_s(:, 1:end-lags_list(j)), deaths_s(:, 1:end-lags_list(j)), dalpha, dk, djp, dwin, 0, popu>-1, lags);
-%     death_rates_list{j} = death_rates;
-% end
-% 
-% [X, Y] = ndgrid(un_list, lags_list);
-% scen_list = [X(:), Y(:)];
-% 
-% net_infec_A = zeros(size(scen_list, 1), size(data_4, 1), horizon);
-% net_death_A = zeros(size(scen_list, 1)*length(lags_list), size(data_4, 1), horizon);
-% 
-% 
-% for simnum = 1:size(scen_list, 1)
-%     un = scen_list(simnum, 1);
-%     lags = scen_list(simnum, 2);
-%     beta_after = var_ind_beta_un(data_4_s(:, 1:end-lags), 0, best_param_list(:, 3)*0.1, best_param_list(:, 1), un, popu, best_param_list(:, 2), 0, popu>-1);
-%     
-%     % Cases
-%     base_infec = data_4(:, end-lags);
-%     infec_un1 = var_simulate_pred_un(data_4_s(:, 1:end-lags), 0, beta_after, popu, best_param_list(:, 1), horizon+lags, best_param_list(:, 2), un, base_infec);
-%     infec_dat = [data_4_s(:, 1:end-lags), infec_un1-base_infec+data_4_s(:, end-lags)];
-%     net_infec_A(simnum, :, :) = infec_un1(:, 1+lags:end);
-%     
-%     % Deaths
-%     for jj = 1:length(death_rates_list)
-%         death_rates = death_rates_list{1};
-%         this_rate_change = intermed_betas(death_rates, best_death_hyperparam, death_rates_list{jj}, best_death_hyperparam, rate_smooth);
-%         %this_rate_change = [this_rate_change, repmat(this_rate_change(:, end), [1 size(dh_rate_change, 2)-size(this_rate_change, 2)])];
-%         dh_rate_change1 = this_rate_change;
-%         
-%         infec_data = [data_4_s squeeze(net_infec_A(simnum, :, :))-data_4(:, T_full)+data_4_s(:, T_full)];
-%         T_full = size(data_4, 2);
-%         base_deaths = deaths(:, T_full);
-%         [pred_deaths1] = var_simulate_deaths_vac(infec_data, death_rates, dk, djp, dhorizon, base_deaths, T_full-1, dh_rate_change1);
-%         net_death_A(simnum+(jj-1)*size(scen_list, 1), :, :) = pred_deaths1(:, 1:horizon);
-%     end
-%     fprintf('.');
-%     
-% end
-% fprintf('\n');
-% %% Data correction (for delayed forecasting)
 
-% if T_corr > 0
-%     pred_cases_orig = pred_cases; pred_deaths_orig = pred_deaths;
-%     data_orig = data_4; deaths_orig = deaths;
-%     deaths = deaths_orig(:, 1:end-T_corr); data_4 = data_orig(:, 1:end-T_corr);
-%     pred_cases = [data_4(:, end-T_corr+1: end) pred_cases_orig];
-%     pred_deaths = [deaths(:, end-T_corr+1: end) pred_deaths_orig];
-% end
 
 load global_results.mat;
 smooth_factor = 14;
@@ -151,7 +88,8 @@ quant_preds_cases = 0.5*(quant_preds_cases+abs(quant_preds_cases));
 plot_check = 1;
 
 if plot_check > 0
-    sel_idx = 43; sel_idx = contains(countries, 'US');
+    tiledlayout(2, 1); nexttile;
+    sel_idx = 37; sel_idx = contains(countries, 'Germany');
     dt = deaths;
     dts = deaths_s;
     thisquant = squeeze(nansum(quant_preds_deaths(sel_idx, :, :), 1));
@@ -162,7 +100,7 @@ if plot_check > 0
     plot([gt gts]); hold on; plot((gt_len+1:gt_len+size(thisquant, 1)), thisquant); hold off;
     title(['Deaths']);
     
-    figure;
+    nexttile;
     dt = data_4;
     thisquant = squeeze(nansum(quant_preds_cases(sel_idx, :, :), 1));
     gt_lidx = size(dt, 2); gt_idx = (gt_lidx-gt_len*7:7:gt_lidx);
@@ -171,7 +109,7 @@ if plot_check > 0
     title(['Cases']);
 end
 %% Write to file
-max_weeks = 5;
+max_weeks = 5; 
 eu_names_short = eu_names(eu_present>0);
 T = table;
 quant_matrix = quant_preds_cases(eu_present>0, 1:max_weeks, :);
@@ -226,6 +164,11 @@ T3.quantile = repmat({'NA'}, [length(thesevals) 1]);
 T3.value = compose('%g', round(thesevals, 0));
 
 T_all = [T; T1; T2; T3];
+%%
+bad_idx = strcmp(T_all.value, 'NaN');
+disp('Following countries have NaNs');
+disp(unique(T_all.location(bad_idx)));
+T_all(bad_idx, :) = [];
 %%
 disp('Writing File');
 tic;

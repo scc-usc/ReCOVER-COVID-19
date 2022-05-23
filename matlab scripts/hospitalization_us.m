@@ -1,4 +1,5 @@
 addpath('./utils/');
+addpath('./scenario_projections/');
 % Get from 
 % https://healthdata.gov/dataset/covid-19-reported-patient-impact-and-hospital-capacity-state-timeseries
 %sel_url = 'https://healthdata.gov/sites/default/files/reported_hospital_utilization_timeseries_20210306_1105.csv';
@@ -53,93 +54,122 @@ end
 %% Learn hospitalization rate like death forecasts
 T_full = max(find(any(~isnan(hosp_dat), 1)));
 maxt = size(data_4, 2);
-load us_hyperparam_latest.mat;
+%load us_hyperparam_latest.mat;
 hosp_cumu = cumsum(nan2zero(hosp_dat), 2);
-
+hosp_data_limit = T_full;
 %% Load case forecasts
-dirname = datestr(datetime(2020, 1, 23)+caldays(maxt), 'yyyy-mm-dd');
-fullpath = [path dirname];      
-
-xx = readtable([fullpath '/' prefix '_forecasts_cases.csv']); pred_cases = table2array(xx(2:end, 4:end));
-placenames = xx{2:end, 2};
+% dirname = datestr(datetime(2020, 1, 23)+caldays(maxt), 'yyyy-mm-dd');
+% fullpath = [path dirname];      
+% 
+% xx = readtable([fullpath '/' prefix '_forecasts_cases.csv']); pred_cases = table2array(xx(2:end, 4:end));
+%placenames = xx{2:end, 2};
 popu = load('us_states_population_data.txt');
-
+placenames = readcell('us_states_list.txt');
 %% 
 % CDC_sero;
 % un = un_array(:, 2);
 
 %%
 smooth_factor = 14;
-data_4_s = smooth_epidata(data_4(:, :), smooth_factor/2);
-hosp_cumu_s = smooth_epidata(hosp_cumu(:, 1:T_full), smooth_factor/2);
+%data_4_s = smooth_epidata(data_4(:, :), smooth_factor/2, 0, 1);
+hosp_cumu_s = smooth_epidata(hosp_cumu(:, 1:T_full), 1, 0, 1);
 
-% Redefine hyper-parameter ranges, no need to enforce lag
-dkrange = (1:2); djprange = 7; dwin = [50 100]; lag_range = (0:1);
-[X, Y, Z, A] = ndgrid(dkrange, djprange, dwin, lag_range);
-param_list = [X(:), Y(:), Z(:), A(:)];
-idx = (param_list(:, 1).*param_list(:, 2) <=28) & (param_list(:, 3) > param_list(:, 1).*param_list(:, 2)) & (param_list(:, 1) - param_list(:, 4))> 0;
-param_list = param_list(idx, :);
-[best_hosp_hyperparam] = death_hyperparams(hosp_cumu(:, 1:T_full), data_4_s(:, 1:T_full), hosp_cumu_s(:, 1:T_full), T_full, 7, popu, 0, best_param_list, 1, param_list);
-hosp_data_limit = T_full;
-% dk = best_hosp_hyperparam(:, 1);
-% djp = best_hosp_hyperparam(:, 2);
-% dwin = best_hosp_hyperparam(:, 3);
-% dlags = best_hosp_hyperparam(:, 4);
-% dalpha = 0.8;
-% dhorizon = 100;
 
-% %% Perform prediction
-% 
-% [hosp_rates] = var_ind_deaths(data_4_s(:, 1:T_full), hosp_cumu_s, dalpha, dk, djp, dwin, 0, popu > -1, dlags);
-% disp('trained hospitalizations');
-% 
-% infec_data = cumsum([zeros(length(placenames), 1) diff(data_4_s, 1, 2) diff(pred_cases, 1, 2)], 2);
-% base_hosp = hosp_cumu(:, maxt);
-% [pred_hosps] = var_simulate_deaths(infec_data, hosp_rates, dk, djp, dhorizon, base_hosp, T_full-1);
-% pred_base_hosp = pred_hosps(:, maxt-T_full+1);
-% pred_new_hosps = diff([base_hosp pred_hosps]')';
-% pred_new_hosps(:,  1:(maxt-T_full)) = [];   % Adjust based on the day of prediction
-% disp('predicted hospitalizations');
-
-%% We generate multiple sub-scenarios and sample to get quantiles
+%% Save data
 
 %un_list = [1 2 3];
-lags_list = [0 3 7 10 14];
 
-hk = best_hosp_hyperparam(:, 1);
-hjp = best_hosp_hyperparam(:, 2);
-hwin = best_hosp_hyperparam(:, 3);
-hlags = best_hosp_hyperparam(:, 4);
-halpha = 0.9; hhorizon = 110; horizon = 100;
-
-for j=1:length(lags_list)
-    T_full = hosp_data_limit;
-    [hosp_rates] = var_ind_deaths(data_4_s(:, 1:T_full - lags_list(j)), hosp_cumu_s(:, 1:T_full - lags_list(j)), halpha, hk, hjp, hwin, 0, popu > -1, hlags);
-    hosp_rates_list{j} = hosp_rates;
-end
-save us_hospitalization hosp_cumu hosp_cumu_s best_hosp_hyperparam hosp_rates hosp_data_limit fips;
+save us_hospitalization hosp_cumu hosp_cumu_s hosp_data_limit fips;
 %%
 load us_results.mat;
-net_infec_A = net_infec_0;
-net_hosp_A = zeros(size(net_infec_A, 1)*length(lags_list), size(data_4, 1), horizon);
+xx = load('variants.mat', 'lineages');
+omic_idx = find(contains(xx.lineages, 'BA'));
+nl = length(xx.lineages);
+%%
 
+num_dh_rates_sample = 3;
+num_wan = [1:2];
+ag_wan_lb_list = repmat([0.5], [2 1]);
+P_hosp = repmat([repmat([0.87], [2 1])], [1 1 nl]);
+rel_lineage_rates = ones(nl, 1);
+%rel_lineage_rates(omic_idx) = 0.3;
+thisday = T_full;
+horizon = 100;
+ns = size(hosp_cumu_s, 1);
+
+ag = 2;
+hosp_cumu_ag = zeros(ns, thisday, 2);
+hosp_cumu_ag(:, :, 1) = hosp_cumu_s;
+
+%%
+tic;
+net_infec_A = net_infec_0;
+net_hosp_A = zeros(size(net_infec_A, 1)*num_dh_rates_sample, size(data_4, 1), horizon);
+
+if ~isempty(gcp('nocreate'))
+    pctRunOnAll warning('off', 'all')
+else
+    parpool;
+    pctRunOnAll warning('off', 'all')
+end
+
+parfor simnum = 1:size(net_infec_A, 1)
+    deltemp = all_deltemps{simnum};
+    immune_infec = all_immune_infecs{simnum};
+
+    P = 1 - (1 - P_hosp)./(1 - 0.5);
+    temp_res = zeros(num_dh_rates_sample, ns, horizon);
+
+    T_full = hosp_data_limit;
+    base_hosp = hosp_cumu(:, T_full);
+
+    halpha = 0.95;
+    rel_lineage_rates1 = repmat(rel_lineage_rates(:)', [ns 1]);
+    
+    [X, Y, Z, A, A1] = ndgrid([2:3], [2:3], [50], [0:2], [1]);
+    param_list = [X(:), Y(:), Z(:), A(:), A1(:)];
+    val_idx = (param_list(:, 1).*param_list(:, 2) <=28) & (param_list(:, 3) > param_list(:, 1).*param_list(:, 2)) & (param_list(:, 1) - param_list(:, 4))>0;
+    param_list = param_list(val_idx, :);
+
+    [best_death_hyperparam] = dh_age_hyper(deltemp, immune_infec, rel_lineage_rates1, P_hosp, hosp_cumu_ag(:, 1:thisday, :), thisday, 0, param_list, halpha);
+    hk = best_death_hyperparam(:, 1); hjp = best_death_hyperparam(:, 2);
+    hwin = best_death_hyperparam(:, 3); hlags = best_death_hyperparam(:, 4); rel_lineage_rates1(:, omic_idx) = repmat(best_death_hyperparam(:, 5), [1 length(omic_idx)]);
+    
+%    hk = 3; hjp = 1; hwin = 100; hlags = 0;
+ 
+    
+    [hosp_rate, ci_h, fC_h] = get_death_rates_escape(deltemp(:, :, 1:thisday, :), immune_infec(:, :, 1:thisday, :), rel_lineage_rates1, P, ...
+        hosp_cumu_ag(:, 1:thisday, :),  halpha, hk, hjp, hwin, 0.95, popu>-1, hlags);
+
+    for rr = 1:num_dh_rates_sample
+        this_rate = hosp_rate;
+
+        if rr ~= (num_dh_rates_sample + 1)/2
+            for cid=1:ns
+                for g=1:ag
+                    this_rate{cid, g} = ci_h{cid, g}(:, 1) + (ci_h{cid, g}(:, 2) - ci_h{cid, g}(:, 1))*(rr-1)/(num_dh_rates_sample-1);
+                end
+            end
+        end
+
+        [pred_hosps, pred_new_hosps_ag] = simulate_deaths_escape(deltemp, immune_infec, rel_lineage_rates1, P, this_rate, hk, hjp, ...
+            horizon, base_hosp, T_full-1);
+
+        h_start = size(data_4, 2)-T_full+1;
+        temp_res(rr, :, :) = pred_hosps(:, h_start:h_start+horizon-1) - base_hosp;
+    end
+    net_h_cell{simnum} = temp_res;
+    fprintf('.');
+end
 
 for simnum = 1:size(net_infec_A, 1)
-    % Hosp
-    for jj = 1:length(hosp_rates_list)
-        hosp_rates = hosp_rates_list{1};
-        rate_change = intermed_betas(hosp_rates, best_hosp_hyperparam, hosp_rates_list{jj}, best_hosp_hyperparam, 7);
-        T_full = hosp_data_limit;
-        infec_data = [data_4_s squeeze(net_infec_A(simnum, :, :))-data_4(:, end)+data_4_s(:, end)];
-        base_hosp = hosp_cumu(:, T_full);
-        pred_hosps1 = var_simulate_deaths_vac(infec_data, hosp_rates, hk, hjp, hhorizon, base_hosp, T_full-1, rate_change);
-        h_start = size(data_4, 2)-T_full+1;
-        net_hosp_A(simnum+(jj-1)*size(net_infec_A, 1), :, :) = [pred_hosps1(:, h_start:h_start+horizon-1)];
-    end
-    fprintf('.');
-    
+    idx = simnum+[0:num_dh_rates_sample-1]*size(net_infec_A, 1);
+    net_hosp_A(idx, :, :) = net_h_cell{simnum};
 end
+clear net_*_cell
 fprintf('\n');
+fprintf('\n');
+toc
 
 %% Generate quantiles
 num_ahead = 99;
@@ -149,22 +179,23 @@ quant_preds_hosp = zeros(length(popu), num_ahead, length(quant_hosp));
 %mean_preds_hosp = pred_new_hosps(:, 1:num_ahead);
 mean_preds_hosp = squeeze(nanmean(diff(net_hosp_A(:, :, 1:num_ahead+1), 1, 3), 1));
 med_idx  = find(abs(quant_hosp-0.5)<0.001);
+
+T_corr = 0;
+
 for cid = 1:length(popu)
-    thisdata = squeeze(net_hosp_A(:, cid, 1:num_ahead+1));
+    thisdata = squeeze(net_hosp_A(:, cid, 1:num_ahead-T_corr+1));
+    thisdata = [repmat(hosp_dat(cid, end-T_corr+1:end), [size(net_hosp_A, 1) 1]), diff(thisdata, 1, 2)];
     thisdata(all(thisdata==0, 2), :) = [];
+    dt = hosp_dat; gt_lidx = size(dt, 2); 
     
-    %thisdata = diff([repmat(pred_base_hosp(cid, 1),[size(thisdata, 1), 1]) thisdata]')';
-    thisdata = diff(thisdata, 1, 2);
-    dt = hosp_dat; gt_lidx = size(dt, 2); extern_dat = (dt(cid, gt_lidx-14:gt_lidx))';
+    extern_dat = (dt(cid, gt_lidx-14:gt_lidx))';
     extern_dat(isnan(extern_dat)) = [];
     extern_dat = extern_dat - mean(extern_dat) + mean_preds_hosp(cid, :);
     %thisdata = thisdata - mean(thisdata, 1);
     thisdata = [thisdata; extern_dat];
     
     quant_preds_hosp(cid, :, :) = quantile(thisdata(:, 1:num_ahead), quant_hosp)';
-%     adjust_quants = (squeeze(quant_preds_hosp(cid, :, med_idx)) - mean_preds_hosp(cid, :));
-%     quant_preds_hosp(cid, :, :) = quant_preds_hosp(cid, :, :) - adjust_quants;
-    %mean_preds_hosp(cid, :) = mean(thisdata(:, 1:num_ahead), 1);
+
 end
 quant_preds_hosp = (quant_preds_hosp+abs(quant_preds_hosp))/2;
 %% Plot
@@ -172,15 +203,15 @@ quant_preds_hosp = (quant_preds_hosp+abs(quant_preds_hosp))/2;
 % plot((T_full+1:T_full+size(pred_new_hosps, 2)), pred_new_hosps(cid, :)); hold off;
 dt = hosp_dat;
 dt_s = [zeros(length(popu), 2) diff(hosp_cumu_s, 1, 2)];
-sel_idx = 3;% sel_idx = contains(placenames, 'Nebraska');
+sel_idx = 1:56; %sel_idx = contains(placenames, 'California');
 thisquant = squeeze(nansum(quant_preds_hosp(sel_idx, :, [1 7 17 23]), 1));
 mpred = (nansum(mean_preds_hosp(sel_idx, :), 1))';
 gt_len = 400;
 gt_lidx = size(dt, 2); gt_idx = (gt_lidx-gt_len:1:gt_lidx);
-gt = dt(sel_idx, gt_idx);
-gt_s = dt_s(sel_idx, gt_idx);
+gt = nansum(dt(sel_idx, gt_idx), 1);
+%gt_s = sum(dt_s(sel_idx, gt_idx), 1);
 TT = datetime(2020, 1, 23) + T_full - gt_len + (1:1000);
-plot(TT(1:length(gt)), [gt' gt_s']); hold on; plot(TT(gt_len+1:gt_len+size(thisquant, 1)), [mpred thisquant]); hold off;
+plot(TT(1:length(gt)), [gt']); hold on; plot(TT(gt_len+1:gt_len+size(thisquant, 1)), [mpred thisquant]); hold off;
 title(['Hospitalization ' placenames{sel_idx} ]);
 
 %%
