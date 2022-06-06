@@ -45,11 +45,43 @@ for cid = 1:ns
         smoothed(ll, :) = yy;
     end
     smoothed = smoothed./sum(smoothed, 1);
-    var_frac_all(cid, these_lins, :) = smoothed;
-    var_frac_all_low(cid, these_lins, :) = smoothed;
-    var_frac_all_high(cid, these_lins, :) = smoothed;
-    %rel_adv(cid, these_lins(1:end-1)) = betaHat(2, :);
-    rel_adv(cid, these_lins) = 0;
+    
+    try
+        tw = 70; % Last 70 days to fit logistic model
+        val_times1 = val_times(val_times > maxt-tw); var_data1 = var_data(:, val_times > maxt-tw);
+        
+        try
+            [betaHat, ~, stat] = mnrfit(val_times1', var_data1', 'EstDisp','on');
+            [piHat, dlow, dhigh] = mnrval(betaHat, (maxt-tw+1:maxt)', stat); piHat = piHat';
+        catch
+            [betaHat] = mnrfit(val_times1', var_data1'); 
+            [piHat] = mnrval(betaHat, (maxt-tw+1:maxt)'); piHat = piHat';
+            dlow = 0; dhigh = 0;
+        end
+        
+        mgd = [smoothed(:, 1:end-tw) piHat];
+        mgd = movmean(mgd, 7, 2);
+
+        mgdl = [smoothed(:, 1:end-tw) max(piHat-dlow', 0)];
+        mgdl = movmean(mgdl, 7, 2);
+
+        mgdh = [smoothed(:, 1:end-tw) min(piHat+dhigh', 1)];
+        mgdh = movmean(mgdh, 7, 2);
+
+        rel_adv(cid, these_lins(1:end-1)) = betaHat(2, :);
+    catch
+        mgd = smoothed;
+        mgdl = mgd;
+        mgdh = mgd;
+        rel_adv(cid, these_lins) = 0;
+    end
+        
+    var_frac_all(cid, these_lins, :) = mgd;
+    var_frac_all_low(cid, these_lins, :) = mgdl;
+    var_frac_all_high(cid, these_lins, :) = mgdh;
+
+    
+    
 
 %     catch
 %         fprintf('|');

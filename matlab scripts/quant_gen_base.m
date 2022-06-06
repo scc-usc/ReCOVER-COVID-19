@@ -50,7 +50,7 @@ quant_preds_deaths = 0.5*(quant_preds_deaths+abs(quant_preds_deaths));
 quant_preds_cases = 0.5*(quant_preds_cases+abs(quant_preds_cases));
 %% Plot
 cidx = 1:56;
-sel_idx = 11; %sel_idx = contains(countries, 'Washington');
+sel_idx = 48; %sel_idx = contains(countries, 'Washington');
 dt = deaths(cidx, :);
 dts = deaths_s(cidx, :);
 thisquant = squeeze(nansum(quant_preds_deaths(sel_idx, :, [1 7 12 17 23]), 1));

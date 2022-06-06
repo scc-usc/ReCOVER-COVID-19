@@ -49,47 +49,48 @@ T_full = size(data_4, 2);
 thisday = T_full;
 un_array{1} = popu*0 + [1.5];  un_array{2} = popu*0 + [2]; un_array{3} = popu*0 + [3];
 %% Adjust variants prevalences
-% xx = load('variants_global.mat', "var_frac_all*","lineages_voc", 'valid_lins_voc', "all_var_data_voc");
-% var_frac_all = xx.var_frac_all_voc(:, :, 1:thisday);
-% var_frac_all_low = xx.var_frac_all_low_voc(:, :, 1:thisday); 
-% var_frac_all_high = xx.var_frac_all_high_voc(:, :, 1:thisday); 
-% lineages = xx.lineages_voc;
-% valid_lins = xx.valid_lins_voc;
+xx = load('variants_global.mat', "var_frac_all*","lineages_*", 'valid_lins_voc', "all_var_data_voc");
+var_frac_all = xx.var_frac_all_f(:, :, 1:thisday);
+var_frac_all_low = xx.var_frac_all_low_f(:, :, 1:thisday); 
+var_frac_all_high = xx.var_frac_all_high_f(:, :, 1:thisday); 
+lineages = xx.lineages_f;
+%valid_lins = xx.valid_lins_f;
+clear xx;
+% xx = load('variants_global.mat', "var_frac_all*","lineages", 'valid_lins', "all_var_data");
+% var_frac_all = xx.var_frac_all(:, :, 1:thisday);
+% var_frac_all_low = xx.var_frac_all_low(:, :, 1:thisday); 
+% var_frac_all_high = xx.var_frac_all_high(:, :, 1:thisday); 
+% lineages = xx.lineages;
+% valid_lins = xx.valid_lins;
 
-xx = load('variants_global.mat', "var_frac_all*","lineages", 'valid_lins', "all_var_data");
-var_frac_all = xx.var_frac_all(:, :, 1:thisday);
-var_frac_all_low = xx.var_frac_all_low(:, :, 1:thisday); 
-var_frac_all_high = xx.var_frac_all_high(:, :, 1:thisday); 
-lineages = xx.lineages;
-valid_lins = xx.valid_lins;
-
-%% Adjust bounds to focus on omicron
+%% Adjust bounds to focus on ba.5
 var_frac_all_low(var_frac_all_low < 0) = 0;
 var_frac_all_high(var_frac_all_high > 1) = 1;
-
 var_frac_all_low = var_frac_all_low./(1e-20 + nansum(var_frac_all_low, 2));
 var_frac_all_high = var_frac_all_high./(1e-20 + nansum(var_frac_all_high, 2));
-%delta_idx = find(contains(lineages, 'Delta')); delta_idx = delta_idx(1);
 
-% omic_idx = find(contains(lineages, 'Omicron')); omic_idx = omic_idx(1);
-% other_idx = find(contains(lineages, 'other')); other_idx = other_idx(1);
-% 
-% omic_refs = valid_lins(:, omic_idx)> 0;
-% if sum(omic_refs)>0
-%     temp = var_frac_all(omic_refs, omic_idx, :);
-%     [~, idx] = min(abs(sum(temp(:, end-7:end), 3) - median(sum(temp(:, end-7:end), 3))));
-%     omic_fill = temp(idx(1), :);
-% 
-%     omic_fill_low = omic_fill/2; % Necessary to have some prevelance
-% 
-%     temp = var_frac_all_high(omic_refs, omic_idx, :);
-%     [~, idx] = min(abs(sum(temp(:, end-7:end), 3) - median(sum(temp(:, end-7:end), 3))));
-%     omic_fill_high = temp(idx(1), :);
-% end
+
+foc_idx = find(contains(lineages, 'ba.5', 'IgnoreCase', true)); foc_idx = foc_idx(1);
+% Readjust bounds to focus on uncertainty in delta
+xx = var_frac_all_low(:, foc_idx, :);
+var_frac_all_low = var_frac_all.*(1 - xx)./(1 - var_frac_all(:, foc_idx, :));
+var_frac_all_low(:, foc_idx, :) = xx;
+
+xx = var_frac_all_high(:, foc_idx, :);
+var_frac_all_high = var_frac_all.*(1 - xx)./(1 - var_frac_all(:, foc_idx, :));
+var_frac_all_high(:, foc_idx, :) = xx;
+
+
+foc_present = any(var_frac_all(:, foc_idx, :)>0, 3);
+foc_missing = ~foc_present;
+
+temp = quantile(squeeze(var_frac_all(foc_present, foc_idx, :)), [0.05 0.5 0.95]);
+var_frac_all_low(foc_missing, foc_idx, :) = repmat(temp(1, :), [sum(foc_missing) 1]);
+var_frac_all(foc_missing, foc_idx, :) = repmat(temp(2, :), [sum(foc_missing) 1]);
+var_frac_all_high(foc_missing, foc_idx, :) = repmat(temp(3, :), [sum(foc_missing) 1]);
 
 nl = length(lineages);
 
-var_prev_q = [1 2 3];
 var_frac_all(isnan(var_frac_all)) = 0;
 var_frac_all_low(isnan(var_frac_all_low)) = 0;
 var_frac_all_high(isnan(var_frac_all_high)) = 0;
@@ -161,7 +162,7 @@ deaths_un_lb = squeeze(min(net_death_0, [], 1));
 infec_un_ub = squeeze(max(net_infec_0, [], 1));
 deaths_un_ub = squeeze(max(net_death_0, [], 1));
 %% Plot test
-cid = 3; cid = contains(countries, 'Spain');
+cid = 156; %cid = contains(countries, 'Spain');
 tiledlayout(2, 1);
 nexttile;
 plot(diff(data_4(cid, :))); hold on;  plot(diff(data_4_s(cid, :))); hold on;

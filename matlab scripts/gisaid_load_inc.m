@@ -1,4 +1,3 @@
-
 warning off;
 %% Load saved global variants data
 T_old = readtable('global_vars_May22.csv');
@@ -9,10 +8,10 @@ options = weboptions;
 options.Timeout = 20;
 
 try
-    jsondata = webread(['https://lapis.cov-spectrum.org/gisaid/v1/sample/aggregated?fields=gisaidClade,pangoLineage,country,date&dateFrom=' dstring], options);
+    jsondata = webread(['https://lapis.cov-spectrum.org/open/v1/sample/aggregated?fields=gisaidClade,pangoLineage,country,date&dateFrom=' dstring], options);
 catch
     try
-        jsondata = webread(['https://lapis.cov-spectrum.org/gisaid/v1/sample/aggregated?fields=gisaidClade,pangoLineage,country,date&dateFrom=' dstring], options);
+        jsondata = webread(['https://lapis.cov-spectrum.org/open/v1/sample/aggregated?fields=gisaidClade,pangoLineage,country,date&dateFrom=' dstring], options);
     catch
         global_fail = 1;
     end
@@ -93,8 +92,26 @@ end
 %%    
     %[var_frac_all_voc, var_frac_all_low_voc, var_frac_all_high_voc, rel_adv_voc] = mnr_variants(red_var_matrix_voc, valid_lins_voc, valid_times_voc, lineages_voc, 300);
     [var_frac_all_voc, var_frac_all_low_voc, var_frac_all_high_voc, rel_adv_voc] = smooth_variants(red_var_matrix_voc, valid_lins_voc, valid_times_voc, lineages_voc, 300);
-    
-        save variants_global.mat var_frac_* lineages* rel_adv* valid_* red_var_matrix* all_var_data*;
+%% Filtered_VOC
+filter_list = {'BA.1';'BA.1.1';'BA.2'; 'BA.2.12.1'; 'BA.3';'BA.4';'BA.5'; 'pre-omicron'; 'other'};
+lineages_f = filter_list; covered = zeros(length(lineages_voc),1 );
+ns = size(var_frac_all_voc, 1); T = size(var_frac_all_voc, 3); nl = length(lineages_f);
+var_frac_all_f = zeros(ns, nl, T);
+var_frac_all_low_f = zeros(ns, nl, T);
+var_frac_all_high_f = zeros(ns, nl, T);
+for ll = 1:length(lineages_f)-1
+    idx = find(strcmpi(lineages_voc, lineages_f{ll})); covered(idx(1)) = 1;
+    var_frac_all_f(:, ll, :) = sum(var_frac_all_voc(:, idx, :), 2);
+    var_frac_all_low_f(:, ll, :) = sum(var_frac_all_low_voc(:, idx, :), 2);
+    var_frac_all_high_f(:, ll, :) = sum(var_frac_all_high_voc(:, idx, :), 2);
+end
+idx = covered < 1;
+var_frac_all_f(:, nl, :) = sum(var_frac_all_voc(:, idx, :), 2);
+var_frac_all_low_f(:, nl, :) = sum(var_frac_all_low_voc(:, idx, :), 2);
+var_frac_all_high_f(:, nl, :) = sum(var_frac_all_high_voc(:, idx, :), 2);
+
+%%
+save variants_global.mat var_frac_* lineages* rel_adv* valid_* red_var_matrix* all_var_data*;
 
 %% Load saved US variants data
 clear;
@@ -106,10 +123,10 @@ us_fail = 0;
 options = weboptions;
 options.Timeout = 20;
 try
-    jsondata = webread(['https://lapis.cov-spectrum.org/gisaid/v1/sample/aggregated?fields=gisaidClade,pangoLineage,division,date&country=USA&dateFrom=' dstring], options);
+    jsondata = webread(['https://lapis.cov-spectrum.org/open/v1/sample/aggregated?fields=gisaidClade,pangoLineage,division,date&country=USA&dateFrom=' dstring], options);
 catch
     try
-        jsondata = webread(['https://lapis.cov-spectrum.org/gisaid/v1/sample/aggregated?fields=gisaidClade,pangoLineage,division,date&country=USA&dateFrom=' dstring], options);
+        jsondata = webread(['https://lapis.cov-spectrum.org/open/v1/sample/aggregated?fields=gisaidClade,pangoLineage,division,date&country=USA&dateFrom=' dstring], options);
     catch
         us_fail = 1;
     end
@@ -191,4 +208,23 @@ end
 %%    
     %[var_frac_all_voc, var_frac_all_low_voc, var_frac_all_high_voc, rel_adv_voc] = mnr_variants(red_var_matrix_voc, valid_lins_voc, valid_times_voc, lineages_voc, 300);
     [var_frac_all_voc, var_frac_all_low_voc, var_frac_all_high_voc, rel_adv_voc] = smooth_variants(red_var_matrix_voc, valid_lins_voc, valid_times_voc, lineages_voc, 300);
+   
+    %% Filtered_VOC
+filter_list = {'BA.1';'BA.1.1';'BA.2'; 'BA.2.12.1'; 'BA.3';'BA.4';'BA.5'; 'pre-omicron'; 'other'};
+lineages_f = filter_list; covered = zeros(length(lineages_voc),1 );
+ns = size(var_frac_all_voc, 1); T = size(var_frac_all_voc, 3); nl = length(lineages_f);
+var_frac_all_f = zeros(ns, nl, T);
+var_frac_all_low_f = zeros(ns, nl, T);
+var_frac_all_high_f = zeros(ns, nl, T);
+for ll = 1:length(lineages_f)-1
+    idx = find(strcmpi(lineages_voc, lineages_f{ll})); covered(idx(1)) = 1;
+    var_frac_all_f(:, ll, :) = sum(var_frac_all_voc(:, idx, :), 2);
+    var_frac_all_low_f(:, ll, :) = sum(var_frac_all_low_voc(:, idx, :), 2);
+    var_frac_all_high_f(:, ll, :) = sum(var_frac_all_high_voc(:, idx, :), 2);
+end
+idx = covered < 1;
+var_frac_all_f(:, nl, :) = sum(var_frac_all_voc(:, idx, :), 2);
+var_frac_all_low_f(:, nl, :) = sum(var_frac_all_low_voc(:, idx, :), 2);
+var_frac_all_high_f(:, nl, :) = sum(var_frac_all_high_voc(:, idx, :), 2);
+    %%
     save variants.mat var_frac_* lineages* rel_adv* valid_* red_var_matrix* all_var_data*;

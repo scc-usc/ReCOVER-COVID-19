@@ -9,9 +9,11 @@ other_idx = find(strcmpi(lineages, 'other'));
 
 if nargin < 3
     filter_vars = zeros(5, 1);
-    filter_vars(2) = 10;
-    filter_vars(4) = 3;
-    filter_vars(5) = 0.01;
+    filter_vars(1) = 0; % min samples for that day to be considered a valid time point
+    filter_vars(2) = 10; % min number of time a variant has been seen in total to be valid
+    filter_vars(3) = 0; % min total samples of this variant over all variants over all time
+    filter_vars(4) = 3; % On at least one day, these many samples should have been observed of that variant
+    filter_vars(5) = 0.01; % The max prevalence in an incident sample must exceed this
 end
 
 min_samples_per_day = filter_vars(1); 
@@ -23,12 +25,12 @@ min_max_frac = filter_vars(5);
 for jj=1:ns
     xx = squeeze(all_var_matrix(jj, :, :));
     vcount = (squeeze(nansum(xx, 2)));
-    valid_idx = (vcount/sum(vcount)>raw_prev_thres) & vcount > raw_counts & any(xx >= raw_single_day, 2) & max(xx./vcount, [], 2)>min_max_frac;
+    valid_idx = (vcount/sum(vcount)>raw_prev_thres) & vcount > raw_counts & any(xx >= raw_single_day, 2) & max(xx./sum(xx, 1), [], 2)>min_max_frac;
     new_other = squeeze(nansum(red_var_matrix(jj, ~valid_idx, :), 2));
     red_var_matrix(jj, ~valid_idx, :) = 0;
     red_var_matrix(jj, other_idx, :) = squeeze(red_var_matrix(jj, other_idx, :)) + new_other;
     
-%     if jj == 396
+%     if jj == 3
 %         display('.');
 %     end
 

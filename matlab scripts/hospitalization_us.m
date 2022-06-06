@@ -82,9 +82,9 @@ hosp_cumu_s = smooth_epidata(hosp_cumu(:, 1:T_full), 1, 0, 1);
 save us_hospitalization hosp_cumu hosp_cumu_s hosp_data_limit fips;
 %%
 load us_results.mat;
-xx = load('variants.mat', 'lineages');
-omic_idx = find(contains(xx.lineages, 'BA'));
-nl = length(xx.lineages);
+xx = load('variants.mat', 'lineages*');
+omic_idx = find(contains(xx.lineages_f, 'BA'));
+nl = length(xx.lineages_f);
 %%
 
 num_dh_rates_sample = 3;
@@ -126,7 +126,7 @@ parfor simnum = 1:size(net_infec_A, 1)
     halpha = 0.95;
     rel_lineage_rates1 = repmat(rel_lineage_rates(:)', [ns 1]);
     
-    [X, Y, Z, A, A1] = ndgrid([2:3], [2:3], [50], [0:2], [1]);
+    [X, Y, Z, A, A1] = ndgrid([2:3], [1:3], [50], [0:2], [1]);
     param_list = [X(:), Y(:), Z(:), A(:), A1(:)];
     val_idx = (param_list(:, 1).*param_list(:, 2) <=28) & (param_list(:, 3) > param_list(:, 1).*param_list(:, 2)) & (param_list(:, 1) - param_list(:, 4))>0;
     param_list = param_list(val_idx, :);
@@ -203,7 +203,7 @@ quant_preds_hosp = (quant_preds_hosp+abs(quant_preds_hosp))/2;
 % plot((T_full+1:T_full+size(pred_new_hosps, 2)), pred_new_hosps(cid, :)); hold off;
 dt = hosp_dat;
 dt_s = [zeros(length(popu), 2) diff(hosp_cumu_s, 1, 2)];
-sel_idx = 1:56; %sel_idx = contains(placenames, 'California');
+sel_idx = 7; %sel_idx = contains(placenames, 'California');
 thisquant = squeeze(nansum(quant_preds_hosp(sel_idx, :, [1 7 17 23]), 1));
 mpred = (nansum(mean_preds_hosp(sel_idx, :), 1))';
 gt_len = 400;

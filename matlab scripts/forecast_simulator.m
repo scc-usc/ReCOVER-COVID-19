@@ -25,13 +25,22 @@ deaths_ag(:, :, 1) = deaths_s;
 nl = length(lineages);
 vacc_effi1 = 0.35; vacc_effi2 = 1 - vacc_effi1;
 booster_delay = 210;
-omic_idx=  find(contains(lineages, 'micron') | startsWith(lineages, 'BA'));
+omic_idx=  find(contains(lineages, 'Omicron') | startsWith(lineages, 'BA'));
 esc_param = 0.5;
 rel_vacc_effi = ones(nl, 1); rel_vacc_effi(omic_idx) = esc_param;
-rel_booster_effi = ones(nl, 1); rel_vacc_effi(omic_idx) = (1+esc_param)/2;
+rel_booster_effi = ones(nl, 1); rel_booster_effi(omic_idx) = (1+esc_param)/2;
 cross_protect = ones(length(lineages), length(lineages));
 cross_protect(omic_idx, :) = esc_param ;
 cross_protect(omic_idx, omic_idx) = 1;
+
+
+omic_idx2=  find(contains(lineages, 'ba.4', 'IgnoreCase', true)| contains(lineages, 'ba.5', 'IgnoreCase', true));
+esc_param2 = 0.375;
+rel_vacc_effi(omic_idx2) = esc_param2;
+rel_booster_effi(omic_idx2) = (1+esc_param2)/2;
+cross_protect(omic_idx2, :) = esc_param2 ;
+cross_protect(omic_idx2, omic_idx) = esc_param2/esc_param;
+cross_protect(omic_idx2, omic_idx2) = 1;
 
 rel_lineage_rates = ones(nl, 1);
 rel_lineage_rates(omic_idx) = 1;
@@ -40,6 +49,7 @@ all_deltemps = cell(size(scen_list, 1), 1);
 all_immune_infecs = cell(size(scen_list, 1), 1);
 
 Rt_all = zeros(size(scen_list, 1), ns, nl);
+err = zeros(size(scen_list, 1), ns, nl);
 
 if ~isempty(gcp('nocreate'))
     pctRunOnAll warning('off', 'all')
@@ -122,6 +132,9 @@ parfor simnum = 1:size(scen_list, 1)
 
     this_Rt = calc_Rt_all(all_betas, all_cont, ag_popu_frac, k_l, jp_l);
     Rt_all(simnum, :, :) = this_Rt;
+
+    this_err = calc_error_fC(fC);
+    err(simnum, :, :) = this_err;
     
     %%
     base_infec = data_4;
@@ -164,7 +177,7 @@ parfor simnum = 1:size(scen_list, 1)
 
     [best_death_hyperparam] = dh_age_hyper(deltemp, immune_infec, rel_lineage_rates1, P_death, deaths_ag(:, 1:thisday, :), thisday, 0, param_list, dalpha);
     dk = best_death_hyperparam(:, 1); djp = best_death_hyperparam(:, 2);
-    dwin = best_death_hyperparam(:, 3); dlags = best_death_hyperparam(:, 4); rel_lineage_rates1(:, omic_idx) = repmat(best_death_hyperparam(:, 5), [1 length(omic_idx)]);
+    dwin = best_death_hyperparam(:, 3); dlags = best_death_hyperparam(:, 4); rel_lineage_rates1(:, foc_idx) = repmat(best_death_hyperparam(:, 5), [1 length(foc_idx)]);
 
 %    dk = 5; djp = 7; dwin = 100; dlags = 1;
 
@@ -193,8 +206,28 @@ parfor simnum = 1:size(scen_list, 1)
     net_d_cell{simnum} = temp_res;
     fprintf('.');
 end
+%% Prune the samples to get rid of bad fits
+bad_sims = zeros(ns, size(scen_list, 1));
+for cid = 1:ns
+    this_er = squeeze(sum(err(:, cid, :), 3));
+    [~, err_idx] = sort(this_er, 'descend', 'MissingPlacement','first');
+    bad_sims(cid, err_idx(1:(size(bad_sims, 2)/2))) = 1;
+    net_infec_0(bad_sims(cid, :)>0, cid, :) = net_infec_0(bad_sims(cid, :)< 1, cid, :);
+end
+
+%%
 
 for simnum = 1:size(scen_list, 1)
     idx = simnum+[0:num_dh_rates_sample-1]*size(scen_list, 1);
-    net_death_0(idx, :, :) = net_d_cell{simnum};
+    xx = net_d_cell{simnum};
+    xx(:, bad_sims(:, simnum)>0, :) = nan;
+    net_death_0(idx, :, :) = xx;
 end
+
+for cid = 1:ns
+    xx = net_death_0(:, cid, :);
+    bad_idx = any(isnan(xx), 3);
+    net_death_0(bad_idx, cid, :) = net_death_0(~bad_idx, cid, :);
+end
+%%
+        

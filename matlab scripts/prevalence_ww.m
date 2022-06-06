@@ -58,20 +58,27 @@ ww_adj = movmean(data_diff.*f, 14, 2);
 %%
 CDC_sero;
 %%
+
+true_new_infec{1} = (true_new_infec{1}+abs(true_new_infec{1}))/2;
+true_new_infec{2} = (true_new_infec{2}+abs(true_new_infec{2}))/2;
+true_new_infec{3} = (true_new_infec{3}+abs(true_new_infec{3}))/2;
+
 eq_range = 200:600;
-ww_year1 = sum(ww_adj(:, eq_range), 2);
+nz_idx =  ww_adj(:, eq_range)>0.5; % To deal with missing data early
 
-sero_year1 = sum(true_new_infec{1}(:, eq_range), 2);
+ww_year1 = sum(ww_adj(:, eq_range).*nz_idx, 2);
+
+sero_year1 = sum(true_new_infec{2}(:, eq_range).*nz_idx, 2);
 true_new_infec_ww{1} = [(sero_year1./ww_year1).*ww_adj];
-true_new_infec_ww{1} = movmean(max(true_new_infec_ww{1}, true_new_infec{1}), 14, 2);
+true_new_infec_ww{1} = movmean(max(true_new_infec_ww{1}, (true_new_infec{1})), 14, 2);
 
-sero_year2 = sum(true_new_infec{2}(:, eq_range), 2);
+sero_year2 = sum(true_new_infec{2}(:, eq_range).*nz_idx, 2);
 true_new_infec_ww{2} = [(sero_year2./ww_year1).*ww_adj];
-true_new_infec_ww{2} = movmean(max(true_new_infec_ww{2}, true_new_infec{2}), 14, 2);
+true_new_infec_ww{2} = movmean(max(true_new_infec_ww{2}, (true_new_infec{2})), 14, 2);
 
-sero_year3 = sum(true_new_infec{3}(:, eq_range), 2);
+sero_year3 = sum(true_new_infec{3}(:, eq_range).*nz_idx, 2);
 true_new_infec_ww{3} = [(sero_year3./ww_year1).*ww_adj];
-true_new_infec_ww{3} = movmean(max(true_new_infec_ww{3}, true_new_infec{3}), 14, 2);
+true_new_infec_ww{3} = movmean(max(true_new_infec_ww{3}, (true_new_infec{3})), 14, 2);
 
 bad_states = (sum(~isnan(ww_ts), 2)<1) & (sum(~isnan(true_new_infec{2}), 2)>1);
 true_new_infec_ww{1}(bad_states, :) = true_new_infec{1}(bad_states, :); true_new_infec_ww{2}(bad_states, :) = true_new_infec{2}(bad_states, :); true_new_infec_ww{3}(bad_states, :) = true_new_infec{3}(bad_states, :);
@@ -79,4 +86,4 @@ true_new_infec_ww{1}(bad_states, :) = true_new_infec{1}(bad_states, :); true_new
 bad_states = (sum(~isnan(ww_ts), 2)<1) & (sum(~isnan(true_new_infec{2}), 2)<1);
 true_new_infec_ww{1}(bad_states, :) = data_diff(bad_states, :); true_new_infec_ww{2}(bad_states, :) = data_diff(bad_states, :); true_new_infec_ww{3}(bad_states, :) = data_diff(bad_states, :);
 %%
-save ww_prevalence_us.mat true_new_infec_ww;
+save ww_prevalence_us.mat true_new_infec_ww true_new_infec;
