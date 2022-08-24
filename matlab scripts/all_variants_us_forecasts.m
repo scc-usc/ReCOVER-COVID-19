@@ -109,16 +109,15 @@ P_death_list_orig = repmat([repmat([0.93 0.93], [2 1])], [1 1 nl]);
 P_hosp_list_orig = repmat([repmat([0.87 0.87], [2 1])], [1 1 nl]);
 
 %%
-[X1, X2, X3, X4, X5, X6] = ndgrid(un_list, lag_list, var_prev_q, rlag_idx, booster_cov_list(2), num_wan);
+[X1, X2, X3, X4, X5, X6] = ndgrid(un_list, lag_list, var_prev_q, rlag_idx(1), booster_cov_list(2), num_wan);
 scen_list = [X1(:), X2(:), X3(:) X4(:) X5(:) X6(:)];
 num_dh_rates_sample = 5;
 
-dalpha = 0.98;
+dalpha = 0.95;
 [X, Y, Z, A, A1] = ndgrid([3:8], 7, [75 100], [1:6], [1]);
 param_list = [X(:), Y(:), Z(:), A(:), A1(:)];
 val_idx = (param_list(:, 1).*param_list(:, 2) <=49) & (param_list(:, 3) > param_list(:, 1).*param_list(:, 2)) & (param_list(:, 1) - param_list(:, 4))>2 & (param_list(:, 1) - param_list(:, 4))<4;
 param_list = param_list(val_idx, :);
-
 %%
 tic;
 net_infec_0 = zeros(size(scen_list, 1), size(data_4, 1), horizon);
@@ -126,6 +125,7 @@ net_death_0 = zeros(size(scen_list, 1)*num_dh_rates_sample, size(data_4, 1), hor
 
 P_death_list = P_death_list_orig;
 P_hosp_list = P_hosp_list_orig;
+P_death_list(:) = 0;
 forecast_simulator;
 toc
 %%
@@ -142,7 +142,7 @@ deaths_un_ub = squeeze(max(net_death_0, [], 1));
 
 
 %% Plot test
-cid = 3; maxt = size(data_4, 2); horizon = size(net_death_0, 3);
+cid = 1; maxt = size(data_4, 2); horizon = size(net_death_0, 3);
 tiledlayout(2, 1);
 nexttile;
 plot(diff(sum(data_4(cid, :), 1))); hold on;

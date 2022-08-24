@@ -41,8 +41,15 @@ for cid = 1:ns
     smoothed = zeros(length(these_lins), maxt);
     for ll=1:length(these_lins)
         yy = csaps(val_times, var_data(ll, :)./sum(var_data, 1), 0.001, 1:maxt, sum(var_data, 1)./max(sum(var_data, 1)));
+        fd = find(var_data(ll, :)>0);  % Before the first observation, the estimate must be zero
+        if length(fd) > 1
+            fd = val_times(fd(1));
+            %yy(1:fd-1) = 0;
+        end
         yy(yy<0) = 0; yy = movmean(yy, 7);
         smoothed(ll, :) = yy;
+       
+        
     end
     smoothed = smoothed./sum(smoothed, 1);
     

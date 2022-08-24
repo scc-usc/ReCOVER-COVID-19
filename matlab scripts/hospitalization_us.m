@@ -80,7 +80,7 @@ hosp_cumu_s = smooth_epidata(hosp_cumu(:, 1:T_full), 1, 0, 1);
 %un_list = [1 2 3];
 
 save us_hospitalization hosp_cumu hosp_cumu_s hosp_data_limit fips;
-%%
+ %%
 load us_results.mat;
 xx = load('variants.mat', 'lineages*');
 omic_idx = find(contains(xx.lineages_f, 'BA'));
@@ -90,7 +90,7 @@ nl = length(xx.lineages_f);
 num_dh_rates_sample = 3;
 num_wan = [1:2];
 ag_wan_lb_list = repmat([0.5], [2 1]);
-P_hosp = repmat([repmat([0.87], [2 1])], [1 1 nl]);
+P_hosp = repmat([repmat([0.87], [2 1])], [1 1 nl]); P_hosp(:) = 0;
 rel_lineage_rates = ones(nl, 1);
 %rel_lineage_rates(omic_idx) = 0.3;
 thisday = T_full;
@@ -171,6 +171,17 @@ fprintf('\n');
 fprintf('\n');
 toc
 
+%% Clean bad simulations
+for cid=1:length(popu)
+    thisdata = net_hosp_A(:, cid, :);
+    approx_target = interp1([1 2], [hosp_cumu_s(cid, end-1)-hosp_cumu_s(cid, end-2), hosp_cumu_s(cid, end) - hosp_cumu_s(cid, end-1)], 3, 'linear', 'extrap');
+    bad_idx = abs(thisdata(:, 1)-0) < 0.3*approx_target;
+    net_hosp_A(bad_idx, cid, :) = nan;
+    bad_idx = abs(thisdata(:, 1)-0) > 2*approx_target;
+    net_hosp_A(bad_idx, cid, :) = nan;
+
+end
+
 %% Generate quantiles
 num_ahead = 99;
 quant_hosp = [0.01, 0.025, (0.05:0.05:0.95), 0.975, 0.99]';
@@ -203,7 +214,7 @@ quant_preds_hosp = (quant_preds_hosp+abs(quant_preds_hosp))/2;
 % plot((T_full+1:T_full+size(pred_new_hosps, 2)), pred_new_hosps(cid, :)); hold off;
 dt = hosp_dat;
 dt_s = [zeros(length(popu), 2) diff(hosp_cumu_s, 1, 2)];
-sel_idx = 7; %sel_idx = contains(placenames, 'California');
+sel_idx = 3; %sel_idx = contains(placenames, 'California');
 thisquant = squeeze(nansum(quant_preds_hosp(sel_idx, :, [1 7 17 23]), 1));
 mpred = (nansum(mean_preds_hosp(sel_idx, :), 1))';
 gt_len = 400;

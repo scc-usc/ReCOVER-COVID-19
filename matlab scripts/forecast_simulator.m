@@ -34,7 +34,7 @@ cross_protect(omic_idx, :) = esc_param ;
 cross_protect(omic_idx, omic_idx) = 1;
 
 
-omic_idx2=  find(contains(lineages, 'ba.4', 'IgnoreCase', true)| contains(lineages, 'ba.5', 'IgnoreCase', true));
+omic_idx2=  find(contains(lineages, 'ba.4', 'IgnoreCase', true)| contains(lineages, 'ba.5', 'IgnoreCase', true) | contains(lineages, 'other', 'IgnoreCase', true));
 esc_param2 = 0.375;
 rel_vacc_effi(omic_idx2) = esc_param2;
 rel_booster_effi(omic_idx2) = (1+esc_param2)/2;
@@ -229,5 +229,18 @@ for cid = 1:ns
     bad_idx = any(isnan(xx), 3);
     net_death_0(bad_idx, cid, :) = net_death_0(~bad_idx, cid, :);
 end
-%%
+%% Remove unusual simulations
+for cid=1:length(popu)
+    thisdata = net_infec_0(:, cid, :);
+    approx_target = interp1([1 2], [data_4_s(cid, end-1)-data_4_s(cid, end-2), data_4_s(cid, end) - data_4_s(cid, end-1)], 3, 'linear', 'extrap');
+    bad_idx = abs(thisdata(:, 1)-data_4(cid, end)) < 0.3*approx_target;
+    net_infec_0(bad_idx, cid, :) = nan; 
+    thisdata = net_death_0(:, cid, :);
+    approx_target = interp1([1 2], [deaths_s(cid, end-1)-deaths_s(cid, end-2), deaths_s(cid, end) - deaths_s(cid, end-1)], 3, 'linear', 'extrap');
+    bad_idx = abs(thisdata(:, 1)-deaths(cid, end)) < 0.3*approx_target;
+    net_death_0(bad_idx, cid, :) = nan;
+    bad_idx = abs(thisdata(:, 1)-deaths(cid, end)) > 2*approx_target;
+    net_death_0(bad_idx, cid, :) = nan;
+
+end
         
