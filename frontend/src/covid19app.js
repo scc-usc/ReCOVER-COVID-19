@@ -10,7 +10,8 @@ import "./covid19app.css";
 //import Leaderboard from "./leaderboard/leaderboard";
 //import Highlights from "./highlights/highlights";
 //import RoW from "./RoW/RoW";
-const Covid19Predict = React.lazy(() =>import("./covid19predict"));
+const Covid19_us = React.lazy(() =>import("./covid19_us"));
+const Covid19_global = React.lazy(()=>import("./country_level/covid19_global"));
 const RoW = React.lazy(()=>import("./RoW/RoW"));
 const Leaderboard = React.lazy(()=>import("./leaderboard/leaderboard"));
 const Highlights = React.lazy(()=>import("./highlights/highlights"));
@@ -23,6 +24,7 @@ class Covid19App extends Component {
     this.state = {
       redirectScenarios: false,
       redirectForecast: false,
+      redirectGlobal: false,
       redirectAbout: false,
       redirectScore: false,
       redirectLeaderboard: false,
@@ -35,6 +37,20 @@ class Covid19App extends Component {
     this.setState({
       redirectScenarios: false,
       redirectForecast:true,
+      redirectGlobal: false,
+      redirectAbout: false,
+      redirectScore: false,
+      redirectLeaderboard: false,
+      redirectHighlights: false,
+      redirectRoW: false
+    });
+  }
+
+  redirectGlobal = ()=>{
+    this.setState({
+      redirectScenarios: false,
+      redirectForecast:true,
+      redirectGlobal: false,
       redirectAbout: false,
       redirectScore: false,
       redirectLeaderboard: false,
@@ -47,6 +63,7 @@ class Covid19App extends Component {
     this.setState({
       redirectScenarios: false,
       redirectForecast: false,
+      redirectGlobal: false,
       redirectAbout:true,
       redirectScore: false,
       redirectLeaderboard: false,
@@ -59,6 +76,7 @@ class Covid19App extends Component {
     this.setState({
       redirectScenarios: false,
       redirectForecast: false,
+      redirectGlobal: false,
       redirectAbout:false,
       redirectScore: true,
       redirectHighlights: false,
@@ -71,6 +89,7 @@ class Covid19App extends Component {
     this.setState({
       redirectScenarios: false,
       redirectForecast: false,
+      redirectGlobal: false,
       redirectAbout: false,
       redirectScore: false,
       redirectLeaderboard: true,
@@ -83,6 +102,7 @@ class Covid19App extends Component {
     this.setState({
       redirectScenarios: false,
       redirectForecast: false,
+      redirectGlobal: false,
       redirectAbout: false,
       redirectScore: false,
       redirectLeaderboard: false,
@@ -95,6 +115,7 @@ class Covid19App extends Component {
     this.setState({
       redirectScenarios: false,
       redirectForecast: false,
+      redirectGlobal: false,
       redirectAbout: false,
       redirectScore: false,
       redirectLeaderboard: false,
@@ -106,6 +127,7 @@ class Covid19App extends Component {
     this.setState({
       redirectScenarios: true,
       redirectForecast: false,
+      redirectGlobal: false,
       redirectAbout: false,
       redirectScore: false,
       redirectLeaderboard: false,
@@ -115,11 +137,12 @@ class Covid19App extends Component {
   }
 
   render() {
-    const {redirectForecast, redirectAbout, redirectScore, redirectLeaderboard, redirectHighlights, redirectRoW, redirectScenarios} = this.state;
+    const {redirectForecast, redirectGlobal, redirectAbout, redirectScore, redirectLeaderboard, redirectHighlights, redirectRoW, redirectScenarios} = this.state;
     return (
       <Suspense fallback = {<div>Loading...</div>}>
       <HashRouter basename="/">
         {redirectForecast?<Redirect to="/"/>:null}
+        {redirectForecast?<Redirect to="/global"/>:null}
         {redirectHighlights?<Redirect to="/highlights"/>:null}
         {redirectScore?<Redirect to="/score"/>:null}
         {redirectAbout?<Redirect to="/about"/>:null}
@@ -134,12 +157,14 @@ class Covid19App extends Component {
         />
         <Switch>
           <Route exact path='/' 
-            render={(props) => <Covid19Predict {...props} />}/>
+            render={(props) => <Covid19_us {...props} />}/>
           {/*<Route exact path='/score' 
             render={(props) => <ScorePage {...props}/>}
           />*/}
           <Route exact path='/about'
             render={(props) => <AboutUS {...props} />} />
+            <Route exact path='/global'
+            render={(props) => <Covid19_global {...props} />} />
           <Route exact path='/leaderboard' 
             render={(props) => <Leaderboard {...props} />}/>
           <Route exact path='/highlights'

@@ -22,7 +22,7 @@ class AboutUs extends Component {
 
                     <h2>Our Approach</h2>
                     <p className="article-paragraph">
-                        We use our own epidemic model called <a className="article-anchor" href="https://arxiv.org/abs/2007.05180"> SI-kJalpha</a>, preliminary version of which we have successfully used 
+                        We use our own epidemic model called <a className="article-anchor" href="https://arxiv.org/abs/2207.02919"> SI-kJalpha</a>, preliminary version of which we have successfully used 
                         during <a className="article-anchor" href="https://news.usc.edu/83180/usc-engineers-earn-national-recognition-for-predicting-disease-outbreaks/" target="_blank">
                             DARPA Grand Challenge 2014
                         </a>.   
@@ -54,6 +54,9 @@ class AboutUs extends Component {
                     <h2>Related Papers</h2>
 
                     <ol className="article-paragraph">
+                    <li>
+                    Ajitesh Srivastava, <a className="article-anchor" href="https://arxiv.org/abs/2207.02919" target="_blank"> "The Variations of SIkJalpha Model for COVID-19 Forecasting and Scenario Projections"</a> [arXiv].
+                    </li>
                     <li>
                             Rebecca et. al., 
                             <a className="article-anchor" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8118153/" target="_blank"> 
