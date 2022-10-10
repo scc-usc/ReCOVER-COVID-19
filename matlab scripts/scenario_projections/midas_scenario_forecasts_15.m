@@ -13,8 +13,8 @@ load ww_prevalence_us.mat
 
 %%%% Date correction if the simulation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% is to be done on a previous date %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-now_date = datetime(2022, 7, 31); % Use data up to this date
-% This round's data cutoff is on June 5, 2022
+now_date = datetime(2022, 10, 2); % Use data up to this date
+% This round's data cutoff is on ??
 % T_corr = week of now_date - data cutoff date
 T_corr = 0; % these many previous weeks will be appended to projections to keep the dates consistent
 
@@ -151,7 +151,7 @@ var_frac_all_high(var_frac_all_high > 1) = 1;
 % var_frac_all_high = var_frac_all_high./(1e-20 + nansum(var_frac_all_high, 2));
 
 
-foc_idx = find(contains(lineages, 'ba.5', 'IgnoreCase', true)); foc_idx = foc_idx(1);
+foc_idx = find(contains(lineages, 'ba.2.75', 'IgnoreCase', true)); foc_idx = foc_idx(1);
 % Readjust bounds to focus on uncertainty in delta
 xx = var_frac_all_low(:, foc_idx, :);
 var_frac_all_low = var_frac_all.*(1 - xx)./(1 - var_frac_all(:, foc_idx, :));
@@ -190,7 +190,7 @@ var_frac_range{3} = var_frac_all_high;
 
 pre_omic_idx = startsWith(lineages, 'pre');
 wildcard_idx = startsWith(lineages, 'wild');
-omic_idx2 =  (contains(lineages, 'ba.4', 'IgnoreCase', true)| contains(lineages, 'ba.5', 'IgnoreCase', true)) | contains(lineages, 'other');
+omic_idx2 =  (contains(lineages, {'ba.4', 'ba.5', 'ba.2.75', 'other'}, 'IgnoreCase', true);
 omic_idx =  ~(pre_omic_idx | wildcard_idx | omic_idx2);
 %other_idx = contains(lineages, 'other');
 %% Vaccine and escape parmaeters

@@ -50,9 +50,11 @@ else
     %cleandel = filloutliers(deldata, 'center', 'movmedian', 14);
     cleandel = deldata;
     for cid = 1:size(data_4, 1)
-        t = smooth(cleandel(:, cid),0.1,'rloess')';
+        xx = cleandel(:, cid);
+        t = csaps(1:length(xx), xx, 0.00001, (1:length(xx)));
+        t(t<0) = 0;
+        t = movmean(t, 7);
         data_4_s(cid, :) = [data_4(cid, 1) cumsum(t, 2)];
     end
-end
 end
 

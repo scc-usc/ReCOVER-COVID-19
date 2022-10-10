@@ -129,6 +129,9 @@ for bb = 1:num_boosters
 end
 
 for j=1:length(popu)
+    temp = squeeze(sum(external_infec_perc(j, :, :, :), [1 3 4]));
+    is_wild_card = temp > 0;
+
     lastinfec = base_infec(j, end);
     jp = jp_l(j);
     k = k_l(j);
@@ -216,7 +219,7 @@ for j=1:length(popu)
             end
 
             Ikt1 = squeeze(deltemp(j, l, T+t-jk:T+t-1, :))';
-            if all(Ikt1(:)< 1) && l < nl
+            if all(Ikt1(:)< 1) && ~is_wild_card(l)
                 continue;
             end
 
@@ -229,7 +232,7 @@ for j=1:length(popu)
             this_external_inf = squeeze(external_infec_perc(j, l, t, :));
 
             if this_external_inf > 0 % non-negative indicates relative numbers
-                yt_external = prev_new_infec(:) .* this_external_inf;
+                yt_external = ceil(prev_new_infec(:) .* this_external_inf);
             else    % -ve indicates absolute numbers
                 yt_external = -this_external_inf;
             end
@@ -246,7 +249,7 @@ for j=1:length(popu)
             if tt > Tw
                 tt = Tw;
             end
-%             infec_imm_approx = 0;
+            %             infec_imm_approx = 0;
             booster_imm_approx = 0;
             for bb=1:num_boosters
                 booster_imm_approx = rel_booster_effi{bb}(:, tt)*((squeeze(new_boosters{bb}(j, tt, :)/7).*squeeze(waned_impact(l, ceil((T+t)/7), ceil((T+t-booster_delay{bb})/7), :)))')./popu(j);
@@ -258,7 +261,7 @@ for j=1:length(popu)
         if mod(t, 7)==0
             tt = Twt + t/7;
             new_cases_w = un_fact(j)*squeeze(sum(deltemp(j, :, T+t-6:T+t, :), 3));
-            
+
             for gg = 1:ag
                 coeff = squeeze(waned_impact(:, tt, :, gg));
                 nv_pop = max(0, ag_popu_frac(j, gg)*popu(j) - protected_popu_temp(tt, gg));
@@ -294,19 +297,27 @@ for j=1:length(popu)
                     for bb=2:num_boosters
                         if tt > booster_first_week(bb)
                             % Previously boosted/vaccinated got boosted (again)
+                            serial_boost = 0; % if the same time-series encodes multiple boosters
+                            if bb == num_boosters
+                                serial_boost = 1;
+                            end
                             pp = 1:min(floor(tt-(booster_delay{bb}-120)/7), tt-1);
-                            a = Bi{bb-1}(:, pp ,gg); sa = sum(a, 2);
-                            b = B{bb-1}(1, pp,gg); sb = sum(b, 2);% The first dim of VnB is redunadant
-                            c = Ib{bb-1}(1, pp,gg); sc = sum(c, 2);
+                            a_prev = Bi{bb-1}(:, pp ,gg); a_this = serial_boost*Bi{bb}(:, pp ,gg); sa = sum(a_prev+a_this, 2);
+                            b_prev = B{bb-1}(1, pp,gg); b_this = serial_boost*B{bb-1}(1, pp,gg); sb = sum(b_prev+b_this, 2);% The first dim of VnB is redunadant
+                            c_prev = Ib{bb-1}(1, pp,gg); c_this = serial_boost*Ib{bb-1}(1, pp,gg); sc = sum(c_prev+c_this, 2);
 
                             %%% Transition Out
                             %%% previously infected, last action boosting?
-                            Bi{bb-1}(:, pp, gg) = takeaway(Bi{bb-1}(:, pp, gg), new_boosters{bb}(j, tt, gg).* a./(sa+sb+sc + 1e-20), 0);
+                            Bi{bb-1}(:, pp, gg) = takeaway(Bi{bb-1}(:, pp, gg), new_boosters{bb}(j, tt, gg).* a_prev./(sa+sb+sc + 1e-20), 0);
+                            Bi{bb}(:, pp, gg) = takeaway(Bi{bb}(:, pp, gg), new_boosters{bb}(j, tt, gg).* a_this./(sa+sb+sc + 1e-20), 0);
                             %%% previously infected, last action infection?
-                            Bi{bb-1}(:, pp, gg) = takeaway(Ib{bb-1}(:, pp, gg), new_boosters{bb}(j, tt, gg).* c./(sa+sb+sc + 1e-20), 0);
+                            Bi{bb-1}(:, pp, gg) = takeaway(Ib{bb-1}(:, pp, gg), new_boosters{bb}(j, tt, gg).* c_prev./(sa+sb+sc + 1e-20), 0);
+                            Bi{bb}(:, pp, gg) = takeaway(Ib{bb}(:, pp, gg), new_boosters{bb}(j, tt, gg).* c_this./(sa+sb+sc + 1e-20), 0);
                             %%% previously not infected?
-                            B{bb-1}(1, pp, gg) = takeaway(B{bb-1}(1, pp, gg), new_boosters{bb}(j, tt, gg).* b./(sum(sa)+sb+sum(sc) + 1e-20), 0);
+                            B{bb-1}(1, pp, gg) = takeaway(B{bb-1}(1, pp, gg), new_boosters{bb}(j, tt, gg).* b_prev./(sum(sa)+sb+sum(sc) + 1e-20), 0);
+                            B{bb}(1, pp, gg) = takeaway(B{bb}(1, pp, gg), new_boosters{bb}(j, tt, gg).* b_this./(sum(sa)+sb+sum(sc) + 1e-20), 0);
                             B{bb-1}(:, pp, gg) = repmat(B{bb-1}(1, pp, gg), [nl 1]);
+                            B{bb}(:, pp, gg) = repmat(B{bb}(1, pp, gg), [nl 1]);
 
                             %%% Transition In
                             %%% previously infected?
@@ -324,12 +335,12 @@ for j=1:length(popu)
 
                         % Prior infection before prior vaccine (Bi)
                         susc_Bi{bb} = min((1 - cross_protect)*Bi{bb}(:, 1:tt-1, gg).*(1-coeff(:, 1:tt-1)) + Bi{bb}(:, 1:tt-1, gg).*coeff(:, 1:tt-1), ...
-                           (1-rel_booster_effi{bb}(:, 1:tt-1)).*sum(Bi{bb}(:, 1:tt-1, gg), 1).*(1-coeff(:, 1:tt-1)) + sum(Bi{bb}(:, 1:tt-1, gg), 1).*coeff(:, 1:tt-1));
+                            (1-rel_booster_effi{bb}(:, 1:tt-1)).*sum(Bi{bb}(:, 1:tt-1, gg), 1).*(1-coeff(:, 1:tt-1)) + sum(Bi{bb}(:, 1:tt-1, gg), 1).*coeff(:, 1:tt-1));
                         %susc_Bi{bb} = (1-rel_booster_effi{bb}(:, 1:tt-1)).*sum(Bi{bb}(:, 1:tt-1, gg), 1).*(1-coeff(:, 1:tt-1)) + sum(Bi{bb}(:, 1:tt-1, gg), 1).*coeff(:, 1:tt-1);
 
                         % Prior infection after prior vaccine (Ib)
                         susc_Ib{bb} = min((1 - cross_protect)*Ib{bb}(:, 1:tt-1, gg).*(1-coeff(:, 1:tt-1)) + Ib{bb}(:, 1:tt-1, gg).*coeff(:, 1:tt-1), ...
-                           (1-rel_booster_effi{bb}(:, 1:tt-1)).*sum(Ib{bb}(:, 1:tt-1, gg), 1).*(1-coeff(:, 1:tt-1)) + sum(Ib{bb}(:, 1:tt-1, gg), 1).*coeff(:, 1:tt-1));
+                            (1-rel_booster_effi{bb}(:, 1:tt-1)).*sum(Ib{bb}(:, 1:tt-1, gg), 1).*(1-coeff(:, 1:tt-1)) + sum(Ib{bb}(:, 1:tt-1, gg), 1).*coeff(:, 1:tt-1));
                         %susc_Ib{bb} = (1 - cross_protect)*Ib{bb}(:, 1:tt-1, gg).*(1-coeff(:, 1:tt-1)) + Ib{bb}(:, 1:tt-1, gg).*coeff(:, 1:tt-1);
 
                         tot_susc = tot_susc + sum(susc_B{bb}, [2 3]) + sum(susc_Bi{bb}, [2 3]) + sum(susc_Ib{bb}, [2 3]);

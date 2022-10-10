@@ -2,13 +2,14 @@ clear;
 addpath('./utils/');
 addpath('./scenario_projections/');
 load_data_global;
-load variants_global.mat
+%load variants_global.mat
 
 smooth_factor = 14;
 data_4_s = smooth_epidata(data_4, smooth_factor, 1, 1);
 deaths_s = smooth_epidata(deaths, 1);
 ns = size(data_4, 1); maxt = size(data_4, 2);
 horizon = 100;
+hosp_available = 0;
 %% Prepare vaccine data
 xx = load('vacc_data.mat');
 %nidx = isnan(latest_vac); latest_vac(nidx) = popu(nidx).*(mean(latest_vac(~nidx))/mean(popu(~nidx)));
@@ -70,7 +71,7 @@ var_frac_all_low = var_frac_all_low./(1e-20 + nansum(var_frac_all_low, 2));
 var_frac_all_high = var_frac_all_high./(1e-20 + nansum(var_frac_all_high, 2));
 
 
-foc_idx = find(contains(lineages, 'ba.5', 'IgnoreCase', true)); foc_idx = foc_idx(1);
+foc_idx = find(contains(lineages, 'ba.2.75', 'IgnoreCase', true)); foc_idx = foc_idx(1);
 % Readjust bounds to focus on uncertainty in delta
 xx = var_frac_all_low(:, foc_idx, :);
 var_frac_all_low = var_frac_all.*(1 - xx)./(1 - var_frac_all(:, foc_idx, :));
@@ -100,7 +101,7 @@ var_frac_range{3} = var_frac_all_high;
 
 %%
 rate_smooth = 14;
-rlag_list = [0 1]; rlag_idx = (1:length(rlag_list));
+rlag_list = [0 2 4]; rlag_idx = (1:length(rlag_list));
 lag_list = [0];
 un_list = [1 2 3];
 var_prev_q = [1 2 3];
@@ -128,6 +129,7 @@ val_idx = (param_list(:, 1).*param_list(:, 2) <=49) & (param_list(:, 3) > param_
 param_list = param_list(val_idx, :);
 %%
 tic;
+reform_boost_day = -1;
 net_infec_0 = zeros(size(scen_list, 1), size(data_4, 1), horizon);
 net_death_0 = zeros(size(scen_list, 1)*num_dh_rates_sample, size(data_4, 1), horizon);
 
@@ -135,22 +137,22 @@ P_death_list = P_death_list_orig;
 P_hosp_list = P_hosp_list_orig;
 forecast_simulator;
 toc
-
-%% Remove unusual zeros
-for cid=1:length(popu)
-    thisdata = net_infec_0(:, cid, :);
-    approx_target = interp1([1 2], [data_4_s(cid, end-1)-data_4_s(cid, end-2), data_4_s(cid, end) - data_4_s(cid, end-1)], 3, 'linear', 'extrap');
-    bad_idx = (thisdata(:, 1)-data_4(cid, end)) < 0.3*approx_target;
-    net_infec_0(bad_idx, cid, :) = nan; 
-    thisdata = net_death_0(:, cid, :);
-    approx_target = interp1([1 2], [deaths_s(cid, end-1)-deaths_s(cid, end-2), deaths_s(cid, end) - deaths_s(cid, end-1)], 3);
-    bad_idx = (thisdata(:, 1)-deaths(cid, end)) < 0.3*approx_target;
-    net_death_0(bad_idx, cid, :) = nan;
-
-%     if cid==57
-%         fprintf('.');
-%     end
-end
+%%
+% %% Remove unusual zeros
+% for cid=1:length(popu)
+%     thisdata = net_infec_0(:, cid, :);
+%     approx_target = interp1([1 2], [data_4_s(cid, end-1)-data_4_s(cid, end-2), data_4_s(cid, end) - data_4_s(cid, end-1)], 3, 'linear', 'extrap');
+%     bad_idx = (thisdata(:, 1)-data_4(cid, end)) < 0.3*approx_target;
+%     net_infec_0(bad_idx, cid, :) = nan; 
+%     thisdata = net_death_0(:, cid, :);
+%     approx_target = interp1([1 2], [deaths_s(cid, end-1)-deaths_s(cid, end-2), deaths_s(cid, end) - deaths_s(cid, end-1)], 3);
+%     bad_idx = (thisdata(:, 1)-deaths(cid, end)) < 0.3*approx_target;
+%     net_death_0(bad_idx, cid, :) = nan;
+% 
+% %     if cid==57
+% %         fprintf('.');
+% %     end
+% end
 
 %%
 infec_un_0 = squeeze(trimmean(net_infec_0, 0.95, 1));
@@ -162,7 +164,7 @@ deaths_un_lb = squeeze(min(net_death_0, [], 1));
 infec_un_ub = squeeze(max(net_infec_0, [], 1));
 deaths_un_ub = squeeze(max(net_death_0, [], 1));
 %% Plot test
-cid = 156; %cid = contains(countries, 'Spain');
+cid = 154; %cid = contains(countries, 'Spain');
 tiledlayout(2, 1);
 nexttile;
 plot(diff(data_4(cid, :))); hold on;  plot(diff(data_4_s(cid, :))); hold on;

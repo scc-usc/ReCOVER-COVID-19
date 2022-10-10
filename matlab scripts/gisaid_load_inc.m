@@ -1,3 +1,5 @@
+addpath('.\utils\');
+%%
 warning off;
 %% Load saved global variants data
 T_old = readtable('global_vars_May22.csv');
@@ -51,7 +53,14 @@ xx = cellfun(@isempty, T_small.gisaidClade); % Deal with empty clades
 T_small.gisaidClade(xx) = repmat({'other'}, [sum(xx) 1]);
 xx = cellfun(@isempty, T_small.pangoLineage); % Deal with empty pango names
 T_small.pangoLineage(xx) = repmat({'other'}, [sum(xx) 1]);
-
+%%
+dd = days(T_small.date - datetime(2020, 1, 23));
+T_small.dd = days(T_small.date - datetime(2020, 1, 23));
+xx1 = grpstats(T_small, 'pangoLineage', {'max', 'min'}, 'DataVars', 'dd');
+% The following lineages have at least one cocurrence after day 700 and are
+% not AY* or B.*
+post_700_names = xx1.pangoLineage(xx1.max_dd > 800 & ~startsWith(xx1.pangoLineage, {'A', 'B.'})); 
+%%
 %
 countries = readcell('countries_list.txt', 'Delimiter','');
 countries(strcmpi(countries, 'US')) =  {'USA'};
@@ -60,8 +69,10 @@ maxt = time2num(days(floor(now) - datenum(datetime(2020, 1, 23))));
 ns = length(countries);
 
 
-xx = startsWith((T_small.pangoLineage), {'BA', 'B.1.1.529'});
+xx = startsWith((T_small.pangoLineage), post_700_names);
+%pre_omic_idx = ~strcmpi(T_small.gisaidClade, 'GRA') & ~strcmpi(T_small.gisaidClade, 'other');
 pre_omic_idx = ~strcmpi(T_small.gisaidClade, 'GRA') & ~strcmpi(T_small.gisaidClade, 'other');
+
 T_small.pangoLineage(~xx & ~pre_omic_idx) = repmat({'other'}, [sum(~xx & ~pre_omic_idx) 1]);
 T_small.pangoLineage(pre_omic_idx) = repmat({'pre-omicron'}, [sum(pre_omic_idx) 1]);
 
@@ -75,7 +86,7 @@ end
 nl = length(lineages_voc);
 [~, cc] = ismember(T_small.country, countries);
 [~, ll] = ismember(T_small.pangoLineage, lineages_voc);
-dd = days(T_small.date - datetime(2020, 1, 23));
+
 
 if ~strcmpi(lineages_voc, 'other')
     lineages_voc = [lineages_voc; {'other'}];
@@ -83,7 +94,7 @@ end
 other_idx = find(strcmpi(lineages_voc, 'other'));
 
 %%
-all_var_data_voc = zeros(ns, nl, maxt);
+all_var_data_voc = (zeros(ns, nl, maxt));
 
 for jj = 1:length(cc)
     if cc(jj)>0 && dd(jj) > 0
@@ -139,7 +150,7 @@ try
     %xx(strcmp(xx, 'B.1.1.529')) = {'BA.1'};
     other_idx = find(strcmpi(lineages_voc, 'other'));
     %[pre_omic_vars, ~] = ismember(pre_omic_vars_names, xx);
-    pre_omic_vars = ~(startsWith(xx, {'BA', 'B.1.1.529', 'other', 'Other'})) & contains(xx, '.');
+    pre_omic_vars = ~(startsWith(xx, post_700_names, 'IgnoreCase',true)) & contains(xx, '.');
     pre_omic_vars = pre_omic_vars | (startsWith(xx, {'other', 'Other', 'UNK', 'X'}) & dd < 690);
     xx(pre_omic_vars) = {'pre-omicron'};
     [~, cc] = ismember(country_column, countries);
@@ -163,9 +174,9 @@ end
 
 %%
 %[var_frac_all_voc, var_frac_all_low_voc, var_frac_all_high_voc, rel_adv_voc] = mnr_variants(red_var_matrix_voc, valid_lins_voc, valid_times_voc, lineages_voc, 300);
-[var_frac_all_voc, var_frac_all_low_voc, var_frac_all_high_voc, rel_adv_voc] = smooth_variants(red_var_matrix_voc, valid_lins_voc, valid_times_voc, lineages_voc, maxt-1);
+[var_frac_all_voc, var_frac_all_low_voc, var_frac_all_high_voc, rel_adv_voc] = smooth_variants(ndSparse(red_var_matrix_voc), valid_lins_voc, valid_times_voc, lineages_voc, maxt-1);
 %% Filtered_VOC
-filter_list = {'BA.1.1'; 'BA.1'; 'BA.2.12.1'; 'BA.2.75'; 'BA.2'; 'BA.3*';'BA.4*';'BA.5*'; 'pre-omicron'; 'other'};
+filter_list = {'BA.1.1'; 'BA.1*'; 'BA.2.12.1'; 'BA.2.75*'; 'BA.2*'; 'BA.3*';'BA.4.6';'BA.4*';'BA.5*'; 'BF.7'; 'BF*'; 'pre-omicron'; 'other'};
 lineages_f = filter_list; covered = zeros(length(lineages_voc),1 );
 ns = size(var_frac_all_voc, 1); T = size(var_frac_all_voc, 3); nl = length(lineages_f);
 var_frac_all_f = zeros(ns, nl, T);
@@ -253,7 +264,7 @@ maxt = time2num(days(floor(now) - datenum(datetime(2020, 1, 23))));
 ns = length(countries);
 
 
-xx = startsWith((T_small.pangoLineage), 'BA');
+xx = startsWith((T_small.pangoLineage), {'BA', 'BF'});
 pre_omic_idx = ~strcmpi(T_small.gisaidClade, 'GRA') & ~strcmpi(T_small.gisaidClade, 'other');
 T_small.pangoLineage(~xx & ~pre_omic_idx) = repmat({'other'}, [sum(~xx & ~pre_omic_idx) 1]);
 T_small.pangoLineage(pre_omic_idx) = repmat({'pre-omicron'}, [sum(pre_omic_idx) 1]);
@@ -278,15 +289,16 @@ for jj = 1:length(cc)
     end
 end
 
-%
+%%
 [red_var_matrix_voc, valid_lins_voc, valid_times_voc] = clean_var_data(all_var_data_voc, lineages_voc);
 
 %%
 %[var_frac_all_voc, var_frac_all_low_voc, var_frac_all_high_voc, rel_adv_voc] = mnr_variants(red_var_matrix_voc, valid_lins_voc, valid_times_voc, lineages_voc, 300);
+%red_var_matrix_voc = ndSparse(red_var_matrix_voc);
 [var_frac_all_voc, var_frac_all_low_voc, var_frac_all_high_voc, rel_adv_voc] = smooth_variants(red_var_matrix_voc, valid_lins_voc, valid_times_voc, lineages_voc, maxt - 1);
 
 %% Filtered_VOC
-filter_list = {'BA.1.1'; 'BA.1'; 'BA.2.12.1'; 'BA.2.75'; 'BA.2'; 'BA.3*';'BA.4*';'BA.5*'; 'pre-omicron'; 'other'};
+filter_list = {'BA.1.1'; 'BA.1*'; 'BA.2.12.1'; 'BA.2.75*'; 'BA.2*'; 'BA.3*';'BA.4.6';'BA.4*';'BA.5*'; 'BF.7'; 'BF*'; 'pre-omicron'; 'other'};
 lineages_f = filter_list; covered = zeros(length(lineages_voc),1 );
 ns = size(var_frac_all_voc, 1); T = size(var_frac_all_voc, 3); nl = length(lineages_f);
 var_frac_all_f = zeros(ns, nl, T);

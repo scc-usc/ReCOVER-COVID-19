@@ -1,0 +1,56 @@
+Washington
+Illinois
+California
+Arizona
+Massachusetts
+Wisconsin
+Texas
+Nebraska
+Utah
+Oregon
+Florida
+New York
+Rhode Island
+Georgia
+New Hampshire
+North Carolina
+New Jersey
+Colorado
+Maryland
+Nevada
+Tennessee
+Hawaii
+Indiana
+Kentucky
+Minnesota
+Oklahoma
+Pennsylvania
+South Carolina
+District of Columbia
+Kansas
+Missouri
+Vermont
+Virginia
+Connecticut
+Iowa
+Louisiana
+Ohio
+Michigan
+South Dakota
+Arkansas
+Delaware
+Mississippi
+New Mexico
+North Dakota
+Wyoming
+Alaska
+Maine
+Alabama
+Idaho
+Montana
+Puerto Rico
+Virgin Islands
+Guam
+West Virginia
+Northern Mariana Islands
+American Samoa

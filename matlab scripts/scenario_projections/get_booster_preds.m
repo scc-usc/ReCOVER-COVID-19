@@ -124,14 +124,17 @@ for tt=1:horizon
     dx = (rel_ub*x_fd(T+tt-blag) - b)*xt*(alpha.*accel);
     dx = (dx+abs(dx))/2 + 1e-5;
     all_dat(tt+T) = dx;
-    if exact_ub > 0 && rel_ub < 1
+    if exact_ub > 0 && rel_ub < 1 && tt < b_sat_day
         %accel = exp((b_sat_day./(b_sat_day-tt+1)).^2)/exp(1);
-        accel = (b_sat_day./(b_sat_day-tt+1)).^2;
+        accel = (b_sat_day./(b_sat_day-tt+1));
     else
         accel = 1;
     end
     b = b + dx;
     predx(tt) = b;
+    if isnan(b) || isinf(b)
+        b = 0;
+    end
 end
 
 end

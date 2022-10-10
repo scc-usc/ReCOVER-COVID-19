@@ -14,9 +14,9 @@ end
 
 vacc_num_age_est_s = vacc_num_age_est;
 
-for idx = 1:na
-    vacc_num_age_est_s(:, :, idx) = smooth_epidata(vacc_num_age_est(:, :, idx), 7);
-end
+% for idx = 1:na
+%     vacc_num_age_est_s(:, :, idx) = smooth_epidata(vacc_num_age_est(:, :, idx), 7, 1, 0);
+% end
 
 if nargin < 4
     final_cov = ones(ns, na);
@@ -32,11 +32,11 @@ options = optimoptions('lsqlin', 'Display', 'off');
 for cid = 1:ns
     ub = 1;
     for ag = na:-1:1
-        
+        Y_raw = vacc_num_age_est(cid, :, ag)./popu_by_age_new(cid, ag);
         Y = squeeze(vacc_num_age_est_s(cid, :, ag));
         Y = Y(:)'./popu_by_age_new(cid, ag);
         lag = 14; %bad data in last two weeks
-        xs = [0 diff(movmean(Y(1:T), 14))]; xs = xs(1: T-lag);
+        xs = [0 diff(Y(1:T))]; xs = xs(1: T-lag);
         k = 3; jp = 7;
         f = zeros(k*jp, k);
         for kk = 1:k
@@ -46,15 +46,15 @@ for cid = 1:ns
         skipdays = T-100; 
         xt = zeros(T-skipdays-lag, k); dx = zeros(T-skipdays-lag, 1);
         for tt=(1+skipdays):T-lag
-            w = (0.9^(T-lag - tt));
+            w = (0.999^(T-lag - tt));
             xt(tt-skipdays, :) = w*(ub - Y(tt-1)).*(xs(tt-jp*k : tt-1)*f);
             dx(tt-skipdays) = w*xs(tt);
         end
         
         alpha = lsqlin(1000*xt, 1000*dx, [], [], [], [], zeros(k, 1), [], [], options);
-        preds = simvac(Y(1:T-lag), xs, alpha, ub, horizon + 14, k, jp);
+        preds = simvac(Y_raw(1:T-lag), xs, alpha, ub, horizon + lag, k, jp);
         
-        ub = preds(end);
+        %ub = preds(end);
         preds = preds*popu_by_age_new(cid, ag);
         
         vacc_given_by_age(cid, 1:(T-lag), ag) = vacc_num_age_est(cid, 1:(T-lag), ag);
@@ -63,6 +63,9 @@ for cid = 1:ns
         idx = new_vals/popu_by_age_new(cid, ag) > final_cov(cid, ag);
         new_vals(idx) = final_cov(cid, ag)*popu_by_age_new(cid, ag);
         vacc_given_by_age(cid, (T-(lag)+1):T+horizon, ag) = new_vals;
+        
+        idx = vacc_given_by_age(cid, :, ag)./popu_by_age_new(cid, ag) > final_cov(cid, ag);
+        vacc_given_by_age(cid, idx, ag) = final_cov(cid, ag)*popu_by_age_new(cid, ag);
     end
 end
 end

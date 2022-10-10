@@ -36,7 +36,7 @@ for cid = 1:ns
          continue;
     end
 
-    var_data = var_data(:, val_times); 
+    var_data = full(var_data(:, val_times)); 
     %var_data = movmean(var_data, 7, 2);
     smoothed = zeros(length(these_lins), maxt);
     for ll=1:length(these_lins)

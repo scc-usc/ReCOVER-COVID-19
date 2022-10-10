@@ -1,8 +1,11 @@
 
 clear; warning off;
-load_data_us;
 addpath('./utils/');
 addpath('./scenario_projections/');
+hosp_available = 1;
+%%
+load_data_us;
+load_us_hospitalizations; 
 prevalence_ww;
 %load ww_prevalence_us.mat
 %%
@@ -52,14 +55,14 @@ clear xx;
 % lineages = xx.lineages;
 % valid_lins = xx.valid_lins;
 
-%% Adjust bounds to focus on ba.5
+%% Adjust bounds to focus on ba.2.75
 var_frac_all_low(var_frac_all_low < 0) = 0;
 var_frac_all_high(var_frac_all_high > 1) = 1;
 var_frac_all_low = var_frac_all_low./(1e-20 + nansum(var_frac_all_low, 2));
 var_frac_all_high = var_frac_all_high./(1e-20 + nansum(var_frac_all_high, 2));
 
 
-foc_idx = find(contains(lineages, 'ba.5', 'IgnoreCase', true)); foc_idx = foc_idx(1);
+foc_idx = find(contains(lineages, 'ba.2.75*', 'IgnoreCase', true)); foc_idx = foc_idx(1);
 % Readjust bounds to focus on uncertainty in delta
 xx = var_frac_all_low(:, foc_idx, :);
 var_frac_all_low = var_frac_all.*(1 - xx)./(1 - var_frac_all(:, foc_idx, :));
@@ -89,7 +92,7 @@ var_frac_range{3} = var_frac_all_high;
 
 %%
 rate_smooth = 14;
-rlag_list = [0 1]; rlag_idx = (1:length(rlag_list));
+rlag_list = [0 2 4]; rlag_idx = (1:length(rlag_list));
 lag_list = [0];
 un_array = true_new_infec_ww;
 
@@ -104,7 +107,7 @@ booster_cov_list = [1 2 3];
 % 3rd dimension is # of lineages
 num_wan = [1:2];
 ag_wan_lb_list = repmat([0.3 0.5], [2 1]);
-ag_wan_param_list = repmat([30*6 30*4], [2 1]);
+ag_wan_param_list = repmat([30*6 30*3], [2 1]);
 P_death_list_orig = repmat([repmat([0.93 0.93], [2 1])], [1 1 nl]);
 P_hosp_list_orig = repmat([repmat([0.87 0.87], [2 1])], [1 1 nl]);
 
@@ -120,12 +123,15 @@ val_idx = (param_list(:, 1).*param_list(:, 2) <=49) & (param_list(:, 3) > param_
 param_list = param_list(val_idx, :);
 %%
 tic;
+reform_boost_day = days(datetime(2022, 9, 15) - datetime(2020, 1, 23));
+
 net_infec_0 = zeros(size(scen_list, 1), size(data_4, 1), horizon);
 net_death_0 = zeros(size(scen_list, 1)*num_dh_rates_sample, size(data_4, 1), horizon);
+net_hosp_0 = zeros(size(scen_list, 1)*num_dh_rates_sample, size(data_4, 1), horizon);
 
 P_death_list = P_death_list_orig;
 P_hosp_list = P_hosp_list_orig;
-P_death_list(:) = 0;
+P_death_list(:) = 0; P_hosp_list(:) = 0;
 forecast_simulator;
 toc
 %%
@@ -142,7 +148,7 @@ deaths_un_ub = squeeze(max(net_death_0, [], 1));
 
 
 %% Plot test
-cid = 1; maxt = size(data_4, 2); horizon = size(net_death_0, 3);
+cid = 3; maxt = size(data_4, 2); horizon = size(net_death_0, 3);
 tiledlayout(2, 1);
 nexttile;
 plot(diff(sum(data_4(cid, :), 1))); hold on;
@@ -153,7 +159,7 @@ plot(maxt:maxt+horizon-2, squeeze(diff(sum(net_infec_0(:, cid, :), 2), 1, 3)));
 nexttile;
 plot(diff(sum(deaths(cid, :), 1))); hold on;
 plot(diff(sum(deaths_s(cid, :), 1))); hold on;
-plot(maxt:maxt+horizon-2, squeeze(diff(sum(net_death_0(:, cid, :), 2), 1, 3))); hold off;
+plot(maxt:maxt+horizon-2, squeeze(diff(nansum(net_death_0(:, cid, :), 2), 1, 3))); hold off;
 hold off;
 %%
 % figure; cid = 3; ss = 6;
@@ -162,7 +168,7 @@ hold off;
 % plot(maxt:maxt+horizon-2, squeeze(diff(sum(net_infec_0(scen_list(:, ss)==3, cid, :), 2), 1, 3)), 'b'); 
 
 %%
-save us_results.mat all_deltemps all_immune_infecs net_death_0 net_infec_0 data_4 deaths deaths_s data_4_s popu countries best_param_list* un_array;
+save us_results.mat all_deltemps all_immune_infecs net_death_0 net_infec_0 net_hosp_0 data_4 deaths deaths_s data_4_s popu countries best_param_list* un_array;
 %%
 file_suffix = '0';
 prefix = 'us';

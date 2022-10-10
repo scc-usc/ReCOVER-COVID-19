@@ -53,19 +53,20 @@ catch thisErr
 end
 
 %% For "Others": Specifically for Germany, Poland states
+% This is no longer accepted
 
-clear; addpath('./utils/');
-try
-    load_data_other;
-    do_other_forecasts;
-    add_to_history;
-    disp('Writing quantile files for KIT hub');
-    KIT_submit;
-    disp('Finished other forecasts');
-catch thisErr
-    fprintf('Error in GM/PL forecasts\n');
-    fprintf('%s\n', thisErr.message);
-end
+% clear; addpath('./utils/');
+% try
+%     load_data_other;
+%     do_other_forecasts;
+%     add_to_history;
+%     disp('Writing quantile files for KIT hub');
+%     KIT_submit;
+%     disp('Finished other forecasts');
+% catch thisErr
+%     fprintf('Error in GM/PL forecasts\n');
+%     fprintf('%s\n', thisErr.message);
+% end
 
 %% For every location available in Google Data
 clear;

@@ -1,0 +1,57 @@
+"*Beginning for the 2015-16 season, reports from public health and clinical laboratories are presented separately in the weekly influenza update, FluView.  Data presented from public health laboratories include the weekly total number of specimens tested, the number of positive influenza tests, and the number by influenza virus type, subtype, and influenza B lineage."
+REGION TYPE,REGION,SEASON_DESCRIPTION,TOTAL SPECIMENS,A (2009 H1N1),A (H3),A (Subtyping not Performed),B,BVic,BYam,H3N2v
+States,Alabama,Season 2021-22,12212,0,223,32,4,0,0,0
+States,Alaska,Season 2021-22,987,0,210,26,4,8,0,0
+States,Arizona,Season 2021-22,1299,0,718,5,0,4,0,0
+States,Arkansas,Season 2021-22,55657,0,185,327,4,0,0,0
+States,California,Season 2021-22,50903,2,946,175,19,2,0,0
+States,Colorado,Season 2021-22,1280,0,709,19,0,1,0,0
+States,Connecticut,Season 2021-22,579,0,381,5,0,0,0,0
+States,Delaware,Season 2021-22,1828,0,509,84,1,0,1,0
+States,District of Columbia,Season 2021-22,242,0,58,1,1,0,0,0
+States,Florida,Season 2021-22,7150,2,1386,74,0,0,0,0
+States,Georgia,Season 2021-22,2331,0,730,126,1,4,0,0
+States,Hawaii,Season 2021-22,1295,0,170,10,0,0,0,0
+States,Idaho,Season 2021-22,2562,0,275,53,1,0,0,0
+States,Illinois,Season 2021-22,147120,0,361,475,1,0,0,0
+States,Indiana,Season 2021-22,860,0,100,3,0,0,0,0
+States,Iowa,Season 2021-22,371,0,155,1,0,0,0,0
+States,Kansas,Season 2021-22,28601,0,254,312,2,0,0,0
+States,Kentucky,Season 2021-22,671,0,169,0,0,0,0,0
+States,Louisiana,Season 2021-22,931,0,52,5,0,0,0,0
+States,Maine,Season 2021-22,490,0,168,2,0,0,0,0
+States,Maryland,Season 2021-22,3357,1,355,1,0,2,0,0
+States,Massachusetts,Season 2021-22,689,0,152,2,0,0,0,0
+States,Michigan,Season 2021-22,1499,2,561,3,2,0,0,0
+States,Minnesota,Season 2021-22,5902,0,481,22,0,0,0,0
+States,Mississippi,Season 2021-22,428,0,35,0,0,0,0,0
+States,Missouri,Season 2021-22,16285,0,127,34,1,0,0,0
+States,Montana,Season 2021-22,584,0,306,1,0,0,0,0
+States,Nebraska,Season 2021-22,27978,2,209,572,2,1,0,0
+States,Nevada,Season 2021-22,93794,0,365,456,7,0,0,0
+States,New Hampshire,Season 2021-22,56502,0,74,2,0,0,0,0
+States,New Jersey,Season 2021-22,1789,0,221,15,2,0,0,0
+States,New Mexico,Season 2021-22,3344,0,954,7,1,0,0,0
+States,New York,Season 2021-22,82982,3,221,376,5,0,0,0
+States,North Carolina,Season 2021-22,1908,0,43,1,0,3,0,0
+States,North Dakota,Season 2021-22,1570,0,229,6,0,0,0,0
+States,Ohio,Season 2021-22,14238,3,987,15,2,3,0,1
+States,Oklahoma,Season 2021-22,1761,0,41,5,0,0,0,0
+States,Oregon,Season 2021-22,5440,0,199,3,1,0,0,0
+States,Pennsylvania,Season 2021-22,153812,2,971,157,11,0,0,0
+States,Rhode Island,Season 2021-22,10779,0,480,242,0,8,0,0
+States,South Carolina,Season 2021-22,1014,0,36,97,0,0,0,0
+States,South Dakota,Season 2021-22,4973,1,1102,225,3,0,0,0
+States,Tennessee,Season 2021-22,621,0,144,2,0,0,0,0
+States,Texas,Season 2021-22,16947,0,685,182,7,3,0,0
+States,Utah,Season 2021-22,1144,1,705,0,0,0,0,0
+States,Vermont,Season 2021-22,1246,0,78,2,0,0,0,0
+States,Virginia,Season 2021-22,6493,1,89,5,0,0,0,0
+States,Washington,Season 2021-22,23589,0,353,41,1,0,0,0
+States,West Virginia,Season 2021-22,430,6,228,0,0,0,0,0
+States,Wisconsin,Season 2021-22,4999,0,592,110,3,1,0,0
+States,Wyoming,Season 2021-22,39606,0,870,889,7,0,0,0
+States,American Samoa,Season 2021-22,X,X,X,X,X,X,X,X
+States,Puerto Rico,Season 2021-22,337,0,125,0,0,0,0,0
+States,Virgin Islands,Season 2021-22,X,X,X,X,X,X,X,X
+States,New York City,Season 2021-22,X,X,X,X,X,X,X,X

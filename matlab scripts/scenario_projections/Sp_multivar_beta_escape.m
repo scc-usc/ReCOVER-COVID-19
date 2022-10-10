@@ -207,19 +207,27 @@ for j=1:length(popu)
                 for bb=2:num_boosters
                     if tt > booster_first_week(bb)
                         % Previously boosted/vaccinated got boosted (again)
+                        serial_boost = 0; % if the same time-series encodes multiple boosters
+                        if bb == num_boosters
+                            serial_boost = 1;
+                        end
                         pp = 1:min(floor(tt-(booster_delay{bb}-120)/7), tt-1);
-                        a = Bi{bb-1}(:, pp ,gg); sa = sum(a, 2);
-                        b = B{bb-1}(1, pp,gg); sb = sum(b, 2);% The first dim of VnB is redunadant
-                        c = Ib{bb-1}(1, pp,gg); sc = sum(c, 2);
+                        a_prev = Bi{bb-1}(:, pp ,gg); a_this = serial_boost*Bi{bb}(:, pp ,gg); sa = sum(a_prev+a_this, 2);
+                        b_prev = B{bb-1}(1, pp,gg); b_this = serial_boost*B{bb-1}(1, pp,gg); sb = sum(b_prev+b_this, 2);% The first dim of VnB is redunadant
+                        c_prev = Ib{bb-1}(1, pp,gg); c_this = serial_boost*Ib{bb-1}(1, pp,gg); sc = sum(c_prev+c_this, 2);
 
                         %%% Transition Out
                         %%% previously infected, last action boosting?
-                        Bi{bb-1}(:, pp, gg) = takeaway(Bi{bb-1}(:, pp, gg), new_boosters{bb}(j, tt, gg).* a./(sa+sb+sc + 1e-20), 0);
+                        Bi{bb-1}(:, pp, gg) = takeaway(Bi{bb-1}(:, pp, gg), new_boosters{bb}(j, tt, gg).* a_prev./(sa+sb+sc + 1e-20), 0);
+                        Bi{bb}(:, pp, gg) = takeaway(Bi{bb}(:, pp, gg), new_boosters{bb}(j, tt, gg).* a_this./(sa+sb+sc + 1e-20), 0);
                         %%% previously infected, last action infection?
-                        Bi{bb-1}(:, pp, gg) = takeaway(Ib{bb-1}(:, pp, gg), new_boosters{bb}(j, tt, gg).* c./(sa+sb+sc + 1e-20), 0);
+                        Bi{bb-1}(:, pp, gg) = takeaway(Ib{bb-1}(:, pp, gg), new_boosters{bb}(j, tt, gg).* c_prev./(sa+sb+sc + 1e-20), 0);
+                        Bi{bb}(:, pp, gg) = takeaway(Ib{bb}(:, pp, gg), new_boosters{bb}(j, tt, gg).* c_this./(sa+sb+sc + 1e-20), 0);
                         %%% previously not infected?
-                        B{bb-1}(1, pp, gg) = takeaway(B{bb-1}(1, pp, gg), new_boosters{bb}(j, tt, gg).* b./(sum(sa)+sb+sum(sc) + 1e-20), 0);
+                        B{bb-1}(1, pp, gg) = takeaway(B{bb-1}(1, pp, gg), new_boosters{bb}(j, tt, gg).* b_prev./(sum(sa)+sb+sum(sc) + 1e-20), 0);
+                        B{bb}(1, pp, gg) = takeaway(B{bb}(1, pp, gg), new_boosters{bb}(j, tt, gg).* b_this./(sum(sa)+sb+sum(sc) + 1e-20), 0);
                         B{bb-1}(:, pp, gg) = repmat(B{bb-1}(1, pp, gg), [nl 1]);
+                        B{bb}(:, pp, gg) = repmat(B{bb}(1, pp, gg), [nl 1]);
 
                         %%% Transition In
                         %%% previously infected?
