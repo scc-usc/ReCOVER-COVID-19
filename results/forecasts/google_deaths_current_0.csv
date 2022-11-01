@@ -6636,7 +6636,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 6657,Colombia|Chocó|Quibdó|,302,302,302,302,302,302,302,302,302,302,302
 6658,Colombia|Chocó|Alto Baudó|,7,7,7,7,7,7,7,7,7,7,7
 6659,Colombia|Chocó|Istmina|,37,37,37,37,37,37,37,37,37,37,37
-6660,Colombia|Chocó|Medio Atrato|,1,1,1,1,1,1,1,1,1,1,1
 6661,Colombia|Chocó|Nuquí|,5,5,5,5,5,5,5,5,5,5,5
 6662,Colombia|Chocó|Riosucio|,18,18,18,18,18,18,18,18,18,18,18
 6663,Colombia|Huila||,3742,3742,3742,3742,3742,3742,3742,3742,3742,3742,3742
@@ -9501,6 +9500,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11007,Libya|||,6437,6437,6437,6437,6437,6437,6437,6437,6437,6437,6437
 11008,Libya|Benghazi||,26,26,26,26,26,26,26,26,26,26,26
 11009,Libya|Bani Walid||,10,10,10,10,10,10,10,10,10,10,10
+11011,Libya|Jabal al Akhdar|Al Bayda|,0,0,0,0,0,0,0,0,0,0,0
 11013,Libya|Jabal al Gharbi|Zliten|,36,36,36,36,36,36,36,36,36,36,36
 11014,Libya|Kufra||,15,15,15,15,15,15,15,15,15,15,15
 11015,Libya|Misurata||,66,66,66,66,66,66,66,66,66,66,66
@@ -9585,6 +9585,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11100,Mexico|Chihuahua|Chihuahua|,225,225,225,225,225,225,225,225,225,225,225
 11101,Mexico|Chihuahua|Chínipas|,0,0,0,0,0,0,0,0,0,0,0
 11102,Mexico|Chihuahua|Delicias|,51,51,51,51,51,51,51,51,51,51,51
+11103,Mexico|Chihuahua|Dr. Belisario Domínguez|,1,1,1,1,1,1,1,1,1,1,1
 11104,Mexico|Chihuahua|Galeana|,1,1,1,1,1,1,1,1,1,1,1
 11105,Mexico|Chihuahua|Santa Isabel|,1,1,1,1,1,1,1,1,1,1,1
 11106,Mexico|Chihuahua|Gómez Farías|,1,1,1,1,1,1,1,1,1,1,1
@@ -9603,12 +9604,10 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11119,Mexico|Chihuahua|Julimes|,1,1,1,1,1,1,1,1,1,1,1
 11120,Mexico|Chihuahua|López|,0,0,0,0,0,0,0,0,0,0,0
 11121,Mexico|Chihuahua|Madera|,2,2,2,2,2,2,2,2,2,2,2
-11122,Mexico|Chihuahua|Maguarichi|,0,0,0,0,0,0,0,0,0,0,0
 11123,Mexico|Chihuahua|Manuel Benavides|,0,0,0,0,0,0,0,0,0,0,0
 11124,Mexico|Chihuahua|Matachí|,0,0,0,0,0,0,0,0,0,0,0
 11125,Mexico|Chihuahua|Matamoros|,6,6,6,6,6,6,6,6,6,6,6
 11126,Mexico|Chihuahua|Meoqui|,15,15,15,15,15,15,15,15,15,15,15
-11127,Mexico|Chihuahua|Morelos|,1,1,1,1,1,1,1,1,1,1,1
 11128,Mexico|Chihuahua|Moris|,1,1,1,1,1,1,1,1,1,1,1
 11129,Mexico|Chihuahua|Namiquipa|,6,6,6,6,6,6,6,6,6,6,6
 11130,Mexico|Chihuahua|Nonoava|,0,0,0,0,0,0,0,0,0,0,0
@@ -9728,6 +9727,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11255,Mexico|Chiapas|Villa Corzo|,0,0,0,0,0,0,0,0,0,0,0
 11256,Mexico|Chiapas|Villaflores|,1,1,1,1,1,1,1,1,1,1,1
 11257,Mexico|Chiapas|Yajalón|,0,0,0,0,0,0,0,0,0,0,0
+11258,Mexico|Chiapas|San Lucas|,0,0,0,0,0,0,0,0,0,0,0
 11259,Mexico|Chiapas|Zinacantán|,1,1,1,1,1,1,1,1,1,1,1
 11260,Mexico|Chiapas|San Juan Cancuc|,0,0,0,0,0,0,0,0,0,0,0
 11261,Mexico|Chiapas|Aldama|,0,0,0,0,0,0,0,0,0,0,0
@@ -9821,6 +9821,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11357,Mexico|Durango|Poanas|,3,3,3,3,3,3,3,3,3,3,3
 11358,Mexico|Durango|Pueblo Nuevo|,6,6,6,6,6,6,6,6,6,6,6
 11359,Mexico|Durango|Rodeo|,7,7,7,7,7,7,7,7,7,7,7
+11360,Mexico|Durango|San Bernardo|,0,0,0,0,0,0,0,0,0,0,0
 11361,Mexico|Durango|San Dimas|,1,1,1,1,1,1,1,1,1,1,1
 11363,Mexico|Durango|San Juan del Río|,2,2,2,2,2,2,2,2,2,2,2
 11366,Mexico|Durango|Santa Clara|,1,1,1,1,1,1,1,1,1,1,1
@@ -9849,7 +9850,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11391,Mexico|Guerrero|Coahuayutla de José María Izazaga|,1,1,1,1,1,1,1,1,1,1,1
 11392,Mexico|Guerrero|Cocula|,4,4,4,4,4,4,4,4,4,4,4
 11393,Mexico|Guerrero|Copala|,2,2,2,2,2,2,2,2,2,2,2
-11394,Mexico|Guerrero|Copalillo|,0,0,0,0,0,0,0,0,0,0,0
 11395,Mexico|Guerrero|Copanatoyac|,1,1,1,1,1,1,1,1,1,1,1
 11396,Mexico|Guerrero|Coyuca de Benítez|,2,2,2,2,2,2,2,2,2,2,2
 11397,Mexico|Guerrero|Coyuca de Catalán|,9,9,9,9,9,9,9,9,9,9,9
@@ -9861,7 +9861,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11403,Mexico|Guerrero|Chilapa de Álvarez|,5,5,5,5,5,5,5,5,5,5,5
 11404,Mexico|Guerrero|Chilpancingo de los Bravo|,41,41,41,41,41,41,41,41,41,41,41
 11405,Mexico|Guerrero|Florencio Villarreal|,3,3,3,3,3,3,3,3,3,3,3
-11406,Mexico|Guerrero|General Canuto A. Neri|,2,2,2,2,2,2,2,2,2,2,2
 11407,Mexico|Guerrero|General Heliodoro Castillo|,3,3,3,3,3,3,3,3,3,3,3
 11408,Mexico|Guerrero|Huamuxtitlán|,6,6,6,6,6,6,6,6,6,6,6
 11409,Mexico|Guerrero|Huitzuco de los Figueroa|,4,4,4,4,4,4,4,4,4,4,4
@@ -9902,10 +9901,10 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11448,Mexico|Guerrero|Zirándaro|,4,4,4,4,4,4,4,4,4,4,4
 11449,Mexico|Guerrero|Zitlala|,0,0,0,0,0,0,0,0,0,0,0
 11450,Mexico|Guerrero|Eduardo Neri|,4,4,4,4,4,4,4,4,4,4,4
-11451,Mexico|Guerrero|Acatepec|,0,0,0,0,0,0,0,0,0,0,0
 11452,Mexico|Guerrero|Marquelia|,1,1,1,1,1,1,1,1,1,1,1
 11454,Mexico|Guerrero|José Joaquín de Herrera|,0,0,0,0,0,0,0,0,0,0,0
 11455,Mexico|Guerrero|Juchitán|,1,1,1,1,1,1,1,1,1,1,1
+11456,Mexico|Guerrero|Iliatenco|,1,1,1,1,1,1,1,1,1,1,1
 11457,Mexico|Guanajuato||,1259,1259,1259,1259,1259,1259,1259,1259,1259,1259,1259
 11458,Mexico|Guanajuato|Abasolo|,19,19,19,19,19,19,19,19,19,19,19
 11459,Mexico|Guanajuato|Acámbaro|,28,28,28,28,28,28,28,28,28,28,28
@@ -10064,6 +10063,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11617,Mexico|Jalisco|Cuautitlán de García Barragán|,2,2,2,2,2,2,2,2,2,2,2
 11619,Mexico|Jalisco|Cuquío|,3,3,3,3,3,3,3,3,3,3,3
 11620,Mexico|Jalisco|Chapala|,11,11,11,11,11,11,11,11,11,11,11
+11621,Mexico|Jalisco|Chimaltitán|,0,0,0,0,0,0,0,0,0,0,0
 11623,Mexico|Jalisco|Degollado|,2,2,2,2,2,2,2,2,2,2,2
 11624,Mexico|Jalisco|Ejutla|,1,1,1,1,1,1,1,1,1,1,1
 11625,Mexico|Jalisco|Encarnación de Díaz|,13,13,13,13,13,13,13,13,13,13,13
@@ -10079,9 +10079,9 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11635,Mexico|Jalisco|Ixtlahuacán del Río|,5,5,5,5,5,5,5,5,5,5,5
 11636,Mexico|Jalisco|Jalostotitlán|,4,4,4,4,4,4,4,4,4,4,4
 11637,Mexico|Jalisco|Jamay|,3,3,3,3,3,3,3,3,3,3,3
-11638,Mexico|Jalisco|Jesús María|,1,1,1,1,1,1,1,1,1,1,1
 11640,Mexico|Jalisco|Jocotepec|,4,4,4,4,4,4,4,4,4,4,4
 11641,Mexico|Jalisco|Juanacatlán|,1,1,1,1,1,1,1,1,1,1,1
+11642,Mexico|Jalisco|Juchitlán|,1,1,1,1,1,1,1,1,1,1,1
 11643,Mexico|Jalisco|Lagos de Moreno|,41,41,41,41,41,41,41,41,41,41,41
 11644,Mexico|Jalisco|El Limón|,0,0,0,0,0,0,0,0,0,0,0
 11645,Mexico|Jalisco|Magdalena|,2,2,2,2,2,2,2,2,2,2,2
@@ -10100,11 +10100,13 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11661,Mexico|Jalisco|San Cristóbal de la Barranca|,0,0,0,0,0,0,0,0,0,0,0
 11662,Mexico|Jalisco|San Diego de Alejandría|,0,0,0,0,0,0,0,0,0,0,0
 11663,Mexico|Jalisco|San Juan de los Lagos|,5,5,5,5,5,5,5,5,5,5,5
+11664,Mexico|Jalisco|San Julián|,1,1,1,1,1,1,1,1,1,1,1
 11666,Mexico|Jalisco|San Martín de Bolaños|,2,2,2,2,2,2,2,2,2,2,2
 11667,Mexico|Jalisco|"San Martín de Hidalgo|,6,6,6,6,6,6,6,6,6,6,6
 11668,Mexico|Jalisco|San Miguel El Alto|,1,1,1,1,1,1,1,1,1,1,1
 11669,Mexico|Jalisco|Gómez Farías|,6,6,6,6,6,6,6,6,6,6,6
 11670,Mexico|Jalisco|San Sebastián Del Oeste|,0,0,0,0,0,0,0,0,0,0,0
+11671,Mexico|Jalisco|Santa María de los Ángeles|,1,1,1,1,1,1,1,1,1,1,1
 11672,Mexico|Jalisco|Sayula|,1,1,1,1,1,1,1,1,1,1,1
 11673,Mexico|Jalisco|Tala|,25,25,25,25,25,25,25,25,25,25,25
 11674,Mexico|Jalisco|Talpa De Allende|,1,1,1,1,1,1,1,1,1,1,1
@@ -10112,6 +10114,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11676,Mexico|Jalisco|Tapalpa|,1,1,1,1,1,1,1,1,1,1,1
 11677,Mexico|Jalisco|Tecalitlán|,2,2,2,2,2,2,2,2,2,2,2
 11678,Mexico|Jalisco|Tecolotlán|,3,3,3,3,3,3,3,3,3,3,3
+11680,Mexico|Jalisco|Tenamaxtlán|,2,2,2,2,2,2,2,2,2,2,2
 11681,Mexico|Jalisco|Teocaltiche|,7,7,7,7,7,7,7,7,7,7,7
 11682,Mexico|Jalisco|Teocuitatlán de Corona|,2,2,2,2,2,2,2,2,2,2,2
 11683,Mexico|Jalisco|Tepatitlán De Morelos|,36,36,36,36,36,36,36,36,36,36,36
@@ -10125,13 +10128,12 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11691,Mexico|Jalisco|Tonalá|,79,79,79,79,79,79,79,79,79,79,79
 11692,Mexico|Jalisco|Tonaya|,0,0,0,0,0,0,0,0,0,0,0
 11693,Mexico|Jalisco|Tonila|,1,1,1,1,1,1,1,1,1,1,1
-11694,Mexico|Jalisco|Totatiche|,2,2,2,2,2,2,2,2,2,2,2
 11695,Mexico|Jalisco|Tototlán|,2,2,2,2,2,2,2,2,2,2,2
 11696,Mexico|Jalisco|Tuxcacuesco|,3,3,3,3,3,3,3,3,3,3,3
-11697,Mexico|Jalisco|Tuxcueca|,1,1,1,1,1,1,1,1,1,1,1
 11698,Mexico|Jalisco|Tuxpan|,10,10,10,10,10,10,10,10,10,10,10
 11699,Mexico|Jalisco|Unión de San Antonio|,0,0,0,0,0,0,0,0,0,0,0
 11700,Mexico|Jalisco|Unión de Tula|,5,5,5,5,5,5,5,5,5,5,5
+11701,Mexico|Jalisco|Valle de Guadalupe|,1,1,1,1,1,1,1,1,1,1,1
 11703,Mexico|Jalisco|San Gabriel|,2,2,2,2,2,2,2,2,2,2,2
 11704,Mexico|Jalisco|Villa Corona|,0,0,0,0,0,0,0,0,0,0,0
 11705,Mexico|Jalisco|Villa Guerrero|,1,1,1,1,1,1,1,1,1,1,1
@@ -10259,7 +10261,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11829,Mexico|State of Mexico|Villa Guerrero|,0,0,0,0,0,0,0,0,0,0,0
 11830,Mexico|State of Mexico|Villa Victoria|,5,5,5,5,5,5,5,5,5,5,5
 11831,Mexico|State of Mexico|Xonacatlán|,7,7,7,7,7,7,7,7,7,7,7
-11833,Mexico|State of Mexico|Zacualpan|,0,0,0,0,0,0,0,0,0,0,0
 11834,Mexico|State of Mexico|Zinacantepec|,8,8,8,8,8,8,8,8,8,8,8
 11835,Mexico|State of Mexico|Zumpahuacán|,2,2,2,2,2,2,2,2,2,2,2
 11836,Mexico|State of Mexico|Zumpango|,29,29,29,29,29,29,29,29,29,29,29
@@ -10283,6 +10284,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11857,Mexico|Michoacán|Coalcomán De Vázquez Pallares|,3,3,3,3,3,3,3,3,3,3,3
 11858,Mexico|Michoacán|Coeneo|,2,2,2,2,2,2,2,2,2,2,2
 11859,Mexico|Michoacán|Contepec|,0,0,0,0,0,0,0,0,0,0,0
+11860,Mexico|Michoacán|Copándaro|,1,1,1,1,1,1,1,1,1,1,1
 11861,Mexico|Michoacán|Cotija|,2,2,2,2,2,2,2,2,2,2,2
 11862,Mexico|Michoacán|Cuitzeo del Porvenir|,1,1,1,1,1,1,1,1,1,1,1
 11864,Mexico|Michoacán|"Charo|,3,3,3,3,3,3,3,3,3,3,3
@@ -10319,6 +10321,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 11902,Mexico|Michoacán|Numarán|,2,2,2,2,2,2,2,2,2,2,2
 11903,Mexico|Michoacán|Ocampo|,0,0,0,0,0,0,0,0,0,0,0
 11904,Mexico|Michoacán|Pajacuarán|,0,0,0,0,0,0,0,0,0,0,0
+11905,Mexico|Michoacán|Panindícuaro|,1,1,1,1,1,1,1,1,1,1,1
 11906,Mexico|Michoacán|Parácuaro|,1,1,1,1,1,1,1,1,1,1,1
 11907,Mexico|Michoacán|Paracho|,9,9,9,9,9,9,9,9,9,9,9
 11908,Mexico|Michoacán|Pátzcuaro|,18,18,18,18,18,18,18,18,18,18,18
@@ -10447,7 +10450,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12038,Mexico|Nuevo León|Los Herreras|,1,1,1,1,1,1,1,1,1,1,1
 12039,Mexico|Nuevo León|Higueras|,0,0,0,0,0,0,0,0,0,0,0
 12040,Mexico|Nuevo León|Hualahuises|,1,1,1,1,1,1,1,1,1,1,1
-12041,Mexico|Nuevo León|Iturbide|,2,2,2,2,2,2,2,2,2,2,2
 12042,Mexico|Nuevo León|Juárez|,39,39,39,39,39,39,39,39,39,39,39
 12043,Mexico|Nuevo León|Lampazos De Naranjo|,2,2,2,2,2,2,2,2,2,2,2
 12044,Mexico|Nuevo León|Linares|,18,18,18,18,18,18,18,18,18,18,18
@@ -10478,7 +10480,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12075,Mexico|Oaxaca|Candelaria Loxicha|,0,0,0,0,0,0,0,0,0,0,0
 12076,Mexico|Oaxaca|Ciénega De Zimatlán|,0,0,0,0,0,0,0,0,0,0,0
 12077,Mexico|Oaxaca|Q5770638|,10,10,10,10,10,10,10,10,10,10,10
-12079,Mexico|Oaxaca|Coicoyán de las Flores|,0,0,0,0,0,0,0,0,0,0,0
+12083,Mexico|Oaxaca|Constancia del Rosario|,0,0,0,0,0,0,0,0,0,0,0
 12084,Mexico|Oaxaca|Cosolapa|,2,2,2,2,2,2,2,2,2,2,2
 12085,Mexico|Oaxaca|Cosoltepec|,0,0,0,0,0,0,0,0,0,0,0
 12086,Mexico|Oaxaca|Cuilápam De Guerrero|,4,4,4,4,4,4,4,4,4,4,4
@@ -10489,7 +10491,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12094,Mexico|Oaxaca|Tamazulapam del Espíritu Santo|,1,1,1,1,1,1,1,1,1,1,1
 12096,Mexico|Oaxaca|Guadalupe Etla|,2,2,2,2,2,2,2,2,2,2,2
 12098,Mexico|Oaxaca|Misantla|,0,0,0,0,0,0,0,0,0,0,0
-12099,Mexico|Oaxaca|Guevea de Humboldt|,1,1,1,1,1,1,1,1,1,1,1
 12101,Mexico|Oaxaca|Villa Hidalgo|,1,1,1,1,1,1,1,1,1,1,1
 12102,Mexico|Oaxaca|Heroica Ciudad De Huajuapan De León|,11,11,11,11,11,11,11,11,11,11,11
 12104,Mexico|Oaxaca|Municipality of Huautla de Jiménez|,0,0,0,0,0,0,0,0,0,0,0
@@ -10499,7 +10500,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12108,Mexico|Oaxaca|Magdalena Apasco|,0,0,0,0,0,0,0,0,0,0,0
 12112,Mexico|Oaxaca|Magdalena Ocotlán|,0,0,0,0,0,0,0,0,0,0,0
 12115,Mexico|Oaxaca|Magdalena Tequisistlán|,1,1,1,1,1,1,1,1,1,1,1
-12116,Mexico|Oaxaca|Magdalena Tlacotepec|,0,0,0,0,0,0,0,0,0,0,0
 12118,Mexico|Oaxaca|Mariscala de Juárez|,0,0,0,0,0,0,0,0,0,0,0
 12120,Mexico|Oaxaca|Matías Romero Avendaño|,5,5,5,5,5,5,5,5,5,5,5
 12121,Mexico|Oaxaca|Mazatlán Villa de Flores|,0,0,0,0,0,0,0,0,0,0,0
@@ -10510,9 +10510,9 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12130,Mexico|Oaxaca|Oaxaca de Juárez|,81,81,81,81,81,81,81,81,81,81,81
 12131,Mexico|Oaxaca|Ocotlán De Morelos|,1,1,1,1,1,1,1,1,1,1,1
 12133,Mexico|Oaxaca|Pinotepa De Don Luis|,0,0,0,0,0,0,0,0,0,0,0
-12134,Mexico|Oaxaca|Pluma Hidalgo|,0,0,0,0,0,0,0,0,0,0,0
 12135,Mexico|Oaxaca|San José del Progreso|,1,1,1,1,1,1,1,1,1,1,1
 12136,Mexico|Oaxaca|Q617691|,12,12,12,12,12,12,12,12,12,12,12
+12138,Mexico|Oaxaca|Reforma de Pineda|,0,0,0,0,0,0,0,0,0,0,0
 12139,Mexico|Oaxaca|La Reforma|,0,0,0,0,0,0,0,0,0,0,0
 12140,Mexico|Oaxaca|Reyes Etla|,0,0,0,0,0,0,0,0,0,0,0
 12141,Mexico|Oaxaca|Rojas de Cuauhtémoc|,0,0,0,0,0,0,0,0,0,0,0
@@ -10527,10 +10527,11 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12165,Mexico|Oaxaca|San Andrés Zautla|,0,0,0,0,0,0,0,0,0,0,0
 12166,Mexico|Oaxaca|San Antonino Castillo Velasco|,1,1,1,1,1,1,1,1,1,1,1
 12170,Mexico|Oaxaca|San Antonio De La Cal|,4,4,4,4,4,4,4,4,4,4,4
-12172,Mexico|Oaxaca|San Antonio Nanahuatipam|,2,2,2,2,2,2,2,2,2,2,2
 12175,Mexico|Oaxaca|San Baltazar Chichicápam|,0,0,0,0,0,0,0,0,0,0,0
+12176,Mexico|Oaxaca|San Baltazar Loxicha|,2,2,2,2,2,2,2,2,2,2,2
 12178,Mexico|Oaxaca|San Bartolo Coyotepec|,3,3,3,3,3,3,3,3,3,3,3
 12187,Mexico|Oaxaca|San Blas Atempa|,0,0,0,0,0,0,0,0,0,0,0
+12188,Mexico|Oaxaca|San Carlos Yautepec|,0,0,0,0,0,0,0,0,0,0,0
 12191,Mexico|Oaxaca|San Cristóbal Lachirioag|,0,0,0,0,0,0,0,0,0,0,0
 12192,Mexico|Oaxaca|San Cristóbal Suchixtlahuaca|,0,0,0,0,0,0,0,0,0,0,0
 12194,Mexico|Oaxaca|San Dionisio Ocotepec|,1,1,1,1,1,1,1,1,1,1,1
@@ -10543,9 +10544,8 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12216,Mexico|Oaxaca|San Gabriel Mixtepec|,0,0,0,0,0,0,0,0,0,0,0
 12219,Mexico|Oaxaca|San Ildefonso Villa Alta|,1,1,1,1,1,1,1,1,1,1,1
 12220,Mexico|Oaxaca|San Jacinto Amilpas|,0,0,0,0,0,0,0,0,0,0,0
-12225,Mexico|Oaxaca|San Jerónimo Taviche|,0,0,0,0,0,0,0,0,0,0,0
+12221,Mexico|Oaxaca|San Jacinto Tlacotepec|,0,0,0,0,0,0,0,0,0,0,0
 12229,Mexico|Oaxaca|San José Chiltepec|,6,6,6,6,6,6,6,6,6,6,6
-12230,Mexico|Oaxaca|San José del Peñasco|,0,0,0,0,0,0,0,0,0,0,0
 12237,Mexico|Oaxaca|Animas Trujano|,0,0,0,0,0,0,0,0,0,0,0
 12239,Mexico|Oaxaca|San Juan Bautista Coixtlahuaca|,0,0,0,0,0,0,0,0,0,0,0
 12240,Mexico|Oaxaca|San Juan Bautista Cuicatlán|,2,2,2,2,2,2,2,2,2,2,2
@@ -10573,8 +10573,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12311,Mexico|Oaxaca|San Mateo del Mar|,2,2,2,2,2,2,2,2,2,2,2
 12328,Mexico|Oaxaca|San Miguel Chimalapa|,0,0,0,0,0,0,0,0,0,0,0
 12329,Mexico|Oaxaca|San Miguel del Puerto|,0,0,0,0,0,0,0,0,0,0,0
-12334,Mexico|Oaxaca|San Miguel Mixtepec|,0,0,0,0,0,0,0,0,0,0,0
-12338,Mexico|Oaxaca|San Miguel Quetzaltepec|,0,0,0,0,0,0,0,0,0,0,0
 12340,Mexico|Oaxaca|Villa Sola de Vega|,1,1,1,1,1,1,1,1,1,1,1
 12341,Mexico|Oaxaca|San Miguel Soyaltepec|,3,3,3,3,3,3,3,3,3,3,3
 12342,Mexico|Oaxaca|San Miguel Suchixtepec|,3,3,3,3,3,3,3,3,3,3,3
@@ -10590,33 +10588,36 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12373,Mexico|Oaxaca|San Pedro Ixtlahuaca|,1,1,1,1,1,1,1,1,1,1,1
 12381,Mexico|Oaxaca|San Pedro Mixtepec|,3,3,3,3,3,3,3,3,3,3,3
 12387,Mexico|Oaxaca|San Pedro Pochutla|,8,8,8,8,8,8,8,8,8,8,8
+12389,Mexico|Oaxaca|San Pedro Sochiápam|,1,1,1,1,1,1,1,1,1,1,1
 12390,Mexico|Oaxaca|San Pedro Tapanatepec|,1,1,1,1,1,1,1,1,1,1,1
+12393,Mexico|Oaxaca|San Pedro Teutila|,0,0,0,0,0,0,0,0,0,0,0
 12396,Mexico|Oaxaca|San Pedro Totolápam|,0,0,0,0,0,0,0,0,0,0,0
 12397,Mexico|Oaxaca|Villa de Tututepec de Melchor Ocampo|,2,2,2,2,2,2,2,2,2,2,2
+12399,Mexico|Oaxaca|San Pedro Yólox|,0,0,0,0,0,0,0,0,0,0,0
 12400,Mexico|Oaxaca|San Pedro y San Pablo Ayutla|,0,0,0,0,0,0,0,0,0,0,0
 12401,Mexico|Oaxaca|Villa de Etla|,3,3,3,3,3,3,3,3,3,3,3
 12402,Mexico|Oaxaca|San Pedro y San Pablo Teposcolula|,0,0,0,0,0,0,0,0,0,0,0
 12405,Mexico|Oaxaca|San Raymundo Jalpan|,0,0,0,0,0,0,0,0,0,0,0
 12406,Mexico|Oaxaca|San Sebastián Abasolo|,0,0,0,0,0,0,0,0,0,0,0
 12407,Mexico|Oaxaca|San Sebastián Coatlán|,1,1,1,1,1,1,1,1,1,1,1
-12408,Mexico|Oaxaca|San Sebastián Ixcapa|,0,0,0,0,0,0,0,0,0,0,0
 12410,Mexico|Oaxaca|San Sebastián Río Hondo|,1,1,1,1,1,1,1,1,1,1,1
 12411,Mexico|Oaxaca|San Sebastián Tecomaxtlahuaca|,1,1,1,1,1,1,1,1,1,1,1
 12412,Mexico|Oaxaca|San Sebastián Teitipac|,0,0,0,0,0,0,0,0,0,0,0
 12413,Mexico|Oaxaca|San Sebastián Tutla|,1,1,1,1,1,1,1,1,1,1,1
 12414,Mexico|Oaxaca|San Simón Almolongas|,0,0,0,0,0,0,0,0,0,0,0
-12419,Mexico|Oaxaca|Santa Ana Del Valle|,1,1,1,1,1,1,1,1,1,1,1
 12423,Mexico|Oaxaca|Santa Ana Zegache|,0,0,0,0,0,0,0,0,0,0,0
 12427,Mexico|Oaxaca|Santa Catarina Juquila|,0,0,0,0,0,0,0,0,0,0,0
 12428,Mexico|Oaxaca|Santa Catarina Lachatao|,0,0,0,0,0,0,0,0,0,0,0
 12431,Mexico|Oaxaca|Santa Catarina Minas|,0,0,0,0,0,0,0,0,0,0,0
 12432,Mexico|Oaxaca|Santa Catarina Quiané|,0,0,0,0,0,0,0,0,0,0,0
+12433,Mexico|Oaxaca|Santa Catarina Tayata|,0,0,0,0,0,0,0,0,0,0,0
 12438,Mexico|Oaxaca|Santa Cruz Amilpas|,3,3,3,3,3,3,3,3,3,3,3
 12440,Mexico|Oaxaca|Santa Cruz Itundujia|,0,0,0,0,0,0,0,0,0,0,0
 12441,Mexico|Oaxaca|Santa Cruz Mixtepec|,0,0,0,0,0,0,0,0,0,0,0
 12448,Mexico|Oaxaca|Santa Cruz Xoxocotlán|,18,18,18,18,18,18,18,18,18,18,18
 12449,Mexico|Oaxaca|Santa Cruz Zenzontepec|,0,0,0,0,0,0,0,0,0,0,0
 12450,Mexico|Oaxaca|Santa Gertrudis|,0,0,0,0,0,0,0,0,0,0,0
+12451,Mexico|Oaxaca|Santa Inés del Monte|,1,1,1,1,1,1,1,1,1,1,1
 12453,Mexico|Oaxaca|Santa Lucía del Camino|,6,6,6,6,6,6,6,6,6,6,6
 12456,Mexico|Oaxaca|Q6120479|,0,0,0,0,0,0,0,0,0,0,0
 12460,Mexico|Oaxaca|Heroica Ciudad de Tlaxiaco|,4,4,4,4,4,4,4,4,4,4,4
@@ -10630,7 +10631,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12476,Mexico|Oaxaca|Santa María Huatulco|,8,8,8,8,8,8,8,8,8,8,8
 12480,Mexico|Oaxaca|Santa María Jacatepec|,0,0,0,0,0,0,0,0,0,0,0
 12481,Mexico|Oaxaca|Santa María Jalapa del Marqués|,1,1,1,1,1,1,1,1,1,1,1
-12482,Mexico|Oaxaca|Santa María Jaltianguis|,0,0,0,0,0,0,0,0,0,0,0
 12484,Mexico|Oaxaca|Santa María Mixtequilla|,0,0,0,0,0,0,0,0,0,0,0
 12487,Mexico|Oaxaca|Santa María Ozolotepec|,0,0,0,0,0,0,0,0,0,0,0
 12489,Mexico|Oaxaca|Santa María Peñoles|,0,0,0,0,0,0,0,0,0,0,0
@@ -10640,6 +10640,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12502,Mexico|Oaxaca|Santa María Tonameca|,2,2,2,2,2,2,2,2,2,2,2
 12504,Mexico|Oaxaca|Santa María Xadani|,0,0,0,0,0,0,0,0,0,0,0
 12510,Mexico|Oaxaca|Santa María Zacatepec|,1,1,1,1,1,1,1,1,1,1,1
+12512,Mexico|Oaxaca|Santa María Zoquitlán|,0,0,0,0,0,0,0,0,0,0,0
 12515,Mexico|Oaxaca|Santiago Apóstol|,0,0,0,0,0,0,0,0,0,0,0
 12516,Mexico|Oaxaca|Santiago Astata|,0,0,0,0,0,0,0,0,0,0,0
 12519,Mexico|Oaxaca|Santiago Cacaloxtepec|,1,1,1,1,1,1,1,1,1,1,1
@@ -10649,6 +10650,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12530,Mexico|Oaxaca|Santiago Jamiltepec|,1,1,1,1,1,1,1,1,1,1,1
 12532,Mexico|Oaxaca|Santiago Juxtlahuaca|,2,2,2,2,2,2,2,2,2,2,2
 12535,Mexico|Oaxaca|Santiago Laollaga|,1,1,1,1,1,1,1,1,1,1,1
+12537,Mexico|Oaxaca|Santiago Llano Grande|,1,1,1,1,1,1,1,1,1,1,1
 12538,Mexico|Oaxaca|Santiago Matatlán|,1,1,1,1,1,1,1,1,1,1,1
 12545,Mexico|Oaxaca|Santiago Pinotepa Nacional|,12,12,12,12,12,12,12,12,12,12,12
 12546,Mexico|Oaxaca|Santiago Suchilquitongo|,0,0,0,0,0,0,0,0,0,0,0
@@ -10665,10 +10667,9 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12589,Mexico|Oaxaca|Santos Reyes Nopala|,2,2,2,2,2,2,2,2,2,2,2
 12593,Mexico|Oaxaca|Santo Tomás Jalieza|,0,0,0,0,0,0,0,0,0,0,0
 12594,Mexico|Oaxaca|Santo Tomás Mazaltepec|,0,0,0,0,0,0,0,0,0,0,0
-12600,Mexico|Oaxaca|Silacayoapan|,1,1,1,1,1,1,1,1,1,1,1
+12596,Mexico|Oaxaca|Santo Tomás Tamazulapan|,1,1,1,1,1,1,1,1,1,1,1
 12602,Mexico|Oaxaca|Soledad Etla|,1,1,1,1,1,1,1,1,1,1,1
 12603,Mexico|Oaxaca|Tamazulapam del Progreso|,2,2,2,2,2,2,2,2,2,2,2
-12607,Mexico|Oaxaca|Teococuilco de Marcos Pérez|,0,0,0,0,0,0,0,0,0,0,0
 12608,Mexico|Oaxaca|Teotitlán de Flores Magón|,2,2,2,2,2,2,2,2,2,2,2
 12609,Mexico|Oaxaca|Q5990601|,0,0,0,0,0,0,0,0,0,0,0
 12612,Mexico|Oaxaca|"Heroica Villa Tezoatlán De Segura Y Luna|,0,0,0,0,0,0,0,0,0,0,0
@@ -10688,6 +10689,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12638,Mexico|Puebla|Acatlán|,10,10,10,10,10,10,10,10,10,10,10
 12639,Mexico|Puebla|Acatzingo|,2,2,2,2,2,2,2,2,2,2,2
 12641,Mexico|Puebla|Ahuacatlán|,0,0,0,0,0,0,0,0,0,0,0
+12642,Mexico|Puebla|Ahuatlán|,0,0,0,0,0,0,0,0,0,0,0
 12643,Mexico|Puebla|Ahuazotepec|,2,2,2,2,2,2,2,2,2,2,2
 12645,Mexico|Puebla|Ajalpan|,4,4,4,4,4,4,4,4,4,4,4
 12648,Mexico|Puebla|Altepexi|,1,1,1,1,1,1,1,1,1,1,1
@@ -10700,6 +10702,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12658,Mexico|Puebla|Atzitzintla|,0,0,0,0,0,0,0,0,0,0,0
 12660,Mexico|Puebla|Ayotoxco de Guerrero|,0,0,0,0,0,0,0,0,0,0,0
 12661,Mexico|Puebla|Calpan|,1,1,1,1,1,1,1,1,1,1,1
+12664,Mexico|Puebla|Caxhuacan|,0,0,0,0,0,0,0,0,0,0,0
 12669,Mexico|Puebla|Coronango|,2,2,2,2,2,2,2,2,2,2,2
 12670,Mexico|Puebla|Coxcatlán|,3,3,3,3,3,3,3,3,3,3,3
 12672,Mexico|Puebla|Coyotepec|,3,3,3,3,3,3,3,3,3,3,3
@@ -10709,6 +10712,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12678,Mexico|Puebla|Cuetzalan del Progreso|,0,0,0,0,0,0,0,0,0,0,0
 12679,Mexico|Puebla|Cuyoaco|,0,0,0,0,0,0,0,0,0,0,0
 12680,Mexico|Puebla|Chalchicomula de Sesma|,2,2,2,2,2,2,2,2,2,2,2
+12681,Mexico|Puebla|Chapulco|,1,1,1,1,1,1,1,1,1,1,1
 12682,Mexico|Puebla|Chiautla|,3,3,3,3,3,3,3,3,3,3,3
 12683,Mexico|Puebla|Chiautzingo|,0,0,0,0,0,0,0,0,0,0,0
 12684,Mexico|Puebla|Chiconcuautla|,0,0,0,0,0,0,0,0,0,0,0
@@ -10740,7 +10744,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12722,Mexico|Puebla|Jolalpan|,1,1,1,1,1,1,1,1,1,1,1
 12725,Mexico|Puebla|Juan C. Bonilla|,2,2,2,2,2,2,2,2,2,2,2
 12726,Mexico|Puebla|Juan Galindo|,1,1,1,1,1,1,1,1,1,1,1
-12727,Mexico|Puebla|Juan N. Méndez|,0,0,0,0,0,0,0,0,0,0,0
 12729,Mexico|Puebla|Libres|,0,0,0,0,0,0,0,0,0,0,0
 12734,Mexico|Puebla|Cañada Morelos|,2,2,2,2,2,2,2,2,2,2,2
 12737,Mexico|Puebla|Nealtican|,1,1,1,1,1,1,1,1,1,1,1
@@ -10774,6 +10777,8 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12776,Mexico|Puebla|San Pedro Yeloixtlahuaca|,1,1,1,1,1,1,1,1,1,1,1
 12777,Mexico|Puebla|San Salvador el Seco|,0,0,0,0,0,0,0,0,0,0,0
 12778,Mexico|Puebla|San Salvador El Verde|,2,2,2,2,2,2,2,2,2,2,2
+12779,Mexico|Puebla|San Salvador Huixcolotla|,0,0,0,0,0,0,0,0,0,0,0
+12780,Mexico|Puebla|San Sebastián Tlacotepec|,1,1,1,1,1,1,1,1,1,1,1
 12783,Mexico|Puebla|Santa Isabel Cholula|,2,2,2,2,2,2,2,2,2,2,2
 12784,Mexico|Puebla|Santiago Miahuatlán|,1,1,1,1,1,1,1,1,1,1,1
 12786,Mexico|Puebla|Santo Tomás Hueyotlipan|,0,0,0,0,0,0,0,0,0,0,0
@@ -10935,14 +10940,11 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12965,Mexico|Sonora|Altar|,4,4,4,4,4,4,4,4,4,4,4
 12966,Mexico|Sonora|Arivechi|,0,0,0,0,0,0,0,0,0,0,0
 12967,Mexico|Sonora|Arizpe|,0,0,0,0,0,0,0,0,0,0,0
-12968,Mexico|Sonora|Atil|,0,0,0,0,0,0,0,0,0,0,0
-12970,Mexico|Sonora|Bacanora|,0,0,0,0,0,0,0,0,0,0,0
 12971,Mexico|Sonora|Bacerac|,2,2,2,2,2,2,2,2,2,2,2
 12972,Mexico|Sonora|Bacoachi|,0,0,0,0,0,0,0,0,0,0,0
 12973,Mexico|Sonora|Bácum|,8,8,8,8,8,8,8,8,8,8,8
 12974,Mexico|Sonora|Banámichi|,0,0,0,0,0,0,0,0,0,0,0
 12975,Mexico|Sonora|Baviácora|,0,0,0,0,0,0,0,0,0,0,0
-12976,Mexico|Sonora|Bavispe|,0,0,0,0,0,0,0,0,0,0,0
 12977,Mexico|Sonora|Benjamín Hill|,1,1,1,1,1,1,1,1,1,1,1
 12978,Mexico|Sonora|Caborca|,27,27,27,27,27,27,27,27,27,27,27
 12979,Mexico|Sonora|Cajeme|,116,116,116,116,116,116,116,116,116,116,116
@@ -10952,7 +10954,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 12984,Mexico|Sonora|Cumpas|,0,0,0,0,0,0,0,0,0,0,0
 12986,Mexico|Sonora|Empalme|,14,14,14,14,14,14,14,14,14,14,14
 12987,Mexico|Sonora|Etchojoa|,25,25,25,25,25,25,25,25,25,25,25
-12988,Mexico|Sonora|Fronteras|,2,2,2,2,2,2,2,2,2,2,2
 12990,Mexico|Sonora|Guaymas|,52,52,52,52,52,52,52,52,52,52,52
 12991,Mexico|Sonora|Hermosillo|,282,282,282,282,282,282,282,282,282,282,282
 12994,Mexico|Sonora|Huatabampo|,30,30,30,30,30,30,30,30,30,30,30
@@ -10968,6 +10969,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 13008,Mexico|Sonora|Pitiquito|,5,5,5,5,5,5,5,5,5,5,5
 13009,Mexico|Sonora|Puerto Peñasco|,8,8,8,8,8,8,8,8,8,8,8
 13010,Mexico|Sonora|Quiriego|,2,2,2,2,2,2,2,2,2,2,2
+13011,Mexico|Sonora|Rayón|,1,1,1,1,1,1,1,1,1,1,1
 13012,Mexico|Sonora|Rosario|,2,2,2,2,2,2,2,2,2,2,2
 13013,Mexico|Sonora|Sahuaripa|,2,2,2,2,2,2,2,2,2,2,2
 13016,Mexico|Sonora|San Luis Río Colorado|,67,67,67,67,67,67,67,67,67,67,67
@@ -10977,8 +10979,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 13023,Mexico|Sonora|Suaqui Grande|,0,0,0,0,0,0,0,0,0,0,0
 13026,Mexico|Sonora|Tubutama|,0,0,0,0,0,0,0,0,0,0,0
 13027,Mexico|Sonora|Ures|,5,5,5,5,5,5,5,5,5,5,5
-13029,Mexico|Sonora|Villa Pesqueira|,0,0,0,0,0,0,0,0,0,0,0
-13030,Mexico|Sonora|Yécora|,0,0,0,0,0,0,0,0,0,0,0
 13031,Mexico|Sonora|General Plutarco Elías Calles|,0,0,0,0,0,0,0,0,0,0,0
 13032,Mexico|Sonora|Benito Juárez|,7,7,7,7,7,7,7,7,7,7,7
 13033,Mexico|Sonora|San Ignacio Río Muerto|,3,3,3,3,3,3,3,3,3,3,3
@@ -11007,7 +11007,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 13056,Mexico|Tamaulipas|Antiguo Morelos|,5,5,5,5,5,5,5,5,5,5,5
 13057,Mexico|Tamaulipas|Burgos|,0,0,0,0,0,0,0,0,0,0,0
 13059,Mexico|Tamaulipas|Camargo|,3,3,3,3,3,3,3,3,3,3,3
-13060,Mexico|Tamaulipas|Casas|,1,1,1,1,1,1,1,1,1,1,1
 13061,Mexico|Tamaulipas|Ciudad Madero|,79,79,79,79,79,79,79,79,79,79,79
 13062,Mexico|Tamaulipas|Cruillas|,0,0,0,0,0,0,0,0,0,0,0
 13063,Mexico|Tamaulipas|Gómez Farías|,2,2,2,2,2,2,2,2,2,2,2
@@ -11151,6 +11150,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 13212,Mexico|Veracruz|Chalma|,0,0,0,0,0,0,0,0,0,0,0
 13215,Mexico|Veracruz|Chicontepec|,0,0,0,0,0,0,0,0,0,0,0
 13216,Mexico|Veracruz|Chinameca|,1,1,1,1,1,1,1,1,1,1,1
+13217,Mexico|Veracruz|Chinampa de Gorostiza|,1,1,1,1,1,1,1,1,1,1,1
 13218,Mexico|Veracruz|Las Choapas|,8,8,8,8,8,8,8,8,8,8,8
 13219,Mexico|Veracruz|Chocamán|,1,1,1,1,1,1,1,1,1,1,1
 13222,Mexico|Veracruz|Emiliano Zapata|,8,8,8,8,8,8,8,8,8,8,8
@@ -11183,7 +11183,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 13258,Mexico|Veracruz|Mariano Escobedo|,4,4,4,4,4,4,4,4,4,4,4
 13259,Mexico|Veracruz|Martínez de la Torre|,12,12,12,12,12,12,12,12,12,12,12
 13260,Mexico|Veracruz|Mecatlán|,0,0,0,0,0,0,0,0,0,0,0
-13261,Mexico|Veracruz|Mecayapan|,0,0,0,0,0,0,0,0,0,0,0
 13262,Mexico|Veracruz|Medellín|,11,11,11,11,11,11,11,11,11,11,11
 13265,Mexico|Veracruz|Minatitlán|,28,28,28,28,28,28,28,28,28,28,28
 13266,Mexico|Veracruz|Q20270899|,4,4,4,4,4,4,4,4,4,4,4
@@ -11221,22 +11220,19 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 13300,Mexico|Veracruz|Santiago Tuxtla|,5,5,5,5,5,5,5,5,5,5,5
 13301,Mexico|Veracruz|Sayula de Alemán|,0,0,0,0,0,0,0,0,0,0,0
 13302,Mexico|Veracruz|Soconusco|,0,0,0,0,0,0,0,0,0,0,0
-13304,Mexico|Veracruz|Soledad Atzompa|,0,0,0,0,0,0,0,0,0,0,0
 13305,Mexico|Veracruz|Soledad de Doblado|,3,3,3,3,3,3,3,3,3,3,3
 13308,Mexico|Veracruz|Tamiahua|,2,2,2,2,2,2,2,2,2,2,2
 13309,Mexico|Veracruz|Tampico Alto|,2,2,2,2,2,2,2,2,2,2,2
 13312,Mexico|Veracruz|Tantoyuca|,8,8,8,8,8,8,8,8,8,8,8
+13313,Mexico|Veracruz|Tatatila|,0,0,0,0,0,0,0,0,0,0,0
 13314,Mexico|Veracruz|Castillo de Teayo|,0,0,0,0,0,0,0,0,0,0,0
 13315,Mexico|Veracruz|Tecolutla|,1,1,1,1,1,1,1,1,1,1,1
-13316,Mexico|Veracruz|Tehuipango|,0,0,0,0,0,0,0,0,0,0,0
 13317,Mexico|Veracruz|Álamo Temapache|,13,13,13,13,13,13,13,13,13,13,13
 13318,Mexico|Veracruz|Tempoal|,3,3,3,3,3,3,3,3,3,3,3
-13320,Mexico|Veracruz|Tenochtitlán|,0,0,0,0,0,0,0,0,0,0,0
 13321,Mexico|Veracruz|Q20270910|,4,4,4,4,4,4,4,4,4,4,4
 13323,Mexico|Veracruz|Tepetlán|,2,2,2,2,2,2,2,2,2,2,2
 13324,Mexico|Veracruz|Tepetzintla|,2,2,2,2,2,2,2,2,2,2,2
 13325,Mexico|Veracruz|Tequila|,0,0,0,0,0,0,0,0,0,0,0
-13326,Mexico|Veracruz|José Azueta|,1,1,1,1,1,1,1,1,1,1,1
 13329,Mexico|Veracruz|Texistepec|,1,1,1,1,1,1,1,1,1,1,1
 13330,Mexico|Veracruz|Tezonapa|,3,3,3,3,3,3,3,3,3,3,3
 13331,Mexico|Veracruz|Tierra Blanca|,15,15,15,15,15,15,15,15,15,15,15
@@ -11256,6 +11252,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 13349,Mexico|Veracruz|Vega de Alatorre|,1,1,1,1,1,1,1,1,1,1,1
 13350,Mexico|Veracruz|Veracruz|,175,175,175,175,175,175,175,175,175,175,175
 13353,Mexico|Veracruz|Yanga|,4,4,4,4,4,4,4,4,4,4,4
+13355,Mexico|Veracruz|Zacualpan|,0,0,0,0,0,0,0,0,0,0,0
 13357,Mexico|Veracruz|Zentla|,0,0,0,0,0,0,0,0,0,0,0
 13358,Mexico|Veracruz|Zongolica|,4,4,4,4,4,4,4,4,4,4,4
 13361,Mexico|Veracruz|Agua Dulce|,9,9,9,9,9,9,9,9,9,9,9
@@ -11278,21 +11275,16 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 13383,Mexico|Yucatán|Conkal|,5,5,5,5,5,5,5,5,5,5,5
 13384,Mexico|Yucatán|Cuncunul|,0,0,0,0,0,0,0,0,0,0,0
 13385,Mexico|Yucatán|Cuzamá|,0,0,0,0,0,0,0,0,0,0,0
-13386,Mexico|Yucatán|Chacsinkín|,1,1,1,1,1,1,1,1,1,1,1
 13387,Mexico|Yucatán|Chankom|,0,0,0,0,0,0,0,0,0,0,0
 13388,Mexico|Yucatán|Chapab|,1,1,1,1,1,1,1,1,1,1,1
 13389,Mexico|Yucatán|Chemax|,1,1,1,1,1,1,1,1,1,1,1
 13390,Mexico|Yucatán|Chicxulub Pueblo|,1,1,1,1,1,1,1,1,1,1,1
 13391,Mexico|Yucatán|Chichimilá|,2,2,2,2,2,2,2,2,2,2,2
 13392,Mexico|Yucatán|Chikindzonot|,3,3,3,3,3,3,3,3,3,3,3
-13393,Mexico|Yucatán|Chocholá|,1,1,1,1,1,1,1,1,1,1,1
-13394,Mexico|Yucatán|Chumayel|,1,1,1,1,1,1,1,1,1,1,1
 13395,Mexico|Yucatán|Dzán|,0,0,0,0,0,0,0,0,0,0,0
 13396,Mexico|Yucatán|Dzemul|,0,0,0,0,0,0,0,0,0,0,0
 13397,Mexico|Yucatán|Dzidzantún|,2,2,2,2,2,2,2,2,2,2,2
 13398,Mexico|Yucatán|Dzilam de Bravo|,1,1,1,1,1,1,1,1,1,1,1
-13399,Mexico|Yucatán|Dzilam González|,0,0,0,0,0,0,0,0,0,0,0
-13400,Mexico|Yucatán|Dzitás|,2,2,2,2,2,2,2,2,2,2,2
 13402,Mexico|Yucatán|Espita|,1,1,1,1,1,1,1,1,1,1,1
 13403,Mexico|Yucatán|Halachó|,2,2,2,2,2,2,2,2,2,2,2
 13404,Mexico|Yucatán|Hocabá|,0,0,0,0,0,0,0,0,0,0,0
@@ -11306,7 +11298,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 13412,Mexico|Yucatán|Kantunil|,0,0,0,0,0,0,0,0,0,0,0
 13414,Mexico|Yucatán|Kinchil|,2,2,2,2,2,2,2,2,2,2,2
 13416,Mexico|Yucatán|Mama|,0,0,0,0,0,0,0,0,0,0,0
-13417,Mexico|Yucatán|Maní|,0,0,0,0,0,0,0,0,0,0,0
 13418,Mexico|Yucatán|Maxcanú|,0,0,0,0,0,0,0,0,0,0,0
 13420,Mexico|Yucatán|Mérida|,342,342,342,342,342,342,342,342,342,342,342
 13421,Mexico|Yucatán|Mocochá|,1,1,1,1,1,1,1,1,1,1,1
@@ -11345,7 +11336,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 13459,Mexico|Yucatán|Ticul|,9,9,9,9,9,9,9,9,9,9,9
 13460,Mexico|Yucatán|Timucuy|,0,0,0,0,0,0,0,0,0,0,0
 13461,Mexico|Yucatán|Tinum|,0,0,0,0,0,0,0,0,0,0,0
-13462,Mexico|Yucatán|Tixcacalcupul|,2,2,2,2,2,2,2,2,2,2,2
 13463,Mexico|Yucatán|Tixkokob|,3,3,3,3,3,3,3,3,3,3,3
 13465,Mexico|Yucatán|Tixpéhual|,2,2,2,2,2,2,2,2,2,2,2
 13466,Mexico|Yucatán|Tizimín|,15,15,15,15,15,15,15,15,15,15,15
@@ -11374,7 +11364,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 13489,Mexico|Zacatecas|Genaro Codina|,3,3,3,3,3,3,3,3,3,3,3
 13490,Mexico|Zacatecas|General Enrique Estrada|,3,3,3,3,3,3,3,3,3,3,3
 13491,Mexico|Zacatecas|General Francisco R. Murguía|,3,3,3,3,3,3,3,3,3,3,3
-13492,Mexico|Zacatecas|El Plateado De Joaquín Amaro|,0,0,0,0,0,0,0,0,0,0,0
 13493,Mexico|Zacatecas|General Pánfilo Natera|,5,5,5,5,5,5,5,5,5,5,5
 13494,Mexico|Zacatecas|Guadalupe|,40,40,40,40,40,40,40,40,40,40,40
 13495,Mexico|Zacatecas|Huanusco|,1,1,1,1,1,1,1,1,1,1,1
@@ -11925,15 +11914,16 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 14086,Peru|Áncash|Chacas|,11,11,11,11,11,11,11,11,11,11,11
 14087,Peru|Áncash|Acochaca|,9,9,9,9,9,9,9,9,9,9,9
 14088,Peru|Áncash|Chiquian|,20,20,20,20,20,20,20,20,20,20,20
+14089,Peru|Áncash|Abelardo Pardo Lezameta|,1,1,1,1,1,1,1,1,1,1,1
 14091,Peru|Áncash|Aquia|,4,4,4,4,4,4,4,4,4,4,4
 14092,Peru|Áncash|Cajacay|,6,6,6,6,6,6,6,6,6,6,6
 14094,Peru|Áncash|Colquioc|,12,12,12,12,12,12,12,12,12,12,12
 14095,Peru|Áncash|"Huallanca|,22,22,22,22,22,22,22,22,22,22,22
 14096,Peru|Áncash|Huasta|,4,4,4,4,4,4,4,4,4,4,4
 14097,Peru|Áncash|Huayllacayan|,1,1,1,1,1,1,1,1,1,1,1
-14099,Peru|Áncash|Mangas|,2,2,2,2,2,2,2,2,2,2,2
 14100,Peru|Áncash|Pacllon|,4,4,4,4,4,4,4,4,4,4,4
 14101,Peru|Áncash|San Miguel de Corpanqui|,1,1,1,1,1,1,1,1,1,1,1
+14102,Peru|Áncash|Ticllos|,1,1,1,1,1,1,1,1,1,1,1
 14103,Peru|Áncash|Carhuaz|,67,67,67,67,67,67,67,67,67,67,67
 14104,Peru|Áncash|Acopampa|,8,8,8,8,8,8,8,8,8,8,8
 14106,Peru|Áncash|Anta|,5,5,5,5,5,5,5,5,5,5,5
@@ -11951,7 +11941,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 14119,Peru|Áncash|Comandante Noel|,3,3,3,3,3,3,3,3,3,3,3
 14120,Peru|Áncash|Yautan|,30,30,30,30,30,30,30,30,30,30,30
 14121,Peru|Áncash|Corongo|,4,4,4,4,4,4,4,4,4,4,4
-14122,Peru|Áncash|Aco|,3,3,3,3,3,3,3,3,3,3,3
 14124,Peru|Áncash|Cusca|,2,2,2,2,2,2,2,2,2,2,2
 14125,Peru|Áncash|La Pampa|,6,6,6,6,6,6,6,6,6,6,6
 14128,Peru|Áncash|Huari|,36,36,36,36,36,36,36,36,36,36,36
@@ -11995,7 +11984,9 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 14168,Peru|Áncash|Acas|,5,5,5,5,5,5,5,5,5,5,5
 14169,Peru|Áncash|Cajamarquilla|,1,1,1,1,1,1,1,1,1,1,1
 14170,Peru|Áncash|Carhuapampa|,1,1,1,1,1,1,1,1,1,1,1
+14171,Peru|Áncash|Cochas|,5,5,5,5,5,5,5,5,5,5,5
 14172,Peru|Áncash|Congas|,3,3,3,3,3,3,3,3,3,3,3
+14173,Peru|Áncash|Llipa|,1,1,1,1,1,1,1,1,1,1,1
 14175,Peru|Áncash|San Pedro|,0,0,0,0,0,0,0,0,0,0,0
 14176,Peru|Áncash|Santiago de Chilcas|,1,1,1,1,1,1,1,1,1,1,1
 14177,Peru|Áncash|Cabana|,14,14,14,14,14,14,14,14,14,14,14
@@ -12088,7 +12079,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 14272,Peru|Apurímac|Ihuayllo|,5,5,5,5,5,5,5,5,5,5,5
 14273,Peru|Apurímac|Justo Apu Sahuaraura|,3,3,3,3,3,3,3,3,3,3,3
 14274,Peru|Apurímac|Lucre|,4,4,4,4,4,4,4,4,4,4,4
-14275,Peru|Apurímac|Pocohuanca|,2,2,2,2,2,2,2,2,2,2,2
 14278,Peru|Apurímac|Soraya|,0,0,0,0,0,0,0,0,0,0,0
 14279,Peru|Apurímac|Tapairihua|,3,3,3,3,3,3,3,3,3,3,3
 14280,Peru|Apurímac|Tintay|,10,10,10,10,10,10,10,10,10,10,10
@@ -12116,6 +12106,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 14305,Peru|Apurímac|Micaela Bastidas|,1,1,1,1,1,1,1,1,1,1,1
 14306,Peru|Apurímac|Pataypampa|,0,0,0,0,0,0,0,0,0,0,0
 14307,Peru|Apurímac|Progreso|,4,4,4,4,4,4,4,4,4,4,4
+14308,Peru|Apurímac|San Antonio|,3,3,3,3,3,3,3,3,3,3,3
 14310,Peru|Apurímac|Turpay|,2,2,2,2,2,2,2,2,2,2,2
 14311,Peru|Apurímac|Vilcabamba|,3,3,3,3,3,3,3,3,3,3,3
 14312,Peru|Apurímac|Virundo|,3,3,3,3,3,3,3,3,3,3,3
@@ -12195,6 +12186,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 14392,Peru|Arequipa|San Antonio de Chuca|,3,3,3,3,3,3,3,3,3,3,3
 14393,Peru|Arequipa|Sibayo|,0,0,0,0,0,0,0,0,0,0,0
 14394,Peru|Arequipa|Tapay|,0,0,0,0,0,0,0,0,0,0,0
+14395,Peru|Arequipa|Tisco|,2,2,2,2,2,2,2,2,2,2,2
 14396,Peru|Arequipa|Tuti|,7,7,7,7,7,7,7,7,7,7,7
 14397,Peru|Arequipa|Yanque|,8,8,8,8,8,8,8,8,8,8,8
 14398,Peru|Arequipa|Majes|,359,359,359,359,359,359,359,359,359,359,359
@@ -12258,6 +12250,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 14457,Peru|Ayacucho|Sivia|,14,14,14,14,14,14,14,14,14,14,14
 14458,Peru|Ayacucho|Llochegua|,15,15,15,15,15,15,15,15,15,15,15
 14459,Peru|Ayacucho|Canayre|,3,3,3,3,3,3,3,3,3,3,3
+14460,Peru|Ayacucho|Uchuraccay|,2,2,2,2,2,2,2,2,2,2,2
 14461,Peru|Ayacucho|Pucacolpa|,2,2,2,2,2,2,2,2,2,2,2
 14463,Peru|Ayacucho|San Miguel|,50,50,50,50,50,50,50,50,50,50,50
 14464,Peru|Ayacucho|Anco|,6,6,6,6,6,6,6,6,6,6,6
@@ -12279,7 +12272,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 14486,Peru|Ayacucho|Otoca|,4,4,4,4,4,4,4,4,4,4,4
 14488,Peru|Ayacucho|San Cristóbal|,3,3,3,3,3,3,3,3,3,3,3
 14490,Peru|Ayacucho|San Pedro|,5,5,5,5,5,5,5,5,5,5,5
-14491,Peru|Ayacucho|San Pedro de Palco|,2,2,2,2,2,2,2,2,2,2,2
 14492,Peru|Ayacucho|"Sancos|,11,11,11,11,11,11,11,11,11,11,11
 14493,Peru|Ayacucho|Santa Ana de Huaycahuacho|,2,2,2,2,2,2,2,2,2,2,2
 14494,Peru|Ayacucho|Santa Lucia|,5,5,5,5,5,5,5,5,5,5,5
@@ -12310,9 +12302,9 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 14524,Peru|Ayacucho|Huancapi|,12,12,12,12,12,12,12,12,12,12,12
 14525,Peru|Ayacucho|Alcamenca|,4,4,4,4,4,4,4,4,4,4,4
 14526,Peru|Ayacucho|Apongo|,0,0,0,0,0,0,0,0,0,0,0
-14527,Peru|Ayacucho|Asquipata|,4,4,4,4,4,4,4,4,4,4,4
 14528,Peru|Ayacucho|Canaria|,13,13,13,13,13,13,13,13,13,13,13
 14529,Peru|Ayacucho|Cayara|,4,4,4,4,4,4,4,4,4,4,4
+14530,Peru|Ayacucho|Colca|,2,2,2,2,2,2,2,2,2,2,2
 14532,Peru|Ayacucho|Huancaraylla|,3,3,3,3,3,3,3,3,3,3,3
 14534,Peru|Ayacucho|Sarhua|,4,4,4,4,4,4,4,4,4,4,4
 14535,Peru|Ayacucho|Vilcanchos|,4,4,4,4,4,4,4,4,4,4,4
@@ -12431,11 +12423,9 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 14656,Peru|Cajamarca|Unión Agua Blanca|,6,6,6,6,6,6,6,6,6,6,6
 14657,Peru|Cajamarca|San Pablo|,43,43,43,43,43,43,43,43,43,43,43
 14658,Peru|Cajamarca|San Bernardino|,3,3,3,3,3,3,3,3,3,3,3
-14659,Peru|Cajamarca|San Luis|,4,4,4,4,4,4,4,4,4,4,4
 14660,Peru|Cajamarca|Tumbaden|,2,2,2,2,2,2,2,2,2,2,2
 14661,Peru|Cajamarca|"Santa Cruz|,44,44,44,44,44,44,44,44,44,44,44
 14663,Peru|Cajamarca|Catache|,8,8,8,8,8,8,8,8,8,8,8
-14665,Peru|Cajamarca|La Esperanza|,3,3,3,3,3,3,3,3,3,3,3
 14666,Peru|Cajamarca|Ninabamba|,5,5,5,5,5,5,5,5,5,5,5
 14667,Peru|Cajamarca|Pulan|,8,8,8,8,8,8,8,8,8,8,8
 14668,Peru|Cajamarca|Saucepampa|,2,2,2,2,2,2,2,2,2,2,2
@@ -12620,7 +12610,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 14861,Peru|Huánuco|Tournavista|,6,6,6,6,6,6,6,6,6,6,6
 14862,Peru|Huánuco|Yuyapichis|,9,9,9,9,9,9,9,9,9,9,9
 14863,Peru|Huánuco|Jesús|,10,10,10,10,10,10,10,10,10,10,10
-14865,Peru|Huánuco|Jivia|,4,4,4,4,4,4,4,4,4,4,4
 14866,Peru|Huánuco|Queropalca|,2,2,2,2,2,2,2,2,2,2,2
 14867,Peru|Huánuco|Rondos|,3,3,3,3,3,3,3,3,3,3,3
 14868,Peru|Huánuco|San Francisco de Asís|,4,4,4,4,4,4,4,4,4,4,4
@@ -12699,6 +12688,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 14949,Peru|Huancavelica|Querco|,4,4,4,4,4,4,4,4,4,4,4
 14950,Peru|Huancavelica|Quito-Arma|,2,2,2,2,2,2,2,2,2,2,2
 14952,Peru|Huancavelica|San Francisco de Sangayaico|,6,6,6,6,6,6,6,6,6,6,6
+14953,Peru|Huancavelica|San Isidro|,4,4,4,4,4,4,4,4,4,4,4
 14954,Peru|Huancavelica|Santiago de Chocorvos|,7,7,7,7,7,7,7,7,7,7,7
 14957,Peru|Huancavelica|Tambo|,0,0,0,0,0,0,0,0,0,0,0
 14958,Peru|Huancavelica|Pampas|,74,74,74,74,74,74,74,74,74,74,74
@@ -12791,7 +12781,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 15051,Peru|Junín|Viques|,3,3,3,3,3,3,3,3,3,3,3
 15052,Peru|Junín|Concepción|,93,93,93,93,93,93,93,93,93,93,93
 15053,Peru|Junín|Aco|,10,10,10,10,10,10,10,10,10,10,10
-15054,Peru|Junín|Andamarca|,3,3,3,3,3,3,3,3,3,3,3
 15055,Peru|Junín|Chambara|,3,3,3,3,3,3,3,3,3,3,3
 15056,Peru|Junín|Cochas|,1,1,1,1,1,1,1,1,1,1,1
 15057,Peru|Junín|Comas|,36,36,36,36,36,36,36,36,36,36,36
@@ -12861,7 +12850,6 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 15125,Peru|Junín|Palca|,32,32,32,32,32,32,32,32,32,32,32
 15126,Peru|Junín|Palcamayo|,45,45,45,45,45,45,45,45,45,45,45
 15127,Peru|Junín|San Pedro de Cajas|,16,16,16,16,16,16,16,16,16,16,16
-15128,Peru|Junín|Tapo|,5,5,5,5,5,5,5,5,5,5,5
 15129,Peru|Junín|La Oroya|,178,178,178,178,178,178,178,178,178,178,178
 15130,Peru|Junín|Chacapalpa|,2,2,2,2,2,2,2,2,2,2,2
 15131,Peru|Junín|Huay-Huay|,2,2,2,2,2,2,2,2,2,2,2
@@ -13011,6 +12999,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 15287,Peru|Lima Region|San Buenaventura|,5,5,5,5,5,5,5,5,5,5,5
 15288,Peru|Lima Region|Santa Rosa de Quives|,30,30,30,30,30,30,30,30,30,30,30
 15290,Peru|Lima Region|Asia|,36,36,36,36,36,36,36,36,36,36,36
+15291,Peru|Lima Region|Calango|,11,11,11,11,11,11,11,11,11,11,11
 15292,Peru|Lima Region|Cerro Azul|,63,63,63,63,63,63,63,63,63,63,63
 15293,Peru|Lima Region|Chilca|,116,116,116,116,116,116,116,116,116,116,116
 15294,Peru|Lima Region|Coayllo|,17,17,17,17,17,17,17,17,17,17,17
@@ -13074,10 +13063,12 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 15366,Peru|Lima Region|Pachangara|,26,26,26,26,26,26,26,26,26,26,26
 15367,Peru|Lima Region|Yauyos|,13,13,13,13,13,13,13,13,13,13,13
 15368,Peru|Lima Region|Alis|,3,3,3,3,3,3,3,3,3,3,3
+15369,Peru|Lima Region|Allauca|,4,4,4,4,4,4,4,4,4,4,4
 15370,Peru|Lima Region|Ayaviri|,0,0,0,0,0,0,0,0,0,0,0
 15374,Peru|Lima Region|Catahuasi|,5,5,5,5,5,5,5,5,5,5,5
 15375,Peru|Lima Region|Chocos|,6,6,6,6,6,6,6,6,6,6,6
 15377,Peru|Lima Region|Colonia|,2,2,2,2,2,2,2,2,2,2,2
+15379,Peru|Lima Region|Huampara|,1,1,1,1,1,1,1,1,1,1,1
 15380,Peru|Lima Region|Huancaya|,0,0,0,0,0,0,0,0,0,0,0
 15381,Peru|Lima Region|Huangascar|,2,2,2,2,2,2,2,2,2,2,2
 15382,Peru|Lima Region|Huantan|,2,2,2,2,2,2,2,2,2,2,2
@@ -13163,6 +13154,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 15475,Peru|Loreto|Maquia|,13,13,13,13,13,13,13,13,13,13,13
 15476,Peru|Loreto|Puinahua|,6,6,6,6,6,6,6,6,6,6,6
 15477,Peru|Loreto|Saquena|,5,5,5,5,5,5,5,5,5,5,5
+15478,Peru|Loreto|Soplin|,1,1,1,1,1,1,1,1,1,1,1
 15480,Peru|Loreto|Jenaro Herrera|,25,25,25,25,25,25,25,25,25,25,25
 15481,Peru|Loreto|Yaquerana|,0,0,0,0,0,0,0,0,0,0,0
 15482,Peru|Loreto|Contamana|,103,103,103,103,103,103,103,103,103,103,103
@@ -13408,6 +13400,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 15733,Peru|Puno|Copani|,12,12,12,12,12,12,12,12,12,12,12
 15734,Peru|Puno|Cuturapi|,5,5,5,5,5,5,5,5,5,5,5
 15735,Peru|Puno|Ollaraya|,9,9,9,9,9,9,9,9,9,9,9
+15736,Peru|Puno|Tinicachi|,8,8,8,8,8,8,8,8,8,8,8
 15737,Peru|Puno|Unicachi|,16,16,16,16,16,16,16,16,16,16,16
 15738,Peru|San Martín||,3071,3071,3071,3071,3071,3071,3071,3071,3071,3071,3071
 15739,Peru|San Martín|Moyobamba|,337,337,337,337,337,337,337,337,337,337,337
@@ -13507,7 +13500,7 @@ id,Country,2022-11-05,2022-11-12,2022-11-19,2022-11-26,2022-12-03,2022-12-10,202
 15836,Peru|Tacna|Ite|,8,8,8,8,8,8,8,8,8,8,8
 15837,Peru|Tacna|Tarata|,21,21,21,21,21,21,21,21,21,21,21
 15838,Peru|Tacna|Héroes Albarracín|,0,0,0,0,0,0,0,0,0,0,0
-15842,Peru|Tacna|Susapaya|,1,1,1,1,1,1,1,1,1,1,1
+15839,Peru|Tacna|Estique|,1,1,1,1,1,1,1,1,1,1,1
 15843,Peru|Tacna|Tarucachi|,2,2,2,2,2,2,2,2,2,2,2
 15844,Peru|Tacna|Ticaco|,2,2,2,2,2,2,2,2,2,2,2
 15845,Peru|Tumbes||,1634,1634,1634,1634,1634,1634,1634,1634,1634,1634,1634
