@@ -1,7 +1,8 @@
 function [infec, deltemp, immune_infec, ALL_STATS_new, protected_popu_frac] = Sp_multivar_pred_escape(all_vars_data, F, ...
     all_betas, popu, k_l, horizon, jp_l, un_fact, base_infec, rate_change, ...
     ag_case_frac, ag_popu_frac, waned_impact, all_cont, external_infec_perc, ...
-    booster_age, booster_delay, rel_booster_effi, cross_protect, ALL_STAT)
+    booster_age, booster_delay, rel_booster_effi, cross_protect, ALL_STAT, ...
+    st, bin_size, rel_reforms, escape_rate)
 
 num_countries = size(all_vars_data, 1);
 nl = size(all_vars_data, 2);
@@ -34,7 +35,7 @@ if nargin < 12
 end
 
 if nargin < 13
-    waned_impact = zeros(1+ceil(T+horizon)/7, 1+ceil(T+horizon)/7, ag);
+    waned_impact = zeros(1+ceil(T+horizon)/bin_size, 1+ceil(T+horizon)/bin_size, ag);
 end
 %waned_impact = waned_impact(1:T+horizon, 1:T+horizon, :);
 
@@ -71,6 +72,23 @@ end
 recalc_STATUS = 0;
 if nargin < 20
     recalc_STATUS = 1;
+end
+
+if nargin < 21
+    st = 3;
+end
+
+if nargin < 22
+    bin_size = 7;
+end
+
+if nargin < 23
+    rel_reforms = struct;
+    rel_reforms.time = [];
+end
+
+if nargin < 24
+    escape_rate = zeros(size(cross_protect));
 end
 
 if length(external_infec_perc)==1   % If improper size provided, consider it zero
@@ -119,13 +137,14 @@ for bb = 1:num_boosters
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+cross_protect_init = cross_protect;
 
 new_boosters = cell(num_boosters, 1);
 for bb = 1:num_boosters
-    new_boosters{bb} = zeros(num_countries, 1+floor((T+horizon-3)/7), ag);
-    new_boosters{bb}(:, 2:end, :) = diff(booster_age{bb}(:, 3:7:T+horizon, :), 1, 2);
+    new_boosters{bb} = zeros(num_countries, 1+floor((T+horizon-st)/bin_size), ag);
+    new_boosters{bb}(:, 2:end, :) = diff(booster_age{bb}(:, st:bin_size:T+horizon, :), 1, 2);
     new_boosters{bb}(new_boosters{bb}<0) = 0;
-    rel_booster_effi{bb} = rel_booster_effi{bb}(:,  3:7:end);
+    rel_booster_effi{bb} = rel_booster_effi{bb}(:,  st:bin_size:end);
 end
 
 for j=1:length(popu)
@@ -153,7 +172,7 @@ for j=1:length(popu)
 
     %%%% WILL LATER INSERT CODE TO REBUILD ALL_STAR IF NOT PROVIDED
     % For now we will reuse pre_computed values
-    Tw = 1 + floor((T+horizon-3)/7);
+    Tw = 1 + floor((T+horizon-st)/bin_size);
     I1 = zeros(nl, Tw, ag); % # new first infections naive
     I2 = zeros(nl, Tw, ag);  % # new 2nd+ infections
 
@@ -173,7 +192,7 @@ for j=1:length(popu)
 
     Md = nan(nl, T+horizon, ag);    % Expected imuune daily version
 
-    Twt = 1+floor((T-3)/7);
+    Twt = 1+floor((T-st)/bin_size);
     I1(:, 1:Twt, :) = ALL_STAT(j).I1;
     I2(:, 1:Twt, :) = ALL_STAT(j).I2;
     for bb=1:num_boosters
@@ -191,7 +210,7 @@ for j=1:length(popu)
         if isempty(idx)
             booster_first_week(bb) = T;
         else
-            booster_first_week(bb) = floor((idx(1)-3)/7);
+            booster_first_week(bb) = floor((idx(1)-st)/bin_size);
         end
     end
 
@@ -203,7 +222,7 @@ for j=1:length(popu)
 
     for t=1:horizon
         nyt_ag = 0;
-        tt = ceil(Twt + t/7);
+        tt = ceil(Twt + t/bin_size);
         prev_new_infec = squeeze(sum(deltemp(j, :, T+t-1, :), 2));
         for l = 1:nl
             C = all_cont{l}{j}*all_cont{l}{j}';
@@ -252,18 +271,26 @@ for j=1:length(popu)
             %             infec_imm_approx = 0;
             booster_imm_approx = 0;
             for bb=1:num_boosters
-                booster_imm_approx = rel_booster_effi{bb}(:, tt)*((squeeze(new_boosters{bb}(j, tt, :)/7).*squeeze(waned_impact(l, ceil((T+t)/7), ceil((T+t-booster_delay{bb})/7), :)))')./popu(j);
+                booster_imm_approx = rel_booster_effi{bb}(:, tt)*((squeeze(new_boosters{bb}(j, tt, :)/bin_size).*squeeze(waned_impact(l, ceil((T+t)/bin_size), ceil((T+t-booster_delay{bb})/bin_size), :)))')./popu(j);
             end
             tempM = tempM + infec_imm_approx + (1-infec_imm_approx).*booster_imm_approx;
         end
+        if bin_size < 2
+            tempM(:) = 0;
+        end
         infec(j, t) = lastinfec;
+        
 
-        if mod(t, 7)==0
-            tt = Twt + t/7;
-            new_cases_w = un_fact(j)*squeeze(sum(deltemp(j, :, T+t-6:T+t, :), 3));
+        if mod(t,bin_size)==0
+            tt = Twt + t/bin_size;
+            new_cases_w = un_fact(j)*squeeze(sum(deltemp(j, :, T+t-bin_size+1:T+t, :), 3));
 
             for gg = 1:ag
                 coeff = squeeze(waned_impact(:, tt, :, gg));
+                %%% Imm escape effect
+                self_esc_factor = ((1-escape_rate).^max(((1:size(coeff, 2)) - Twt), 0));
+                coeff = coeff.*self_esc_factor;
+                %%%%%%%%%%%%%%%%%%%%%%
                 nv_pop = max(0, ag_popu_frac(j, gg)*popu(j) - protected_popu_temp(tt, gg));
                 %%% Change in immunity:
                 if tt < booster_first_week(1)
@@ -301,7 +328,7 @@ for j=1:length(popu)
                             if bb == num_boosters
                                 serial_boost = 1;
                             end
-                            pp = 1:min(floor(tt-(booster_delay{bb}-120)/7), tt-1);
+                            pp = 1:min(floor(tt-(booster_delay{bb})/bin_size), tt-1);
                             a_prev = Bi{bb-1}(:, pp ,gg); a_this = serial_boost*Bi{bb}(:, pp ,gg); sa = sum(a_prev+a_this, 2);
                             b_prev = B{bb-1}(1, pp,gg); b_this = serial_boost*B{bb-1}(1, pp,gg); sb = sum(b_prev+b_this, 2);% The first dim of VnB is redunadant
                             c_prev = Ib{bb-1}(1, pp,gg); c_this = serial_boost*Ib{bb-1}(1, pp,gg); sc = sum(c_prev+c_this, 2);
@@ -393,17 +420,27 @@ for j=1:length(popu)
             end
             currentM = M(:, tt, :);
             tempM = tempM*0;
+
+            %%% Implementing relative booster efficacy
+            if any(tt == rel_reforms.time)
+                abs_coeff = rel_reforms.abs(rel_reforms.time == tt);
+                rel_fact = rel_reforms.rel(rel_reforms.time == tt);
+                time_left = size(rel_booster_effi{num_boosters}, 2) - tt;
+                rel_booster_effi{num_boosters}(:, tt+1:end) = (abs_coeff + rel_fact*M(:, tt, gg))...
+                    .*(1-(escape_rate)).^(tt+1:tt+time_left);
+            end
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         end
     end
-    Md(:, 3:7:end, :) = M;
+    Md(:, st:bin_size:end, :) = M;
     Md = fillmissing(Md, 'linear', 2); Md = fillmissing(Md, 'previous', 2);
 
-    immune_infec(j, :,  3:7:end, :) = cumsum(immune_infec_temp/un_fact(j), 2);
+    immune_infec(j, :,  st:bin_size:end, :) = cumsum(immune_infec_temp/un_fact(j), 2);
     immune_infec(j, :, :, :) = fillmissing(squeeze(immune_infec(j, :, :, :)), 'linear', 2);
     immune_infec(j, :, :, :) = fillmissing(squeeze(immune_infec(j, :, :, :)), 'previous', 2);
     immune_infec(j, :, 2:end, :) = diff(immune_infec(j, :, :, :), 1, 3);
 
-    protected_popu_frac(j, 3:7:end, :) = protected_popu_temp;
+    protected_popu_frac(j, st:bin_size:end, :) = protected_popu_temp;
     protected_popu_frac = fillmissing(protected_popu_frac, 'linear', 2);
     protected_popu_frac = fillmissing(protected_popu_frac, 'previous', 2);
 

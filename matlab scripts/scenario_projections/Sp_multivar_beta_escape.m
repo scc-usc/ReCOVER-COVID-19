@@ -1,7 +1,15 @@
-function [all_betas, all_cont, fittedC, immune_infec, ALL_STATS] = Sp_multivar_beta_escape(all_vars_data, F, popu, k_l, alpha_l, ...
+function [all_betas, all_cont, fittedC, immune_infec, ALL_STATS, fC_age, rel_booster_effi] = Sp_multivar_beta_escape(all_vars_data, F, popu, k_l, alpha_l, ...
     jp_l, un_fact, ag_case_frac, ag_popu_frac, waned_impact, booster_age, booster_delay, ...
-    rel_booster_effi, cross_protect, rlag)
+    rel_booster_effi, cross_protect, rlag, st, bin_size, rel_reforms, escape_rate)
 
+% st is start time and bin_size is number of time steps to skip for state
+% transitions
+% rel_reforms is a structure that provides days of reformulation and how
+% much to reform on each of the dates. Only applies to the last booster
+% time-series as
+% absolute immunity due to the vaccine at t introduced at t1 = rel_reforms.abs[t1] +
+% rel_reforms.rel[t1]*total_immunity(t1-1)*(immune escape due to variants
+% netween t and t1).
 
 num_countries = size(all_vars_data, 1);
 nl = size(all_vars_data, 2);
@@ -34,7 +42,7 @@ if nargin < 9
 end
 
 if nargin < 10
-    waned_impact = zeros(nl, ceil(T/7)+1, ceil(T/7)+1, ag);
+    waned_impact = zeros(nl, ceil(T/bin_size)+1, ceil(T/bin_size)+1, ag);
 end
 
 %waned_impact = waned_impact(1:T, 1:T, :);
@@ -57,6 +65,23 @@ end
 
 if nargin < 15
     rlag = 0;
+end
+
+if nargin < 16
+    st = 3;
+end
+
+if nargin < 17
+    bin_size = 7;
+end
+
+if nargin < 18
+    rel_reforms = struct;
+    rel_reforms.time = [];
+end
+
+if nargin < 19
+    escape_rate = zeros(nl, 1);
 end
 
 if length(un_fact)==1
@@ -105,10 +130,10 @@ options = optimoptions('lsqnonlin', 'Display','off');
 
 new_boosters = cell(num_boosters, 1);
 for bb = 1:num_boosters
-    new_boosters{bb} = zeros(num_countries, 1+floor((T-3)/7), ag);
-    new_boosters{bb}(:, 2:end, :) = diff(booster_age{bb}(:, 3:7:T, :), 1, 2);
+    new_boosters{bb} = zeros(num_countries, 1+floor((T-st)/bin_size), ag);
+    new_boosters{bb}(:, 2:end, :) = diff(booster_age{bb}(:, st:bin_size:T, :), 1, 2);
     new_boosters{bb}(new_boosters{bb}<0) = 0;
-    rel_booster_effi{bb} = rel_booster_effi{bb}(:,  3:7:end);
+    rel_booster_effi{bb} = rel_booster_effi{bb}(:,  st:bin_size:end);
 end
 
 for j=1:length(popu)
@@ -122,7 +147,7 @@ for j=1:length(popu)
 
     this_case_frac = squeeze(ag_case_frac(j, 1:T, :))';
     if ag>1
-        true_new_counts_ts = zeros(l, T, ag);
+        true_new_counts_ts = zeros(nl, T, ag);
         for gg  = 1:ag
             true_new_counts_ts(:, :, gg) = this_case_frac(gg, :).*[ zeros(nl, 1),  diff(un_fact(j)*squeeze(all_vars_data(j, :, :)), 1, 2)];
         end
@@ -131,7 +156,7 @@ for j=1:length(popu)
     end
     %%%%%%%%%%%%%%%% Converting to weekly data for fast processing
     true_counts_ts = cumsum(true_new_counts_ts, 2);
-    true_counts_ts = true_counts_ts(:, 3:7:end, :);
+    true_counts_ts = true_counts_ts(:, st:bin_size:end, :);
     true_new_counts_ts = zeros(size(true_counts_ts));
     for gg  = 1:ag
         true_new_counts_ts(:, :, gg) = [ zeros(nl, 1),  diff(true_counts_ts(:, :, gg), 1, 2)];
@@ -162,7 +187,7 @@ for j=1:length(popu)
         if isempty(idx)
             booster_first_week(bb) = T;
         else
-            booster_first_week(bb) = floor((idx(1)-3)/7);
+            booster_first_week(bb) = floor((idx(1)-st)/bin_size);
         end
     end
 
@@ -176,24 +201,24 @@ for j=1:length(popu)
         for tt = 2:size(M, 2)
             coeff = squeeze(waned_impact(:, tt, :, gg));
             %%% Change in immunity:
-            if tt < booster_first_week(1)  
-            % Vaccine related transistions will happen only after first day
-            % of first dose. This way, we will save some computation
+            if tt < booster_first_week(1)
+                % Vaccine related transistions will happen only after first day
+                % of first dose. This way, we will save some computation
 
                 % Previously infected person got reinfected
                 I1_susc = (1 - cross_protect)*sum(I1(:, 1:tt-1, gg), 2) + cross_protect*I1(:, 1:tt-1, gg).*coeff(:, 1:tt-1);
                 I2_susc = (1 - cross_protect)*sum(I2(:, 1:tt-1, gg), 2) + cross_protect*I2(:, 1:tt-1, gg).*coeff(:, 1:tt-1);
                 tot_susc = sum(I1_susc, [2, 3]) + sum(I2_susc, [2 3]) + nv_pop;
-                
+
                 % Transitions In (who is infected)
                 I2(:, tt, gg) = true_new_counts_ts(:, tt, gg) .* sum(I1_susc + I2_susc, 2)./(tot_susc+ 1e-20);
                 I1(:, tt, gg) = true_new_counts_ts(:, tt, gg) .* (nv_pop)./(tot_susc+ 1e-20);
-                
+
                 % Transitions Out (where did they come from?)
                 I1(:, 1:tt-1, gg)  = takeaway(I1(:, 1:tt-1, gg), true_new_counts_ts(:, tt, gg) .* (I1_susc)./(tot_susc+ 1e-20));
                 %%% came from I2?
                 I2(:, 1:tt-1, gg)  = takeaway(I2(:, 1:tt-1, gg), true_new_counts_ts(:, tt, gg) .* (I2_susc)./(tot_susc+ 1e-20));
-                
+
                 nv_pop = takeaway(nv_pop, sum(I1(:, tt, gg), 'all'));
             else
                 susc_I1 = I1(:, 1:tt, gg); susc_I2 = I2(:, 1:tt, gg);
@@ -211,7 +236,7 @@ for j=1:length(popu)
                         if bb == num_boosters
                             serial_boost = 1;
                         end
-                        pp = 1:min(floor(tt-(booster_delay{bb}-120)/7), tt-1);
+                        pp = 1:min(floor(tt-(booster_delay{bb})/bin_size), tt-1);
                         a_prev = Bi{bb-1}(:, pp ,gg); a_this = serial_boost*Bi{bb}(:, pp ,gg); sa = sum(a_prev+a_this, 2);
                         b_prev = B{bb-1}(1, pp,gg); b_this = serial_boost*B{bb-1}(1, pp,gg); sb = sum(b_prev+b_this, 2);% The first dim of VnB is redunadant
                         c_prev = Ib{bb-1}(1, pp,gg); c_this = serial_boost*Ib{bb-1}(1, pp,gg); sc = sum(c_prev+c_this, 2);
@@ -245,34 +270,34 @@ for j=1:length(popu)
 
                     % Prior infection before prior vaccine (Bi)
                     susc_Bi{bb} = min((1 - cross_protect)*Bi{bb}(:, 1:tt-1, gg).*(1-coeff(:, 1:tt-1)) + Bi{bb}(:, 1:tt-1, gg).*coeff(:, 1:tt-1), ...
-                       (1-rel_booster_effi{bb}(:, 1:tt-1)).*sum(Bi{bb}(:, 1:tt-1, gg), 1).*(1-coeff(:, 1:tt-1)) + sum(Bi{bb}(:, 1:tt-1, gg), 1).*coeff(:, 1:tt-1));
+                        (1-rel_booster_effi{bb}(:, 1:tt-1)).*sum(Bi{bb}(:, 1:tt-1, gg), 1).*(1-coeff(:, 1:tt-1)) + sum(Bi{bb}(:, 1:tt-1, gg), 1).*coeff(:, 1:tt-1));
                     %susc_Bi{bb} = (1-rel_booster_effi{bb}(:, 1:tt-1)).*sum(Bi{bb}(:, 1:tt-1, gg), 1).*(1-coeff(:, 1:tt-1)) + sum(Bi{bb}(:, 1:tt-1, gg), 1).*coeff(:, 1:tt-1);
 
                     % Prior infection after prior vaccine (Ib)
                     susc_Ib{bb} = min((1 - cross_protect)*Ib{bb}(:, 1:tt-1, gg).*(1-coeff(:, 1:tt-1)) + Ib{bb}(:, 1:tt-1, gg).*coeff(:, 1:tt-1), ...
-                       (1-rel_booster_effi{bb}(:, 1:tt-1)).*sum(Ib{bb}(:, 1:tt-1, gg), 1).*(1-coeff(:, 1:tt-1)) + sum(Ib{bb}(:, 1:tt-1, gg), 1).*coeff(:, 1:tt-1));
+                        (1-rel_booster_effi{bb}(:, 1:tt-1)).*sum(Ib{bb}(:, 1:tt-1, gg), 1).*(1-coeff(:, 1:tt-1)) + sum(Ib{bb}(:, 1:tt-1, gg), 1).*coeff(:, 1:tt-1));
                     %susc_Ib{bb} = (1 - cross_protect)*Ib{bb}(:, 1:tt-1, gg).*(1-coeff(:, 1:tt-1)) + Ib{bb}(:, 1:tt-1, gg).*coeff(:, 1:tt-1);
-                        
+
                     tot_susc = tot_susc + sum(susc_B{bb}, [2 3]) + sum(susc_Bi{bb}, [2 3]) + sum(susc_Ib{bb}, [2 3]);
                 end
                 % Previously infected person got reinfected
                 I1_susc = (1 - cross_protect)*sum(I1(:, 1:tt-1, gg), 2) + cross_protect*I1(:, 1:tt-1, gg).*coeff(:, 1:tt-1);
                 I2_susc = (1 - cross_protect)*sum(I2(:, 1:tt-1, gg), 2) + cross_protect*I2(:, 1:tt-1, gg).*coeff(:, 1:tt-1);
                 tot_susc = tot_susc + sum(I1_susc, [2, 3]) + sum(I2_susc, [2 3]) + nv_pop;
-                
+
                 % Transitions In (who is infected)
                 I2(:, tt, gg) = true_new_counts_ts(:, tt, gg) .* sum(I1_susc + I2_susc, 2)./(tot_susc+ 1e-20);
                 I1(:, tt, gg) = true_new_counts_ts(:, tt, gg) .* (nv_pop)./(tot_susc+ 1e-20);
-                
+
                 % Transitions Out (where did they come from?)
                 I1(:, 1:tt-1, gg)  = takeaway(I1(:, 1:tt-1, gg), true_new_counts_ts(:, tt, gg) .* (I1_susc)./(tot_susc+ 1e-20));
                 %%% came from I2?
                 I2(:, 1:tt-1, gg)  = takeaway(I2(:, 1:tt-1, gg), true_new_counts_ts(:, tt, gg) .* (I2_susc)./(tot_susc+ 1e-20));
-                
+
                 nv_pop = takeaway(nv_pop, sum(I1(:, tt, gg), 'all'));
 
                 for bb=1:num_boosters
-                     % Transitions In (who is infected)
+                    % Transitions In (who is infected)
                     Ib{bb}(:, tt, gg) = true_new_counts_ts(:, tt, gg) .* sum(susc_B{bb}+susc_Bi{bb}+susc_Ib{bb}, 2)./(tot_susc+ 1e-20);
 
                     % Transitions Out (where did they come from?)
@@ -291,26 +316,35 @@ for j=1:length(popu)
             mix_immunity(:, tt, gg) = sum((max(cell_pw_sum(rel_booster_effi, '.*', Bi, 1:nl, 1:tt, gg), cell_pw_sum(cross_protect,'*',Bi,1:nl, 1:tt, gg))...
                 + max(cell_pw_sum(rel_booster_effi,'.*',Ib,1:nl, 1:tt, gg), cell_pw_sum(cross_protect,'*',Ib,1:nl, 1:tt, gg))...
                 ).*(1-coeff(:, 1:tt)), 2);
-%             mix_immunity(:, tt, gg) = (cell_pw_sum(rel_booster_effi, '.*', Bi, 1:nl, 1:tt, gg)...
-%                 + cell_pw_sum(cross_protect,'*',Ib,1:nl, 1:tt, gg))*(1-coeff(:, 1:tt)');
+            %             mix_immunity(:, tt, gg) = (cell_pw_sum(rel_booster_effi, '.*', Bi, 1:nl, 1:tt, gg)...
+            %                 + cell_pw_sum(cross_protect,'*',Ib,1:nl, 1:tt, gg))*(1-coeff(:, 1:tt)');
 
 
             M(:, tt, gg) = (infec_immunity(:, tt, gg) + vacc_immunity(:, tt, gg) + mix_immunity(:, tt, gg))./(popu(j));
             % Infected today after a prior infection, vaxing or boosting
             immune_infec_temp(:, tt, gg) = I2(:, tt, gg) + cell_pw_sum(1, '*',Ib, 1:nl, tt, gg);
-            
+
             M(:, tt, gg) = min(M(:, tt, gg), ag_popu_frac(j, gg).*popu(j));
 
             protected_popu_temp(tt, gg) = (sum(I1(:, 1:tt,gg) + I2(:, 1:tt, gg)+ cell_pw_sum(1, '*', Ib, 1:nl, 1:tt, gg) ...
                 + cell_pw_sum(1, '*', Bi, 1:nl, 1:tt, gg), 'all')  ...
                 + sum(cell_pw_sum(1, '*', B, 1, 1:tt, gg), 'all'))./(popu(j)*ag_popu_frac(j, gg));
         end
+        %%% Implementing relative booster efficacy
+        if any(tt == rel_reforms.time)
+            abs_coeff = rel_reforms.abs(rel_reforms.time == tt);
+            rel_fact = rel_reforms.rel(rel_reforms.time == tt);
+            time_left = size(rel_booster_effi{num_boosters}, 2) - tt;
+            rel_booster_effi{num_boosters}(:, tt+1:end) = (abs_coeff + rel_fact*M(:, tt, gg))...
+                .*(1-(escape_rate)).^(tt+1:tt+time_left);
+        end
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     end
 
-    Md(:, 3:7:end, :) = M;
+    Md(:, st:bin_size:end, :) = M;
     Md = fillmissing(Md, 'linear', 2); Md = fillmissing(Md, 'previous', 2);
 
-    immune_infec(j, :,  3:7:end, :) = cumsum(immune_infec_temp/un_fact(j), 2);
+    immune_infec(j, :,  st:bin_size:end, :) = cumsum(immune_infec_temp/un_fact(j), 2);
     immune_infec(j, :, :, :) = fillmissing(squeeze(immune_infec(j, :, :, :)), 'linear', 2);
     immune_infec(j, :, :, :) = fillmissing(squeeze(immune_infec(j, :, :, :)), 'previous', 2);
     immune_infec(j, :, 2:end, :) = diff(immune_infec(j, :, :, :), 1, 3);
@@ -329,7 +363,7 @@ for j=1:length(popu)
         beta_cont = [1; 0];
         C = beta_cont * beta_cont';
     else
-        [~, Ml] = max(squeeze(sum(deltemp(j, :, T-13:T), 3)));
+        [~, Ml] = max(squeeze(sum(deltemp(j, :, T-3:T), 3)));
         l = Ml;
         all_betas{l}{j} = zeros(k, 1);
         all_cont{l}{j} = zeros(ag, 1);
@@ -371,6 +405,8 @@ for j=1:length(popu)
         beta_vec = b(1:k);
         beta_cont = [b(k+1:end); 1];
         C = beta_cont * beta_cont';
+        y_ag_hat = func(b, k, ag, X_ag, Smat);
+        fC_age{j}{1} = y_ag./alphavec; fC_age{j}{2} = y_ag_hat./alphavec;
     end
     %%%%%%%%%%%% Contact Matrix calculated %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
