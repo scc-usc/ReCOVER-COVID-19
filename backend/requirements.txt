@@ -76,7 +76,7 @@ numpy==1.17.1
 packaging==20.3
 pandas==0.25.1
 pandocfilters==1.4.2
-paramiko==2.7.1
+paramiko==2.10.1
 parso==0.6.2
 partd==1.1.0
 pathspec==0.5.9
