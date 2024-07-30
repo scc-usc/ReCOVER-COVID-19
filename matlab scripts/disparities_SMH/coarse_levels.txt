@@ -1,0 +1,13 @@
+name, coverage
+OG, G.
+OG, S.
+OG, L.
+OG, V.
+OG, GR.
+OG, GH.
+OG, GV.
+alpha, GRY.
+delta, GK.
+omicron, GRA.
+OG, other.
+other, NOTHING.

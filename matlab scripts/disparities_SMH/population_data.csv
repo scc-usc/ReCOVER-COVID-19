@@ -1,0 +1,16 @@
+location,pop_size,demographic_category,demographic_value,population
+06,2142371,race_ethnicity,black,39346023
+06,1713595,race_ethnicity,other,39346023
+06,5743983,race_ethnicity,asian,39346023
+06,15380929,race_ethnicity,latino ,39346023
+06,14365145,race_ethnicity,white,39346023
+06,8956641,age,0-17,39346023
+06,24744885,age,18-64,39346023
+06,5644497,age,65+,39346023
+37,2155650,race_ethnicity,black,10698973
+37,6497519,race_ethnicity,white,10698973
+37,341052,race_ethnicity,asian,10698973
+37,1704752,race_ethnicity,other,10698973
+37,2292928,age,0-17,10698973
+37,6539431,age,18-64,10698973
+37,1866614,age,65+,10698973
