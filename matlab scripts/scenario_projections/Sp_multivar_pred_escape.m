@@ -2,7 +2,7 @@ function [infec, deltemp, immune_infec, ALL_STATS_new, protected_popu_frac] = Sp
     all_betas, popu, k_l, horizon, jp_l, un_fact, base_infec, rate_change, ...
     ag_case_frac, ag_popu_frac, waned_impact, all_cont, external_infec_perc, ...
     booster_age, booster_delay, rel_booster_effi, cross_protect, ALL_STAT, ...
-    st, bin_size, rel_reforms, escape_rate)
+    st, bin_size, rel_reforms, escape_rate, age_transit)
 
 num_countries = size(all_vars_data, 1);
 nl = size(all_vars_data, 2);
@@ -57,8 +57,8 @@ if nargin < 16
     booster_age = zeros(size(vac_ag));
 end
 
-if nargin < 17  % booster mean delay from second dose
-    booster_delay = 7*30;
+if nargin < 17  % vaccine delay from previous dose
+    booster_delay = 0;
 end
 
 if nargin < 18
@@ -88,8 +88,50 @@ if nargin < 23
 end
 
 if nargin < 24
-    escape_rate = zeros(size(cross_protect));
+    escape_rate = zeros(size(cross_protect, 1), 1);
 end
+
+if nargin < 25
+    age_transit = zeros(ag, 1); % rate of aging in and out of age-groups
+end
+
+if isempty(booster_age)
+    booster_age = zeros(length(popu), T+horizon, ag);
+end
+
+if isempty(booster_delay)
+    booster_delay = 0;
+end
+
+if isempty(rel_booster_effi)
+    rel_booster_effi = ones(nl, 1);
+end
+
+if isempty(cross_protect)
+    cross_protect = ones(nl, nl);
+end
+
+if isempty(st)
+    st = 3;
+end
+
+if isempty(bin_size)
+    bin_size = 7;
+end
+
+if isempty(rel_reforms)
+    rel_reforms = struct;
+    rel_reforms.time = [];
+end
+
+if isempty(escape_rate)
+    escape_rate = zeros(nl, 1);
+end
+
+if isempty(age_transit)
+   age_transit = zeros(ag, 1);
+end
+
 
 if length(external_infec_perc)==1   % If improper size provided, consider it zero
     external_infec_perc = zeros(num_countries, nl, horizon, ag);
@@ -208,7 +250,7 @@ for j=1:length(popu)
     for bb=1:num_boosters
         idx = find(squeeze(sum(booster_age{bb}(j, :, :), 3))>=1);
         if isempty(idx)
-            booster_first_week(bb) = T;
+            booster_first_week(bb) = T+horizon+1;
         else
             booster_first_week(bb) = floor((idx(1)-st)/bin_size);
         end
@@ -279,19 +321,26 @@ for j=1:length(popu)
             tempM(:) = 0;
         end
         infec(j, t) = lastinfec;
-        
+
 
         if mod(t,bin_size)==0
             tt = Twt + t/bin_size;
             new_cases_w = un_fact(j)*squeeze(sum(deltemp(j, :, T+t-bin_size+1:T+t, :), 3));
 
             for gg = 1:ag
-                coeff = squeeze(waned_impact(:, tt, :, gg));
+                coeff = squeeze(waned_impact(:, tt, 1:tt, gg));
                 %%% Imm escape effect
-                self_esc_factor = ((1-escape_rate).^max(((1:size(coeff, 2)) - Twt), 0));
-                coeff = coeff.*self_esc_factor;
+                self_esc_factor = (1-escape_rate).^max(((1:size(coeff, 2)) - Twt), 0);
+                self_esc_factor =  self_esc_factor - min(self_esc_factor, [],2);
+                coeff = 1 - (1-coeff).*(1-self_esc_factor);
+
                 %%%%%%%%%%%%%%%%%%%%%%
-                nv_pop = max(0, ag_popu_frac(j, gg)*popu(j) - protected_popu_temp(tt, gg));
+                protected_popu_temp(tt-1, gg) = (sum(I1(:, 1:tt-1,gg) + I2(:, 1:tt-1, gg)+ cell_pw_sum(1, '*', Ib, 1:nl, 1:tt-1, gg) ...
+                    + cell_pw_sum(1, '*', Bi, 1:nl, 1:tt-1, gg), 'all') ...
+                    + sum(cell_pw_sum(1, '*', B, 1, 1:tt-1, gg), 'all'))./(popu(j)*ag_popu_frac(j, gg));
+                
+                nv_pop = max(0, (1 - protected_popu_temp(tt-1, gg))*ag_popu_frac(j, gg)*popu(j));
+                
                 %%% Change in immunity:
                 if tt < booster_first_week(1)
                     % Vaccine related transistions will happen only after first day
@@ -311,15 +360,15 @@ for j=1:length(popu)
                     %%% came from I2?
                     I2(:, 1:tt-1, gg)  = takeaway(I2(:, 1:tt-1, gg), new_cases_w(:, gg) .* (I2_susc)./(tot_susc+ 1e-20));
 
-                    nv_pop = takeaway(nv_pop, sum(I1(:, tt, gg), 'all'));
+                    %nv_pop = takeaway(nv_pop, sum(I1(:, tt, gg), 'all'));
                 else
-                    susc_I1 = I1(:, 1:tt, gg); susc_I2 = I2(:, 1:tt, gg);
+                    susc_I1 = I1(:, 1:tt-1, gg); susc_I2 = I2(:, 1:tt-1, gg);
                     % A naive first dose: note -- creates redundant entries
-                    B{1}(:, tt, gg) = (new_boosters{1}(j, tt, gg))*(nv_pop)./(nv_pop+sum(susc_I1+susc_I2, 'all'));
+                    B{1}(:, tt, gg) = (new_boosters{1}(j, tt, gg))*(nv_pop)./(1e-20 + nv_pop+sum(susc_I1+susc_I2, 'all'));
                     % Previously infected person got first dose
-                    Bi{1}(:, tt, gg) = new_boosters{1}(j, tt, gg) *sum(susc_I1+susc_I2, 'all')./(nv_pop+sum(susc_I1+susc_I2, 'all'));
-                    I1(:, 1:tt-1, gg) = takeaway( I1(:, 1:tt-1, gg), I1(:, 1:tt-1, gg).*sum(susc_I1, 2)/(nv_pop+sum(susc_I1+susc_I2, 'all')));
-                    I2(:, 1:tt-1, gg) = takeaway( I2(:, 1:tt-1, gg), I2(:, 1:tt-1, gg).*sum(susc_I2, 2)/(nv_pop+sum(susc_I1+susc_I2, 'all')));
+                    Bi{1}(:, tt, gg) = new_boosters{1}(j, tt, gg) .* sum(susc_I1+susc_I2, 2)./(1e-20 + nv_pop+sum(susc_I1+susc_I2, 'all'));
+                    I1(:, 1:tt-1, gg) = takeaway( I1(:, 1:tt-1, gg), (new_boosters{1}(j, tt, gg)).*(susc_I1)/(1e-20 + nv_pop+sum(susc_I1+susc_I2, 'all')));
+                    I2(:, 1:tt-1, gg) = takeaway( I2(:, 1:tt-1, gg), (new_boosters{1}(j, tt, gg)).*(susc_I2)/(1e-20 + nv_pop+sum(susc_I1+susc_I2, 'all')));
                     nv_pop = takeaway(nv_pop, sum(B{1}(1, tt, gg), 'all'));
                     for bb=2:num_boosters
                         if tt > booster_first_week(bb)
@@ -338,8 +387,8 @@ for j=1:length(popu)
                             Bi{bb-1}(:, pp, gg) = takeaway(Bi{bb-1}(:, pp, gg), new_boosters{bb}(j, tt, gg).* a_prev./(sa+sb+sc + 1e-20), 0);
                             Bi{bb}(:, pp, gg) = takeaway(Bi{bb}(:, pp, gg), new_boosters{bb}(j, tt, gg).* a_this./(sa+sb+sc + 1e-20), 0);
                             %%% previously infected, last action infection?
-                            Bi{bb-1}(:, pp, gg) = takeaway(Ib{bb-1}(:, pp, gg), new_boosters{bb}(j, tt, gg).* c_prev./(sa+sb+sc + 1e-20), 0);
-                            Bi{bb}(:, pp, gg) = takeaway(Ib{bb}(:, pp, gg), new_boosters{bb}(j, tt, gg).* c_this./(sa+sb+sc + 1e-20), 0);
+                            Ib{bb-1}(:, pp, gg) = takeaway(Ib{bb-1}(:, pp, gg), new_boosters{bb}(j, tt, gg).* c_prev./(sa+sb+sc + 1e-20), 0);
+                            Ib{bb}(:, pp, gg) = takeaway(Ib{bb}(:, pp, gg), new_boosters{bb}(j, tt, gg).* c_this./(sa+sb+sc + 1e-20), 0);
                             %%% previously not infected?
                             B{bb-1}(1, pp, gg) = takeaway(B{bb-1}(1, pp, gg), new_boosters{bb}(j, tt, gg).* b_prev./(sum(sa)+sb+sum(sc) + 1e-20), 0);
                             B{bb}(1, pp, gg) = takeaway(B{bb}(1, pp, gg), new_boosters{bb}(j, tt, gg).* b_this./(sum(sa)+sb+sum(sc) + 1e-20), 0);
@@ -398,38 +447,54 @@ for j=1:length(popu)
                         B{bb}(1, 1:tt-1, gg)  = takeaway(B{bb}(1, 1:tt-1, gg), sum(new_cases_w(:, gg) .* (susc_B{bb})./(tot_susc+ 1e-20), 1));
                         B{bb}(:, 1:tt-1, gg) = repmat(B{bb}(1, 1:tt-1, gg), [nl 1]);
                     end
-
-                    infec_immunity(:, tt, gg) = sum(cross_protect*(I1(:, 1:tt, gg)+I2(:, 1:tt, gg)) .* (1-coeff(:, 1:tt)), 2);
-                    vacc_immunity(:, tt, gg) = sum((cell_pw_sum(rel_booster_effi, '.*', B, 1, 1:tt, gg)).*(1-coeff(:, 1:tt)), 2);
-                    mix_immunity(:, tt, gg) = sum((max(cell_pw_sum(rel_booster_effi, '.*', Bi, 1:nl, 1:tt, gg), cell_pw_sum(cross_protect,'*',Bi,1:nl, 1:tt, gg))...
-                        + max(cell_pw_sum(rel_booster_effi,'.*',Ib,1:nl, 1:tt, gg), cell_pw_sum(cross_protect,'*',Ib,1:nl, 1:tt, gg))...
-                        ).*(1-coeff(:, 1:tt)), 2);
-                    %mix_immunity(:, tt, gg) = (cell_pw_sum(rel_booster_effi, '.*', Bi, 1:nl, 1:tt, gg)...
-                    %+ cell_pw_sum(cross_protect,'*',Ib,1:nl, 1:tt, gg))*(1-coeff(:, 1:tt)');
-
-                    M(:, tt, gg) = (infec_immunity(:, tt, gg) + vacc_immunity(:, tt, gg) + mix_immunity(:, tt, gg))./(popu(j));
-                    % Infected today after a prior infection, vaxing or boosting
-                    immune_infec_temp(:, tt, gg) = I2(:, tt, gg) + cell_pw_sum(1, '*',Ib, 1:nl, tt, gg);
-
-                    M(:, tt, gg) = min(M(:, tt, gg), ag_popu_frac(j, gg).*popu(j));
-
-                    protected_popu_temp(tt, gg) = (sum(I1(:, 1:tt,gg) + I2(:, 1:tt, gg)+ cell_pw_sum(1, '*', Ib, 1:nl, 1:tt, gg) ...
-                        + cell_pw_sum(1, '*', Bi, 1:nl, 1:tt, gg), 'all') ...
-                        + sum(cell_pw_sum(1, '*', B, 1, 1:tt, gg), 'all'))./(popu(j)*ag_popu_frac(j, gg));
                 end
+
+                infec_immunity(:, tt, gg) = sum(cross_protect*(I1(:, 1:tt, gg)+I2(:, 1:tt, gg)) .* (1-coeff(:, 1:tt)), 2);
+                vacc_immunity(:, tt, gg) = sum((cell_pw_sum(rel_booster_effi, '.*', B, 1, 1:tt, gg)).*(1-coeff(:, 1:tt)), 2);
+                mix_immunity(:, tt, gg) = sum((max(cell_pw_sum(rel_booster_effi, '.*', Bi, 1:nl, 1:tt, gg), cell_pw_sum(cross_protect,'*',Bi,1:nl, 1:tt, gg))...
+                    + max(cell_pw_sum(rel_booster_effi,'.*',Ib,1:nl, 1:tt, gg), cell_pw_sum(cross_protect,'*',Ib,1:nl, 1:tt, gg))...
+                    ).*(1-coeff(:, 1:tt)), 2);
+
+
+                M(:, tt, gg) = (infec_immunity(:, tt, gg) + vacc_immunity(:, tt, gg) + mix_immunity(:, tt, gg))./(popu(j));
+                % Infected today after a prior infection, vaxing or boosting
+                immune_infec_temp(:, tt, gg) = I2(:, tt, gg) + cell_pw_sum(1, '*',Ib, 1:nl, tt, gg);
+
+                M(:, tt, gg) = min(M(:, tt, gg), ag_popu_frac(j, gg));
+
+
+               
+                protected_popu_temp(tt, gg) = (sum(I1(:, 1:tt,gg) + I2(:, 1:tt, gg)+ cell_pw_sum(1, '*', Ib, 1:nl, 1:tt, gg) ...
+                    + cell_pw_sum(1, '*', Bi, 1:nl, 1:tt, gg), 'all') ...
+                    + sum(cell_pw_sum(1, '*', B, 1, 1:tt, gg), 'all'))./(popu(j)*ag_popu_frac(j, gg));
+                
+                %%%% DEBUG %%%%%%%%%%%%
+                if any(M(:, tt, gg) - M(:, tt-1, gg) < -0.003)
+                    ;
+                end
+
             end
             currentM = M(:, tt, :);
             tempM = tempM*0;
 
             %%% Implementing relative booster efficacy
             if any(tt == rel_reforms.time)
-                abs_coeff = rel_reforms.abs(rel_reforms.time == tt);
-                rel_fact = rel_reforms.rel(rel_reforms.time == tt);
-                time_left = size(rel_booster_effi{num_boosters}, 2) - tt;
-                rel_booster_effi{num_boosters}(:, tt+1:end) = (abs_coeff + rel_fact*M(:, tt, gg))...
-                    .*(1-(escape_rate)).^(tt+1:tt+time_left);
+                reform_idx = find(tt == rel_reforms.time);
+                abs_coeff = rel_reforms.abs(reform_idx);
+                rel_fact = rel_reforms.rel(reform_idx);
+                reform_implement = rel_reforms.implement(reform_idx);
+                time_left = size(rel_booster_effi{num_boosters}, 2) - reform_implement;
+                rel_booster_effi{num_boosters}(:, reform_implement+1:end) = (abs_coeff + rel_fact*M(:, tt, gg))...
+                    .*(1-(escape_rate)).^(reform_implement+1:reform_implement+time_left);
             end
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        end
+        I1 = update_age_groups(I1, age_transit*bin_size);
+        I2 = update_age_groups(I2, age_transit*bin_size);
+        for bb=1:num_boosters
+            Ib{bb} = update_age_groups(Ib{bb}, age_transit*bin_size);
+            Bi{bb} = update_age_groups(Bi{bb}, age_transit*bin_size);
+            B{bb} = update_age_groups(B{bb}, age_transit*bin_size);
         end
     end
     Md(:, st:bin_size:end, :) = M;
@@ -460,10 +525,10 @@ end
 
 function C = takeaway(A, B, isdebug)
 if nargin < 3
-    isdebug = 0;
+    isdebug = 1;
 end
 C1 = A - B;
-if any(C1(:) < -0.1) && isdebug >0
+if any(C1(:) < -0.001) && isdebug >0
     ;
 end
 bad_idx = C1 < 0;
@@ -477,6 +542,16 @@ end
 
 C = max(0, A-B);
 
+end
+
+function S = update_age_groups(S, age_transit)
+ag = size(S, 3);
+dS = S*0;
+dS(:, :, 1) = - age_transit(1)*S(:, :, 1);
+for gg = 2:ag
+    dS(:, :, gg) = -age_transit(gg)*S(:, :, gg) + dS(:, :, gg-1);
+end
+S = max(0, S + dS);
 end
 
 function res = cell_pw_sum(coeff, op, B, l_idx, t_idx, g_idx)

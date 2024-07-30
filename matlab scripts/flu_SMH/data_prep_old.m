@@ -2,6 +2,10 @@
 popu = load('us_states_population_data.txt');
 popu_age = load('pop_by_age.csv'); %(0-4, 5-11, 12-17, 18-64, 65+)
 %0-4, 5-17, 18-49, 50-64, and 65+
+popu_age(:, 2) = sum(popu_age(:, 2:3), 2); %5-17
+popu_age(:, 3) = 0.6809*popu_age(:, 4); %18-49
+popu_age(:, 4) = (1-0.6809)*popu_age(:, 4); %50-64
+
 abvs = readcell('us_states_abbr_list.txt');
 state_list = readcell('us_states_abbr_list2.txt');
 age_groups = readcell('age_groups_list.txt');
@@ -9,8 +13,8 @@ popu = load('us_states_population_data.txt');
 ns = length(abvs);
 
 old_seasons = [2015:2019];
-hosp_dat_old_T = nan(length(old_seasons),400,5);
-hosp_dat_old = nan(length(old_seasons),ns,400,5);
+hosp_dat_old_T = nan(length(old_seasons),370,5);
+hosp_dat_old = nan(length(old_seasons),ns,370,5);
 %% Load age-wise & historical data
 age_tab = readtable('FluSurveillance_Custom_Download_Data.csv');
 for s=old_seasons

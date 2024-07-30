@@ -1,11 +1,11 @@
 function [IC,t_prime] = future_IC(all_data_vars2,age_groups,abvs,hk,now_date)
 t_prime = -ones(length(abvs),length(age_groups));
 IC = nan(length(abvs),(hk)*7,length(age_groups));
-
+ag = length(age_groups);
 flag = 0;
 all_data_vars2 = smoothdata(all_data_vars2,3,'movmean',14);
 for st = 1:56
-    for g=1:5
+    for g=1:ag
         this_series = squeeze(all_data_vars2(st,1,:,g));
         [~, max_t] = max(this_series);
         this_series1 = cumsum(this_series(1:max_t)); this_series1 = diff(this_series1(1:8:end));
@@ -44,7 +44,7 @@ for st = 1:56
     end
 end
 
-for g = 1:5
+for g = 1:ag
     bad_idx = t_prime(:, g) < 1;
     t_prime(bad_idx, g) = round(median(t_prime(~bad_idx, g))+0.5);
 end
